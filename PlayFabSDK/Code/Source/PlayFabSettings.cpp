@@ -14,7 +14,7 @@ productionEnvironmentURL(".playfabapi.com"),
 titleId(), // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
 globalErrorHandler(nullptr),
 developerSecretKey(), // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
-logicServerURL(), // Assigned by GetCloudScriptUrl, used by RunCloudScript
+logicServerURL(), // Deprecated
 advertisingIdType(), // Set this to the appropriate AD_TYPE_X constant below
 advertisingIdValue(), // Set this to corresponding device value
 // DisableAdvertising is provided for completeness, but changing it is not suggested
