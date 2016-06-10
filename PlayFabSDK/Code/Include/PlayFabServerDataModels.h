@@ -8354,6 +8354,84 @@ namespace PlayFab
             }
         };
 
+        struct SetGameServerInstanceDataRequest : public PlayFabBaseModel
+        {
+            Aws::String LobbyId;
+            Aws::String GameServerData;
+
+            SetGameServerInstanceDataRequest() :
+                PlayFabBaseModel(),
+                LobbyId(),
+                GameServerData()
+            {}
+
+            SetGameServerInstanceDataRequest(const SetGameServerInstanceDataRequest& src) :
+                PlayFabBaseModel(),
+                LobbyId(src.LobbyId),
+                GameServerData(src.GameServerData)
+            {}
+
+            SetGameServerInstanceDataRequest(const rapidjson::Value& obj) : SetGameServerInstanceDataRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~SetGameServerInstanceDataRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("LobbyId"); writer.String(LobbyId.c_str());
+                writer.String("GameServerData"); writer.String(GameServerData.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator LobbyId_member = obj.FindMember("LobbyId");
+                if (LobbyId_member != obj.MemberEnd() && !LobbyId_member->value.IsNull()) LobbyId = LobbyId_member->value.GetString();
+                const Value::ConstMemberIterator GameServerData_member = obj.FindMember("GameServerData");
+                if (GameServerData_member != obj.MemberEnd() && !GameServerData_member->value.IsNull()) GameServerData = GameServerData_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct SetGameServerInstanceDataResult : public PlayFabBaseModel
+        {
+
+            SetGameServerInstanceDataResult() :
+                PlayFabBaseModel()
+            {}
+
+            SetGameServerInstanceDataResult(const SetGameServerInstanceDataResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            SetGameServerInstanceDataResult(const rapidjson::Value& obj) : SetGameServerInstanceDataResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~SetGameServerInstanceDataResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
         struct SetGameServerInstanceStateRequest : public PlayFabBaseModel
         {
             Aws::String LobbyId;
