@@ -2607,6 +2607,40 @@ namespace PlayFab
             }
         };
 
+        enum GameInstanceState
+        {
+            GameInstanceStateOpen,
+            GameInstanceStateClosed
+        };
+
+        inline void writeGameInstanceStateEnumJSON(GameInstanceState enumVal, PFStringJsonWriter& writer)
+        {
+            switch (enumVal)
+            {
+            case GameInstanceStateOpen: writer.String("Open"); break;
+            case GameInstanceStateClosed: writer.String("Closed"); break;
+
+            }
+        }
+
+        inline GameInstanceState readGameInstanceStateFromValue(const rapidjson::Value& obj)
+        {
+            static std::map<Aws::String, GameInstanceState> _GameInstanceStateMap;
+            if (_GameInstanceStateMap.size() == 0)
+            {
+                // Auto-generate the map on the first use
+                _GameInstanceStateMap["Open"] = GameInstanceStateOpen;
+                _GameInstanceStateMap["Closed"] = GameInstanceStateClosed;
+
+            }
+
+            auto output = _GameInstanceStateMap.find(obj.GetString());
+            if (output != _GameInstanceStateMap.end())
+                return output->second;
+
+            return GameInstanceStateOpen; // Basically critical fail
+        }
+
         struct GameInfo : public PlayFabBaseModel
         {
             Boxed<Region> pfRegion;
@@ -2617,7 +2651,8 @@ namespace PlayFab
             OptionalInt32 MaxPlayers;
             std::list<Aws::String> PlayerUserIds;
             Uint32 RunTime;
-            Aws::String GameServerState;
+            Boxed<GameInstanceState> GameServerState;
+            Aws::String GameServerData;
 
             GameInfo() :
                 PlayFabBaseModel(),
@@ -2629,7 +2664,8 @@ namespace PlayFab
                 MaxPlayers(),
                 PlayerUserIds(),
                 RunTime(0),
-                GameServerState()
+                GameServerState(),
+                GameServerData()
             {}
 
             GameInfo(const GameInfo& src) :
@@ -2642,7 +2678,8 @@ namespace PlayFab
                 MaxPlayers(src.MaxPlayers),
                 PlayerUserIds(src.PlayerUserIds),
                 RunTime(src.RunTime),
-                GameServerState(src.GameServerState)
+                GameServerState(src.GameServerState),
+                GameServerData(src.GameServerData)
             {}
 
             GameInfo(const rapidjson::Value& obj) : GameInfo()
@@ -2672,7 +2709,8 @@ namespace PlayFab
     writer.EndArray();
      }
                 writer.String("RunTime"); writer.Uint(RunTime);
-                if (GameServerState.length() > 0) { writer.String("GameServerState"); writer.String(GameServerState.c_str()); }
+                if (GameServerState.notNull()) { writer.String("GameServerState"); writeGameInstanceStateEnumJSON(GameServerState, writer); }
+                if (GameServerData.length() > 0) { writer.String("GameServerData"); writer.String(GameServerData.c_str()); }
                 writer.EndObject();
             }
 
@@ -2700,7 +2738,9 @@ namespace PlayFab
                 const Value::ConstMemberIterator RunTime_member = obj.FindMember("RunTime");
                 if (RunTime_member != obj.MemberEnd() && !RunTime_member->value.IsNull()) RunTime = RunTime_member->value.GetUint();
                 const Value::ConstMemberIterator GameServerState_member = obj.FindMember("GameServerState");
-                if (GameServerState_member != obj.MemberEnd() && !GameServerState_member->value.IsNull()) GameServerState = GameServerState_member->value.GetString();
+                if (GameServerState_member != obj.MemberEnd() && !GameServerState_member->value.IsNull()) GameServerState = readGameInstanceStateFromValue(GameServerState_member->value);
+                const Value::ConstMemberIterator GameServerData_member = obj.FindMember("GameServerData");
+                if (GameServerData_member != obj.MemberEnd() && !GameServerData_member->value.IsNull()) GameServerData = GameServerData_member->value.GetString();
 
                 return true;
             }

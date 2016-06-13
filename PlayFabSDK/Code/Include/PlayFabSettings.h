@@ -18,7 +18,7 @@ namespace PlayFab
         Aws::String titleId; // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
         ErrorCallback globalErrorHandler;
         Aws::String developerSecretKey; // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
-        Aws::String logicServerURL; // Assigned by GetCloudScriptUrl, used by RunCloudScript
+        Aws::String logicServerURL; // Deprecated
         Aws::String advertisingIdType; // Set this to the appropriate AD_TYPE_X constant below
         Aws::String advertisingIdValue; // Set this to corresponding device value
 
