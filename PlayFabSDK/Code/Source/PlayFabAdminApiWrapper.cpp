@@ -162,6 +162,11 @@ void PlayFabAdminApiWrapper::GetTitleData(AdminModels::GetTitleDataRequest& requ
     PlayFabAdminApi::GetTitleData(request, callback, errorCallback, customData);
 }
 
+void PlayFabAdminApiWrapper::GetTitleInternalData(AdminModels::GetTitleDataRequest& request, ProcessApiCallback<AdminModels::GetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::GetTitleInternalData(request, callback, errorCallback, customData);
+}
+
 void PlayFabAdminApiWrapper::ListVirtualCurrencyTypes(ProcessApiCallback<AdminModels::ListVirtualCurrencyTypesResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabAdminApi::ListVirtualCurrencyTypes(callback, errorCallback, customData);
@@ -180,6 +185,11 @@ void PlayFabAdminApiWrapper::SetStoreItems(AdminModels::UpdateStoreItemsRequest&
 void PlayFabAdminApiWrapper::SetTitleData(AdminModels::SetTitleDataRequest& request, ProcessApiCallback<AdminModels::SetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabAdminApi::SetTitleData(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::SetTitleInternalData(AdminModels::SetTitleDataRequest& request, ProcessApiCallback<AdminModels::SetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::SetTitleInternalData(request, callback, errorCallback, customData);
 }
 
 void PlayFabAdminApiWrapper::SetupPushNotification(AdminModels::SetupPushNotificationRequest& request, ProcessApiCallback<AdminModels::SetupPushNotificationResult> callback, ErrorCallback errorCallback, void* customData)
