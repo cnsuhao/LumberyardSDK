@@ -1402,6 +1402,209 @@ namespace PlayFab
             }
         };
 
+        struct ItemInstance : public PlayFabBaseModel
+        {
+            Aws::String ItemId;
+            Aws::String ItemInstanceId;
+            Aws::String ItemClass;
+            OptionalTime PurchaseDate;
+            OptionalTime Expiration;
+            OptionalInt32 RemainingUses;
+            OptionalInt32 UsesIncrementedBy;
+            Aws::String Annotation;
+            Aws::String CatalogVersion;
+            Aws::String BundleParent;
+            Aws::String DisplayName;
+            Aws::String UnitCurrency;
+            Uint32 UnitPrice;
+            std::list<Aws::String> BundleContents;
+            std::map<Aws::String, Aws::String> CustomData;
+
+            ItemInstance() :
+                PlayFabBaseModel(),
+                ItemId(),
+                ItemInstanceId(),
+                ItemClass(),
+                PurchaseDate(),
+                Expiration(),
+                RemainingUses(),
+                UsesIncrementedBy(),
+                Annotation(),
+                CatalogVersion(),
+                BundleParent(),
+                DisplayName(),
+                UnitCurrency(),
+                UnitPrice(0),
+                BundleContents(),
+                CustomData()
+            {}
+
+            ItemInstance(const ItemInstance& src) :
+                PlayFabBaseModel(),
+                ItemId(src.ItemId),
+                ItemInstanceId(src.ItemInstanceId),
+                ItemClass(src.ItemClass),
+                PurchaseDate(src.PurchaseDate),
+                Expiration(src.Expiration),
+                RemainingUses(src.RemainingUses),
+                UsesIncrementedBy(src.UsesIncrementedBy),
+                Annotation(src.Annotation),
+                CatalogVersion(src.CatalogVersion),
+                BundleParent(src.BundleParent),
+                DisplayName(src.DisplayName),
+                UnitCurrency(src.UnitCurrency),
+                UnitPrice(src.UnitPrice),
+                BundleContents(src.BundleContents),
+                CustomData(src.CustomData)
+            {}
+
+            ItemInstance(const rapidjson::Value& obj) : ItemInstance()
+            {
+                readFromValue(obj);
+            }
+
+            ~ItemInstance()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (ItemId.length() > 0) { writer.String("ItemId"); writer.String(ItemId.c_str()); }
+                if (ItemInstanceId.length() > 0) { writer.String("ItemInstanceId"); writer.String(ItemInstanceId.c_str()); }
+                if (ItemClass.length() > 0) { writer.String("ItemClass"); writer.String(ItemClass.c_str()); }
+                if (PurchaseDate.notNull()) { writer.String("PurchaseDate"); writeDatetime(PurchaseDate, writer); }
+                if (Expiration.notNull()) { writer.String("Expiration"); writeDatetime(Expiration, writer); }
+                if (RemainingUses.notNull()) { writer.String("RemainingUses"); writer.Int(RemainingUses); }
+                if (UsesIncrementedBy.notNull()) { writer.String("UsesIncrementedBy"); writer.Int(UsesIncrementedBy); }
+                if (Annotation.length() > 0) { writer.String("Annotation"); writer.String(Annotation.c_str()); }
+                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
+                if (BundleParent.length() > 0) { writer.String("BundleParent"); writer.String(BundleParent.c_str()); }
+                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
+                if (UnitCurrency.length() > 0) { writer.String("UnitCurrency"); writer.String(UnitCurrency.c_str()); }
+                writer.String("UnitPrice"); writer.Uint(UnitPrice);
+                if (!BundleContents.empty()) {
+    writer.String("BundleContents");
+    writer.StartArray();
+    for (std::list<Aws::String>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+     }
+                if (!CustomData.empty()) {
+    writer.String("CustomData");
+    writer.StartObject();
+    for (std::map<Aws::String, Aws::String>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+    }
+    writer.EndObject();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator ItemId_member = obj.FindMember("ItemId");
+                if (ItemId_member != obj.MemberEnd() && !ItemId_member->value.IsNull()) ItemId = ItemId_member->value.GetString();
+                const Value::ConstMemberIterator ItemInstanceId_member = obj.FindMember("ItemInstanceId");
+                if (ItemInstanceId_member != obj.MemberEnd() && !ItemInstanceId_member->value.IsNull()) ItemInstanceId = ItemInstanceId_member->value.GetString();
+                const Value::ConstMemberIterator ItemClass_member = obj.FindMember("ItemClass");
+                if (ItemClass_member != obj.MemberEnd() && !ItemClass_member->value.IsNull()) ItemClass = ItemClass_member->value.GetString();
+                const Value::ConstMemberIterator PurchaseDate_member = obj.FindMember("PurchaseDate");
+                if (PurchaseDate_member != obj.MemberEnd() && !PurchaseDate_member->value.IsNull()) PurchaseDate = readDatetime(PurchaseDate_member->value);
+                const Value::ConstMemberIterator Expiration_member = obj.FindMember("Expiration");
+                if (Expiration_member != obj.MemberEnd() && !Expiration_member->value.IsNull()) Expiration = readDatetime(Expiration_member->value);
+                const Value::ConstMemberIterator RemainingUses_member = obj.FindMember("RemainingUses");
+                if (RemainingUses_member != obj.MemberEnd() && !RemainingUses_member->value.IsNull()) RemainingUses = RemainingUses_member->value.GetInt();
+                const Value::ConstMemberIterator UsesIncrementedBy_member = obj.FindMember("UsesIncrementedBy");
+                if (UsesIncrementedBy_member != obj.MemberEnd() && !UsesIncrementedBy_member->value.IsNull()) UsesIncrementedBy = UsesIncrementedBy_member->value.GetInt();
+                const Value::ConstMemberIterator Annotation_member = obj.FindMember("Annotation");
+                if (Annotation_member != obj.MemberEnd() && !Annotation_member->value.IsNull()) Annotation = Annotation_member->value.GetString();
+                const Value::ConstMemberIterator CatalogVersion_member = obj.FindMember("CatalogVersion");
+                if (CatalogVersion_member != obj.MemberEnd() && !CatalogVersion_member->value.IsNull()) CatalogVersion = CatalogVersion_member->value.GetString();
+                const Value::ConstMemberIterator BundleParent_member = obj.FindMember("BundleParent");
+                if (BundleParent_member != obj.MemberEnd() && !BundleParent_member->value.IsNull()) BundleParent = BundleParent_member->value.GetString();
+                const Value::ConstMemberIterator DisplayName_member = obj.FindMember("DisplayName");
+                if (DisplayName_member != obj.MemberEnd() && !DisplayName_member->value.IsNull()) DisplayName = DisplayName_member->value.GetString();
+                const Value::ConstMemberIterator UnitCurrency_member = obj.FindMember("UnitCurrency");
+                if (UnitCurrency_member != obj.MemberEnd() && !UnitCurrency_member->value.IsNull()) UnitCurrency = UnitCurrency_member->value.GetString();
+                const Value::ConstMemberIterator UnitPrice_member = obj.FindMember("UnitPrice");
+                if (UnitPrice_member != obj.MemberEnd() && !UnitPrice_member->value.IsNull()) UnitPrice = UnitPrice_member->value.GetUint();
+                const Value::ConstMemberIterator BundleContents_member = obj.FindMember("BundleContents");
+    if (BundleContents_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = BundleContents_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            BundleContents.push_back(memberList[i].GetString());
+        }
+    }
+                const Value::ConstMemberIterator CustomData_member = obj.FindMember("CustomData");
+    if (CustomData_member != obj.MemberEnd()) {
+        for (Value::ConstMemberIterator iter = CustomData_member->value.MemberBegin(); iter != CustomData_member->value.MemberEnd(); ++iter) {
+            CustomData[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct CharacterInventory : public PlayFabBaseModel
+        {
+            Aws::String CharacterId;
+            std::list<ItemInstance> Inventory;
+
+            CharacterInventory() :
+                PlayFabBaseModel(),
+                CharacterId(),
+                Inventory()
+            {}
+
+            CharacterInventory(const CharacterInventory& src) :
+                PlayFabBaseModel(),
+                CharacterId(src.CharacterId),
+                Inventory(src.Inventory)
+            {}
+
+            CharacterInventory(const rapidjson::Value& obj) : CharacterInventory()
+            {
+                readFromValue(obj);
+            }
+
+            ~CharacterInventory()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
+                if (!Inventory.empty()) {
+    writer.String("Inventory");
+    writer.StartArray();
+    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator CharacterId_member = obj.FindMember("CharacterId");
+                if (CharacterId_member != obj.MemberEnd() && !CharacterId_member->value.IsNull()) CharacterId = CharacterId_member->value.GetString();
+                const Value::ConstMemberIterator Inventory_member = obj.FindMember("Inventory");
+    if (Inventory_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Inventory_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Inventory.push_back(ItemInstance(memberList[i]));
+        }
+    }
+
+                return true;
+            }
+        };
+
         struct CharacterLeaderboardEntry : public PlayFabBaseModel
         {
             Aws::String PlayFabId;
@@ -1599,152 +1802,6 @@ namespace PlayFab
             {
                 const Value::ConstMemberIterator OrderId_member = obj.FindMember("OrderId");
                 if (OrderId_member != obj.MemberEnd() && !OrderId_member->value.IsNull()) OrderId = OrderId_member->value.GetString();
-
-                return true;
-            }
-        };
-
-        struct ItemInstance : public PlayFabBaseModel
-        {
-            Aws::String ItemId;
-            Aws::String ItemInstanceId;
-            Aws::String ItemClass;
-            OptionalTime PurchaseDate;
-            OptionalTime Expiration;
-            OptionalInt32 RemainingUses;
-            OptionalInt32 UsesIncrementedBy;
-            Aws::String Annotation;
-            Aws::String CatalogVersion;
-            Aws::String BundleParent;
-            Aws::String DisplayName;
-            Aws::String UnitCurrency;
-            Uint32 UnitPrice;
-            std::list<Aws::String> BundleContents;
-            std::map<Aws::String, Aws::String> CustomData;
-
-            ItemInstance() :
-                PlayFabBaseModel(),
-                ItemId(),
-                ItemInstanceId(),
-                ItemClass(),
-                PurchaseDate(),
-                Expiration(),
-                RemainingUses(),
-                UsesIncrementedBy(),
-                Annotation(),
-                CatalogVersion(),
-                BundleParent(),
-                DisplayName(),
-                UnitCurrency(),
-                UnitPrice(0),
-                BundleContents(),
-                CustomData()
-            {}
-
-            ItemInstance(const ItemInstance& src) :
-                PlayFabBaseModel(),
-                ItemId(src.ItemId),
-                ItemInstanceId(src.ItemInstanceId),
-                ItemClass(src.ItemClass),
-                PurchaseDate(src.PurchaseDate),
-                Expiration(src.Expiration),
-                RemainingUses(src.RemainingUses),
-                UsesIncrementedBy(src.UsesIncrementedBy),
-                Annotation(src.Annotation),
-                CatalogVersion(src.CatalogVersion),
-                BundleParent(src.BundleParent),
-                DisplayName(src.DisplayName),
-                UnitCurrency(src.UnitCurrency),
-                UnitPrice(src.UnitPrice),
-                BundleContents(src.BundleContents),
-                CustomData(src.CustomData)
-            {}
-
-            ItemInstance(const rapidjson::Value& obj) : ItemInstance()
-            {
-                readFromValue(obj);
-            }
-
-            ~ItemInstance()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                if (ItemId.length() > 0) { writer.String("ItemId"); writer.String(ItemId.c_str()); }
-                if (ItemInstanceId.length() > 0) { writer.String("ItemInstanceId"); writer.String(ItemInstanceId.c_str()); }
-                if (ItemClass.length() > 0) { writer.String("ItemClass"); writer.String(ItemClass.c_str()); }
-                if (PurchaseDate.notNull()) { writer.String("PurchaseDate"); writeDatetime(PurchaseDate, writer); }
-                if (Expiration.notNull()) { writer.String("Expiration"); writeDatetime(Expiration, writer); }
-                if (RemainingUses.notNull()) { writer.String("RemainingUses"); writer.Int(RemainingUses); }
-                if (UsesIncrementedBy.notNull()) { writer.String("UsesIncrementedBy"); writer.Int(UsesIncrementedBy); }
-                if (Annotation.length() > 0) { writer.String("Annotation"); writer.String(Annotation.c_str()); }
-                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
-                if (BundleParent.length() > 0) { writer.String("BundleParent"); writer.String(BundleParent.c_str()); }
-                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
-                if (UnitCurrency.length() > 0) { writer.String("UnitCurrency"); writer.String(UnitCurrency.c_str()); }
-                writer.String("UnitPrice"); writer.Uint(UnitPrice);
-                if (!BundleContents.empty()) {
-    writer.String("BundleContents");
-    writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
-        writer.String(iter->c_str());
-    }
-    writer.EndArray();
-     }
-                if (!CustomData.empty()) {
-    writer.String("CustomData");
-    writer.StartObject();
-    for (std::map<Aws::String, Aws::String>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
-    }
-    writer.EndObject();
-     }
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator ItemId_member = obj.FindMember("ItemId");
-                if (ItemId_member != obj.MemberEnd() && !ItemId_member->value.IsNull()) ItemId = ItemId_member->value.GetString();
-                const Value::ConstMemberIterator ItemInstanceId_member = obj.FindMember("ItemInstanceId");
-                if (ItemInstanceId_member != obj.MemberEnd() && !ItemInstanceId_member->value.IsNull()) ItemInstanceId = ItemInstanceId_member->value.GetString();
-                const Value::ConstMemberIterator ItemClass_member = obj.FindMember("ItemClass");
-                if (ItemClass_member != obj.MemberEnd() && !ItemClass_member->value.IsNull()) ItemClass = ItemClass_member->value.GetString();
-                const Value::ConstMemberIterator PurchaseDate_member = obj.FindMember("PurchaseDate");
-                if (PurchaseDate_member != obj.MemberEnd() && !PurchaseDate_member->value.IsNull()) PurchaseDate = readDatetime(PurchaseDate_member->value);
-                const Value::ConstMemberIterator Expiration_member = obj.FindMember("Expiration");
-                if (Expiration_member != obj.MemberEnd() && !Expiration_member->value.IsNull()) Expiration = readDatetime(Expiration_member->value);
-                const Value::ConstMemberIterator RemainingUses_member = obj.FindMember("RemainingUses");
-                if (RemainingUses_member != obj.MemberEnd() && !RemainingUses_member->value.IsNull()) RemainingUses = RemainingUses_member->value.GetInt();
-                const Value::ConstMemberIterator UsesIncrementedBy_member = obj.FindMember("UsesIncrementedBy");
-                if (UsesIncrementedBy_member != obj.MemberEnd() && !UsesIncrementedBy_member->value.IsNull()) UsesIncrementedBy = UsesIncrementedBy_member->value.GetInt();
-                const Value::ConstMemberIterator Annotation_member = obj.FindMember("Annotation");
-                if (Annotation_member != obj.MemberEnd() && !Annotation_member->value.IsNull()) Annotation = Annotation_member->value.GetString();
-                const Value::ConstMemberIterator CatalogVersion_member = obj.FindMember("CatalogVersion");
-                if (CatalogVersion_member != obj.MemberEnd() && !CatalogVersion_member->value.IsNull()) CatalogVersion = CatalogVersion_member->value.GetString();
-                const Value::ConstMemberIterator BundleParent_member = obj.FindMember("BundleParent");
-                if (BundleParent_member != obj.MemberEnd() && !BundleParent_member->value.IsNull()) BundleParent = BundleParent_member->value.GetString();
-                const Value::ConstMemberIterator DisplayName_member = obj.FindMember("DisplayName");
-                if (DisplayName_member != obj.MemberEnd() && !DisplayName_member->value.IsNull()) DisplayName = DisplayName_member->value.GetString();
-                const Value::ConstMemberIterator UnitCurrency_member = obj.FindMember("UnitCurrency");
-                if (UnitCurrency_member != obj.MemberEnd() && !UnitCurrency_member->value.IsNull()) UnitCurrency = UnitCurrency_member->value.GetString();
-                const Value::ConstMemberIterator UnitPrice_member = obj.FindMember("UnitPrice");
-                if (UnitPrice_member != obj.MemberEnd() && !UnitPrice_member->value.IsNull()) UnitPrice = UnitPrice_member->value.GetUint();
-                const Value::ConstMemberIterator BundleContents_member = obj.FindMember("BundleContents");
-    if (BundleContents_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = BundleContents_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            BundleContents.push_back(memberList[i].GetString());
-        }
-    }
-                const Value::ConstMemberIterator CustomData_member = obj.FindMember("CustomData");
-    if (CustomData_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = CustomData_member->value.MemberBegin(); iter != CustomData_member->value.MemberEnd(); ++iter) {
-            CustomData[iter->name.GetString()] = iter->value.GetString();
-        }
-    }
 
                 return true;
             }
@@ -6233,6 +6290,516 @@ namespace PlayFab
             }
         };
 
+        struct GetPlayerCombinedInfoRequestParams : public PlayFabBaseModel
+        {
+            bool GetUserAccountInfo;
+            bool GetUserInventory;
+            bool GetUserVirtualCurrency;
+            bool GetUserData;
+            std::list<Aws::String> UserDataKeys;
+            bool GetUserReadOnlyData;
+            std::list<Aws::String> UserReadOnlyDataKeys;
+            bool GetCharacterInventories;
+            bool GetCharacterList;
+            bool GetTitleData;
+            std::list<Aws::String> TitleDataKeys;
+            bool GetPlayerStatistics;
+            std::list<Aws::String> PlayerStatisticNames;
+
+            GetPlayerCombinedInfoRequestParams() :
+                PlayFabBaseModel(),
+                GetUserAccountInfo(false),
+                GetUserInventory(false),
+                GetUserVirtualCurrency(false),
+                GetUserData(false),
+                UserDataKeys(),
+                GetUserReadOnlyData(false),
+                UserReadOnlyDataKeys(),
+                GetCharacterInventories(false),
+                GetCharacterList(false),
+                GetTitleData(false),
+                TitleDataKeys(),
+                GetPlayerStatistics(false),
+                PlayerStatisticNames()
+            {}
+
+            GetPlayerCombinedInfoRequestParams(const GetPlayerCombinedInfoRequestParams& src) :
+                PlayFabBaseModel(),
+                GetUserAccountInfo(src.GetUserAccountInfo),
+                GetUserInventory(src.GetUserInventory),
+                GetUserVirtualCurrency(src.GetUserVirtualCurrency),
+                GetUserData(src.GetUserData),
+                UserDataKeys(src.UserDataKeys),
+                GetUserReadOnlyData(src.GetUserReadOnlyData),
+                UserReadOnlyDataKeys(src.UserReadOnlyDataKeys),
+                GetCharacterInventories(src.GetCharacterInventories),
+                GetCharacterList(src.GetCharacterList),
+                GetTitleData(src.GetTitleData),
+                TitleDataKeys(src.TitleDataKeys),
+                GetPlayerStatistics(src.GetPlayerStatistics),
+                PlayerStatisticNames(src.PlayerStatisticNames)
+            {}
+
+            GetPlayerCombinedInfoRequestParams(const rapidjson::Value& obj) : GetPlayerCombinedInfoRequestParams()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayerCombinedInfoRequestParams()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("GetUserAccountInfo"); writer.Bool(GetUserAccountInfo);
+                writer.String("GetUserInventory"); writer.Bool(GetUserInventory);
+                writer.String("GetUserVirtualCurrency"); writer.Bool(GetUserVirtualCurrency);
+                writer.String("GetUserData"); writer.Bool(GetUserData);
+                if (!UserDataKeys.empty()) {
+    writer.String("UserDataKeys");
+    writer.StartArray();
+    for (std::list<Aws::String>::iterator iter = UserDataKeys.begin(); iter != UserDataKeys.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+     }
+                writer.String("GetUserReadOnlyData"); writer.Bool(GetUserReadOnlyData);
+                if (!UserReadOnlyDataKeys.empty()) {
+    writer.String("UserReadOnlyDataKeys");
+    writer.StartArray();
+    for (std::list<Aws::String>::iterator iter = UserReadOnlyDataKeys.begin(); iter != UserReadOnlyDataKeys.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+     }
+                writer.String("GetCharacterInventories"); writer.Bool(GetCharacterInventories);
+                writer.String("GetCharacterList"); writer.Bool(GetCharacterList);
+                writer.String("GetTitleData"); writer.Bool(GetTitleData);
+                if (!TitleDataKeys.empty()) {
+    writer.String("TitleDataKeys");
+    writer.StartArray();
+    for (std::list<Aws::String>::iterator iter = TitleDataKeys.begin(); iter != TitleDataKeys.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+     }
+                writer.String("GetPlayerStatistics"); writer.Bool(GetPlayerStatistics);
+                if (!PlayerStatisticNames.empty()) {
+    writer.String("PlayerStatisticNames");
+    writer.StartArray();
+    for (std::list<Aws::String>::iterator iter = PlayerStatisticNames.begin(); iter != PlayerStatisticNames.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator GetUserAccountInfo_member = obj.FindMember("GetUserAccountInfo");
+                if (GetUserAccountInfo_member != obj.MemberEnd() && !GetUserAccountInfo_member->value.IsNull()) GetUserAccountInfo = GetUserAccountInfo_member->value.GetBool();
+                const Value::ConstMemberIterator GetUserInventory_member = obj.FindMember("GetUserInventory");
+                if (GetUserInventory_member != obj.MemberEnd() && !GetUserInventory_member->value.IsNull()) GetUserInventory = GetUserInventory_member->value.GetBool();
+                const Value::ConstMemberIterator GetUserVirtualCurrency_member = obj.FindMember("GetUserVirtualCurrency");
+                if (GetUserVirtualCurrency_member != obj.MemberEnd() && !GetUserVirtualCurrency_member->value.IsNull()) GetUserVirtualCurrency = GetUserVirtualCurrency_member->value.GetBool();
+                const Value::ConstMemberIterator GetUserData_member = obj.FindMember("GetUserData");
+                if (GetUserData_member != obj.MemberEnd() && !GetUserData_member->value.IsNull()) GetUserData = GetUserData_member->value.GetBool();
+                const Value::ConstMemberIterator UserDataKeys_member = obj.FindMember("UserDataKeys");
+    if (UserDataKeys_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = UserDataKeys_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            UserDataKeys.push_back(memberList[i].GetString());
+        }
+    }
+                const Value::ConstMemberIterator GetUserReadOnlyData_member = obj.FindMember("GetUserReadOnlyData");
+                if (GetUserReadOnlyData_member != obj.MemberEnd() && !GetUserReadOnlyData_member->value.IsNull()) GetUserReadOnlyData = GetUserReadOnlyData_member->value.GetBool();
+                const Value::ConstMemberIterator UserReadOnlyDataKeys_member = obj.FindMember("UserReadOnlyDataKeys");
+    if (UserReadOnlyDataKeys_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = UserReadOnlyDataKeys_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            UserReadOnlyDataKeys.push_back(memberList[i].GetString());
+        }
+    }
+                const Value::ConstMemberIterator GetCharacterInventories_member = obj.FindMember("GetCharacterInventories");
+                if (GetCharacterInventories_member != obj.MemberEnd() && !GetCharacterInventories_member->value.IsNull()) GetCharacterInventories = GetCharacterInventories_member->value.GetBool();
+                const Value::ConstMemberIterator GetCharacterList_member = obj.FindMember("GetCharacterList");
+                if (GetCharacterList_member != obj.MemberEnd() && !GetCharacterList_member->value.IsNull()) GetCharacterList = GetCharacterList_member->value.GetBool();
+                const Value::ConstMemberIterator GetTitleData_member = obj.FindMember("GetTitleData");
+                if (GetTitleData_member != obj.MemberEnd() && !GetTitleData_member->value.IsNull()) GetTitleData = GetTitleData_member->value.GetBool();
+                const Value::ConstMemberIterator TitleDataKeys_member = obj.FindMember("TitleDataKeys");
+    if (TitleDataKeys_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = TitleDataKeys_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            TitleDataKeys.push_back(memberList[i].GetString());
+        }
+    }
+                const Value::ConstMemberIterator GetPlayerStatistics_member = obj.FindMember("GetPlayerStatistics");
+                if (GetPlayerStatistics_member != obj.MemberEnd() && !GetPlayerStatistics_member->value.IsNull()) GetPlayerStatistics = GetPlayerStatistics_member->value.GetBool();
+                const Value::ConstMemberIterator PlayerStatisticNames_member = obj.FindMember("PlayerStatisticNames");
+    if (PlayerStatisticNames_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = PlayerStatisticNames_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            PlayerStatisticNames.push_back(memberList[i].GetString());
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct GetPlayerCombinedInfoRequest : public PlayFabBaseModel
+        {
+            Aws::String PlayFabId;
+            GetPlayerCombinedInfoRequestParams InfoRequestParameters;
+
+            GetPlayerCombinedInfoRequest() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                InfoRequestParameters()
+            {}
+
+            GetPlayerCombinedInfoRequest(const GetPlayerCombinedInfoRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                InfoRequestParameters(src.InfoRequestParameters)
+            {}
+
+            GetPlayerCombinedInfoRequest(const rapidjson::Value& obj) : GetPlayerCombinedInfoRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayerCombinedInfoRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+                writer.String("InfoRequestParameters"); InfoRequestParameters.writeJSON(writer);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+                const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
+                if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+
+                return true;
+            }
+        };
+
+        struct StatisticValue : public PlayFabBaseModel
+        {
+            Aws::String StatisticName;
+            Int32 Value;
+            Uint32 Version;
+
+            StatisticValue() :
+                PlayFabBaseModel(),
+                StatisticName(),
+                Value(0),
+                Version(0)
+            {}
+
+            StatisticValue(const StatisticValue& src) :
+                PlayFabBaseModel(),
+                StatisticName(src.StatisticName),
+                Value(src.Value),
+                Version(src.Version)
+            {}
+
+            StatisticValue(const rapidjson::Value& obj) : StatisticValue()
+            {
+                readFromValue(obj);
+            }
+
+            ~StatisticValue()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (StatisticName.length() > 0) { writer.String("StatisticName"); writer.String(StatisticName.c_str()); }
+                writer.String("Value"); writer.Int(Value);
+                writer.String("Version"); writer.Uint(Version);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator StatisticName_member = obj.FindMember("StatisticName");
+                if (StatisticName_member != obj.MemberEnd() && !StatisticName_member->value.IsNull()) StatisticName = StatisticName_member->value.GetString();
+                const Value::ConstMemberIterator Value_member = obj.FindMember("Value");
+                if (Value_member != obj.MemberEnd() && !Value_member->value.IsNull()) Value = Value_member->value.GetInt();
+                const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
+                if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetUint();
+
+                return true;
+            }
+        };
+
+        struct GetPlayerCombinedInfoResultPayload : public PlayFabBaseModel
+        {
+            UserAccountInfo* AccountInfo;
+            std::list<ItemInstance> UserInventory;
+            std::map<Aws::String, Int32> UserVirtualCurrency;
+            std::map<Aws::String, VirtualCurrencyRechargeTime> UserVirtualCurrencyRechargeTimes;
+            std::map<Aws::String, UserDataRecord> UserData;
+            Uint32 UserDataVersion;
+            std::map<Aws::String, UserDataRecord> UserReadOnlyData;
+            Uint32 UserReadOnlyDataVersion;
+            std::list<CharacterResult> CharacterList;
+            std::list<CharacterInventory> CharacterInventories;
+            std::map<Aws::String, Aws::String> TitleData;
+            std::list<StatisticValue> PlayerStatistics;
+
+            GetPlayerCombinedInfoResultPayload() :
+                PlayFabBaseModel(),
+                AccountInfo(nullptr),
+                UserInventory(),
+                UserVirtualCurrency(),
+                UserVirtualCurrencyRechargeTimes(),
+                UserData(),
+                UserDataVersion(0),
+                UserReadOnlyData(),
+                UserReadOnlyDataVersion(0),
+                CharacterList(),
+                CharacterInventories(),
+                TitleData(),
+                PlayerStatistics()
+            {}
+
+            GetPlayerCombinedInfoResultPayload(const GetPlayerCombinedInfoResultPayload& src) :
+                PlayFabBaseModel(),
+                AccountInfo(src.AccountInfo ? new UserAccountInfo(*src.AccountInfo) : nullptr),
+                UserInventory(src.UserInventory),
+                UserVirtualCurrency(src.UserVirtualCurrency),
+                UserVirtualCurrencyRechargeTimes(src.UserVirtualCurrencyRechargeTimes),
+                UserData(src.UserData),
+                UserDataVersion(src.UserDataVersion),
+                UserReadOnlyData(src.UserReadOnlyData),
+                UserReadOnlyDataVersion(src.UserReadOnlyDataVersion),
+                CharacterList(src.CharacterList),
+                CharacterInventories(src.CharacterInventories),
+                TitleData(src.TitleData),
+                PlayerStatistics(src.PlayerStatistics)
+            {}
+
+            GetPlayerCombinedInfoResultPayload(const rapidjson::Value& obj) : GetPlayerCombinedInfoResultPayload()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayerCombinedInfoResultPayload()
+            {
+                if (AccountInfo != nullptr) delete AccountInfo;
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (AccountInfo != nullptr) { writer.String("AccountInfo"); AccountInfo->writeJSON(writer); }
+                if (!UserInventory.empty()) {
+    writer.String("UserInventory");
+    writer.StartArray();
+    for (std::list<ItemInstance>::iterator iter = UserInventory.begin(); iter != UserInventory.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                if (!UserVirtualCurrency.empty()) {
+    writer.String("UserVirtualCurrency");
+    writer.StartObject();
+    for (std::map<Aws::String, Int32>::iterator iter = UserVirtualCurrency.begin(); iter != UserVirtualCurrency.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.Int(iter->second);
+    }
+    writer.EndObject();
+     }
+                if (!UserVirtualCurrencyRechargeTimes.empty()) {
+    writer.String("UserVirtualCurrencyRechargeTimes");
+    writer.StartObject();
+    for (std::map<Aws::String, VirtualCurrencyRechargeTime>::iterator iter = UserVirtualCurrencyRechargeTimes.begin(); iter != UserVirtualCurrencyRechargeTimes.end(); ++iter) {
+        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+    }
+    writer.EndObject();
+     }
+                if (!UserData.empty()) {
+    writer.String("UserData");
+    writer.StartObject();
+    for (std::map<Aws::String, UserDataRecord>::iterator iter = UserData.begin(); iter != UserData.end(); ++iter) {
+        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+    }
+    writer.EndObject();
+     }
+                writer.String("UserDataVersion"); writer.Uint(UserDataVersion);
+                if (!UserReadOnlyData.empty()) {
+    writer.String("UserReadOnlyData");
+    writer.StartObject();
+    for (std::map<Aws::String, UserDataRecord>::iterator iter = UserReadOnlyData.begin(); iter != UserReadOnlyData.end(); ++iter) {
+        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
+    }
+    writer.EndObject();
+     }
+                writer.String("UserReadOnlyDataVersion"); writer.Uint(UserReadOnlyDataVersion);
+                if (!CharacterList.empty()) {
+    writer.String("CharacterList");
+    writer.StartArray();
+    for (std::list<CharacterResult>::iterator iter = CharacterList.begin(); iter != CharacterList.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                if (!CharacterInventories.empty()) {
+    writer.String("CharacterInventories");
+    writer.StartArray();
+    for (std::list<CharacterInventory>::iterator iter = CharacterInventories.begin(); iter != CharacterInventories.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                if (!TitleData.empty()) {
+    writer.String("TitleData");
+    writer.StartObject();
+    for (std::map<Aws::String, Aws::String>::iterator iter = TitleData.begin(); iter != TitleData.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+    }
+    writer.EndObject();
+     }
+                if (!PlayerStatistics.empty()) {
+    writer.String("PlayerStatistics");
+    writer.StartArray();
+    for (std::list<StatisticValue>::iterator iter = PlayerStatistics.begin(); iter != PlayerStatistics.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator AccountInfo_member = obj.FindMember("AccountInfo");
+                if (AccountInfo_member != obj.MemberEnd() && !AccountInfo_member->value.IsNull()) AccountInfo = new UserAccountInfo(AccountInfo_member->value);
+                const Value::ConstMemberIterator UserInventory_member = obj.FindMember("UserInventory");
+    if (UserInventory_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = UserInventory_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            UserInventory.push_back(ItemInstance(memberList[i]));
+        }
+    }
+                const Value::ConstMemberIterator UserVirtualCurrency_member = obj.FindMember("UserVirtualCurrency");
+    if (UserVirtualCurrency_member != obj.MemberEnd()) {
+        for (Value::ConstMemberIterator iter = UserVirtualCurrency_member->value.MemberBegin(); iter != UserVirtualCurrency_member->value.MemberEnd(); ++iter) {
+            UserVirtualCurrency[iter->name.GetString()] = iter->value.GetInt();
+        }
+    }
+                const Value::ConstMemberIterator UserVirtualCurrencyRechargeTimes_member = obj.FindMember("UserVirtualCurrencyRechargeTimes");
+    if (UserVirtualCurrencyRechargeTimes_member != obj.MemberEnd()) {
+        for (Value::ConstMemberIterator iter = UserVirtualCurrencyRechargeTimes_member->value.MemberBegin(); iter != UserVirtualCurrencyRechargeTimes_member->value.MemberEnd(); ++iter) {
+            UserVirtualCurrencyRechargeTimes[iter->name.GetString()] = VirtualCurrencyRechargeTime(iter->value);
+        }
+    }
+                const Value::ConstMemberIterator UserData_member = obj.FindMember("UserData");
+    if (UserData_member != obj.MemberEnd()) {
+        for (Value::ConstMemberIterator iter = UserData_member->value.MemberBegin(); iter != UserData_member->value.MemberEnd(); ++iter) {
+            UserData[iter->name.GetString()] = UserDataRecord(iter->value);
+        }
+    }
+                const Value::ConstMemberIterator UserDataVersion_member = obj.FindMember("UserDataVersion");
+                if (UserDataVersion_member != obj.MemberEnd() && !UserDataVersion_member->value.IsNull()) UserDataVersion = UserDataVersion_member->value.GetUint();
+                const Value::ConstMemberIterator UserReadOnlyData_member = obj.FindMember("UserReadOnlyData");
+    if (UserReadOnlyData_member != obj.MemberEnd()) {
+        for (Value::ConstMemberIterator iter = UserReadOnlyData_member->value.MemberBegin(); iter != UserReadOnlyData_member->value.MemberEnd(); ++iter) {
+            UserReadOnlyData[iter->name.GetString()] = UserDataRecord(iter->value);
+        }
+    }
+                const Value::ConstMemberIterator UserReadOnlyDataVersion_member = obj.FindMember("UserReadOnlyDataVersion");
+                if (UserReadOnlyDataVersion_member != obj.MemberEnd() && !UserReadOnlyDataVersion_member->value.IsNull()) UserReadOnlyDataVersion = UserReadOnlyDataVersion_member->value.GetUint();
+                const Value::ConstMemberIterator CharacterList_member = obj.FindMember("CharacterList");
+    if (CharacterList_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = CharacterList_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            CharacterList.push_back(CharacterResult(memberList[i]));
+        }
+    }
+                const Value::ConstMemberIterator CharacterInventories_member = obj.FindMember("CharacterInventories");
+    if (CharacterInventories_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = CharacterInventories_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            CharacterInventories.push_back(CharacterInventory(memberList[i]));
+        }
+    }
+                const Value::ConstMemberIterator TitleData_member = obj.FindMember("TitleData");
+    if (TitleData_member != obj.MemberEnd()) {
+        for (Value::ConstMemberIterator iter = TitleData_member->value.MemberBegin(); iter != TitleData_member->value.MemberEnd(); ++iter) {
+            TitleData[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+                const Value::ConstMemberIterator PlayerStatistics_member = obj.FindMember("PlayerStatistics");
+    if (PlayerStatistics_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = PlayerStatistics_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            PlayerStatistics.push_back(StatisticValue(memberList[i]));
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct GetPlayerCombinedInfoResult : public PlayFabBaseModel
+        {
+            Aws::String PlayFabId;
+            GetPlayerCombinedInfoResultPayload* InfoResultPayload;
+
+            GetPlayerCombinedInfoResult() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                InfoResultPayload(nullptr)
+            {}
+
+            GetPlayerCombinedInfoResult(const GetPlayerCombinedInfoResult& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                InfoResultPayload(src.InfoResultPayload ? new GetPlayerCombinedInfoResultPayload(*src.InfoResultPayload) : nullptr)
+            {}
+
+            GetPlayerCombinedInfoResult(const rapidjson::Value& obj) : GetPlayerCombinedInfoResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayerCombinedInfoResult()
+            {
+                if (InfoResultPayload != nullptr) delete InfoResultPayload;
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+                if (InfoResultPayload != nullptr) { writer.String("InfoResultPayload"); InfoResultPayload->writeJSON(writer); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+                const Value::ConstMemberIterator InfoResultPayload_member = obj.FindMember("InfoResultPayload");
+                if (InfoResultPayload_member != obj.MemberEnd() && !InfoResultPayload_member->value.IsNull()) InfoResultPayload = new GetPlayerCombinedInfoResultPayload(InfoResultPayload_member->value);
+
+                return true;
+            }
+        };
+
         struct StatisticNameVersion : public PlayFabBaseModel
         {
             Aws::String StatisticName;
@@ -6342,57 +6909,6 @@ namespace PlayFab
             StatisticNameVersions.push_back(StatisticNameVersion(memberList[i]));
         }
     }
-
-                return true;
-            }
-        };
-
-        struct StatisticValue : public PlayFabBaseModel
-        {
-            Aws::String StatisticName;
-            Int32 Value;
-            Uint32 Version;
-
-            StatisticValue() :
-                PlayFabBaseModel(),
-                StatisticName(),
-                Value(0),
-                Version(0)
-            {}
-
-            StatisticValue(const StatisticValue& src) :
-                PlayFabBaseModel(),
-                StatisticName(src.StatisticName),
-                Value(src.Value),
-                Version(src.Version)
-            {}
-
-            StatisticValue(const rapidjson::Value& obj) : StatisticValue()
-            {
-                readFromValue(obj);
-            }
-
-            ~StatisticValue()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                if (StatisticName.length() > 0) { writer.String("StatisticName"); writer.String(StatisticName.c_str()); }
-                writer.String("Value"); writer.Int(Value);
-                writer.String("Version"); writer.Uint(Version);
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator StatisticName_member = obj.FindMember("StatisticName");
-                if (StatisticName_member != obj.MemberEnd() && !StatisticName_member->value.IsNull()) StatisticName = StatisticName_member->value.GetString();
-                const Value::ConstMemberIterator Value_member = obj.FindMember("Value");
-                if (Value_member != obj.MemberEnd() && !Value_member->value.IsNull()) Value = Value_member->value.GetInt();
-                const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
-                if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetUint();
 
                 return true;
             }
@@ -9892,6 +10408,7 @@ namespace PlayFab
             bool NewlyCreated;
             UserSettings* SettingsForUser;
             OptionalTime LastLoginTime;
+            GetPlayerCombinedInfoResultPayload* InfoResultPayload;
 
             LoginResult() :
                 PlayFabBaseModel(),
@@ -9899,7 +10416,8 @@ namespace PlayFab
                 PlayFabId(),
                 NewlyCreated(false),
                 SettingsForUser(nullptr),
-                LastLoginTime()
+                LastLoginTime(),
+                InfoResultPayload(nullptr)
             {}
 
             LoginResult(const LoginResult& src) :
@@ -9908,7 +10426,8 @@ namespace PlayFab
                 PlayFabId(src.PlayFabId),
                 NewlyCreated(src.NewlyCreated),
                 SettingsForUser(src.SettingsForUser ? new UserSettings(*src.SettingsForUser) : nullptr),
-                LastLoginTime(src.LastLoginTime)
+                LastLoginTime(src.LastLoginTime),
+                InfoResultPayload(src.InfoResultPayload ? new GetPlayerCombinedInfoResultPayload(*src.InfoResultPayload) : nullptr)
             {}
 
             LoginResult(const rapidjson::Value& obj) : LoginResult()
@@ -9919,6 +10438,7 @@ namespace PlayFab
             ~LoginResult()
             {
                 if (SettingsForUser != nullptr) delete SettingsForUser;
+                if (InfoResultPayload != nullptr) delete InfoResultPayload;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -9929,6 +10449,7 @@ namespace PlayFab
                 writer.String("NewlyCreated"); writer.Bool(NewlyCreated);
                 if (SettingsForUser != nullptr) { writer.String("SettingsForUser"); SettingsForUser->writeJSON(writer); }
                 if (LastLoginTime.notNull()) { writer.String("LastLoginTime"); writeDatetime(LastLoginTime, writer); }
+                if (InfoResultPayload != nullptr) { writer.String("InfoResultPayload"); InfoResultPayload->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -9944,6 +10465,8 @@ namespace PlayFab
                 if (SettingsForUser_member != obj.MemberEnd() && !SettingsForUser_member->value.IsNull()) SettingsForUser = new UserSettings(SettingsForUser_member->value);
                 const Value::ConstMemberIterator LastLoginTime_member = obj.FindMember("LastLoginTime");
                 if (LastLoginTime_member != obj.MemberEnd() && !LastLoginTime_member->value.IsNull()) LastLoginTime = readDatetime(LastLoginTime_member->value);
+                const Value::ConstMemberIterator InfoResultPayload_member = obj.FindMember("InfoResultPayload");
+                if (InfoResultPayload_member != obj.MemberEnd() && !InfoResultPayload_member->value.IsNull()) InfoResultPayload = new GetPlayerCombinedInfoResultPayload(InfoResultPayload_member->value);
 
                 return true;
             }
@@ -9956,6 +10479,7 @@ namespace PlayFab
             Aws::String OS;
             Aws::String AndroidDevice;
             OptionalBool CreateAccount;
+            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithAndroidDeviceIDRequest() :
                 PlayFabBaseModel(),
@@ -9963,7 +10487,8 @@ namespace PlayFab
                 AndroidDeviceId(),
                 OS(),
                 AndroidDevice(),
-                CreateAccount()
+                CreateAccount(),
+                InfoRequestParameters(nullptr)
             {}
 
             LoginWithAndroidDeviceIDRequest(const LoginWithAndroidDeviceIDRequest& src) :
@@ -9972,7 +10497,8 @@ namespace PlayFab
                 AndroidDeviceId(src.AndroidDeviceId),
                 OS(src.OS),
                 AndroidDevice(src.AndroidDevice),
-                CreateAccount(src.CreateAccount)
+                CreateAccount(src.CreateAccount),
+                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
             {}
 
             LoginWithAndroidDeviceIDRequest(const rapidjson::Value& obj) : LoginWithAndroidDeviceIDRequest()
@@ -9982,6 +10508,7 @@ namespace PlayFab
 
             ~LoginWithAndroidDeviceIDRequest()
             {
+                if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -9992,6 +10519,7 @@ namespace PlayFab
                 if (OS.length() > 0) { writer.String("OS"); writer.String(OS.c_str()); }
                 if (AndroidDevice.length() > 0) { writer.String("AndroidDevice"); writer.String(AndroidDevice.c_str()); }
                 if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
+                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -10007,6 +10535,8 @@ namespace PlayFab
                 if (AndroidDevice_member != obj.MemberEnd() && !AndroidDevice_member->value.IsNull()) AndroidDevice = AndroidDevice_member->value.GetString();
                 const Value::ConstMemberIterator CreateAccount_member = obj.FindMember("CreateAccount");
                 if (CreateAccount_member != obj.MemberEnd() && !CreateAccount_member->value.IsNull()) CreateAccount = CreateAccount_member->value.GetBool();
+                const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
+                if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
 
                 return true;
             }
@@ -10017,19 +10547,22 @@ namespace PlayFab
             Aws::String TitleId;
             Aws::String CustomId;
             OptionalBool CreateAccount;
+            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithCustomIDRequest() :
                 PlayFabBaseModel(),
                 TitleId(),
                 CustomId(),
-                CreateAccount()
+                CreateAccount(),
+                InfoRequestParameters(nullptr)
             {}
 
             LoginWithCustomIDRequest(const LoginWithCustomIDRequest& src) :
                 PlayFabBaseModel(),
                 TitleId(src.TitleId),
                 CustomId(src.CustomId),
-                CreateAccount(src.CreateAccount)
+                CreateAccount(src.CreateAccount),
+                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
             {}
 
             LoginWithCustomIDRequest(const rapidjson::Value& obj) : LoginWithCustomIDRequest()
@@ -10039,6 +10572,7 @@ namespace PlayFab
 
             ~LoginWithCustomIDRequest()
             {
+                if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -10047,6 +10581,7 @@ namespace PlayFab
                 writer.String("TitleId"); writer.String(TitleId.c_str());
                 writer.String("CustomId"); writer.String(CustomId.c_str());
                 if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
+                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -10058,6 +10593,8 @@ namespace PlayFab
                 if (CustomId_member != obj.MemberEnd() && !CustomId_member->value.IsNull()) CustomId = CustomId_member->value.GetString();
                 const Value::ConstMemberIterator CreateAccount_member = obj.FindMember("CreateAccount");
                 if (CreateAccount_member != obj.MemberEnd() && !CreateAccount_member->value.IsNull()) CreateAccount = CreateAccount_member->value.GetBool();
+                const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
+                if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
 
                 return true;
             }
@@ -10068,19 +10605,22 @@ namespace PlayFab
             Aws::String TitleId;
             Aws::String Email;
             Aws::String Password;
+            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithEmailAddressRequest() :
                 PlayFabBaseModel(),
                 TitleId(),
                 Email(),
-                Password()
+                Password(),
+                InfoRequestParameters(nullptr)
             {}
 
             LoginWithEmailAddressRequest(const LoginWithEmailAddressRequest& src) :
                 PlayFabBaseModel(),
                 TitleId(src.TitleId),
                 Email(src.Email),
-                Password(src.Password)
+                Password(src.Password),
+                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
             {}
 
             LoginWithEmailAddressRequest(const rapidjson::Value& obj) : LoginWithEmailAddressRequest()
@@ -10090,6 +10630,7 @@ namespace PlayFab
 
             ~LoginWithEmailAddressRequest()
             {
+                if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -10098,6 +10639,7 @@ namespace PlayFab
                 writer.String("TitleId"); writer.String(TitleId.c_str());
                 writer.String("Email"); writer.String(Email.c_str());
                 writer.String("Password"); writer.String(Password.c_str());
+                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -10109,6 +10651,8 @@ namespace PlayFab
                 if (Email_member != obj.MemberEnd() && !Email_member->value.IsNull()) Email = Email_member->value.GetString();
                 const Value::ConstMemberIterator Password_member = obj.FindMember("Password");
                 if (Password_member != obj.MemberEnd() && !Password_member->value.IsNull()) Password = Password_member->value.GetString();
+                const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
+                if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
 
                 return true;
             }
@@ -10119,19 +10663,22 @@ namespace PlayFab
             Aws::String TitleId;
             Aws::String AccessToken;
             OptionalBool CreateAccount;
+            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithFacebookRequest() :
                 PlayFabBaseModel(),
                 TitleId(),
                 AccessToken(),
-                CreateAccount()
+                CreateAccount(),
+                InfoRequestParameters(nullptr)
             {}
 
             LoginWithFacebookRequest(const LoginWithFacebookRequest& src) :
                 PlayFabBaseModel(),
                 TitleId(src.TitleId),
                 AccessToken(src.AccessToken),
-                CreateAccount(src.CreateAccount)
+                CreateAccount(src.CreateAccount),
+                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
             {}
 
             LoginWithFacebookRequest(const rapidjson::Value& obj) : LoginWithFacebookRequest()
@@ -10141,6 +10688,7 @@ namespace PlayFab
 
             ~LoginWithFacebookRequest()
             {
+                if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -10149,6 +10697,7 @@ namespace PlayFab
                 writer.String("TitleId"); writer.String(TitleId.c_str());
                 writer.String("AccessToken"); writer.String(AccessToken.c_str());
                 if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
+                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -10160,6 +10709,8 @@ namespace PlayFab
                 if (AccessToken_member != obj.MemberEnd() && !AccessToken_member->value.IsNull()) AccessToken = AccessToken_member->value.GetString();
                 const Value::ConstMemberIterator CreateAccount_member = obj.FindMember("CreateAccount");
                 if (CreateAccount_member != obj.MemberEnd() && !CreateAccount_member->value.IsNull()) CreateAccount = CreateAccount_member->value.GetBool();
+                const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
+                if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
 
                 return true;
             }
@@ -10170,19 +10721,22 @@ namespace PlayFab
             Aws::String TitleId;
             Aws::String PlayerId;
             OptionalBool CreateAccount;
+            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithGameCenterRequest() :
                 PlayFabBaseModel(),
                 TitleId(),
                 PlayerId(),
-                CreateAccount()
+                CreateAccount(),
+                InfoRequestParameters(nullptr)
             {}
 
             LoginWithGameCenterRequest(const LoginWithGameCenterRequest& src) :
                 PlayFabBaseModel(),
                 TitleId(src.TitleId),
                 PlayerId(src.PlayerId),
-                CreateAccount(src.CreateAccount)
+                CreateAccount(src.CreateAccount),
+                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
             {}
 
             LoginWithGameCenterRequest(const rapidjson::Value& obj) : LoginWithGameCenterRequest()
@@ -10192,6 +10746,7 @@ namespace PlayFab
 
             ~LoginWithGameCenterRequest()
             {
+                if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -10200,6 +10755,7 @@ namespace PlayFab
                 writer.String("TitleId"); writer.String(TitleId.c_str());
                 writer.String("PlayerId"); writer.String(PlayerId.c_str());
                 if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
+                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -10211,6 +10767,8 @@ namespace PlayFab
                 if (PlayerId_member != obj.MemberEnd() && !PlayerId_member->value.IsNull()) PlayerId = PlayerId_member->value.GetString();
                 const Value::ConstMemberIterator CreateAccount_member = obj.FindMember("CreateAccount");
                 if (CreateAccount_member != obj.MemberEnd() && !CreateAccount_member->value.IsNull()) CreateAccount = CreateAccount_member->value.GetBool();
+                const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
+                if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
 
                 return true;
             }
@@ -10222,13 +10780,15 @@ namespace PlayFab
             Aws::String AccessToken;
             OptionalBool CreateAccount;
             Aws::String PublisherId;
+            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithGoogleAccountRequest() :
                 PlayFabBaseModel(),
                 TitleId(),
                 AccessToken(),
                 CreateAccount(),
-                PublisherId()
+                PublisherId(),
+                InfoRequestParameters(nullptr)
             {}
 
             LoginWithGoogleAccountRequest(const LoginWithGoogleAccountRequest& src) :
@@ -10236,7 +10796,8 @@ namespace PlayFab
                 TitleId(src.TitleId),
                 AccessToken(src.AccessToken),
                 CreateAccount(src.CreateAccount),
-                PublisherId(src.PublisherId)
+                PublisherId(src.PublisherId),
+                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
             {}
 
             LoginWithGoogleAccountRequest(const rapidjson::Value& obj) : LoginWithGoogleAccountRequest()
@@ -10246,6 +10807,7 @@ namespace PlayFab
 
             ~LoginWithGoogleAccountRequest()
             {
+                if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -10255,6 +10817,7 @@ namespace PlayFab
                 writer.String("AccessToken"); writer.String(AccessToken.c_str());
                 if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
                 if (PublisherId.length() > 0) { writer.String("PublisherId"); writer.String(PublisherId.c_str()); }
+                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -10268,6 +10831,8 @@ namespace PlayFab
                 if (CreateAccount_member != obj.MemberEnd() && !CreateAccount_member->value.IsNull()) CreateAccount = CreateAccount_member->value.GetBool();
                 const Value::ConstMemberIterator PublisherId_member = obj.FindMember("PublisherId");
                 if (PublisherId_member != obj.MemberEnd() && !PublisherId_member->value.IsNull()) PublisherId = PublisherId_member->value.GetString();
+                const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
+                if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
 
                 return true;
             }
@@ -10279,6 +10844,7 @@ namespace PlayFab
             Aws::String DeviceId;
             Aws::String OS;
             Aws::String DeviceModel;
+            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
             OptionalBool CreateAccount;
 
             LoginWithIOSDeviceIDRequest() :
@@ -10287,6 +10853,7 @@ namespace PlayFab
                 DeviceId(),
                 OS(),
                 DeviceModel(),
+                InfoRequestParameters(nullptr),
                 CreateAccount()
             {}
 
@@ -10296,6 +10863,7 @@ namespace PlayFab
                 DeviceId(src.DeviceId),
                 OS(src.OS),
                 DeviceModel(src.DeviceModel),
+                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
                 CreateAccount(src.CreateAccount)
             {}
 
@@ -10306,6 +10874,7 @@ namespace PlayFab
 
             ~LoginWithIOSDeviceIDRequest()
             {
+                if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -10315,6 +10884,7 @@ namespace PlayFab
                 writer.String("DeviceId"); writer.String(DeviceId.c_str());
                 if (OS.length() > 0) { writer.String("OS"); writer.String(OS.c_str()); }
                 if (DeviceModel.length() > 0) { writer.String("DeviceModel"); writer.String(DeviceModel.c_str()); }
+                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
                 if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
                 writer.EndObject();
             }
@@ -10329,6 +10899,8 @@ namespace PlayFab
                 if (OS_member != obj.MemberEnd() && !OS_member->value.IsNull()) OS = OS_member->value.GetString();
                 const Value::ConstMemberIterator DeviceModel_member = obj.FindMember("DeviceModel");
                 if (DeviceModel_member != obj.MemberEnd() && !DeviceModel_member->value.IsNull()) DeviceModel = DeviceModel_member->value.GetString();
+                const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
+                if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
                 const Value::ConstMemberIterator CreateAccount_member = obj.FindMember("CreateAccount");
                 if (CreateAccount_member != obj.MemberEnd() && !CreateAccount_member->value.IsNull()) CreateAccount = CreateAccount_member->value.GetBool();
 
@@ -10342,13 +10914,15 @@ namespace PlayFab
             Aws::String KongregateId;
             Aws::String AuthTicket;
             OptionalBool CreateAccount;
+            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithKongregateRequest() :
                 PlayFabBaseModel(),
                 TitleId(),
                 KongregateId(),
                 AuthTicket(),
-                CreateAccount()
+                CreateAccount(),
+                InfoRequestParameters(nullptr)
             {}
 
             LoginWithKongregateRequest(const LoginWithKongregateRequest& src) :
@@ -10356,7 +10930,8 @@ namespace PlayFab
                 TitleId(src.TitleId),
                 KongregateId(src.KongregateId),
                 AuthTicket(src.AuthTicket),
-                CreateAccount(src.CreateAccount)
+                CreateAccount(src.CreateAccount),
+                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
             {}
 
             LoginWithKongregateRequest(const rapidjson::Value& obj) : LoginWithKongregateRequest()
@@ -10366,6 +10941,7 @@ namespace PlayFab
 
             ~LoginWithKongregateRequest()
             {
+                if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -10375,6 +10951,7 @@ namespace PlayFab
                 writer.String("KongregateId"); writer.String(KongregateId.c_str());
                 writer.String("AuthTicket"); writer.String(AuthTicket.c_str());
                 if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
+                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -10388,6 +10965,8 @@ namespace PlayFab
                 if (AuthTicket_member != obj.MemberEnd() && !AuthTicket_member->value.IsNull()) AuthTicket = AuthTicket_member->value.GetString();
                 const Value::ConstMemberIterator CreateAccount_member = obj.FindMember("CreateAccount");
                 if (CreateAccount_member != obj.MemberEnd() && !CreateAccount_member->value.IsNull()) CreateAccount = CreateAccount_member->value.GetBool();
+                const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
+                if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
 
                 return true;
             }
@@ -10398,19 +10977,22 @@ namespace PlayFab
             Aws::String TitleId;
             Aws::String Username;
             Aws::String Password;
+            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithPlayFabRequest() :
                 PlayFabBaseModel(),
                 TitleId(),
                 Username(),
-                Password()
+                Password(),
+                InfoRequestParameters(nullptr)
             {}
 
             LoginWithPlayFabRequest(const LoginWithPlayFabRequest& src) :
                 PlayFabBaseModel(),
                 TitleId(src.TitleId),
                 Username(src.Username),
-                Password(src.Password)
+                Password(src.Password),
+                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
             {}
 
             LoginWithPlayFabRequest(const rapidjson::Value& obj) : LoginWithPlayFabRequest()
@@ -10420,6 +11002,7 @@ namespace PlayFab
 
             ~LoginWithPlayFabRequest()
             {
+                if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -10428,6 +11011,7 @@ namespace PlayFab
                 writer.String("TitleId"); writer.String(TitleId.c_str());
                 writer.String("Username"); writer.String(Username.c_str());
                 writer.String("Password"); writer.String(Password.c_str());
+                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -10439,6 +11023,8 @@ namespace PlayFab
                 if (Username_member != obj.MemberEnd() && !Username_member->value.IsNull()) Username = Username_member->value.GetString();
                 const Value::ConstMemberIterator Password_member = obj.FindMember("Password");
                 if (Password_member != obj.MemberEnd() && !Password_member->value.IsNull()) Password = Password_member->value.GetString();
+                const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
+                if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
 
                 return true;
             }
@@ -10449,19 +11035,22 @@ namespace PlayFab
             Aws::String TitleId;
             Aws::String SteamTicket;
             OptionalBool CreateAccount;
+            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
 
             LoginWithSteamRequest() :
                 PlayFabBaseModel(),
                 TitleId(),
                 SteamTicket(),
-                CreateAccount()
+                CreateAccount(),
+                InfoRequestParameters(nullptr)
             {}
 
             LoginWithSteamRequest(const LoginWithSteamRequest& src) :
                 PlayFabBaseModel(),
                 TitleId(src.TitleId),
                 SteamTicket(src.SteamTicket),
-                CreateAccount(src.CreateAccount)
+                CreateAccount(src.CreateAccount),
+                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
             {}
 
             LoginWithSteamRequest(const rapidjson::Value& obj) : LoginWithSteamRequest()
@@ -10471,6 +11060,7 @@ namespace PlayFab
 
             ~LoginWithSteamRequest()
             {
+                if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -10479,6 +11069,7 @@ namespace PlayFab
                 writer.String("TitleId"); writer.String(TitleId.c_str());
                 writer.String("SteamTicket"); writer.String(SteamTicket.c_str());
                 if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
+                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -10490,6 +11081,8 @@ namespace PlayFab
                 if (SteamTicket_member != obj.MemberEnd() && !SteamTicket_member->value.IsNull()) SteamTicket = SteamTicket_member->value.GetString();
                 const Value::ConstMemberIterator CreateAccount_member = obj.FindMember("CreateAccount");
                 if (CreateAccount_member != obj.MemberEnd() && !CreateAccount_member->value.IsNull()) CreateAccount = CreateAccount_member->value.GetBool();
+                const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
+                if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
 
                 return true;
             }

@@ -83,6 +83,11 @@ void PlayFabClientApiWrapper::GetAccountInfo(ClientModels::GetAccountInfoRequest
     PlayFabClientApi::GetAccountInfo(request, callback, errorCallback, customData);
 }
 
+void PlayFabClientApiWrapper::GetPlayerCombinedInfo(ClientModels::GetPlayerCombinedInfoRequest& request, ProcessApiCallback<ClientModels::GetPlayerCombinedInfoResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::GetPlayerCombinedInfo(request, callback, errorCallback, customData);
+}
+
 void PlayFabClientApiWrapper::GetPlayFabIDsFromFacebookIDs(ClientModels::GetPlayFabIDsFromFacebookIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromFacebookIDsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::GetPlayFabIDsFromFacebookIDs(request, callback, errorCallback, customData);
