@@ -4054,6 +4054,51 @@ namespace PlayFab
             }
         };
 
+        struct UserTwitchInfo : public PlayFabBaseModel
+        {
+            Aws::String TwitchId;
+            Aws::String TwitchUserName;
+
+            UserTwitchInfo() :
+                PlayFabBaseModel(),
+                TwitchId(),
+                TwitchUserName()
+            {}
+
+            UserTwitchInfo(const UserTwitchInfo& src) :
+                PlayFabBaseModel(),
+                TwitchId(src.TwitchId),
+                TwitchUserName(src.TwitchUserName)
+            {}
+
+            UserTwitchInfo(const rapidjson::Value& obj) : UserTwitchInfo()
+            {
+                readFromValue(obj);
+            }
+
+            ~UserTwitchInfo()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (TwitchId.length() > 0) { writer.String("TwitchId"); writer.String(TwitchId.c_str()); }
+                if (TwitchUserName.length() > 0) { writer.String("TwitchUserName"); writer.String(TwitchUserName.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator TwitchId_member = obj.FindMember("TwitchId");
+                if (TwitchId_member != obj.MemberEnd() && !TwitchId_member->value.IsNull()) TwitchId = TwitchId_member->value.GetString();
+                const Value::ConstMemberIterator TwitchUserName_member = obj.FindMember("TwitchUserName");
+                if (TwitchUserName_member != obj.MemberEnd() && !TwitchUserName_member->value.IsNull()) TwitchUserName = TwitchUserName_member->value.GetString();
+
+                return true;
+            }
+        };
+
         struct UserPsnInfo : public PlayFabBaseModel
         {
             Aws::String PsnAccountId;
@@ -4247,6 +4292,7 @@ namespace PlayFab
             UserIosDeviceInfo* IosDeviceInfo;
             UserAndroidDeviceInfo* AndroidDeviceInfo;
             UserKongregateInfo* KongregateInfo;
+            UserTwitchInfo* TwitchInfo;
             UserPsnInfo* PsnInfo;
             UserGoogleInfo* GoogleInfo;
             UserXboxInfo* XboxInfo;
@@ -4265,6 +4311,7 @@ namespace PlayFab
                 IosDeviceInfo(nullptr),
                 AndroidDeviceInfo(nullptr),
                 KongregateInfo(nullptr),
+                TwitchInfo(nullptr),
                 PsnInfo(nullptr),
                 GoogleInfo(nullptr),
                 XboxInfo(nullptr),
@@ -4284,6 +4331,7 @@ namespace PlayFab
                 IosDeviceInfo(src.IosDeviceInfo ? new UserIosDeviceInfo(*src.IosDeviceInfo) : nullptr),
                 AndroidDeviceInfo(src.AndroidDeviceInfo ? new UserAndroidDeviceInfo(*src.AndroidDeviceInfo) : nullptr),
                 KongregateInfo(src.KongregateInfo ? new UserKongregateInfo(*src.KongregateInfo) : nullptr),
+                TwitchInfo(src.TwitchInfo ? new UserTwitchInfo(*src.TwitchInfo) : nullptr),
                 PsnInfo(src.PsnInfo ? new UserPsnInfo(*src.PsnInfo) : nullptr),
                 GoogleInfo(src.GoogleInfo ? new UserGoogleInfo(*src.GoogleInfo) : nullptr),
                 XboxInfo(src.XboxInfo ? new UserXboxInfo(*src.XboxInfo) : nullptr),
@@ -4305,6 +4353,7 @@ namespace PlayFab
                 if (IosDeviceInfo != nullptr) delete IosDeviceInfo;
                 if (AndroidDeviceInfo != nullptr) delete AndroidDeviceInfo;
                 if (KongregateInfo != nullptr) delete KongregateInfo;
+                if (TwitchInfo != nullptr) delete TwitchInfo;
                 if (PsnInfo != nullptr) delete PsnInfo;
                 if (GoogleInfo != nullptr) delete GoogleInfo;
                 if (XboxInfo != nullptr) delete XboxInfo;
@@ -4325,6 +4374,7 @@ namespace PlayFab
                 if (IosDeviceInfo != nullptr) { writer.String("IosDeviceInfo"); IosDeviceInfo->writeJSON(writer); }
                 if (AndroidDeviceInfo != nullptr) { writer.String("AndroidDeviceInfo"); AndroidDeviceInfo->writeJSON(writer); }
                 if (KongregateInfo != nullptr) { writer.String("KongregateInfo"); KongregateInfo->writeJSON(writer); }
+                if (TwitchInfo != nullptr) { writer.String("TwitchInfo"); TwitchInfo->writeJSON(writer); }
                 if (PsnInfo != nullptr) { writer.String("PsnInfo"); PsnInfo->writeJSON(writer); }
                 if (GoogleInfo != nullptr) { writer.String("GoogleInfo"); GoogleInfo->writeJSON(writer); }
                 if (XboxInfo != nullptr) { writer.String("XboxInfo"); XboxInfo->writeJSON(writer); }
@@ -4356,6 +4406,8 @@ namespace PlayFab
                 if (AndroidDeviceInfo_member != obj.MemberEnd() && !AndroidDeviceInfo_member->value.IsNull()) AndroidDeviceInfo = new UserAndroidDeviceInfo(AndroidDeviceInfo_member->value);
                 const Value::ConstMemberIterator KongregateInfo_member = obj.FindMember("KongregateInfo");
                 if (KongregateInfo_member != obj.MemberEnd() && !KongregateInfo_member->value.IsNull()) KongregateInfo = new UserKongregateInfo(KongregateInfo_member->value);
+                const Value::ConstMemberIterator TwitchInfo_member = obj.FindMember("TwitchInfo");
+                if (TwitchInfo_member != obj.MemberEnd() && !TwitchInfo_member->value.IsNull()) TwitchInfo = new UserTwitchInfo(TwitchInfo_member->value);
                 const Value::ConstMemberIterator PsnInfo_member = obj.FindMember("PsnInfo");
                 if (PsnInfo_member != obj.MemberEnd() && !PsnInfo_member->value.IsNull()) PsnInfo = new UserPsnInfo(PsnInfo_member->value);
                 const Value::ConstMemberIterator GoogleInfo_member = obj.FindMember("GoogleInfo");
@@ -7900,6 +7952,152 @@ namespace PlayFab
             }
         };
 
+        struct GetPlayFabIDsFromTwitchIDsRequest : public PlayFabBaseModel
+        {
+            std::list<Aws::String> TwitchIds;
+
+            GetPlayFabIDsFromTwitchIDsRequest() :
+                PlayFabBaseModel(),
+                TwitchIds()
+            {}
+
+            GetPlayFabIDsFromTwitchIDsRequest(const GetPlayFabIDsFromTwitchIDsRequest& src) :
+                PlayFabBaseModel(),
+                TwitchIds(src.TwitchIds)
+            {}
+
+            GetPlayFabIDsFromTwitchIDsRequest(const rapidjson::Value& obj) : GetPlayFabIDsFromTwitchIDsRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayFabIDsFromTwitchIDsRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("TwitchIds");
+    writer.StartArray();
+    for (std::list<Aws::String>::iterator iter = TwitchIds.begin(); iter != TwitchIds.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+    
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator TwitchIds_member = obj.FindMember("TwitchIds");
+    if (TwitchIds_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = TwitchIds_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            TwitchIds.push_back(memberList[i].GetString());
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct TwitchPlayFabIdPair : public PlayFabBaseModel
+        {
+            Aws::String TwitchId;
+            Aws::String PlayFabId;
+
+            TwitchPlayFabIdPair() :
+                PlayFabBaseModel(),
+                TwitchId(),
+                PlayFabId()
+            {}
+
+            TwitchPlayFabIdPair(const TwitchPlayFabIdPair& src) :
+                PlayFabBaseModel(),
+                TwitchId(src.TwitchId),
+                PlayFabId(src.PlayFabId)
+            {}
+
+            TwitchPlayFabIdPair(const rapidjson::Value& obj) : TwitchPlayFabIdPair()
+            {
+                readFromValue(obj);
+            }
+
+            ~TwitchPlayFabIdPair()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (TwitchId.length() > 0) { writer.String("TwitchId"); writer.String(TwitchId.c_str()); }
+                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator TwitchId_member = obj.FindMember("TwitchId");
+                if (TwitchId_member != obj.MemberEnd() && !TwitchId_member->value.IsNull()) TwitchId = TwitchId_member->value.GetString();
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct GetPlayFabIDsFromTwitchIDsResult : public PlayFabBaseModel
+        {
+            std::list<TwitchPlayFabIdPair> Data;
+
+            GetPlayFabIDsFromTwitchIDsResult() :
+                PlayFabBaseModel(),
+                Data()
+            {}
+
+            GetPlayFabIDsFromTwitchIDsResult(const GetPlayFabIDsFromTwitchIDsResult& src) :
+                PlayFabBaseModel(),
+                Data(src.Data)
+            {}
+
+            GetPlayFabIDsFromTwitchIDsResult(const rapidjson::Value& obj) : GetPlayFabIDsFromTwitchIDsResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayFabIDsFromTwitchIDsResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (!Data.empty()) {
+    writer.String("Data");
+    writer.StartArray();
+    for (std::list<TwitchPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
+    if (Data_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Data_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Data.push_back(TwitchPlayFabIdPair(memberList[i]));
+        }
+    }
+
+                return true;
+            }
+        };
+
         struct GetPublisherDataRequest : public PlayFabBaseModel
         {
             std::list<Aws::String> Keys;
@@ -10174,6 +10372,78 @@ namespace PlayFab
             }
         };
 
+        struct LinkTwitchAccountRequest : public PlayFabBaseModel
+        {
+            Aws::String AccessToken;
+
+            LinkTwitchAccountRequest() :
+                PlayFabBaseModel(),
+                AccessToken()
+            {}
+
+            LinkTwitchAccountRequest(const LinkTwitchAccountRequest& src) :
+                PlayFabBaseModel(),
+                AccessToken(src.AccessToken)
+            {}
+
+            LinkTwitchAccountRequest(const rapidjson::Value& obj) : LinkTwitchAccountRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~LinkTwitchAccountRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("AccessToken"); writer.String(AccessToken.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator AccessToken_member = obj.FindMember("AccessToken");
+                if (AccessToken_member != obj.MemberEnd() && !AccessToken_member->value.IsNull()) AccessToken = AccessToken_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct LinkTwitchAccountResult : public PlayFabBaseModel
+        {
+
+            LinkTwitchAccountResult() :
+                PlayFabBaseModel()
+            {}
+
+            LinkTwitchAccountResult(const LinkTwitchAccountResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            LinkTwitchAccountResult(const rapidjson::Value& obj) : LinkTwitchAccountResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~LinkTwitchAccountResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
         struct ListUsersCharactersRequest : public PlayFabBaseModel
         {
             Aws::String PlayFabId;
@@ -11082,6 +11352,64 @@ namespace PlayFab
                 if (TitleId_member != obj.MemberEnd() && !TitleId_member->value.IsNull()) TitleId = TitleId_member->value.GetString();
                 const Value::ConstMemberIterator SteamTicket_member = obj.FindMember("SteamTicket");
                 if (SteamTicket_member != obj.MemberEnd() && !SteamTicket_member->value.IsNull()) SteamTicket = SteamTicket_member->value.GetString();
+                const Value::ConstMemberIterator CreateAccount_member = obj.FindMember("CreateAccount");
+                if (CreateAccount_member != obj.MemberEnd() && !CreateAccount_member->value.IsNull()) CreateAccount = CreateAccount_member->value.GetBool();
+                const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
+                if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+
+                return true;
+            }
+        };
+
+        struct LoginWithTwitchRequest : public PlayFabBaseModel
+        {
+            Aws::String TitleId;
+            Aws::String AccessToken;
+            OptionalBool CreateAccount;
+            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+
+            LoginWithTwitchRequest() :
+                PlayFabBaseModel(),
+                TitleId(),
+                AccessToken(),
+                CreateAccount(),
+                InfoRequestParameters(nullptr)
+            {}
+
+            LoginWithTwitchRequest(const LoginWithTwitchRequest& src) :
+                PlayFabBaseModel(),
+                TitleId(src.TitleId),
+                AccessToken(src.AccessToken),
+                CreateAccount(src.CreateAccount),
+                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
+            {}
+
+            LoginWithTwitchRequest(const rapidjson::Value& obj) : LoginWithTwitchRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~LoginWithTwitchRequest()
+            {
+                if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("TitleId"); writer.String(TitleId.c_str());
+                writer.String("AccessToken"); writer.String(AccessToken.c_str());
+                if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
+                if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
+                if (TitleId_member != obj.MemberEnd() && !TitleId_member->value.IsNull()) TitleId = TitleId_member->value.GetString();
+                const Value::ConstMemberIterator AccessToken_member = obj.FindMember("AccessToken");
+                if (AccessToken_member != obj.MemberEnd() && !AccessToken_member->value.IsNull()) AccessToken = AccessToken_member->value.GetString();
                 const Value::ConstMemberIterator CreateAccount_member = obj.FindMember("CreateAccount");
                 if (CreateAccount_member != obj.MemberEnd() && !CreateAccount_member->value.IsNull()) CreateAccount = CreateAccount_member->value.GetBool();
                 const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
@@ -13758,6 +14086,72 @@ namespace PlayFab
             }
 
             ~UnlinkSteamAccountResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
+        struct UnlinkTwitchAccountRequest : public PlayFabBaseModel
+        {
+
+            UnlinkTwitchAccountRequest() :
+                PlayFabBaseModel()
+            {}
+
+            UnlinkTwitchAccountRequest(const UnlinkTwitchAccountRequest& src) :
+                PlayFabBaseModel()
+            {}
+
+            UnlinkTwitchAccountRequest(const rapidjson::Value& obj) : UnlinkTwitchAccountRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~UnlinkTwitchAccountRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
+        struct UnlinkTwitchAccountResult : public PlayFabBaseModel
+        {
+
+            UnlinkTwitchAccountResult() :
+                PlayFabBaseModel()
+            {}
+
+            UnlinkTwitchAccountResult(const UnlinkTwitchAccountResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            UnlinkTwitchAccountResult(const rapidjson::Value& obj) : UnlinkTwitchAccountResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~UnlinkTwitchAccountResult()
             {
             }
 

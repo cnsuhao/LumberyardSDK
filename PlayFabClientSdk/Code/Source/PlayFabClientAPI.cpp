@@ -411,6 +411,41 @@ void PlayFabClientApi::OnLoginWithSteamResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabClientApi::LoginWithTwitch(
+    LoginWithTwitchRequest& request,
+    ProcessApiCallback<LoginResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+    if (PlayFabSettings::playFabSettings.titleId.length() > 0)
+        request.TitleId = PlayFabSettings::playFabSettings.titleId;
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LoginWithTwitch"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithTwitchResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnLoginWithTwitchResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        LoginResult* outResult = new LoginResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+        if (outResult->SessionTicket.length() > 0)
+            PlayFabClientApi::mUserSessionTicket = outResult->SessionTicket;
+        MultiStepClientLogin(outResult->SettingsForUser->NeedsAttribution);
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabClientApi::RegisterPlayFabUser(
     RegisterPlayFabUserRequest& request,
     ProcessApiCallback<RegisterPlayFabUserResult> callback,
@@ -686,6 +721,36 @@ void PlayFabClientApi::OnGetPlayFabIDsFromSteamIDsResult(PlayFabRequest* request
     }
 }
 
+void PlayFabClientApi::GetPlayFabIDsFromTwitchIDs(
+    GetPlayFabIDsFromTwitchIDsRequest& request,
+    ProcessApiCallback<GetPlayFabIDsFromTwitchIDsResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromTwitchIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromTwitchIDsResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnGetPlayFabIDsFromTwitchIDsResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        GetPlayFabIDsFromTwitchIDsResult* outResult = new GetPlayFabIDsFromTwitchIDsResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<GetPlayFabIDsFromTwitchIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayFabIDsFromTwitchIDsResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabClientApi::GetUserCombinedInfo(
     GetUserCombinedInfoRequest& request,
     ProcessApiCallback<GetUserCombinedInfoResult> callback,
@@ -949,6 +1014,36 @@ void PlayFabClientApi::OnLinkSteamAccountResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<LinkSteamAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<LinkSteamAccountResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabClientApi::LinkTwitch(
+    LinkTwitchAccountRequest& request,
+    ProcessApiCallback<LinkTwitchAccountResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkTwitch"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkTwitchResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnLinkTwitchResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        LinkTwitchAccountResult* outResult = new LinkTwitchAccountResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<LinkTwitchAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<LinkTwitchAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1249,6 +1344,36 @@ void PlayFabClientApi::OnUnlinkSteamAccountResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<UnlinkSteamAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<UnlinkSteamAccountResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabClientApi::UnlinkTwitch(
+
+    ProcessApiCallback<UnlinkTwitchAccountResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkTwitch"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnUnlinkTwitchResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnUnlinkTwitchResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        UnlinkTwitchAccountResult* outResult = new UnlinkTwitchAccountResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<UnlinkTwitchAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<UnlinkTwitchAccountResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;

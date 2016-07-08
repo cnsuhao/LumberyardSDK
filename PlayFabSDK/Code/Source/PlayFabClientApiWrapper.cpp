@@ -68,6 +68,11 @@ void PlayFabClientApiWrapper::LoginWithSteam(ClientModels::LoginWithSteamRequest
     PlayFabClientApi::LoginWithSteam(request, callback, errorCallback, customData);
 }
 
+void PlayFabClientApiWrapper::LoginWithTwitch(ClientModels::LoginWithTwitchRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::LoginWithTwitch(request, callback, errorCallback, customData);
+}
+
 void PlayFabClientApiWrapper::RegisterPlayFabUser(ClientModels::RegisterPlayFabUserRequest& request, ProcessApiCallback<ClientModels::RegisterPlayFabUserResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::RegisterPlayFabUser(request, callback, errorCallback, customData);
@@ -113,6 +118,11 @@ void PlayFabClientApiWrapper::GetPlayFabIDsFromSteamIDs(ClientModels::GetPlayFab
     PlayFabClientApi::GetPlayFabIDsFromSteamIDs(request, callback, errorCallback, customData);
 }
 
+void PlayFabClientApiWrapper::GetPlayFabIDsFromTwitchIDs(ClientModels::GetPlayFabIDsFromTwitchIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromTwitchIDsResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::GetPlayFabIDsFromTwitchIDs(request, callback, errorCallback, customData);
+}
+
 void PlayFabClientApiWrapper::GetUserCombinedInfo(ClientModels::GetUserCombinedInfoRequest& request, ProcessApiCallback<ClientModels::GetUserCombinedInfoResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::GetUserCombinedInfo(request, callback, errorCallback, customData);
@@ -156,6 +166,11 @@ void PlayFabClientApiWrapper::LinkKongregate(ClientModels::LinkKongregateAccount
 void PlayFabClientApiWrapper::LinkSteamAccount(ClientModels::LinkSteamAccountRequest& request, ProcessApiCallback<ClientModels::LinkSteamAccountResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::LinkSteamAccount(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::LinkTwitch(ClientModels::LinkTwitchAccountRequest& request, ProcessApiCallback<ClientModels::LinkTwitchAccountResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::LinkTwitch(request, callback, errorCallback, customData);
 }
 
 void PlayFabClientApiWrapper::ReportPlayer(ClientModels::ReportPlayerClientRequest& request, ProcessApiCallback<ClientModels::ReportPlayerClientResult> callback, ErrorCallback errorCallback, void* customData)
@@ -206,6 +221,11 @@ void PlayFabClientApiWrapper::UnlinkKongregate(ProcessApiCallback<ClientModels::
 void PlayFabClientApiWrapper::UnlinkSteamAccount(ProcessApiCallback<ClientModels::UnlinkSteamAccountResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::UnlinkSteamAccount(callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::UnlinkTwitch(ProcessApiCallback<ClientModels::UnlinkTwitchAccountResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::UnlinkTwitch(callback, errorCallback, customData);
 }
 
 void PlayFabClientApiWrapper::UpdateUserTitleDisplayName(ClientModels::UpdateUserTitleDisplayNameRequest& request, ProcessApiCallback<ClientModels::UpdateUserTitleDisplayNameResult> callback, ErrorCallback errorCallback, void* customData)

@@ -5645,6 +5645,51 @@ namespace PlayFab
             }
         };
 
+        struct UserTwitchInfo : public PlayFabBaseModel
+        {
+            Aws::String TwitchId;
+            Aws::String TwitchUserName;
+
+            UserTwitchInfo() :
+                PlayFabBaseModel(),
+                TwitchId(),
+                TwitchUserName()
+            {}
+
+            UserTwitchInfo(const UserTwitchInfo& src) :
+                PlayFabBaseModel(),
+                TwitchId(src.TwitchId),
+                TwitchUserName(src.TwitchUserName)
+            {}
+
+            UserTwitchInfo(const rapidjson::Value& obj) : UserTwitchInfo()
+            {
+                readFromValue(obj);
+            }
+
+            ~UserTwitchInfo()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (TwitchId.length() > 0) { writer.String("TwitchId"); writer.String(TwitchId.c_str()); }
+                if (TwitchUserName.length() > 0) { writer.String("TwitchUserName"); writer.String(TwitchUserName.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator TwitchId_member = obj.FindMember("TwitchId");
+                if (TwitchId_member != obj.MemberEnd() && !TwitchId_member->value.IsNull()) TwitchId = TwitchId_member->value.GetString();
+                const Value::ConstMemberIterator TwitchUserName_member = obj.FindMember("TwitchUserName");
+                if (TwitchUserName_member != obj.MemberEnd() && !TwitchUserName_member->value.IsNull()) TwitchUserName = TwitchUserName_member->value.GetString();
+
+                return true;
+            }
+        };
+
         struct UserPsnInfo : public PlayFabBaseModel
         {
             Aws::String PsnAccountId;
@@ -5838,6 +5883,7 @@ namespace PlayFab
             UserIosDeviceInfo* IosDeviceInfo;
             UserAndroidDeviceInfo* AndroidDeviceInfo;
             UserKongregateInfo* KongregateInfo;
+            UserTwitchInfo* TwitchInfo;
             UserPsnInfo* PsnInfo;
             UserGoogleInfo* GoogleInfo;
             UserXboxInfo* XboxInfo;
@@ -5856,6 +5902,7 @@ namespace PlayFab
                 IosDeviceInfo(nullptr),
                 AndroidDeviceInfo(nullptr),
                 KongregateInfo(nullptr),
+                TwitchInfo(nullptr),
                 PsnInfo(nullptr),
                 GoogleInfo(nullptr),
                 XboxInfo(nullptr),
@@ -5875,6 +5922,7 @@ namespace PlayFab
                 IosDeviceInfo(src.IosDeviceInfo ? new UserIosDeviceInfo(*src.IosDeviceInfo) : nullptr),
                 AndroidDeviceInfo(src.AndroidDeviceInfo ? new UserAndroidDeviceInfo(*src.AndroidDeviceInfo) : nullptr),
                 KongregateInfo(src.KongregateInfo ? new UserKongregateInfo(*src.KongregateInfo) : nullptr),
+                TwitchInfo(src.TwitchInfo ? new UserTwitchInfo(*src.TwitchInfo) : nullptr),
                 PsnInfo(src.PsnInfo ? new UserPsnInfo(*src.PsnInfo) : nullptr),
                 GoogleInfo(src.GoogleInfo ? new UserGoogleInfo(*src.GoogleInfo) : nullptr),
                 XboxInfo(src.XboxInfo ? new UserXboxInfo(*src.XboxInfo) : nullptr),
@@ -5896,6 +5944,7 @@ namespace PlayFab
                 if (IosDeviceInfo != nullptr) delete IosDeviceInfo;
                 if (AndroidDeviceInfo != nullptr) delete AndroidDeviceInfo;
                 if (KongregateInfo != nullptr) delete KongregateInfo;
+                if (TwitchInfo != nullptr) delete TwitchInfo;
                 if (PsnInfo != nullptr) delete PsnInfo;
                 if (GoogleInfo != nullptr) delete GoogleInfo;
                 if (XboxInfo != nullptr) delete XboxInfo;
@@ -5916,6 +5965,7 @@ namespace PlayFab
                 if (IosDeviceInfo != nullptr) { writer.String("IosDeviceInfo"); IosDeviceInfo->writeJSON(writer); }
                 if (AndroidDeviceInfo != nullptr) { writer.String("AndroidDeviceInfo"); AndroidDeviceInfo->writeJSON(writer); }
                 if (KongregateInfo != nullptr) { writer.String("KongregateInfo"); KongregateInfo->writeJSON(writer); }
+                if (TwitchInfo != nullptr) { writer.String("TwitchInfo"); TwitchInfo->writeJSON(writer); }
                 if (PsnInfo != nullptr) { writer.String("PsnInfo"); PsnInfo->writeJSON(writer); }
                 if (GoogleInfo != nullptr) { writer.String("GoogleInfo"); GoogleInfo->writeJSON(writer); }
                 if (XboxInfo != nullptr) { writer.String("XboxInfo"); XboxInfo->writeJSON(writer); }
@@ -5947,6 +5997,8 @@ namespace PlayFab
                 if (AndroidDeviceInfo_member != obj.MemberEnd() && !AndroidDeviceInfo_member->value.IsNull()) AndroidDeviceInfo = new UserAndroidDeviceInfo(AndroidDeviceInfo_member->value);
                 const Value::ConstMemberIterator KongregateInfo_member = obj.FindMember("KongregateInfo");
                 if (KongregateInfo_member != obj.MemberEnd() && !KongregateInfo_member->value.IsNull()) KongregateInfo = new UserKongregateInfo(KongregateInfo_member->value);
+                const Value::ConstMemberIterator TwitchInfo_member = obj.FindMember("TwitchInfo");
+                if (TwitchInfo_member != obj.MemberEnd() && !TwitchInfo_member->value.IsNull()) TwitchInfo = new UserTwitchInfo(TwitchInfo_member->value);
                 const Value::ConstMemberIterator PsnInfo_member = obj.FindMember("PsnInfo");
                 if (PsnInfo_member != obj.MemberEnd() && !PsnInfo_member->value.IsNull()) PsnInfo = new UserPsnInfo(PsnInfo_member->value);
                 const Value::ConstMemberIterator GoogleInfo_member = obj.FindMember("GoogleInfo");

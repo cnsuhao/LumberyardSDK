@@ -25,6 +25,7 @@ namespace PlayFab
         static void LoginWithKongregate(ClientModels::LoginWithKongregateRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void LoginWithPlayFab(ClientModels::LoginWithPlayFabRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void LoginWithSteam(ClientModels::LoginWithSteamRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void LoginWithTwitch(ClientModels::LoginWithTwitchRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void RegisterPlayFabUser(ClientModels::RegisterPlayFabUserRequest& request, ProcessApiCallback<ClientModels::RegisterPlayFabUserResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void AddUsernamePassword(ClientModels::AddUsernamePasswordRequest& request, ProcessApiCallback<ClientModels::AddUsernamePasswordResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetAccountInfo(ClientModels::GetAccountInfoRequest& request, ProcessApiCallback<ClientModels::GetAccountInfoResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -34,6 +35,7 @@ namespace PlayFab
         static void GetPlayFabIDsFromGoogleIDs(ClientModels::GetPlayFabIDsFromGoogleIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromGoogleIDsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPlayFabIDsFromKongregateIDs(ClientModels::GetPlayFabIDsFromKongregateIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromKongregateIDsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPlayFabIDsFromSteamIDs(ClientModels::GetPlayFabIDsFromSteamIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromSteamIDsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void GetPlayFabIDsFromTwitchIDs(ClientModels::GetPlayFabIDsFromTwitchIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromTwitchIDsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetUserCombinedInfo(ClientModels::GetUserCombinedInfoRequest& request, ProcessApiCallback<ClientModels::GetUserCombinedInfoResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void LinkAndroidDeviceID(ClientModels::LinkAndroidDeviceIDRequest& request, ProcessApiCallback<ClientModels::LinkAndroidDeviceIDResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void LinkCustomID(ClientModels::LinkCustomIDRequest& request, ProcessApiCallback<ClientModels::LinkCustomIDResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -43,6 +45,7 @@ namespace PlayFab
         static void LinkIOSDeviceID(ClientModels::LinkIOSDeviceIDRequest& request, ProcessApiCallback<ClientModels::LinkIOSDeviceIDResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void LinkKongregate(ClientModels::LinkKongregateAccountRequest& request, ProcessApiCallback<ClientModels::LinkKongregateAccountResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void LinkSteamAccount(ClientModels::LinkSteamAccountRequest& request, ProcessApiCallback<ClientModels::LinkSteamAccountResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void LinkTwitch(ClientModels::LinkTwitchAccountRequest& request, ProcessApiCallback<ClientModels::LinkTwitchAccountResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void ReportPlayer(ClientModels::ReportPlayerClientRequest& request, ProcessApiCallback<ClientModels::ReportPlayerClientResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void SendAccountRecoveryEmail(ClientModels::SendAccountRecoveryEmailRequest& request, ProcessApiCallback<ClientModels::SendAccountRecoveryEmailResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void UnlinkAndroidDeviceID(ClientModels::UnlinkAndroidDeviceIDRequest& request, ProcessApiCallback<ClientModels::UnlinkAndroidDeviceIDResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -53,6 +56,7 @@ namespace PlayFab
         static void UnlinkIOSDeviceID(ClientModels::UnlinkIOSDeviceIDRequest& request, ProcessApiCallback<ClientModels::UnlinkIOSDeviceIDResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void UnlinkKongregate(ProcessApiCallback<ClientModels::UnlinkKongregateAccountResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void UnlinkSteamAccount(ProcessApiCallback<ClientModels::UnlinkSteamAccountResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void UnlinkTwitch(ProcessApiCallback<ClientModels::UnlinkTwitchAccountResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void UpdateUserTitleDisplayName(ClientModels::UpdateUserTitleDisplayNameRequest& request, ProcessApiCallback<ClientModels::UpdateUserTitleDisplayNameResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetFriendLeaderboard(ClientModels::GetFriendLeaderboardRequest& request, ProcessApiCallback<ClientModels::GetLeaderboardResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetFriendLeaderboardAroundCurrentUser(ClientModels::GetFriendLeaderboardAroundCurrentUserRequest& request, ProcessApiCallback<ClientModels::GetFriendLeaderboardAroundCurrentUserResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -149,6 +153,7 @@ namespace PlayFab
         static void OnLoginWithKongregateResult(PlayFabRequest* request);
         static void OnLoginWithPlayFabResult(PlayFabRequest* request);
         static void OnLoginWithSteamResult(PlayFabRequest* request);
+        static void OnLoginWithTwitchResult(PlayFabRequest* request);
         static void OnRegisterPlayFabUserResult(PlayFabRequest* request);
         static void OnAddUsernamePasswordResult(PlayFabRequest* request);
         static void OnGetAccountInfoResult(PlayFabRequest* request);
@@ -158,6 +163,7 @@ namespace PlayFab
         static void OnGetPlayFabIDsFromGoogleIDsResult(PlayFabRequest* request);
         static void OnGetPlayFabIDsFromKongregateIDsResult(PlayFabRequest* request);
         static void OnGetPlayFabIDsFromSteamIDsResult(PlayFabRequest* request);
+        static void OnGetPlayFabIDsFromTwitchIDsResult(PlayFabRequest* request);
         static void OnGetUserCombinedInfoResult(PlayFabRequest* request);
         static void OnLinkAndroidDeviceIDResult(PlayFabRequest* request);
         static void OnLinkCustomIDResult(PlayFabRequest* request);
@@ -167,6 +173,7 @@ namespace PlayFab
         static void OnLinkIOSDeviceIDResult(PlayFabRequest* request);
         static void OnLinkKongregateResult(PlayFabRequest* request);
         static void OnLinkSteamAccountResult(PlayFabRequest* request);
+        static void OnLinkTwitchResult(PlayFabRequest* request);
         static void OnReportPlayerResult(PlayFabRequest* request);
         static void OnSendAccountRecoveryEmailResult(PlayFabRequest* request);
         static void OnUnlinkAndroidDeviceIDResult(PlayFabRequest* request);
@@ -177,6 +184,7 @@ namespace PlayFab
         static void OnUnlinkIOSDeviceIDResult(PlayFabRequest* request);
         static void OnUnlinkKongregateResult(PlayFabRequest* request);
         static void OnUnlinkSteamAccountResult(PlayFabRequest* request);
+        static void OnUnlinkTwitchResult(PlayFabRequest* request);
         static void OnUpdateUserTitleDisplayNameResult(PlayFabRequest* request);
         static void OnGetFriendLeaderboardResult(PlayFabRequest* request);
         static void OnGetFriendLeaderboardAroundCurrentUserResult(PlayFabRequest* request);
