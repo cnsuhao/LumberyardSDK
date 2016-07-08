@@ -5168,7 +5168,8 @@ namespace PlayFab
             UserOriginationGameCenter,
             UserOriginationCustomId,
             UserOriginationXboxLive,
-            UserOriginationParse
+            UserOriginationParse,
+            UserOriginationTwitch
         };
 
         inline void writeUserOriginationEnumJSON(UserOrigination enumVal, PFStringJsonWriter& writer)
@@ -5191,6 +5192,7 @@ namespace PlayFab
             case UserOriginationCustomId: writer.String("CustomId"); break;
             case UserOriginationXboxLive: writer.String("XboxLive"); break;
             case UserOriginationParse: writer.String("Parse"); break;
+            case UserOriginationTwitch: writer.String("Twitch"); break;
 
             }
         }
@@ -5217,6 +5219,7 @@ namespace PlayFab
                 _UserOriginationMap["CustomId"] = UserOriginationCustomId;
                 _UserOriginationMap["XboxLive"] = UserOriginationXboxLive;
                 _UserOriginationMap["Parse"] = UserOriginationParse;
+                _UserOriginationMap["Twitch"] = UserOriginationTwitch;
 
             }
 
