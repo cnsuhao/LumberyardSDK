@@ -6900,13 +6900,17 @@ namespace PlayFab
             Aws::String ItemId;
             Aws::String Annotation;
             Aws::String CharacterId;
+            std::map<Aws::String, Aws::String> Data;
+            std::list<Aws::String> KeysToRemove;
 
             ItemGrant() :
                 PlayFabBaseModel(),
                 PlayFabId(),
                 ItemId(),
                 Annotation(),
-                CharacterId()
+                CharacterId(),
+                Data(),
+                KeysToRemove()
             {}
 
             ItemGrant(const ItemGrant& src) :
@@ -6914,7 +6918,9 @@ namespace PlayFab
                 PlayFabId(src.PlayFabId),
                 ItemId(src.ItemId),
                 Annotation(src.Annotation),
-                CharacterId(src.CharacterId)
+                CharacterId(src.CharacterId),
+                Data(src.Data),
+                KeysToRemove(src.KeysToRemove)
             {}
 
             ItemGrant(const rapidjson::Value& obj) : ItemGrant()
@@ -6933,6 +6939,22 @@ namespace PlayFab
                 writer.String("ItemId"); writer.String(ItemId.c_str());
                 if (Annotation.length() > 0) { writer.String("Annotation"); writer.String(Annotation.c_str()); }
                 if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
+                if (!Data.empty()) {
+    writer.String("Data");
+    writer.StartObject();
+    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+    }
+    writer.EndObject();
+     }
+                if (!KeysToRemove.empty()) {
+    writer.String("KeysToRemove");
+    writer.StartArray();
+    for (std::list<Aws::String>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+     }
                 writer.EndObject();
             }
 
@@ -6946,6 +6968,19 @@ namespace PlayFab
                 if (Annotation_member != obj.MemberEnd() && !Annotation_member->value.IsNull()) Annotation = Annotation_member->value.GetString();
                 const Value::ConstMemberIterator CharacterId_member = obj.FindMember("CharacterId");
                 if (CharacterId_member != obj.MemberEnd() && !CharacterId_member->value.IsNull()) CharacterId = CharacterId_member->value.GetString();
+                const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
+    if (Data_member != obj.MemberEnd()) {
+        for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
+            Data[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+                const Value::ConstMemberIterator KeysToRemove_member = obj.FindMember("KeysToRemove");
+    if (KeysToRemove_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = KeysToRemove_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            KeysToRemove.push_back(memberList[i].GetString());
+        }
+    }
 
                 return true;
             }
