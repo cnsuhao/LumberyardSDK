@@ -2,6 +2,10 @@ PlayFab Amazon Lumberyard SDK README
 ========
 Welcome to the PlayFab Amazon Lumberyard SDK.
 
+Built for Amazon Lumberyard 1.3 Beta
+
+Lumberyard is still in beta, and we have experienced some build issues with version 1.3.  As such, this repo is provided as-is, and may include errors.  If you experience issues with Lumberyard, please contact Lumberyard support.  If you find specific errors in our SDK, feel free to submit a pull request which resolves the issue.
+
 
 1. Overview:
 ----
