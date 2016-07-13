@@ -1,11 +1,11 @@
 #include "StdAfx.h"
 
-#include <FlowSystem/Nodes/FlowBaseNode.h>
 #include <platform_impl.h> // Resharper says this is unused, but it's still required in some less direct way
 
+#include "PlayFabSdkGem.h"
+#include <FlowSystem/Nodes/FlowBaseNode.h>
 
 #include "PlayFabHttp.h"
-#include "PlayFabSdkGem.h"
 #include "PlayFabClientApiWrapper.h"
 
 using namespace PlayFab;
