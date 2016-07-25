@@ -1768,6 +1768,125 @@ namespace PlayFab
             return CloudScriptRevisionOptionLive; // Basically critical fail
         }
 
+        struct Container_Dictionary_String_String : public PlayFabBaseModel
+        {
+            std::map<Aws::String, Aws::String> Data;
+
+            Container_Dictionary_String_String() :
+                PlayFabBaseModel(),
+                Data()
+            {}
+
+            Container_Dictionary_String_String(const Container_Dictionary_String_String& src) :
+                PlayFabBaseModel(),
+                Data(src.Data)
+            {}
+
+            Container_Dictionary_String_String(const rapidjson::Value& obj) : Container_Dictionary_String_String()
+            {
+                readFromValue(obj);
+            }
+
+            ~Container_Dictionary_String_String()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (!Data.empty()) {
+    writer.String("Data");
+    writer.StartObject();
+    for (std::map<Aws::String, Aws::String>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+    }
+    writer.EndObject();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
+    if (Data_member != obj.MemberEnd()) {
+        for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
+            Data[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct CollectionFilter : public PlayFabBaseModel
+        {
+            std::list<Container_Dictionary_String_String> Includes;
+            std::list<Container_Dictionary_String_String> Excludes;
+
+            CollectionFilter() :
+                PlayFabBaseModel(),
+                Includes(),
+                Excludes()
+            {}
+
+            CollectionFilter(const CollectionFilter& src) :
+                PlayFabBaseModel(),
+                Includes(src.Includes),
+                Excludes(src.Excludes)
+            {}
+
+            CollectionFilter(const rapidjson::Value& obj) : CollectionFilter()
+            {
+                readFromValue(obj);
+            }
+
+            ~CollectionFilter()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (!Includes.empty()) {
+    writer.String("Includes");
+    writer.StartArray();
+    for (std::list<Container_Dictionary_String_String>::iterator iter = Includes.begin(); iter != Includes.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                if (!Excludes.empty()) {
+    writer.String("Excludes");
+    writer.StartArray();
+    for (std::list<Container_Dictionary_String_String>::iterator iter = Excludes.begin(); iter != Excludes.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Includes_member = obj.FindMember("Includes");
+    if (Includes_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Includes_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Includes.push_back(Container_Dictionary_String_String(memberList[i]));
+        }
+    }
+                const Value::ConstMemberIterator Excludes_member = obj.FindMember("Excludes");
+    if (Excludes_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Excludes_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Excludes.push_back(Container_Dictionary_String_String(memberList[i]));
+        }
+    }
+
+                return true;
+            }
+        };
+
         struct ConfirmPurchaseRequest : public PlayFabBaseModel
         {
             Aws::String OrderId;
@@ -2613,13 +2732,15 @@ namespace PlayFab
             Aws::String BuildVersion;
             Aws::String GameMode;
             Aws::String StatisticName;
+            CollectionFilter* TagFilter;
 
             CurrentGamesRequest() :
                 PlayFabBaseModel(),
                 pfRegion(),
                 BuildVersion(),
                 GameMode(),
-                StatisticName()
+                StatisticName(),
+                TagFilter(nullptr)
             {}
 
             CurrentGamesRequest(const CurrentGamesRequest& src) :
@@ -2627,7 +2748,8 @@ namespace PlayFab
                 pfRegion(src.pfRegion),
                 BuildVersion(src.BuildVersion),
                 GameMode(src.GameMode),
-                StatisticName(src.StatisticName)
+                StatisticName(src.StatisticName),
+                TagFilter(src.TagFilter ? new CollectionFilter(*src.TagFilter) : nullptr)
             {}
 
             CurrentGamesRequest(const rapidjson::Value& obj) : CurrentGamesRequest()
@@ -2637,6 +2759,7 @@ namespace PlayFab
 
             ~CurrentGamesRequest()
             {
+                if (TagFilter != nullptr) delete TagFilter;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -2646,6 +2769,7 @@ namespace PlayFab
                 if (BuildVersion.length() > 0) { writer.String("BuildVersion"); writer.String(BuildVersion.c_str()); }
                 if (GameMode.length() > 0) { writer.String("GameMode"); writer.String(GameMode.c_str()); }
                 if (StatisticName.length() > 0) { writer.String("StatisticName"); writer.String(StatisticName.c_str()); }
+                if (TagFilter != nullptr) { writer.String("TagFilter"); TagFilter->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -2659,6 +2783,8 @@ namespace PlayFab
                 if (GameMode_member != obj.MemberEnd() && !GameMode_member->value.IsNull()) GameMode = GameMode_member->value.GetString();
                 const Value::ConstMemberIterator StatisticName_member = obj.FindMember("StatisticName");
                 if (StatisticName_member != obj.MemberEnd() && !StatisticName_member->value.IsNull()) StatisticName = StatisticName_member->value.GetString();
+                const Value::ConstMemberIterator TagFilter_member = obj.FindMember("TagFilter");
+                if (TagFilter_member != obj.MemberEnd() && !TagFilter_member->value.IsNull()) TagFilter = new CollectionFilter(TagFilter_member->value);
 
                 return true;
             }
@@ -2710,6 +2836,8 @@ namespace PlayFab
             Uint32 RunTime;
             Boxed<GameInstanceState> GameServerState;
             Aws::String GameServerData;
+            std::map<Aws::String, Aws::String> Tags;
+            OptionalTime LastHeartbeat;
 
             GameInfo() :
                 PlayFabBaseModel(),
@@ -2722,7 +2850,9 @@ namespace PlayFab
                 PlayerUserIds(),
                 RunTime(0),
                 GameServerState(),
-                GameServerData()
+                GameServerData(),
+                Tags(),
+                LastHeartbeat()
             {}
 
             GameInfo(const GameInfo& src) :
@@ -2736,7 +2866,9 @@ namespace PlayFab
                 PlayerUserIds(src.PlayerUserIds),
                 RunTime(src.RunTime),
                 GameServerState(src.GameServerState),
-                GameServerData(src.GameServerData)
+                GameServerData(src.GameServerData),
+                Tags(src.Tags),
+                LastHeartbeat(src.LastHeartbeat)
             {}
 
             GameInfo(const rapidjson::Value& obj) : GameInfo()
@@ -2768,6 +2900,15 @@ namespace PlayFab
                 writer.String("RunTime"); writer.Uint(RunTime);
                 if (GameServerState.notNull()) { writer.String("GameServerState"); writeGameInstanceStateEnumJSON(GameServerState, writer); }
                 if (GameServerData.length() > 0) { writer.String("GameServerData"); writer.String(GameServerData.c_str()); }
+                if (!Tags.empty()) {
+    writer.String("Tags");
+    writer.StartObject();
+    for (std::map<Aws::String, Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+    }
+    writer.EndObject();
+     }
+                if (LastHeartbeat.notNull()) { writer.String("LastHeartbeat"); writeDatetime(LastHeartbeat, writer); }
                 writer.EndObject();
             }
 
@@ -2798,6 +2939,14 @@ namespace PlayFab
                 if (GameServerState_member != obj.MemberEnd() && !GameServerState_member->value.IsNull()) GameServerState = readGameInstanceStateFromValue(GameServerState_member->value);
                 const Value::ConstMemberIterator GameServerData_member = obj.FindMember("GameServerData");
                 if (GameServerData_member != obj.MemberEnd() && !GameServerData_member->value.IsNull()) GameServerData = GameServerData_member->value.GetString();
+                const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
+    if (Tags_member != obj.MemberEnd()) {
+        for (Value::ConstMemberIterator iter = Tags_member->value.MemberBegin(); iter != Tags_member->value.MemberEnd(); ++iter) {
+            Tags[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+                const Value::ConstMemberIterator LastHeartbeat_member = obj.FindMember("LastHeartbeat");
+                if (LastHeartbeat_member != obj.MemberEnd() && !LastHeartbeat_member->value.IsNull()) LastHeartbeat = readDatetime(LastHeartbeat_member->value);
 
                 return true;
             }
@@ -11428,6 +11577,7 @@ namespace PlayFab
             Aws::String StatisticName;
             Aws::String CharacterId;
             OptionalBool StartNewIfNoneFound;
+            CollectionFilter* TagFilter;
             OptionalBool EnableQueue;
 
             MatchmakeRequest() :
@@ -11439,6 +11589,7 @@ namespace PlayFab
                 StatisticName(),
                 CharacterId(),
                 StartNewIfNoneFound(),
+                TagFilter(nullptr),
                 EnableQueue()
             {}
 
@@ -11451,6 +11602,7 @@ namespace PlayFab
                 StatisticName(src.StatisticName),
                 CharacterId(src.CharacterId),
                 StartNewIfNoneFound(src.StartNewIfNoneFound),
+                TagFilter(src.TagFilter ? new CollectionFilter(*src.TagFilter) : nullptr),
                 EnableQueue(src.EnableQueue)
             {}
 
@@ -11461,6 +11613,7 @@ namespace PlayFab
 
             ~MatchmakeRequest()
             {
+                if (TagFilter != nullptr) delete TagFilter;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -11473,6 +11626,7 @@ namespace PlayFab
                 if (StatisticName.length() > 0) { writer.String("StatisticName"); writer.String(StatisticName.c_str()); }
                 if (CharacterId.length() > 0) { writer.String("CharacterId"); writer.String(CharacterId.c_str()); }
                 if (StartNewIfNoneFound.notNull()) { writer.String("StartNewIfNoneFound"); writer.Bool(StartNewIfNoneFound); }
+                if (TagFilter != nullptr) { writer.String("TagFilter"); TagFilter->writeJSON(writer); }
                 if (EnableQueue.notNull()) { writer.String("EnableQueue"); writer.Bool(EnableQueue); }
                 writer.EndObject();
             }
@@ -11493,6 +11647,8 @@ namespace PlayFab
                 if (CharacterId_member != obj.MemberEnd() && !CharacterId_member->value.IsNull()) CharacterId = CharacterId_member->value.GetString();
                 const Value::ConstMemberIterator StartNewIfNoneFound_member = obj.FindMember("StartNewIfNoneFound");
                 if (StartNewIfNoneFound_member != obj.MemberEnd() && !StartNewIfNoneFound_member->value.IsNull()) StartNewIfNoneFound = StartNewIfNoneFound_member->value.GetBool();
+                const Value::ConstMemberIterator TagFilter_member = obj.FindMember("TagFilter");
+                if (TagFilter_member != obj.MemberEnd() && !TagFilter_member->value.IsNull()) TagFilter = new CollectionFilter(TagFilter_member->value);
                 const Value::ConstMemberIterator EnableQueue_member = obj.FindMember("EnableQueue");
                 if (EnableQueue_member != obj.MemberEnd() && !EnableQueue_member->value.IsNull()) EnableQueue = EnableQueue_member->value.GetBool();
 
