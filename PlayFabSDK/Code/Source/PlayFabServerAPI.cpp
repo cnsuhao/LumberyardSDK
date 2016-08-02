@@ -248,6 +248,36 @@ void PlayFabServerApi::OnGetLeaderboardAroundUserResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabServerApi::GetPlayerCombinedInfo(
+    GetPlayerCombinedInfoRequest& request,
+    ProcessApiCallback<GetPlayerCombinedInfoResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/GetPlayerCombinedInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerCombinedInfoResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnGetPlayerCombinedInfoResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        GetPlayerCombinedInfoResult* outResult = new GetPlayerCombinedInfoResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<GetPlayerCombinedInfoResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayerCombinedInfoResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabServerApi::GetPlayerStatistics(
     GetPlayerStatisticsRequest& request,
     ProcessApiCallback<GetPlayerStatisticsResult> callback,
@@ -2551,6 +2581,96 @@ void PlayFabServerApi::OnUpdateCharacterReadOnlyDataResult(PlayFabRequest* reque
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<UpdateCharacterDataResult> successCallback = reinterpret_cast<ProcessApiCallback<UpdateCharacterDataResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabServerApi::GetAllSegments(
+
+    ProcessApiCallback<GetAllSegmentsResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/GetAllSegments"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, "", customData, callback, errorCallback, OnGetAllSegmentsResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnGetAllSegmentsResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        GetAllSegmentsResult* outResult = new GetAllSegmentsResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<GetAllSegmentsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetAllSegmentsResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabServerApi::GetPlayerSegments(
+    GetPlayersSegmentsRequest& request,
+    ProcessApiCallback<GetPlayerSegmentsResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/GetPlayerSegments"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerSegmentsResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnGetPlayerSegmentsResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        GetPlayerSegmentsResult* outResult = new GetPlayerSegmentsResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<GetPlayerSegmentsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayerSegmentsResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabServerApi::GetPlayersInSegment(
+    GetPlayersInSegmentRequest& request,
+    ProcessApiCallback<GetPlayersInSegmentResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/GetPlayersInSegment"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayersInSegmentResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnGetPlayersInSegmentResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        GetPlayersInSegmentResult* outResult = new GetPlayersInSegmentResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<GetPlayersInSegmentResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayersInSegmentResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;

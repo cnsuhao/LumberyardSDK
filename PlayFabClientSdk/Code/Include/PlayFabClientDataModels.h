@@ -428,6 +428,123 @@ namespace PlayFab
             }
         };
 
+        struct GenericServiceId : public PlayFabBaseModel
+        {
+            Aws::String ServiceName;
+            Aws::String UserId;
+
+            GenericServiceId() :
+                PlayFabBaseModel(),
+                ServiceName(),
+                UserId()
+            {}
+
+            GenericServiceId(const GenericServiceId& src) :
+                PlayFabBaseModel(),
+                ServiceName(src.ServiceName),
+                UserId(src.UserId)
+            {}
+
+            GenericServiceId(const rapidjson::Value& obj) : GenericServiceId()
+            {
+                readFromValue(obj);
+            }
+
+            ~GenericServiceId()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("ServiceName"); writer.String(ServiceName.c_str());
+                writer.String("UserId"); writer.String(UserId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator ServiceName_member = obj.FindMember("ServiceName");
+                if (ServiceName_member != obj.MemberEnd() && !ServiceName_member->value.IsNull()) ServiceName = ServiceName_member->value.GetString();
+                const Value::ConstMemberIterator UserId_member = obj.FindMember("UserId");
+                if (UserId_member != obj.MemberEnd() && !UserId_member->value.IsNull()) UserId = UserId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct AddGenericIDRequest : public PlayFabBaseModel
+        {
+            GenericServiceId GenericId;
+
+            AddGenericIDRequest() :
+                PlayFabBaseModel(),
+                GenericId()
+            {}
+
+            AddGenericIDRequest(const AddGenericIDRequest& src) :
+                PlayFabBaseModel(),
+                GenericId(src.GenericId)
+            {}
+
+            AddGenericIDRequest(const rapidjson::Value& obj) : AddGenericIDRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~AddGenericIDRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("GenericId"); GenericId.writeJSON(writer);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator GenericId_member = obj.FindMember("GenericId");
+                if (GenericId_member != obj.MemberEnd() && !GenericId_member->value.IsNull()) GenericId = GenericServiceId(GenericId_member->value);
+
+                return true;
+            }
+        };
+
+        struct AddGenericIDResult : public PlayFabBaseModel
+        {
+
+            AddGenericIDResult() :
+                PlayFabBaseModel()
+            {}
+
+            AddGenericIDResult(const AddGenericIDResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            AddGenericIDResult(const rapidjson::Value& obj) : AddGenericIDResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~AddGenericIDResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
         struct AddSharedGroupMembersRequest : public PlayFabBaseModel
         {
             Aws::String SharedGroupId;
@@ -3836,6 +3953,52 @@ namespace PlayFab
             }
         };
 
+        struct GenericPlayFabIdPair : public PlayFabBaseModel
+        {
+            GenericServiceId* GenericId;
+            Aws::String PlayFabId;
+
+            GenericPlayFabIdPair() :
+                PlayFabBaseModel(),
+                GenericId(nullptr),
+                PlayFabId()
+            {}
+
+            GenericPlayFabIdPair(const GenericPlayFabIdPair& src) :
+                PlayFabBaseModel(),
+                GenericId(src.GenericId ? new GenericServiceId(*src.GenericId) : nullptr),
+                PlayFabId(src.PlayFabId)
+            {}
+
+            GenericPlayFabIdPair(const rapidjson::Value& obj) : GenericPlayFabIdPair()
+            {
+                readFromValue(obj);
+            }
+
+            ~GenericPlayFabIdPair()
+            {
+                if (GenericId != nullptr) delete GenericId;
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (GenericId != nullptr) { writer.String("GenericId"); GenericId->writeJSON(writer); }
+                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator GenericId_member = obj.FindMember("GenericId");
+                if (GenericId_member != obj.MemberEnd() && !GenericId_member->value.IsNull()) GenericId = new GenericServiceId(GenericId_member->value);
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+
+                return true;
+            }
+        };
+
         struct GetAccountInfoRequest : public PlayFabBaseModel
         {
             Aws::String PlayFabId;
@@ -7004,6 +7167,141 @@ namespace PlayFab
             }
         };
 
+        struct GetPlayerSegmentsRequest : public PlayFabBaseModel
+        {
+
+            GetPlayerSegmentsRequest() :
+                PlayFabBaseModel()
+            {}
+
+            GetPlayerSegmentsRequest(const GetPlayerSegmentsRequest& src) :
+                PlayFabBaseModel()
+            {}
+
+            GetPlayerSegmentsRequest(const rapidjson::Value& obj) : GetPlayerSegmentsRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayerSegmentsRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
+        struct GetSegmentResult : public PlayFabBaseModel
+        {
+            Aws::String Id;
+            Aws::String Name;
+            Aws::String ABTestParent;
+
+            GetSegmentResult() :
+                PlayFabBaseModel(),
+                Id(),
+                Name(),
+                ABTestParent()
+            {}
+
+            GetSegmentResult(const GetSegmentResult& src) :
+                PlayFabBaseModel(),
+                Id(src.Id),
+                Name(src.Name),
+                ABTestParent(src.ABTestParent)
+            {}
+
+            GetSegmentResult(const rapidjson::Value& obj) : GetSegmentResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetSegmentResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("Id"); writer.String(Id.c_str());
+                if (Name.length() > 0) { writer.String("Name"); writer.String(Name.c_str()); }
+                if (ABTestParent.length() > 0) { writer.String("ABTestParent"); writer.String(ABTestParent.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Id_member = obj.FindMember("Id");
+                if (Id_member != obj.MemberEnd() && !Id_member->value.IsNull()) Id = Id_member->value.GetString();
+                const Value::ConstMemberIterator Name_member = obj.FindMember("Name");
+                if (Name_member != obj.MemberEnd() && !Name_member->value.IsNull()) Name = Name_member->value.GetString();
+                const Value::ConstMemberIterator ABTestParent_member = obj.FindMember("ABTestParent");
+                if (ABTestParent_member != obj.MemberEnd() && !ABTestParent_member->value.IsNull()) ABTestParent = ABTestParent_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct GetPlayerSegmentsResult : public PlayFabBaseModel
+        {
+            std::list<GetSegmentResult> Segments;
+
+            GetPlayerSegmentsResult() :
+                PlayFabBaseModel(),
+                Segments()
+            {}
+
+            GetPlayerSegmentsResult(const GetPlayerSegmentsResult& src) :
+                PlayFabBaseModel(),
+                Segments(src.Segments)
+            {}
+
+            GetPlayerSegmentsResult(const rapidjson::Value& obj) : GetPlayerSegmentsResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayerSegmentsResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (!Segments.empty()) {
+    writer.String("Segments");
+    writer.StartArray();
+    for (std::list<GetSegmentResult>::iterator iter = Segments.begin(); iter != Segments.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Segments_member = obj.FindMember("Segments");
+    if (Segments_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Segments_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Segments.push_back(GetSegmentResult(memberList[i]));
+        }
+    }
+
+                return true;
+            }
+        };
+
         struct StatisticNameVersion : public PlayFabBaseModel
         {
             Aws::String StatisticName;
@@ -7631,6 +7929,107 @@ namespace PlayFab
         const rapidjson::Value& memberList = Data_member->value;
         for (SizeType i = 0; i < memberList.Size(); i++) {
             Data.push_back(GameCenterPlayFabIdPair(memberList[i]));
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct GetPlayFabIDsFromGenericIDsRequest : public PlayFabBaseModel
+        {
+            std::list<GenericServiceId> GenericIDs;
+
+            GetPlayFabIDsFromGenericIDsRequest() :
+                PlayFabBaseModel(),
+                GenericIDs()
+            {}
+
+            GetPlayFabIDsFromGenericIDsRequest(const GetPlayFabIDsFromGenericIDsRequest& src) :
+                PlayFabBaseModel(),
+                GenericIDs(src.GenericIDs)
+            {}
+
+            GetPlayFabIDsFromGenericIDsRequest(const rapidjson::Value& obj) : GetPlayFabIDsFromGenericIDsRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayFabIDsFromGenericIDsRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("GenericIDs");
+    writer.StartArray();
+    for (std::list<GenericServiceId>::iterator iter = GenericIDs.begin(); iter != GenericIDs.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+    
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator GenericIDs_member = obj.FindMember("GenericIDs");
+    if (GenericIDs_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = GenericIDs_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            GenericIDs.push_back(GenericServiceId(memberList[i]));
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct GetPlayFabIDsFromGenericIDsResult : public PlayFabBaseModel
+        {
+            std::list<GenericPlayFabIdPair> Data;
+
+            GetPlayFabIDsFromGenericIDsResult() :
+                PlayFabBaseModel(),
+                Data()
+            {}
+
+            GetPlayFabIDsFromGenericIDsResult(const GetPlayFabIDsFromGenericIDsResult& src) :
+                PlayFabBaseModel(),
+                Data(src.Data)
+            {}
+
+            GetPlayFabIDsFromGenericIDsResult(const rapidjson::Value& obj) : GetPlayFabIDsFromGenericIDsResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayFabIDsFromGenericIDsResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (!Data.empty()) {
+    writer.String("Data");
+    writer.StartArray();
+    for (std::list<GenericPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
+    if (Data_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Data_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Data.push_back(GenericPlayFabIdPair(memberList[i]));
         }
     }
 
@@ -12758,6 +13157,78 @@ namespace PlayFab
             }
 
             ~RemoveFriendResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
+        struct RemoveGenericIDRequest : public PlayFabBaseModel
+        {
+            GenericServiceId GenericId;
+
+            RemoveGenericIDRequest() :
+                PlayFabBaseModel(),
+                GenericId()
+            {}
+
+            RemoveGenericIDRequest(const RemoveGenericIDRequest& src) :
+                PlayFabBaseModel(),
+                GenericId(src.GenericId)
+            {}
+
+            RemoveGenericIDRequest(const rapidjson::Value& obj) : RemoveGenericIDRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~RemoveGenericIDRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("GenericId"); GenericId.writeJSON(writer);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator GenericId_member = obj.FindMember("GenericId");
+                if (GenericId_member != obj.MemberEnd() && !GenericId_member->value.IsNull()) GenericId = GenericServiceId(GenericId_member->value);
+
+                return true;
+            }
+        };
+
+        struct RemoveGenericIDResult : public PlayFabBaseModel
+        {
+
+            RemoveGenericIDResult() :
+                PlayFabBaseModel()
+            {}
+
+            RemoveGenericIDResult(const RemoveGenericIDResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            RemoveGenericIDResult(const rapidjson::Value& obj) : RemoveGenericIDResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~RemoveGenericIDResult()
             {
             }
 

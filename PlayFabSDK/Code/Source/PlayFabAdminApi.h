@@ -43,6 +43,7 @@ namespace PlayFab
         static void GetTitleData(AdminModels::GetTitleDataRequest& request, ProcessApiCallback<AdminModels::GetTitleDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetTitleInternalData(AdminModels::GetTitleDataRequest& request, ProcessApiCallback<AdminModels::GetTitleDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void ListVirtualCurrencyTypes(ProcessApiCallback<AdminModels::ListVirtualCurrencyTypesResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void RemoveVirtualCurrencyTypes(AdminModels::RemoveVirtualCurrencyTypesRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void SetCatalogItems(AdminModels::UpdateCatalogItemsRequest& request, ProcessApiCallback<AdminModels::UpdateCatalogItemsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void SetStoreItems(AdminModels::UpdateStoreItemsRequest& request, ProcessApiCallback<AdminModels::UpdateStoreItemsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void SetTitleData(AdminModels::SetTitleDataRequest& request, ProcessApiCallback<AdminModels::SetTitleDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -74,6 +75,9 @@ namespace PlayFab
         static void GetContentList(AdminModels::GetContentListRequest& request, ProcessApiCallback<AdminModels::GetContentListResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetContentUploadUrl(AdminModels::GetContentUploadUrlRequest& request, ProcessApiCallback<AdminModels::GetContentUploadUrlResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void ResetCharacterStatistics(AdminModels::ResetCharacterStatisticsRequest& request, ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void GetAllSegments(ProcessApiCallback<AdminModels::GetAllSegmentsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void GetPlayerSegments(AdminModels::GetPlayersSegmentsRequest& request, ProcessApiCallback<AdminModels::GetPlayerSegmentsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void GetPlayersInSegment(AdminModels::GetPlayersInSegmentRequest& request, ProcessApiCallback<AdminModels::GetPlayersInSegmentResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
 
     private:
         // ------------ Private constructor, to enforce all-static class
@@ -113,6 +117,7 @@ namespace PlayFab
         static void OnGetTitleDataResult(PlayFabRequest* request);
         static void OnGetTitleInternalDataResult(PlayFabRequest* request);
         static void OnListVirtualCurrencyTypesResult(PlayFabRequest* request);
+        static void OnRemoveVirtualCurrencyTypesResult(PlayFabRequest* request);
         static void OnSetCatalogItemsResult(PlayFabRequest* request);
         static void OnSetStoreItemsResult(PlayFabRequest* request);
         static void OnSetTitleDataResult(PlayFabRequest* request);
@@ -144,5 +149,8 @@ namespace PlayFab
         static void OnGetContentListResult(PlayFabRequest* request);
         static void OnGetContentUploadUrlResult(PlayFabRequest* request);
         static void OnResetCharacterStatisticsResult(PlayFabRequest* request);
+        static void OnGetAllSegmentsResult(PlayFabRequest* request);
+        static void OnGetPlayerSegmentsResult(PlayFabRequest* request);
+        static void OnGetPlayersInSegmentResult(PlayFabRequest* request);
     };
 };

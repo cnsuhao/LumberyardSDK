@@ -172,6 +172,11 @@ void PlayFabAdminApiWrapper::ListVirtualCurrencyTypes(ProcessApiCallback<AdminMo
     PlayFabAdminApi::ListVirtualCurrencyTypes(callback, errorCallback, customData);
 }
 
+void PlayFabAdminApiWrapper::RemoveVirtualCurrencyTypes(AdminModels::RemoveVirtualCurrencyTypesRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::RemoveVirtualCurrencyTypes(request, callback, errorCallback, customData);
+}
+
 void PlayFabAdminApiWrapper::SetCatalogItems(AdminModels::UpdateCatalogItemsRequest& request, ProcessApiCallback<AdminModels::UpdateCatalogItemsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabAdminApi::SetCatalogItems(request, callback, errorCallback, customData);
@@ -325,5 +330,20 @@ void PlayFabAdminApiWrapper::GetContentUploadUrl(AdminModels::GetContentUploadUr
 void PlayFabAdminApiWrapper::ResetCharacterStatistics(AdminModels::ResetCharacterStatisticsRequest& request, ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabAdminApi::ResetCharacterStatistics(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::GetAllSegments(ProcessApiCallback<AdminModels::GetAllSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::GetAllSegments(callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::GetPlayerSegments(AdminModels::GetPlayersSegmentsRequest& request, ProcessApiCallback<AdminModels::GetPlayerSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::GetPlayerSegments(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::GetPlayersInSegment(AdminModels::GetPlayersInSegmentRequest& request, ProcessApiCallback<AdminModels::GetPlayersInSegmentResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::GetPlayersInSegment(request, callback, errorCallback, customData);
 }
 

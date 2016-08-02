@@ -78,6 +78,11 @@ void PlayFabClientApiWrapper::RegisterPlayFabUser(ClientModels::RegisterPlayFabU
     PlayFabClientApi::RegisterPlayFabUser(request, callback, errorCallback, customData);
 }
 
+void PlayFabClientApiWrapper::AddGenericID(ClientModels::AddGenericIDRequest& request, ProcessApiCallback<ClientModels::AddGenericIDResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::AddGenericID(request, callback, errorCallback, customData);
+}
+
 void PlayFabClientApiWrapper::AddUsernamePassword(ClientModels::AddUsernamePasswordRequest& request, ProcessApiCallback<ClientModels::AddUsernamePasswordResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::AddUsernamePassword(request, callback, errorCallback, customData);
@@ -101,6 +106,11 @@ void PlayFabClientApiWrapper::GetPlayFabIDsFromFacebookIDs(ClientModels::GetPlay
 void PlayFabClientApiWrapper::GetPlayFabIDsFromGameCenterIDs(ClientModels::GetPlayFabIDsFromGameCenterIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromGameCenterIDsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::GetPlayFabIDsFromGameCenterIDs(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::GetPlayFabIDsFromGenericIDs(ClientModels::GetPlayFabIDsFromGenericIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromGenericIDsResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::GetPlayFabIDsFromGenericIDs(request, callback, errorCallback, customData);
 }
 
 void PlayFabClientApiWrapper::GetPlayFabIDsFromGoogleIDs(ClientModels::GetPlayFabIDsFromGoogleIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromGoogleIDsResult> callback, ErrorCallback errorCallback, void* customData)
@@ -171,6 +181,11 @@ void PlayFabClientApiWrapper::LinkSteamAccount(ClientModels::LinkSteamAccountReq
 void PlayFabClientApiWrapper::LinkTwitch(ClientModels::LinkTwitchAccountRequest& request, ProcessApiCallback<ClientModels::LinkTwitchAccountResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::LinkTwitch(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::RemoveGenericID(ClientModels::RemoveGenericIDRequest& request, ProcessApiCallback<ClientModels::RemoveGenericIDResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::RemoveGenericID(request, callback, errorCallback, customData);
 }
 
 void PlayFabClientApiWrapper::ReportPlayer(ClientModels::ReportPlayerClientRequest& request, ProcessApiCallback<ClientModels::ReportPlayerClientResult> callback, ErrorCallback errorCallback, void* customData)
@@ -621,5 +636,10 @@ void PlayFabClientApiWrapper::OpenTrade(ClientModels::OpenTradeRequest& request,
 void PlayFabClientApiWrapper::AttributeInstall(ClientModels::AttributeInstallRequest& request, ProcessApiCallback<ClientModels::AttributeInstallResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::AttributeInstall(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::GetPlayerSegments(ProcessApiCallback<ClientModels::GetPlayerSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::GetPlayerSegments(callback, errorCallback, customData);
 }
 

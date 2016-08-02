@@ -18,6 +18,7 @@ namespace PlayFab
         static void DeleteUsers(ServerModels::DeleteUsersRequest& request, ProcessApiCallback<ServerModels::DeleteUsersResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetLeaderboard(ServerModels::GetLeaderboardRequest& request, ProcessApiCallback<ServerModels::GetLeaderboardResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetLeaderboardAroundUser(ServerModels::GetLeaderboardAroundUserRequest& request, ProcessApiCallback<ServerModels::GetLeaderboardAroundUserResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void GetPlayerCombinedInfo(ServerModels::GetPlayerCombinedInfoRequest& request, ProcessApiCallback<ServerModels::GetPlayerCombinedInfoResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPlayerStatistics(ServerModels::GetPlayerStatisticsRequest& request, ProcessApiCallback<ServerModels::GetPlayerStatisticsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPlayerStatisticVersions(ServerModels::GetPlayerStatisticVersionsRequest& request, ProcessApiCallback<ServerModels::GetPlayerStatisticVersionsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetUserData(ServerModels::GetUserDataRequest& request, ProcessApiCallback<ServerModels::GetUserDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -95,6 +96,9 @@ namespace PlayFab
         static void UpdateCharacterData(ServerModels::UpdateCharacterDataRequest& request, ProcessApiCallback<ServerModels::UpdateCharacterDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void UpdateCharacterInternalData(ServerModels::UpdateCharacterDataRequest& request, ProcessApiCallback<ServerModels::UpdateCharacterDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void UpdateCharacterReadOnlyData(ServerModels::UpdateCharacterDataRequest& request, ProcessApiCallback<ServerModels::UpdateCharacterDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void GetAllSegments(ProcessApiCallback<ServerModels::GetAllSegmentsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void GetPlayerSegments(ServerModels::GetPlayersSegmentsRequest& request, ProcessApiCallback<ServerModels::GetPlayerSegmentsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void GetPlayersInSegment(ServerModels::GetPlayersInSegmentRequest& request, ProcessApiCallback<ServerModels::GetPlayersInSegmentResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
 
     private:
         // ------------ Private constructor, to enforce all-static class
@@ -109,6 +113,7 @@ namespace PlayFab
         static void OnDeleteUsersResult(PlayFabRequest* request);
         static void OnGetLeaderboardResult(PlayFabRequest* request);
         static void OnGetLeaderboardAroundUserResult(PlayFabRequest* request);
+        static void OnGetPlayerCombinedInfoResult(PlayFabRequest* request);
         static void OnGetPlayerStatisticsResult(PlayFabRequest* request);
         static void OnGetPlayerStatisticVersionsResult(PlayFabRequest* request);
         static void OnGetUserDataResult(PlayFabRequest* request);
@@ -186,5 +191,8 @@ namespace PlayFab
         static void OnUpdateCharacterDataResult(PlayFabRequest* request);
         static void OnUpdateCharacterInternalDataResult(PlayFabRequest* request);
         static void OnUpdateCharacterReadOnlyDataResult(PlayFabRequest* request);
+        static void OnGetAllSegmentsResult(PlayFabRequest* request);
+        static void OnGetPlayerSegmentsResult(PlayFabRequest* request);
+        static void OnGetPlayersInSegmentResult(PlayFabRequest* request);
     };
 };

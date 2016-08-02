@@ -481,6 +481,36 @@ void PlayFabClientApi::OnRegisterPlayFabUserResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabClientApi::AddGenericID(
+    AddGenericIDRequest& request,
+    ProcessApiCallback<AddGenericIDResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/AddGenericID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddGenericIDResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnAddGenericIDResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        AddGenericIDResult* outResult = new AddGenericIDResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<AddGenericIDResult> successCallback = reinterpret_cast<ProcessApiCallback<AddGenericIDResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabClientApi::AddUsernamePassword(
     AddUsernamePasswordRequest& request,
     ProcessApiCallback<AddUsernamePasswordResult> callback,
@@ -624,6 +654,36 @@ void PlayFabClientApi::OnGetPlayFabIDsFromGameCenterIDsResult(PlayFabRequest* re
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<GetPlayFabIDsFromGameCenterIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayFabIDsFromGameCenterIDsResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabClientApi::GetPlayFabIDsFromGenericIDs(
+    GetPlayFabIDsFromGenericIDsRequest& request,
+    ProcessApiCallback<GetPlayFabIDsFromGenericIDsResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayFabIDsFromGenericIDs"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromGenericIDsResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnGetPlayFabIDsFromGenericIDsResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        GetPlayFabIDsFromGenericIDsResult* outResult = new GetPlayFabIDsFromGenericIDsResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<GetPlayFabIDsFromGenericIDsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayFabIDsFromGenericIDsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1044,6 +1104,36 @@ void PlayFabClientApi::OnLinkTwitchResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<LinkTwitchAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<LinkTwitchAccountResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabClientApi::RemoveGenericID(
+    RemoveGenericIDRequest& request,
+    ProcessApiCallback<RemoveGenericIDResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RemoveGenericID"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRemoveGenericIDResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnRemoveGenericIDResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        RemoveGenericIDResult* outResult = new RemoveGenericIDResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<RemoveGenericIDResult> successCallback = reinterpret_cast<ProcessApiCallback<RemoveGenericIDResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -3747,6 +3837,36 @@ void PlayFabClientApi::OnAttributeInstallResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<AttributeInstallResult> successCallback = reinterpret_cast<ProcessApiCallback<AttributeInstallResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabClientApi::GetPlayerSegments(
+
+    ProcessApiCallback<GetPlayerSegmentsResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetPlayerSegments"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnGetPlayerSegmentsResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnGetPlayerSegmentsResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        GetPlayerSegmentsResult* outResult = new GetPlayerSegmentsResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<GetPlayerSegmentsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetPlayerSegmentsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;

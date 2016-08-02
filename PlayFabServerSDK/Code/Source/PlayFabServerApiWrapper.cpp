@@ -47,6 +47,11 @@ void PlayFabServerApiWrapper::GetLeaderboardAroundUser(ServerModels::GetLeaderbo
     PlayFabServerApi::GetLeaderboardAroundUser(request, callback, errorCallback, customData);
 }
 
+void PlayFabServerApiWrapper::GetPlayerCombinedInfo(ServerModels::GetPlayerCombinedInfoRequest& request, ProcessApiCallback<ServerModels::GetPlayerCombinedInfoResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::GetPlayerCombinedInfo(request, callback, errorCallback, customData);
+}
+
 void PlayFabServerApiWrapper::GetPlayerStatistics(ServerModels::GetPlayerStatisticsRequest& request, ProcessApiCallback<ServerModels::GetPlayerStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::GetPlayerStatistics(request, callback, errorCallback, customData);
@@ -430,5 +435,20 @@ void PlayFabServerApiWrapper::UpdateCharacterInternalData(ServerModels::UpdateCh
 void PlayFabServerApiWrapper::UpdateCharacterReadOnlyData(ServerModels::UpdateCharacterDataRequest& request, ProcessApiCallback<ServerModels::UpdateCharacterDataResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::UpdateCharacterReadOnlyData(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::GetAllSegments(ProcessApiCallback<ServerModels::GetAllSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::GetAllSegments(callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::GetPlayerSegments(ServerModels::GetPlayersSegmentsRequest& request, ProcessApiCallback<ServerModels::GetPlayerSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::GetPlayerSegments(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::GetPlayersInSegment(ServerModels::GetPlayersInSegmentRequest& request, ProcessApiCallback<ServerModels::GetPlayersInSegmentResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::GetPlayersInSegment(request, callback, errorCallback, customData);
 }
 
