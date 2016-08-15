@@ -3426,6 +3426,7 @@ namespace PlayFab
             OptionalTime LastLogin;
             OptionalTime BannedUntil;
             std::map<Aws::String, Int32> Statistics;
+            std::map<Aws::String, Uint32> ValuesToDate;
             std::map<Aws::String, Int32> VirtualCurrencyBalances;
             std::list<AdCampaignAttribution> AdCampaignAttributions;
             std::list<PushNotificationRegistration> PushNotificationRegistrations;
@@ -3442,6 +3443,7 @@ namespace PlayFab
                 LastLogin(),
                 BannedUntil(),
                 Statistics(),
+                ValuesToDate(),
                 VirtualCurrencyBalances(),
                 AdCampaignAttributions(),
                 PushNotificationRegistrations(),
@@ -3459,6 +3461,7 @@ namespace PlayFab
                 LastLogin(src.LastLogin),
                 BannedUntil(src.BannedUntil),
                 Statistics(src.Statistics),
+                ValuesToDate(src.ValuesToDate),
                 VirtualCurrencyBalances(src.VirtualCurrencyBalances),
                 AdCampaignAttributions(src.AdCampaignAttributions),
                 PushNotificationRegistrations(src.PushNotificationRegistrations),
@@ -3490,6 +3493,14 @@ namespace PlayFab
     writer.StartObject();
     for (std::map<Aws::String, Int32>::iterator iter = Statistics.begin(); iter != Statistics.end(); ++iter) {
         writer.String(iter->first.c_str()); writer.Int(iter->second);
+    }
+    writer.EndObject();
+     }
+                if (!ValuesToDate.empty()) {
+    writer.String("ValuesToDate");
+    writer.StartObject();
+    for (std::map<Aws::String, Uint32>::iterator iter = ValuesToDate.begin(); iter != ValuesToDate.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.Uint(iter->second);
     }
     writer.EndObject();
      }
@@ -3556,6 +3567,12 @@ namespace PlayFab
     if (Statistics_member != obj.MemberEnd()) {
         for (Value::ConstMemberIterator iter = Statistics_member->value.MemberBegin(); iter != Statistics_member->value.MemberEnd(); ++iter) {
             Statistics[iter->name.GetString()] = iter->value.GetInt();
+        }
+    }
+                const Value::ConstMemberIterator ValuesToDate_member = obj.FindMember("ValuesToDate");
+    if (ValuesToDate_member != obj.MemberEnd()) {
+        for (Value::ConstMemberIterator iter = ValuesToDate_member->value.MemberBegin(); iter != ValuesToDate_member->value.MemberEnd(); ++iter) {
+            ValuesToDate[iter->name.GetString()] = iter->value.GetUint();
         }
     }
                 const Value::ConstMemberIterator VirtualCurrencyBalances_member = obj.FindMember("VirtualCurrencyBalances");
