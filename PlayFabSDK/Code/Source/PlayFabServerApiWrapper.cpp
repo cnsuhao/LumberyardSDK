@@ -12,6 +12,11 @@ void PlayFabServerApiWrapper::AuthenticateSessionTicket(ServerModels::Authentica
     PlayFabServerApi::AuthenticateSessionTicket(request, callback, errorCallback, customData);
 }
 
+void PlayFabServerApiWrapper::BanUsers(ServerModels::BanUsersRequest& request, ProcessApiCallback<ServerModels::BanUsersResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::BanUsers(request, callback, errorCallback, customData);
+}
+
 void PlayFabServerApiWrapper::GetPlayFabIDsFromFacebookIDs(ServerModels::GetPlayFabIDsFromFacebookIDsRequest& request, ProcessApiCallback<ServerModels::GetPlayFabIDsFromFacebookIDsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::GetPlayFabIDsFromFacebookIDs(request, callback, errorCallback, customData);
@@ -27,9 +32,29 @@ void PlayFabServerApiWrapper::GetUserAccountInfo(ServerModels::GetUserAccountInf
     PlayFabServerApi::GetUserAccountInfo(request, callback, errorCallback, customData);
 }
 
+void PlayFabServerApiWrapper::GetUserBans(ServerModels::GetUserBansRequest& request, ProcessApiCallback<ServerModels::GetUserBansResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::GetUserBans(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::RevokeAllBansForUser(ServerModels::RevokeAllBansForUserRequest& request, ProcessApiCallback<ServerModels::RevokeAllBansForUserResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::RevokeAllBansForUser(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::RevokeBans(ServerModels::RevokeBansRequest& request, ProcessApiCallback<ServerModels::RevokeBansResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::RevokeBans(request, callback, errorCallback, customData);
+}
+
 void PlayFabServerApiWrapper::SendPushNotification(ServerModels::SendPushNotificationRequest& request, ProcessApiCallback<ServerModels::SendPushNotificationResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::SendPushNotification(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::UpdateBans(ServerModels::UpdateBansRequest& request, ProcessApiCallback<ServerModels::UpdateBansResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::UpdateBans(request, callback, errorCallback, customData);
 }
 
 void PlayFabServerApiWrapper::DeleteUsers(ServerModels::DeleteUsersRequest& request, ProcessApiCallback<ServerModels::DeleteUsersResult> callback, ErrorCallback errorCallback, void* customData)
@@ -200,6 +225,11 @@ void PlayFabServerApiWrapper::EvaluateRandomResultTable(ServerModels::EvaluateRa
 void PlayFabServerApiWrapper::GetCharacterInventory(ServerModels::GetCharacterInventoryRequest& request, ProcessApiCallback<ServerModels::GetCharacterInventoryResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::GetCharacterInventory(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::GetRandomResultTables(ServerModels::GetRandomResultTablesRequest& request, ProcessApiCallback<ServerModels::GetRandomResultTablesResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::GetRandomResultTables(request, callback, errorCallback, customData);
 }
 
 void PlayFabServerApiWrapper::GetUserInventory(ServerModels::GetUserInventoryRequest& request, ProcessApiCallback<ServerModels::GetUserInventoryResult> callback, ErrorCallback errorCallback, void* customData)

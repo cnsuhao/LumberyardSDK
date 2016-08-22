@@ -7,9 +7,19 @@ PlayFabAdminApiWrapper PlayFabAdminApiWrapper::globalWrapper;
 
 // ------------ Generated API call wrappers
 
+void PlayFabAdminApiWrapper::BanUsers(AdminModels::BanUsersRequest& request, ProcessApiCallback<AdminModels::BanUsersResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::BanUsers(request, callback, errorCallback, customData);
+}
+
 void PlayFabAdminApiWrapper::GetUserAccountInfo(AdminModels::LookupUserAccountInfoRequest& request, ProcessApiCallback<AdminModels::LookupUserAccountInfoResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabAdminApi::GetUserAccountInfo(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::GetUserBans(AdminModels::GetUserBansRequest& request, ProcessApiCallback<AdminModels::GetUserBansResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::GetUserBans(request, callback, errorCallback, customData);
 }
 
 void PlayFabAdminApiWrapper::ResetUsers(AdminModels::ResetUsersRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback, ErrorCallback errorCallback, void* customData)
@@ -17,9 +27,24 @@ void PlayFabAdminApiWrapper::ResetUsers(AdminModels::ResetUsersRequest& request,
     PlayFabAdminApi::ResetUsers(request, callback, errorCallback, customData);
 }
 
+void PlayFabAdminApiWrapper::RevokeAllBansForUser(AdminModels::RevokeAllBansForUserRequest& request, ProcessApiCallback<AdminModels::RevokeAllBansForUserResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::RevokeAllBansForUser(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::RevokeBans(AdminModels::RevokeBansRequest& request, ProcessApiCallback<AdminModels::RevokeBansResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::RevokeBans(request, callback, errorCallback, customData);
+}
+
 void PlayFabAdminApiWrapper::SendAccountRecoveryEmail(AdminModels::SendAccountRecoveryEmailRequest& request, ProcessApiCallback<AdminModels::SendAccountRecoveryEmailResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabAdminApi::SendAccountRecoveryEmail(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::UpdateBans(AdminModels::UpdateBansRequest& request, ProcessApiCallback<AdminModels::UpdateBansResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::UpdateBans(request, callback, errorCallback, customData);
 }
 
 void PlayFabAdminApiWrapper::UpdateUserTitleDisplayName(AdminModels::UpdateUserTitleDisplayNameRequest& request, ProcessApiCallback<AdminModels::UpdateUserTitleDisplayNameResult> callback, ErrorCallback errorCallback, void* customData)
@@ -135,6 +160,11 @@ void PlayFabAdminApiWrapper::AddNews(AdminModels::AddNewsRequest& request, Proce
 void PlayFabAdminApiWrapper::AddVirtualCurrencyTypes(AdminModels::AddVirtualCurrencyTypesRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabAdminApi::AddVirtualCurrencyTypes(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::DeleteStore(AdminModels::DeleteStoreRequest& request, ProcessApiCallback<AdminModels::DeleteStoreResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::DeleteStore(request, callback, errorCallback, customData);
 }
 
 void PlayFabAdminApiWrapper::GetCatalogItems(AdminModels::GetCatalogItemsRequest& request, ProcessApiCallback<AdminModels::GetCatalogItemsResult> callback, ErrorCallback errorCallback, void* customData)

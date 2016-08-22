@@ -598,6 +598,251 @@ namespace PlayFab
             }
         };
 
+        struct BanInfo : public PlayFabBaseModel
+        {
+            Aws::String PlayFabId;
+            Aws::String BanId;
+            Aws::String IPAddress;
+            Aws::String MACAddress;
+            OptionalTime Created;
+            OptionalTime Expires;
+            Aws::String Reason;
+            bool Active;
+
+            BanInfo() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                BanId(),
+                IPAddress(),
+                MACAddress(),
+                Created(),
+                Expires(),
+                Reason(),
+                Active(false)
+            {}
+
+            BanInfo(const BanInfo& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                BanId(src.BanId),
+                IPAddress(src.IPAddress),
+                MACAddress(src.MACAddress),
+                Created(src.Created),
+                Expires(src.Expires),
+                Reason(src.Reason),
+                Active(src.Active)
+            {}
+
+            BanInfo(const rapidjson::Value& obj) : BanInfo()
+            {
+                readFromValue(obj);
+            }
+
+            ~BanInfo()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+                if (BanId.length() > 0) { writer.String("BanId"); writer.String(BanId.c_str()); }
+                if (IPAddress.length() > 0) { writer.String("IPAddress"); writer.String(IPAddress.c_str()); }
+                if (MACAddress.length() > 0) { writer.String("MACAddress"); writer.String(MACAddress.c_str()); }
+                if (Created.notNull()) { writer.String("Created"); writeDatetime(Created, writer); }
+                if (Expires.notNull()) { writer.String("Expires"); writeDatetime(Expires, writer); }
+                if (Reason.length() > 0) { writer.String("Reason"); writer.String(Reason.c_str()); }
+                writer.String("Active"); writer.Bool(Active);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+                const Value::ConstMemberIterator BanId_member = obj.FindMember("BanId");
+                if (BanId_member != obj.MemberEnd() && !BanId_member->value.IsNull()) BanId = BanId_member->value.GetString();
+                const Value::ConstMemberIterator IPAddress_member = obj.FindMember("IPAddress");
+                if (IPAddress_member != obj.MemberEnd() && !IPAddress_member->value.IsNull()) IPAddress = IPAddress_member->value.GetString();
+                const Value::ConstMemberIterator MACAddress_member = obj.FindMember("MACAddress");
+                if (MACAddress_member != obj.MemberEnd() && !MACAddress_member->value.IsNull()) MACAddress = MACAddress_member->value.GetString();
+                const Value::ConstMemberIterator Created_member = obj.FindMember("Created");
+                if (Created_member != obj.MemberEnd() && !Created_member->value.IsNull()) Created = readDatetime(Created_member->value);
+                const Value::ConstMemberIterator Expires_member = obj.FindMember("Expires");
+                if (Expires_member != obj.MemberEnd() && !Expires_member->value.IsNull()) Expires = readDatetime(Expires_member->value);
+                const Value::ConstMemberIterator Reason_member = obj.FindMember("Reason");
+                if (Reason_member != obj.MemberEnd() && !Reason_member->value.IsNull()) Reason = Reason_member->value.GetString();
+                const Value::ConstMemberIterator Active_member = obj.FindMember("Active");
+                if (Active_member != obj.MemberEnd() && !Active_member->value.IsNull()) Active = Active_member->value.GetBool();
+
+                return true;
+            }
+        };
+
+        struct BanRequest : public PlayFabBaseModel
+        {
+            Aws::String PlayFabId;
+            Aws::String IPAddress;
+            Aws::String MACAddress;
+            Aws::String Reason;
+            OptionalUint32 DurationInHours;
+
+            BanRequest() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                IPAddress(),
+                MACAddress(),
+                Reason(),
+                DurationInHours()
+            {}
+
+            BanRequest(const BanRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                IPAddress(src.IPAddress),
+                MACAddress(src.MACAddress),
+                Reason(src.Reason),
+                DurationInHours(src.DurationInHours)
+            {}
+
+            BanRequest(const rapidjson::Value& obj) : BanRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~BanRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+                if (IPAddress.length() > 0) { writer.String("IPAddress"); writer.String(IPAddress.c_str()); }
+                if (MACAddress.length() > 0) { writer.String("MACAddress"); writer.String(MACAddress.c_str()); }
+                if (Reason.length() > 0) { writer.String("Reason"); writer.String(Reason.c_str()); }
+                if (DurationInHours.notNull()) { writer.String("DurationInHours"); writer.Uint(DurationInHours); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+                const Value::ConstMemberIterator IPAddress_member = obj.FindMember("IPAddress");
+                if (IPAddress_member != obj.MemberEnd() && !IPAddress_member->value.IsNull()) IPAddress = IPAddress_member->value.GetString();
+                const Value::ConstMemberIterator MACAddress_member = obj.FindMember("MACAddress");
+                if (MACAddress_member != obj.MemberEnd() && !MACAddress_member->value.IsNull()) MACAddress = MACAddress_member->value.GetString();
+                const Value::ConstMemberIterator Reason_member = obj.FindMember("Reason");
+                if (Reason_member != obj.MemberEnd() && !Reason_member->value.IsNull()) Reason = Reason_member->value.GetString();
+                const Value::ConstMemberIterator DurationInHours_member = obj.FindMember("DurationInHours");
+                if (DurationInHours_member != obj.MemberEnd() && !DurationInHours_member->value.IsNull()) DurationInHours = DurationInHours_member->value.GetUint();
+
+                return true;
+            }
+        };
+
+        struct BanUsersRequest : public PlayFabBaseModel
+        {
+            std::list<BanRequest> Bans;
+
+            BanUsersRequest() :
+                PlayFabBaseModel(),
+                Bans()
+            {}
+
+            BanUsersRequest(const BanUsersRequest& src) :
+                PlayFabBaseModel(),
+                Bans(src.Bans)
+            {}
+
+            BanUsersRequest(const rapidjson::Value& obj) : BanUsersRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~BanUsersRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("Bans");
+    writer.StartArray();
+    for (std::list<BanRequest>::iterator iter = Bans.begin(); iter != Bans.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+    
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Bans_member = obj.FindMember("Bans");
+    if (Bans_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Bans_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Bans.push_back(BanRequest(memberList[i]));
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct BanUsersResult : public PlayFabBaseModel
+        {
+            std::list<BanInfo> BanData;
+
+            BanUsersResult() :
+                PlayFabBaseModel(),
+                BanData()
+            {}
+
+            BanUsersResult(const BanUsersResult& src) :
+                PlayFabBaseModel(),
+                BanData(src.BanData)
+            {}
+
+            BanUsersResult(const rapidjson::Value& obj) : BanUsersResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~BanUsersResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (!BanData.empty()) {
+    writer.String("BanData");
+    writer.StartArray();
+    for (std::list<BanInfo>::iterator iter = BanData.begin(); iter != BanData.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator BanData_member = obj.FindMember("BanData");
+    if (BanData_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = BanData_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            BanData.push_back(BanInfo(memberList[i]));
+        }
+    }
+
+                return true;
+            }
+        };
+
         struct BlankResult : public PlayFabBaseModel
         {
 
@@ -1952,6 +2197,84 @@ namespace PlayFab
             {
                 const Value::ConstMemberIterator Key_member = obj.FindMember("Key");
                 if (Key_member != obj.MemberEnd() && !Key_member->value.IsNull()) Key = Key_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct DeleteStoreRequest : public PlayFabBaseModel
+        {
+            Aws::String CatalogVersion;
+            Aws::String StoreId;
+
+            DeleteStoreRequest() :
+                PlayFabBaseModel(),
+                CatalogVersion(),
+                StoreId()
+            {}
+
+            DeleteStoreRequest(const DeleteStoreRequest& src) :
+                PlayFabBaseModel(),
+                CatalogVersion(src.CatalogVersion),
+                StoreId(src.StoreId)
+            {}
+
+            DeleteStoreRequest(const rapidjson::Value& obj) : DeleteStoreRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~DeleteStoreRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
+                writer.String("StoreId"); writer.String(StoreId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator CatalogVersion_member = obj.FindMember("CatalogVersion");
+                if (CatalogVersion_member != obj.MemberEnd() && !CatalogVersion_member->value.IsNull()) CatalogVersion = CatalogVersion_member->value.GetString();
+                const Value::ConstMemberIterator StoreId_member = obj.FindMember("StoreId");
+                if (StoreId_member != obj.MemberEnd() && !StoreId_member->value.IsNull()) StoreId = StoreId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct DeleteStoreResult : public PlayFabBaseModel
+        {
+
+            DeleteStoreResult() :
+                PlayFabBaseModel()
+            {}
+
+            DeleteStoreResult(const DeleteStoreResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            DeleteStoreResult(const rapidjson::Value& obj) : DeleteStoreResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~DeleteStoreResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
 
                 return true;
             }
@@ -3421,12 +3744,14 @@ namespace PlayFab
             Aws::String PlayerId;
             Aws::String TitleId;
             Aws::String DisplayName;
+            Aws::String PublisherId;
             Boxed<LoginIdentityProvider> Origination;
             OptionalTime Created;
             OptionalTime LastLogin;
             OptionalTime BannedUntil;
             std::map<Aws::String, Int32> Statistics;
             std::map<Aws::String, Uint32> ValuesToDate;
+            std::list<Aws::String> Tags;
             std::map<Aws::String, Int32> VirtualCurrencyBalances;
             std::list<AdCampaignAttribution> AdCampaignAttributions;
             std::list<PushNotificationRegistration> PushNotificationRegistrations;
@@ -3438,12 +3763,14 @@ namespace PlayFab
                 PlayerId(),
                 TitleId(),
                 DisplayName(),
+                PublisherId(),
                 Origination(),
                 Created(),
                 LastLogin(),
                 BannedUntil(),
                 Statistics(),
                 ValuesToDate(),
+                Tags(),
                 VirtualCurrencyBalances(),
                 AdCampaignAttributions(),
                 PushNotificationRegistrations(),
@@ -3456,12 +3783,14 @@ namespace PlayFab
                 PlayerId(src.PlayerId),
                 TitleId(src.TitleId),
                 DisplayName(src.DisplayName),
+                PublisherId(src.PublisherId),
                 Origination(src.Origination),
                 Created(src.Created),
                 LastLogin(src.LastLogin),
                 BannedUntil(src.BannedUntil),
                 Statistics(src.Statistics),
                 ValuesToDate(src.ValuesToDate),
+                Tags(src.Tags),
                 VirtualCurrencyBalances(src.VirtualCurrencyBalances),
                 AdCampaignAttributions(src.AdCampaignAttributions),
                 PushNotificationRegistrations(src.PushNotificationRegistrations),
@@ -3484,6 +3813,7 @@ namespace PlayFab
                 if (PlayerId.length() > 0) { writer.String("PlayerId"); writer.String(PlayerId.c_str()); }
                 if (TitleId.length() > 0) { writer.String("TitleId"); writer.String(TitleId.c_str()); }
                 if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
+                if (PublisherId.length() > 0) { writer.String("PublisherId"); writer.String(PublisherId.c_str()); }
                 if (Origination.notNull()) { writer.String("Origination"); writeLoginIdentityProviderEnumJSON(Origination, writer); }
                 if (Created.notNull()) { writer.String("Created"); writeDatetime(Created, writer); }
                 if (LastLogin.notNull()) { writer.String("LastLogin"); writeDatetime(LastLogin, writer); }
@@ -3503,6 +3833,14 @@ namespace PlayFab
         writer.String(iter->first.c_str()); writer.Uint(iter->second);
     }
     writer.EndObject();
+     }
+                if (!Tags.empty()) {
+    writer.String("Tags");
+    writer.StartArray();
+    for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
      }
                 if (!VirtualCurrencyBalances.empty()) {
     writer.String("VirtualCurrencyBalances");
@@ -3555,6 +3893,8 @@ namespace PlayFab
                 if (TitleId_member != obj.MemberEnd() && !TitleId_member->value.IsNull()) TitleId = TitleId_member->value.GetString();
                 const Value::ConstMemberIterator DisplayName_member = obj.FindMember("DisplayName");
                 if (DisplayName_member != obj.MemberEnd() && !DisplayName_member->value.IsNull()) DisplayName = DisplayName_member->value.GetString();
+                const Value::ConstMemberIterator PublisherId_member = obj.FindMember("PublisherId");
+                if (PublisherId_member != obj.MemberEnd() && !PublisherId_member->value.IsNull()) PublisherId = PublisherId_member->value.GetString();
                 const Value::ConstMemberIterator Origination_member = obj.FindMember("Origination");
                 if (Origination_member != obj.MemberEnd() && !Origination_member->value.IsNull()) Origination = readLoginIdentityProviderFromValue(Origination_member->value);
                 const Value::ConstMemberIterator Created_member = obj.FindMember("Created");
@@ -3573,6 +3913,13 @@ namespace PlayFab
     if (ValuesToDate_member != obj.MemberEnd()) {
         for (Value::ConstMemberIterator iter = ValuesToDate_member->value.MemberBegin(); iter != ValuesToDate_member->value.MemberEnd(); ++iter) {
             ValuesToDate[iter->name.GetString()] = iter->value.GetUint();
+        }
+    }
+                const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
+    if (Tags_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Tags_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Tags.push_back(memberList[i].GetString());
         }
     }
                 const Value::ConstMemberIterator VirtualCurrencyBalances_member = obj.FindMember("VirtualCurrencyBalances");
@@ -4829,6 +5176,96 @@ namespace PlayFab
     if (Data_member != obj.MemberEnd()) {
         for (Value::ConstMemberIterator iter = Data_member->value.MemberBegin(); iter != Data_member->value.MemberEnd(); ++iter) {
             Data[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct GetUserBansRequest : public PlayFabBaseModel
+        {
+            Aws::String PlayFabId;
+
+            GetUserBansRequest() :
+                PlayFabBaseModel(),
+                PlayFabId()
+            {}
+
+            GetUserBansRequest(const GetUserBansRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId)
+            {}
+
+            GetUserBansRequest(const rapidjson::Value& obj) : GetUserBansRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetUserBansRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct GetUserBansResult : public PlayFabBaseModel
+        {
+            std::list<BanInfo> BanData;
+
+            GetUserBansResult() :
+                PlayFabBaseModel(),
+                BanData()
+            {}
+
+            GetUserBansResult(const GetUserBansResult& src) :
+                PlayFabBaseModel(),
+                BanData(src.BanData)
+            {}
+
+            GetUserBansResult(const rapidjson::Value& obj) : GetUserBansResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetUserBansResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (!BanData.empty()) {
+    writer.String("BanData");
+    writer.StartArray();
+    for (std::list<BanInfo>::iterator iter = BanData.begin(); iter != BanData.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator BanData_member = obj.FindMember("BanData");
+    if (BanData_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = BanData_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            BanData.push_back(BanInfo(memberList[i]));
         }
     }
 
@@ -7708,6 +8145,197 @@ namespace PlayFab
             }
         };
 
+        struct RevokeAllBansForUserRequest : public PlayFabBaseModel
+        {
+            Aws::String PlayFabId;
+
+            RevokeAllBansForUserRequest() :
+                PlayFabBaseModel(),
+                PlayFabId()
+            {}
+
+            RevokeAllBansForUserRequest(const RevokeAllBansForUserRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId)
+            {}
+
+            RevokeAllBansForUserRequest(const rapidjson::Value& obj) : RevokeAllBansForUserRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~RevokeAllBansForUserRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct RevokeAllBansForUserResult : public PlayFabBaseModel
+        {
+            std::list<BanInfo> BanData;
+
+            RevokeAllBansForUserResult() :
+                PlayFabBaseModel(),
+                BanData()
+            {}
+
+            RevokeAllBansForUserResult(const RevokeAllBansForUserResult& src) :
+                PlayFabBaseModel(),
+                BanData(src.BanData)
+            {}
+
+            RevokeAllBansForUserResult(const rapidjson::Value& obj) : RevokeAllBansForUserResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~RevokeAllBansForUserResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (!BanData.empty()) {
+    writer.String("BanData");
+    writer.StartArray();
+    for (std::list<BanInfo>::iterator iter = BanData.begin(); iter != BanData.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator BanData_member = obj.FindMember("BanData");
+    if (BanData_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = BanData_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            BanData.push_back(BanInfo(memberList[i]));
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct RevokeBansRequest : public PlayFabBaseModel
+        {
+            std::list<Aws::String> BanIds;
+
+            RevokeBansRequest() :
+                PlayFabBaseModel(),
+                BanIds()
+            {}
+
+            RevokeBansRequest(const RevokeBansRequest& src) :
+                PlayFabBaseModel(),
+                BanIds(src.BanIds)
+            {}
+
+            RevokeBansRequest(const rapidjson::Value& obj) : RevokeBansRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~RevokeBansRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("BanIds");
+    writer.StartArray();
+    for (std::list<Aws::String>::iterator iter = BanIds.begin(); iter != BanIds.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+    
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator BanIds_member = obj.FindMember("BanIds");
+    if (BanIds_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = BanIds_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            BanIds.push_back(memberList[i].GetString());
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct RevokeBansResult : public PlayFabBaseModel
+        {
+            std::list<BanInfo> BanData;
+
+            RevokeBansResult() :
+                PlayFabBaseModel(),
+                BanData()
+            {}
+
+            RevokeBansResult(const RevokeBansResult& src) :
+                PlayFabBaseModel(),
+                BanData(src.BanData)
+            {}
+
+            RevokeBansResult(const rapidjson::Value& obj) : RevokeBansResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~RevokeBansResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (!BanData.empty()) {
+    writer.String("BanData");
+    writer.StartArray();
+    for (std::list<BanInfo>::iterator iter = BanData.begin(); iter != BanData.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator BanData_member = obj.FindMember("BanData");
+    if (BanData_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = BanData_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            BanData.push_back(BanInfo(memberList[i]));
+        }
+    }
+
+                return true;
+            }
+        };
+
         struct RevokeInventoryItemRequest : public PlayFabBaseModel
         {
             Aws::String PlayFabId;
@@ -8251,20 +8879,199 @@ namespace PlayFab
             }
         };
 
+        struct UpdateBanRequest : public PlayFabBaseModel
+        {
+            Aws::String BanId;
+            Aws::String Reason;
+            OptionalTime Expires;
+            Aws::String IPAddress;
+            Aws::String MACAddress;
+            OptionalBool Permanent;
+            OptionalBool Active;
+
+            UpdateBanRequest() :
+                PlayFabBaseModel(),
+                BanId(),
+                Reason(),
+                Expires(),
+                IPAddress(),
+                MACAddress(),
+                Permanent(),
+                Active()
+            {}
+
+            UpdateBanRequest(const UpdateBanRequest& src) :
+                PlayFabBaseModel(),
+                BanId(src.BanId),
+                Reason(src.Reason),
+                Expires(src.Expires),
+                IPAddress(src.IPAddress),
+                MACAddress(src.MACAddress),
+                Permanent(src.Permanent),
+                Active(src.Active)
+            {}
+
+            UpdateBanRequest(const rapidjson::Value& obj) : UpdateBanRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~UpdateBanRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("BanId"); writer.String(BanId.c_str());
+                if (Reason.length() > 0) { writer.String("Reason"); writer.String(Reason.c_str()); }
+                if (Expires.notNull()) { writer.String("Expires"); writeDatetime(Expires, writer); }
+                if (IPAddress.length() > 0) { writer.String("IPAddress"); writer.String(IPAddress.c_str()); }
+                if (MACAddress.length() > 0) { writer.String("MACAddress"); writer.String(MACAddress.c_str()); }
+                if (Permanent.notNull()) { writer.String("Permanent"); writer.Bool(Permanent); }
+                if (Active.notNull()) { writer.String("Active"); writer.Bool(Active); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator BanId_member = obj.FindMember("BanId");
+                if (BanId_member != obj.MemberEnd() && !BanId_member->value.IsNull()) BanId = BanId_member->value.GetString();
+                const Value::ConstMemberIterator Reason_member = obj.FindMember("Reason");
+                if (Reason_member != obj.MemberEnd() && !Reason_member->value.IsNull()) Reason = Reason_member->value.GetString();
+                const Value::ConstMemberIterator Expires_member = obj.FindMember("Expires");
+                if (Expires_member != obj.MemberEnd() && !Expires_member->value.IsNull()) Expires = readDatetime(Expires_member->value);
+                const Value::ConstMemberIterator IPAddress_member = obj.FindMember("IPAddress");
+                if (IPAddress_member != obj.MemberEnd() && !IPAddress_member->value.IsNull()) IPAddress = IPAddress_member->value.GetString();
+                const Value::ConstMemberIterator MACAddress_member = obj.FindMember("MACAddress");
+                if (MACAddress_member != obj.MemberEnd() && !MACAddress_member->value.IsNull()) MACAddress = MACAddress_member->value.GetString();
+                const Value::ConstMemberIterator Permanent_member = obj.FindMember("Permanent");
+                if (Permanent_member != obj.MemberEnd() && !Permanent_member->value.IsNull()) Permanent = Permanent_member->value.GetBool();
+                const Value::ConstMemberIterator Active_member = obj.FindMember("Active");
+                if (Active_member != obj.MemberEnd() && !Active_member->value.IsNull()) Active = Active_member->value.GetBool();
+
+                return true;
+            }
+        };
+
+        struct UpdateBansRequest : public PlayFabBaseModel
+        {
+            std::list<UpdateBanRequest> Bans;
+
+            UpdateBansRequest() :
+                PlayFabBaseModel(),
+                Bans()
+            {}
+
+            UpdateBansRequest(const UpdateBansRequest& src) :
+                PlayFabBaseModel(),
+                Bans(src.Bans)
+            {}
+
+            UpdateBansRequest(const rapidjson::Value& obj) : UpdateBansRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~UpdateBansRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("Bans");
+    writer.StartArray();
+    for (std::list<UpdateBanRequest>::iterator iter = Bans.begin(); iter != Bans.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+    
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Bans_member = obj.FindMember("Bans");
+    if (Bans_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Bans_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Bans.push_back(UpdateBanRequest(memberList[i]));
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct UpdateBansResult : public PlayFabBaseModel
+        {
+            std::list<BanInfo> BanData;
+
+            UpdateBansResult() :
+                PlayFabBaseModel(),
+                BanData()
+            {}
+
+            UpdateBansResult(const UpdateBansResult& src) :
+                PlayFabBaseModel(),
+                BanData(src.BanData)
+            {}
+
+            UpdateBansResult(const rapidjson::Value& obj) : UpdateBansResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~UpdateBansResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (!BanData.empty()) {
+    writer.String("BanData");
+    writer.StartArray();
+    for (std::list<BanInfo>::iterator iter = BanData.begin(); iter != BanData.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator BanData_member = obj.FindMember("BanData");
+    if (BanData_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = BanData_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            BanData.push_back(BanInfo(memberList[i]));
+        }
+    }
+
+                return true;
+            }
+        };
+
         struct UpdateCatalogItemsRequest : public PlayFabBaseModel
         {
             Aws::String CatalogVersion;
+            OptionalBool SetAsDefaultCatalog;
             std::list<CatalogItem> Catalog;
 
             UpdateCatalogItemsRequest() :
                 PlayFabBaseModel(),
                 CatalogVersion(),
+                SetAsDefaultCatalog(),
                 Catalog()
             {}
 
             UpdateCatalogItemsRequest(const UpdateCatalogItemsRequest& src) :
                 PlayFabBaseModel(),
                 CatalogVersion(src.CatalogVersion),
+                SetAsDefaultCatalog(src.SetAsDefaultCatalog),
                 Catalog(src.Catalog)
             {}
 
@@ -8281,6 +9088,7 @@ namespace PlayFab
             {
                 writer.StartObject();
                 if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
+                if (SetAsDefaultCatalog.notNull()) { writer.String("SetAsDefaultCatalog"); writer.Bool(SetAsDefaultCatalog); }
                 if (!Catalog.empty()) {
     writer.String("Catalog");
     writer.StartArray();
@@ -8296,6 +9104,8 @@ namespace PlayFab
             {
                 const Value::ConstMemberIterator CatalogVersion_member = obj.FindMember("CatalogVersion");
                 if (CatalogVersion_member != obj.MemberEnd() && !CatalogVersion_member->value.IsNull()) CatalogVersion = CatalogVersion_member->value.GetString();
+                const Value::ConstMemberIterator SetAsDefaultCatalog_member = obj.FindMember("SetAsDefaultCatalog");
+                if (SetAsDefaultCatalog_member != obj.MemberEnd() && !SetAsDefaultCatalog_member->value.IsNull()) SetAsDefaultCatalog = SetAsDefaultCatalog_member->value.GetBool();
                 const Value::ConstMemberIterator Catalog_member = obj.FindMember("Catalog");
     if (Catalog_member != obj.MemberEnd()) {
         const rapidjson::Value& memberList = Catalog_member->value;
