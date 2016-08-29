@@ -140,6 +140,7 @@ namespace PlayFab
         static void OpenTrade(ClientModels::OpenTradeRequest& request, ProcessApiCallback<ClientModels::OpenTradeResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void AttributeInstall(ClientModels::AttributeInstallRequest& request, ProcessApiCallback<ClientModels::AttributeInstallResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPlayerSegments(ProcessApiCallback<ClientModels::GetPlayerSegmentsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void GetPlayerTags(ClientModels::GetPlayerTagsRequest& request, ProcessApiCallback<ClientModels::GetPlayerTagsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
 
     private:
         // ------------ Private constructor, to enforce all-static class
@@ -272,6 +273,7 @@ namespace PlayFab
         static void OnOpenTradeResult(PlayFabRequest* request);
         static void OnAttributeInstallResult(PlayFabRequest* request);
         static void OnGetPlayerSegmentsResult(PlayFabRequest* request);
+        static void OnGetPlayerTagsResult(PlayFabRequest* request);
 
         // Private, Client-Specific
         static void MultiStepClientLogin(bool needsAttribution);

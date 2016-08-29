@@ -643,3 +643,8 @@ void PlayFabClientApiWrapper::GetPlayerSegments(ProcessApiCallback<ClientModels:
     PlayFabClientApi::GetPlayerSegments(callback, errorCallback, customData);
 }
 
+void PlayFabClientApiWrapper::GetPlayerTags(ClientModels::GetPlayerTagsRequest& request, ProcessApiCallback<ClientModels::GetPlayerTagsResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::GetPlayerTags(request, callback, errorCallback, customData);
+}
+

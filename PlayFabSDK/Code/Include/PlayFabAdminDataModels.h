@@ -150,6 +150,84 @@ namespace PlayFab
             }
         };
 
+        struct AddPlayerTagRequest : public PlayFabBaseModel
+        {
+            Aws::String PlayFabId;
+            Aws::String TagName;
+
+            AddPlayerTagRequest() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                TagName()
+            {}
+
+            AddPlayerTagRequest(const AddPlayerTagRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                TagName(src.TagName)
+            {}
+
+            AddPlayerTagRequest(const rapidjson::Value& obj) : AddPlayerTagRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~AddPlayerTagRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+                writer.String("TagName"); writer.String(TagName.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+                const Value::ConstMemberIterator TagName_member = obj.FindMember("TagName");
+                if (TagName_member != obj.MemberEnd() && !TagName_member->value.IsNull()) TagName = TagName_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct AddPlayerTagResult : public PlayFabBaseModel
+        {
+
+            AddPlayerTagResult() :
+                PlayFabBaseModel()
+            {}
+
+            AddPlayerTagResult(const AddPlayerTagResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            AddPlayerTagResult(const rapidjson::Value& obj) : AddPlayerTagResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~AddPlayerTagResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
         enum Region
         {
             RegionUSCentral,
@@ -1123,6 +1201,7 @@ namespace PlayFab
             bool IsStackable;
             bool IsTradable;
             Aws::String ItemImageUrl;
+            bool IsLimitedEdition;
 
             CatalogItem() :
                 PlayFabBaseModel(),
@@ -1141,7 +1220,8 @@ namespace PlayFab
                 CanBecomeCharacter(false),
                 IsStackable(false),
                 IsTradable(false),
-                ItemImageUrl()
+                ItemImageUrl(),
+                IsLimitedEdition(false)
             {}
 
             CatalogItem(const CatalogItem& src) :
@@ -1161,7 +1241,8 @@ namespace PlayFab
                 CanBecomeCharacter(src.CanBecomeCharacter),
                 IsStackable(src.IsStackable),
                 IsTradable(src.IsTradable),
-                ItemImageUrl(src.ItemImageUrl)
+                ItemImageUrl(src.ItemImageUrl),
+                IsLimitedEdition(src.IsLimitedEdition)
             {}
 
             CatalogItem(const rapidjson::Value& obj) : CatalogItem()
@@ -1216,6 +1297,7 @@ namespace PlayFab
                 writer.String("IsStackable"); writer.Bool(IsStackable);
                 writer.String("IsTradable"); writer.Bool(IsTradable);
                 if (ItemImageUrl.length() > 0) { writer.String("ItemImageUrl"); writer.String(ItemImageUrl.c_str()); }
+                writer.String("IsLimitedEdition"); writer.Bool(IsLimitedEdition);
                 writer.EndObject();
             }
 
@@ -1266,6 +1348,8 @@ namespace PlayFab
                 if (IsTradable_member != obj.MemberEnd() && !IsTradable_member->value.IsNull()) IsTradable = IsTradable_member->value.GetBool();
                 const Value::ConstMemberIterator ItemImageUrl_member = obj.FindMember("ItemImageUrl");
                 if (ItemImageUrl_member != obj.MemberEnd() && !ItemImageUrl_member->value.IsNull()) ItemImageUrl = ItemImageUrl_member->value.GetString();
+                const Value::ConstMemberIterator IsLimitedEdition_member = obj.FindMember("IsLimitedEdition");
+                if (IsLimitedEdition_member != obj.MemberEnd() && !IsLimitedEdition_member->value.IsNull()) IsLimitedEdition = IsLimitedEdition_member->value.GetBool();
 
                 return true;
             }
@@ -4361,6 +4445,107 @@ namespace PlayFab
             }
         };
 
+        struct GetPlayerTagsRequest : public PlayFabBaseModel
+        {
+            Aws::String PlayFabId;
+            Aws::String Namespace;
+
+            GetPlayerTagsRequest() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                Namespace()
+            {}
+
+            GetPlayerTagsRequest(const GetPlayerTagsRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                Namespace(src.Namespace)
+            {}
+
+            GetPlayerTagsRequest(const rapidjson::Value& obj) : GetPlayerTagsRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayerTagsRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+                if (Namespace.length() > 0) { writer.String("Namespace"); writer.String(Namespace.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+                const Value::ConstMemberIterator Namespace_member = obj.FindMember("Namespace");
+                if (Namespace_member != obj.MemberEnd() && !Namespace_member->value.IsNull()) Namespace = Namespace_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct GetPlayerTagsResult : public PlayFabBaseModel
+        {
+            Aws::String PlayFabId;
+            std::list<Aws::String> Tags;
+
+            GetPlayerTagsResult() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                Tags()
+            {}
+
+            GetPlayerTagsResult(const GetPlayerTagsResult& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                Tags(src.Tags)
+            {}
+
+            GetPlayerTagsResult(const rapidjson::Value& obj) : GetPlayerTagsResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayerTagsResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+                writer.String("Tags");
+    writer.StartArray();
+    for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+        writer.String(iter->c_str());
+    }
+    writer.EndArray();
+    
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+                const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
+    if (Tags_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Tags_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Tags.push_back(memberList[i].GetString());
+        }
+    }
+
+                return true;
+            }
+        };
+
         struct GetPublisherDataRequest : public PlayFabBaseModel
         {
             std::list<Aws::String> Keys;
@@ -4963,19 +5148,25 @@ namespace PlayFab
             Aws::String ItemId;
             std::map<Aws::String, Uint32> VirtualCurrencyPrices;
             std::map<Aws::String, Uint32> RealCurrencyPrices;
+            MultitypeVar CustomData;
+            OptionalUint32 DisplayPosition;
 
             StoreItem() :
                 PlayFabBaseModel(),
                 ItemId(),
                 VirtualCurrencyPrices(),
-                RealCurrencyPrices()
+                RealCurrencyPrices(),
+                CustomData(),
+                DisplayPosition()
             {}
 
             StoreItem(const StoreItem& src) :
                 PlayFabBaseModel(),
                 ItemId(src.ItemId),
                 VirtualCurrencyPrices(src.VirtualCurrencyPrices),
-                RealCurrencyPrices(src.RealCurrencyPrices)
+                RealCurrencyPrices(src.RealCurrencyPrices),
+                CustomData(src.CustomData),
+                DisplayPosition(src.DisplayPosition)
             {}
 
             StoreItem(const rapidjson::Value& obj) : StoreItem()
@@ -5007,6 +5198,8 @@ namespace PlayFab
     }
     writer.EndObject();
      }
+                if (CustomData.notNull()) { writer.String("CustomData"); CustomData.writeJSON(writer); }
+                if (DisplayPosition.notNull()) { writer.String("DisplayPosition"); writer.Uint(DisplayPosition); }
                 writer.EndObject();
             }
 
@@ -5026,6 +5219,107 @@ namespace PlayFab
             RealCurrencyPrices[iter->name.GetString()] = iter->value.GetUint();
         }
     }
+                const Value::ConstMemberIterator CustomData_member = obj.FindMember("CustomData");
+                if (CustomData_member != obj.MemberEnd() && !CustomData_member->value.IsNull()) CustomData = MultitypeVar(CustomData_member->value);
+                const Value::ConstMemberIterator DisplayPosition_member = obj.FindMember("DisplayPosition");
+                if (DisplayPosition_member != obj.MemberEnd() && !DisplayPosition_member->value.IsNull()) DisplayPosition = DisplayPosition_member->value.GetUint();
+
+                return true;
+            }
+        };
+
+        enum SourceType
+        {
+            SourceTypeAdmin,
+            SourceTypeBackEnd,
+            SourceTypeGameClient,
+            SourceTypeGameServer,
+            SourceTypePartner,
+            SourceTypeStream
+        };
+
+        inline void writeSourceTypeEnumJSON(SourceType enumVal, PFStringJsonWriter& writer)
+        {
+            switch (enumVal)
+            {
+            case SourceTypeAdmin: writer.String("Admin"); break;
+            case SourceTypeBackEnd: writer.String("BackEnd"); break;
+            case SourceTypeGameClient: writer.String("GameClient"); break;
+            case SourceTypeGameServer: writer.String("GameServer"); break;
+            case SourceTypePartner: writer.String("Partner"); break;
+            case SourceTypeStream: writer.String("Stream"); break;
+
+            }
+        }
+
+        inline SourceType readSourceTypeFromValue(const rapidjson::Value& obj)
+        {
+            static std::map<Aws::String, SourceType> _SourceTypeMap;
+            if (_SourceTypeMap.size() == 0)
+            {
+                // Auto-generate the map on the first use
+                _SourceTypeMap["Admin"] = SourceTypeAdmin;
+                _SourceTypeMap["BackEnd"] = SourceTypeBackEnd;
+                _SourceTypeMap["GameClient"] = SourceTypeGameClient;
+                _SourceTypeMap["GameServer"] = SourceTypeGameServer;
+                _SourceTypeMap["Partner"] = SourceTypePartner;
+                _SourceTypeMap["Stream"] = SourceTypeStream;
+
+            }
+
+            auto output = _SourceTypeMap.find(obj.GetString());
+            if (output != _SourceTypeMap.end())
+                return output->second;
+
+            return SourceTypeAdmin; // Basically critical fail
+        }
+
+        struct StoreMarketingModel : public PlayFabBaseModel
+        {
+            Aws::String DisplayName;
+            Aws::String Description;
+            MultitypeVar Metadata;
+
+            StoreMarketingModel() :
+                PlayFabBaseModel(),
+                DisplayName(),
+                Description(),
+                Metadata()
+            {}
+
+            StoreMarketingModel(const StoreMarketingModel& src) :
+                PlayFabBaseModel(),
+                DisplayName(src.DisplayName),
+                Description(src.Description),
+                Metadata(src.Metadata)
+            {}
+
+            StoreMarketingModel(const rapidjson::Value& obj) : StoreMarketingModel()
+            {
+                readFromValue(obj);
+            }
+
+            ~StoreMarketingModel()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
+                if (Description.length() > 0) { writer.String("Description"); writer.String(Description.c_str()); }
+                if (Metadata.notNull()) { writer.String("Metadata"); Metadata.writeJSON(writer); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator DisplayName_member = obj.FindMember("DisplayName");
+                if (DisplayName_member != obj.MemberEnd() && !DisplayName_member->value.IsNull()) DisplayName = DisplayName_member->value.GetString();
+                const Value::ConstMemberIterator Description_member = obj.FindMember("Description");
+                if (Description_member != obj.MemberEnd() && !Description_member->value.IsNull()) Description = Description_member->value.GetString();
+                const Value::ConstMemberIterator Metadata_member = obj.FindMember("Metadata");
+                if (Metadata_member != obj.MemberEnd() && !Metadata_member->value.IsNull()) Metadata = MultitypeVar(Metadata_member->value);
 
                 return true;
             }
@@ -5034,15 +5328,27 @@ namespace PlayFab
         struct GetStoreItemsResult : public PlayFabBaseModel
         {
             std::list<StoreItem> Store;
+            Boxed<SourceType> Source;
+            Aws::String CatalogVersion;
+            Aws::String StoreId;
+            StoreMarketingModel* MarketingData;
 
             GetStoreItemsResult() :
                 PlayFabBaseModel(),
-                Store()
+                Store(),
+                Source(),
+                CatalogVersion(),
+                StoreId(),
+                MarketingData(nullptr)
             {}
 
             GetStoreItemsResult(const GetStoreItemsResult& src) :
                 PlayFabBaseModel(),
-                Store(src.Store)
+                Store(src.Store),
+                Source(src.Source),
+                CatalogVersion(src.CatalogVersion),
+                StoreId(src.StoreId),
+                MarketingData(src.MarketingData ? new StoreMarketingModel(*src.MarketingData) : nullptr)
             {}
 
             GetStoreItemsResult(const rapidjson::Value& obj) : GetStoreItemsResult()
@@ -5052,6 +5358,7 @@ namespace PlayFab
 
             ~GetStoreItemsResult()
             {
+                if (MarketingData != nullptr) delete MarketingData;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -5065,6 +5372,10 @@ namespace PlayFab
     }
     writer.EndArray();
      }
+                if (Source.notNull()) { writer.String("Source"); writeSourceTypeEnumJSON(Source, writer); }
+                if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
+                if (StoreId.length() > 0) { writer.String("StoreId"); writer.String(StoreId.c_str()); }
+                if (MarketingData != nullptr) { writer.String("MarketingData"); MarketingData->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -5077,6 +5388,14 @@ namespace PlayFab
             Store.push_back(StoreItem(memberList[i]));
         }
     }
+                const Value::ConstMemberIterator Source_member = obj.FindMember("Source");
+                if (Source_member != obj.MemberEnd() && !Source_member->value.IsNull()) Source = readSourceTypeFromValue(Source_member->value);
+                const Value::ConstMemberIterator CatalogVersion_member = obj.FindMember("CatalogVersion");
+                if (CatalogVersion_member != obj.MemberEnd() && !CatalogVersion_member->value.IsNull()) CatalogVersion = CatalogVersion_member->value.GetString();
+                const Value::ConstMemberIterator StoreId_member = obj.FindMember("StoreId");
+                if (StoreId_member != obj.MemberEnd() && !StoreId_member->value.IsNull()) StoreId = StoreId_member->value.GetString();
+                const Value::ConstMemberIterator MarketingData_member = obj.FindMember("MarketingData");
+                if (MarketingData_member != obj.MemberEnd() && !MarketingData_member->value.IsNull()) MarketingData = new StoreMarketingModel(MarketingData_member->value);
 
                 return true;
             }
@@ -7778,6 +8097,84 @@ namespace PlayFab
             }
         };
 
+        struct RemovePlayerTagRequest : public PlayFabBaseModel
+        {
+            Aws::String PlayFabId;
+            Aws::String TagName;
+
+            RemovePlayerTagRequest() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                TagName()
+            {}
+
+            RemovePlayerTagRequest(const RemovePlayerTagRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                TagName(src.TagName)
+            {}
+
+            RemovePlayerTagRequest(const rapidjson::Value& obj) : RemovePlayerTagRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~RemovePlayerTagRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+                writer.String("TagName"); writer.String(TagName.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+                const Value::ConstMemberIterator TagName_member = obj.FindMember("TagName");
+                if (TagName_member != obj.MemberEnd() && !TagName_member->value.IsNull()) TagName = TagName_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct RemovePlayerTagResult : public PlayFabBaseModel
+        {
+
+            RemovePlayerTagResult() :
+                PlayFabBaseModel()
+            {}
+
+            RemovePlayerTagResult(const RemovePlayerTagResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            RemovePlayerTagResult(const rapidjson::Value& obj) : RemovePlayerTagResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~RemovePlayerTagResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
         struct RemoveServerBuildRequest : public PlayFabBaseModel
         {
             Aws::String BuildId;
@@ -9449,12 +9846,14 @@ namespace PlayFab
         {
             Aws::String CatalogVersion;
             Aws::String StoreId;
+            StoreMarketingModel* MarketingData;
             std::list<StoreItem> Store;
 
             UpdateStoreItemsRequest() :
                 PlayFabBaseModel(),
                 CatalogVersion(),
                 StoreId(),
+                MarketingData(nullptr),
                 Store()
             {}
 
@@ -9462,6 +9861,7 @@ namespace PlayFab
                 PlayFabBaseModel(),
                 CatalogVersion(src.CatalogVersion),
                 StoreId(src.StoreId),
+                MarketingData(src.MarketingData ? new StoreMarketingModel(*src.MarketingData) : nullptr),
                 Store(src.Store)
             {}
 
@@ -9472,6 +9872,7 @@ namespace PlayFab
 
             ~UpdateStoreItemsRequest()
             {
+                if (MarketingData != nullptr) delete MarketingData;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -9479,6 +9880,7 @@ namespace PlayFab
                 writer.StartObject();
                 if (CatalogVersion.length() > 0) { writer.String("CatalogVersion"); writer.String(CatalogVersion.c_str()); }
                 writer.String("StoreId"); writer.String(StoreId.c_str());
+                if (MarketingData != nullptr) { writer.String("MarketingData"); MarketingData->writeJSON(writer); }
                 if (!Store.empty()) {
     writer.String("Store");
     writer.StartArray();
@@ -9496,6 +9898,8 @@ namespace PlayFab
                 if (CatalogVersion_member != obj.MemberEnd() && !CatalogVersion_member->value.IsNull()) CatalogVersion = CatalogVersion_member->value.GetString();
                 const Value::ConstMemberIterator StoreId_member = obj.FindMember("StoreId");
                 if (StoreId_member != obj.MemberEnd() && !StoreId_member->value.IsNull()) StoreId = StoreId_member->value.GetString();
+                const Value::ConstMemberIterator MarketingData_member = obj.FindMember("MarketingData");
+                if (MarketingData_member != obj.MemberEnd() && !MarketingData_member->value.IsNull()) MarketingData = new StoreMarketingModel(MarketingData_member->value);
                 const Value::ConstMemberIterator Store_member = obj.FindMember("Store");
     if (Store_member != obj.MemberEnd()) {
         const rapidjson::Value& memberList = Store_member->value;

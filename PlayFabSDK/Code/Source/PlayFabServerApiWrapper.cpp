@@ -467,6 +467,11 @@ void PlayFabServerApiWrapper::UpdateCharacterReadOnlyData(ServerModels::UpdateCh
     PlayFabServerApi::UpdateCharacterReadOnlyData(request, callback, errorCallback, customData);
 }
 
+void PlayFabServerApiWrapper::AddPlayerTag(ServerModels::AddPlayerTagRequest& request, ProcessApiCallback<ServerModels::AddPlayerTagResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::AddPlayerTag(request, callback, errorCallback, customData);
+}
+
 void PlayFabServerApiWrapper::GetAllSegments(ProcessApiCallback<ServerModels::GetAllSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::GetAllSegments(callback, errorCallback, customData);
@@ -480,5 +485,15 @@ void PlayFabServerApiWrapper::GetPlayerSegments(ServerModels::GetPlayersSegments
 void PlayFabServerApiWrapper::GetPlayersInSegment(ServerModels::GetPlayersInSegmentRequest& request, ProcessApiCallback<ServerModels::GetPlayersInSegmentResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::GetPlayersInSegment(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::GetPlayerTags(ServerModels::GetPlayerTagsRequest& request, ProcessApiCallback<ServerModels::GetPlayerTagsResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::GetPlayerTags(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::RemovePlayerTag(ServerModels::RemovePlayerTagRequest& request, ProcessApiCallback<ServerModels::RemovePlayerTagResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::RemovePlayerTag(request, callback, errorCallback, customData);
 }
 

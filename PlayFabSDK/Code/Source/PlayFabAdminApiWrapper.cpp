@@ -362,6 +362,11 @@ void PlayFabAdminApiWrapper::ResetCharacterStatistics(AdminModels::ResetCharacte
     PlayFabAdminApi::ResetCharacterStatistics(request, callback, errorCallback, customData);
 }
 
+void PlayFabAdminApiWrapper::AddPlayerTag(AdminModels::AddPlayerTagRequest& request, ProcessApiCallback<AdminModels::AddPlayerTagResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::AddPlayerTag(request, callback, errorCallback, customData);
+}
+
 void PlayFabAdminApiWrapper::GetAllSegments(ProcessApiCallback<AdminModels::GetAllSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabAdminApi::GetAllSegments(callback, errorCallback, customData);
@@ -375,5 +380,15 @@ void PlayFabAdminApiWrapper::GetPlayerSegments(AdminModels::GetPlayersSegmentsRe
 void PlayFabAdminApiWrapper::GetPlayersInSegment(AdminModels::GetPlayersInSegmentRequest& request, ProcessApiCallback<AdminModels::GetPlayersInSegmentResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabAdminApi::GetPlayersInSegment(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::GetPlayerTags(AdminModels::GetPlayerTagsRequest& request, ProcessApiCallback<AdminModels::GetPlayerTagsResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::GetPlayerTags(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::RemovePlayerTag(AdminModels::RemovePlayerTagRequest& request, ProcessApiCallback<AdminModels::RemovePlayerTagResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::RemovePlayerTag(request, callback, errorCallback, customData);
 }
 
