@@ -1372,6 +1372,7 @@ namespace PlayFab
             bool IsTradable;
             Aws::String ItemImageUrl;
             bool IsLimitedEdition;
+            Int32 InitialLimitedEditionCount;
 
             CatalogItem() :
                 PlayFabBaseModel(),
@@ -1391,7 +1392,8 @@ namespace PlayFab
                 IsStackable(false),
                 IsTradable(false),
                 ItemImageUrl(),
-                IsLimitedEdition(false)
+                IsLimitedEdition(false),
+                InitialLimitedEditionCount(0)
             {}
 
             CatalogItem(const CatalogItem& src) :
@@ -1412,7 +1414,8 @@ namespace PlayFab
                 IsStackable(src.IsStackable),
                 IsTradable(src.IsTradable),
                 ItemImageUrl(src.ItemImageUrl),
-                IsLimitedEdition(src.IsLimitedEdition)
+                IsLimitedEdition(src.IsLimitedEdition),
+                InitialLimitedEditionCount(src.InitialLimitedEditionCount)
             {}
 
             CatalogItem(const rapidjson::Value& obj) : CatalogItem()
@@ -1468,6 +1471,7 @@ namespace PlayFab
                 writer.String("IsTradable"); writer.Bool(IsTradable);
                 if (ItemImageUrl.length() > 0) { writer.String("ItemImageUrl"); writer.String(ItemImageUrl.c_str()); }
                 writer.String("IsLimitedEdition"); writer.Bool(IsLimitedEdition);
+                writer.String("InitialLimitedEditionCount"); writer.Int(InitialLimitedEditionCount);
                 writer.EndObject();
             }
 
@@ -1520,6 +1524,8 @@ namespace PlayFab
                 if (ItemImageUrl_member != obj.MemberEnd() && !ItemImageUrl_member->value.IsNull()) ItemImageUrl = ItemImageUrl_member->value.GetString();
                 const Value::ConstMemberIterator IsLimitedEdition_member = obj.FindMember("IsLimitedEdition");
                 if (IsLimitedEdition_member != obj.MemberEnd() && !IsLimitedEdition_member->value.IsNull()) IsLimitedEdition = IsLimitedEdition_member->value.GetBool();
+                const Value::ConstMemberIterator InitialLimitedEditionCount_member = obj.FindMember("InitialLimitedEditionCount");
+                if (InitialLimitedEditionCount_member != obj.MemberEnd() && !InitialLimitedEditionCount_member->value.IsNull()) InitialLimitedEditionCount = InitialLimitedEditionCount_member->value.GetInt();
 
                 return true;
             }
@@ -3343,6 +3349,7 @@ namespace PlayFab
             MultitypeVar FunctionResult;
             std::list<LogStatement> Logs;
             double ExecutionTimeSeconds;
+            double ProcessorTimeSeconds;
             Uint32 MemoryConsumedBytes;
             Int32 APIRequestsIssued;
             Int32 HttpRequestsIssued;
@@ -3355,6 +3362,7 @@ namespace PlayFab
                 FunctionResult(),
                 Logs(),
                 ExecutionTimeSeconds(0),
+                ProcessorTimeSeconds(0),
                 MemoryConsumedBytes(0),
                 APIRequestsIssued(0),
                 HttpRequestsIssued(0),
@@ -3368,6 +3376,7 @@ namespace PlayFab
                 FunctionResult(src.FunctionResult),
                 Logs(src.Logs),
                 ExecutionTimeSeconds(src.ExecutionTimeSeconds),
+                ProcessorTimeSeconds(src.ProcessorTimeSeconds),
                 MemoryConsumedBytes(src.MemoryConsumedBytes),
                 APIRequestsIssued(src.APIRequestsIssued),
                 HttpRequestsIssued(src.HttpRequestsIssued),
@@ -3399,6 +3408,7 @@ namespace PlayFab
     writer.EndArray();
      }
                 writer.String("ExecutionTimeSeconds"); writer.Double(ExecutionTimeSeconds);
+                writer.String("ProcessorTimeSeconds"); writer.Double(ProcessorTimeSeconds);
                 writer.String("MemoryConsumedBytes"); writer.Uint(MemoryConsumedBytes);
                 writer.String("APIRequestsIssued"); writer.Int(APIRequestsIssued);
                 writer.String("HttpRequestsIssued"); writer.Int(HttpRequestsIssued);
@@ -3423,6 +3433,8 @@ namespace PlayFab
     }
                 const Value::ConstMemberIterator ExecutionTimeSeconds_member = obj.FindMember("ExecutionTimeSeconds");
                 if (ExecutionTimeSeconds_member != obj.MemberEnd() && !ExecutionTimeSeconds_member->value.IsNull()) ExecutionTimeSeconds = ExecutionTimeSeconds_member->value.GetDouble();
+                const Value::ConstMemberIterator ProcessorTimeSeconds_member = obj.FindMember("ProcessorTimeSeconds");
+                if (ProcessorTimeSeconds_member != obj.MemberEnd() && !ProcessorTimeSeconds_member->value.IsNull()) ProcessorTimeSeconds = ProcessorTimeSeconds_member->value.GetDouble();
                 const Value::ConstMemberIterator MemoryConsumedBytes_member = obj.FindMember("MemoryConsumedBytes");
                 if (MemoryConsumedBytes_member != obj.MemberEnd() && !MemoryConsumedBytes_member->value.IsNull()) MemoryConsumedBytes = MemoryConsumedBytes_member->value.GetUint();
                 const Value::ConstMemberIterator APIRequestsIssued_member = obj.FindMember("APIRequestsIssued");
@@ -10560,19 +10572,22 @@ namespace PlayFab
             Aws::String AndroidDeviceId;
             Aws::String OS;
             Aws::String AndroidDevice;
+            OptionalBool ForceLink;
 
             LinkAndroidDeviceIDRequest() :
                 PlayFabBaseModel(),
                 AndroidDeviceId(),
                 OS(),
-                AndroidDevice()
+                AndroidDevice(),
+                ForceLink()
             {}
 
             LinkAndroidDeviceIDRequest(const LinkAndroidDeviceIDRequest& src) :
                 PlayFabBaseModel(),
                 AndroidDeviceId(src.AndroidDeviceId),
                 OS(src.OS),
-                AndroidDevice(src.AndroidDevice)
+                AndroidDevice(src.AndroidDevice),
+                ForceLink(src.ForceLink)
             {}
 
             LinkAndroidDeviceIDRequest(const rapidjson::Value& obj) : LinkAndroidDeviceIDRequest()
@@ -10590,6 +10605,7 @@ namespace PlayFab
                 writer.String("AndroidDeviceId"); writer.String(AndroidDeviceId.c_str());
                 if (OS.length() > 0) { writer.String("OS"); writer.String(OS.c_str()); }
                 if (AndroidDevice.length() > 0) { writer.String("AndroidDevice"); writer.String(AndroidDevice.c_str()); }
+                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
                 writer.EndObject();
             }
 
@@ -10601,6 +10617,8 @@ namespace PlayFab
                 if (OS_member != obj.MemberEnd() && !OS_member->value.IsNull()) OS = OS_member->value.GetString();
                 const Value::ConstMemberIterator AndroidDevice_member = obj.FindMember("AndroidDevice");
                 if (AndroidDevice_member != obj.MemberEnd() && !AndroidDevice_member->value.IsNull()) AndroidDevice = AndroidDevice_member->value.GetString();
+                const Value::ConstMemberIterator ForceLink_member = obj.FindMember("ForceLink");
+                if (ForceLink_member != obj.MemberEnd() && !ForceLink_member->value.IsNull()) ForceLink = ForceLink_member->value.GetBool();
 
                 return true;
             }
@@ -10642,15 +10660,18 @@ namespace PlayFab
         struct LinkCustomIDRequest : public PlayFabBaseModel
         {
             Aws::String CustomId;
+            OptionalBool ForceLink;
 
             LinkCustomIDRequest() :
                 PlayFabBaseModel(),
-                CustomId()
+                CustomId(),
+                ForceLink()
             {}
 
             LinkCustomIDRequest(const LinkCustomIDRequest& src) :
                 PlayFabBaseModel(),
-                CustomId(src.CustomId)
+                CustomId(src.CustomId),
+                ForceLink(src.ForceLink)
             {}
 
             LinkCustomIDRequest(const rapidjson::Value& obj) : LinkCustomIDRequest()
@@ -10666,6 +10687,7 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("CustomId"); writer.String(CustomId.c_str());
+                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
                 writer.EndObject();
             }
 
@@ -10673,6 +10695,8 @@ namespace PlayFab
             {
                 const Value::ConstMemberIterator CustomId_member = obj.FindMember("CustomId");
                 if (CustomId_member != obj.MemberEnd() && !CustomId_member->value.IsNull()) CustomId = CustomId_member->value.GetString();
+                const Value::ConstMemberIterator ForceLink_member = obj.FindMember("ForceLink");
+                if (ForceLink_member != obj.MemberEnd() && !ForceLink_member->value.IsNull()) ForceLink = ForceLink_member->value.GetBool();
 
                 return true;
             }
@@ -10714,15 +10738,18 @@ namespace PlayFab
         struct LinkFacebookAccountRequest : public PlayFabBaseModel
         {
             Aws::String AccessToken;
+            OptionalBool ForceLink;
 
             LinkFacebookAccountRequest() :
                 PlayFabBaseModel(),
-                AccessToken()
+                AccessToken(),
+                ForceLink()
             {}
 
             LinkFacebookAccountRequest(const LinkFacebookAccountRequest& src) :
                 PlayFabBaseModel(),
-                AccessToken(src.AccessToken)
+                AccessToken(src.AccessToken),
+                ForceLink(src.ForceLink)
             {}
 
             LinkFacebookAccountRequest(const rapidjson::Value& obj) : LinkFacebookAccountRequest()
@@ -10738,6 +10765,7 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("AccessToken"); writer.String(AccessToken.c_str());
+                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
                 writer.EndObject();
             }
 
@@ -10745,6 +10773,8 @@ namespace PlayFab
             {
                 const Value::ConstMemberIterator AccessToken_member = obj.FindMember("AccessToken");
                 if (AccessToken_member != obj.MemberEnd() && !AccessToken_member->value.IsNull()) AccessToken = AccessToken_member->value.GetString();
+                const Value::ConstMemberIterator ForceLink_member = obj.FindMember("ForceLink");
+                if (ForceLink_member != obj.MemberEnd() && !ForceLink_member->value.IsNull()) ForceLink = ForceLink_member->value.GetBool();
 
                 return true;
             }
@@ -10786,15 +10816,18 @@ namespace PlayFab
         struct LinkGameCenterAccountRequest : public PlayFabBaseModel
         {
             Aws::String GameCenterId;
+            OptionalBool ForceLink;
 
             LinkGameCenterAccountRequest() :
                 PlayFabBaseModel(),
-                GameCenterId()
+                GameCenterId(),
+                ForceLink()
             {}
 
             LinkGameCenterAccountRequest(const LinkGameCenterAccountRequest& src) :
                 PlayFabBaseModel(),
-                GameCenterId(src.GameCenterId)
+                GameCenterId(src.GameCenterId),
+                ForceLink(src.ForceLink)
             {}
 
             LinkGameCenterAccountRequest(const rapidjson::Value& obj) : LinkGameCenterAccountRequest()
@@ -10810,6 +10843,7 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("GameCenterId"); writer.String(GameCenterId.c_str());
+                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
                 writer.EndObject();
             }
 
@@ -10817,6 +10851,8 @@ namespace PlayFab
             {
                 const Value::ConstMemberIterator GameCenterId_member = obj.FindMember("GameCenterId");
                 if (GameCenterId_member != obj.MemberEnd() && !GameCenterId_member->value.IsNull()) GameCenterId = GameCenterId_member->value.GetString();
+                const Value::ConstMemberIterator ForceLink_member = obj.FindMember("ForceLink");
+                if (ForceLink_member != obj.MemberEnd() && !ForceLink_member->value.IsNull()) ForceLink = ForceLink_member->value.GetBool();
 
                 return true;
             }
@@ -10858,15 +10894,18 @@ namespace PlayFab
         struct LinkGoogleAccountRequest : public PlayFabBaseModel
         {
             Aws::String AccessToken;
+            OptionalBool ForceLink;
 
             LinkGoogleAccountRequest() :
                 PlayFabBaseModel(),
-                AccessToken()
+                AccessToken(),
+                ForceLink()
             {}
 
             LinkGoogleAccountRequest(const LinkGoogleAccountRequest& src) :
                 PlayFabBaseModel(),
-                AccessToken(src.AccessToken)
+                AccessToken(src.AccessToken),
+                ForceLink(src.ForceLink)
             {}
 
             LinkGoogleAccountRequest(const rapidjson::Value& obj) : LinkGoogleAccountRequest()
@@ -10882,6 +10921,7 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("AccessToken"); writer.String(AccessToken.c_str());
+                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
                 writer.EndObject();
             }
 
@@ -10889,6 +10929,8 @@ namespace PlayFab
             {
                 const Value::ConstMemberIterator AccessToken_member = obj.FindMember("AccessToken");
                 if (AccessToken_member != obj.MemberEnd() && !AccessToken_member->value.IsNull()) AccessToken = AccessToken_member->value.GetString();
+                const Value::ConstMemberIterator ForceLink_member = obj.FindMember("ForceLink");
+                if (ForceLink_member != obj.MemberEnd() && !ForceLink_member->value.IsNull()) ForceLink = ForceLink_member->value.GetBool();
 
                 return true;
             }
@@ -10932,19 +10974,22 @@ namespace PlayFab
             Aws::String DeviceId;
             Aws::String OS;
             Aws::String DeviceModel;
+            OptionalBool ForceLink;
 
             LinkIOSDeviceIDRequest() :
                 PlayFabBaseModel(),
                 DeviceId(),
                 OS(),
-                DeviceModel()
+                DeviceModel(),
+                ForceLink()
             {}
 
             LinkIOSDeviceIDRequest(const LinkIOSDeviceIDRequest& src) :
                 PlayFabBaseModel(),
                 DeviceId(src.DeviceId),
                 OS(src.OS),
-                DeviceModel(src.DeviceModel)
+                DeviceModel(src.DeviceModel),
+                ForceLink(src.ForceLink)
             {}
 
             LinkIOSDeviceIDRequest(const rapidjson::Value& obj) : LinkIOSDeviceIDRequest()
@@ -10962,6 +11007,7 @@ namespace PlayFab
                 writer.String("DeviceId"); writer.String(DeviceId.c_str());
                 if (OS.length() > 0) { writer.String("OS"); writer.String(OS.c_str()); }
                 if (DeviceModel.length() > 0) { writer.String("DeviceModel"); writer.String(DeviceModel.c_str()); }
+                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
                 writer.EndObject();
             }
 
@@ -10973,6 +11019,8 @@ namespace PlayFab
                 if (OS_member != obj.MemberEnd() && !OS_member->value.IsNull()) OS = OS_member->value.GetString();
                 const Value::ConstMemberIterator DeviceModel_member = obj.FindMember("DeviceModel");
                 if (DeviceModel_member != obj.MemberEnd() && !DeviceModel_member->value.IsNull()) DeviceModel = DeviceModel_member->value.GetString();
+                const Value::ConstMemberIterator ForceLink_member = obj.FindMember("ForceLink");
+                if (ForceLink_member != obj.MemberEnd() && !ForceLink_member->value.IsNull()) ForceLink = ForceLink_member->value.GetBool();
 
                 return true;
             }
@@ -11015,17 +11063,20 @@ namespace PlayFab
         {
             Aws::String KongregateId;
             Aws::String AuthTicket;
+            OptionalBool ForceLink;
 
             LinkKongregateAccountRequest() :
                 PlayFabBaseModel(),
                 KongregateId(),
-                AuthTicket()
+                AuthTicket(),
+                ForceLink()
             {}
 
             LinkKongregateAccountRequest(const LinkKongregateAccountRequest& src) :
                 PlayFabBaseModel(),
                 KongregateId(src.KongregateId),
-                AuthTicket(src.AuthTicket)
+                AuthTicket(src.AuthTicket),
+                ForceLink(src.ForceLink)
             {}
 
             LinkKongregateAccountRequest(const rapidjson::Value& obj) : LinkKongregateAccountRequest()
@@ -11042,6 +11093,7 @@ namespace PlayFab
                 writer.StartObject();
                 writer.String("KongregateId"); writer.String(KongregateId.c_str());
                 writer.String("AuthTicket"); writer.String(AuthTicket.c_str());
+                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
                 writer.EndObject();
             }
 
@@ -11051,6 +11103,8 @@ namespace PlayFab
                 if (KongregateId_member != obj.MemberEnd() && !KongregateId_member->value.IsNull()) KongregateId = KongregateId_member->value.GetString();
                 const Value::ConstMemberIterator AuthTicket_member = obj.FindMember("AuthTicket");
                 if (AuthTicket_member != obj.MemberEnd() && !AuthTicket_member->value.IsNull()) AuthTicket = AuthTicket_member->value.GetString();
+                const Value::ConstMemberIterator ForceLink_member = obj.FindMember("ForceLink");
+                if (ForceLink_member != obj.MemberEnd() && !ForceLink_member->value.IsNull()) ForceLink = ForceLink_member->value.GetBool();
 
                 return true;
             }
@@ -11092,15 +11146,18 @@ namespace PlayFab
         struct LinkSteamAccountRequest : public PlayFabBaseModel
         {
             Aws::String SteamTicket;
+            OptionalBool ForceLink;
 
             LinkSteamAccountRequest() :
                 PlayFabBaseModel(),
-                SteamTicket()
+                SteamTicket(),
+                ForceLink()
             {}
 
             LinkSteamAccountRequest(const LinkSteamAccountRequest& src) :
                 PlayFabBaseModel(),
-                SteamTicket(src.SteamTicket)
+                SteamTicket(src.SteamTicket),
+                ForceLink(src.ForceLink)
             {}
 
             LinkSteamAccountRequest(const rapidjson::Value& obj) : LinkSteamAccountRequest()
@@ -11116,6 +11173,7 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("SteamTicket"); writer.String(SteamTicket.c_str());
+                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
                 writer.EndObject();
             }
 
@@ -11123,6 +11181,8 @@ namespace PlayFab
             {
                 const Value::ConstMemberIterator SteamTicket_member = obj.FindMember("SteamTicket");
                 if (SteamTicket_member != obj.MemberEnd() && !SteamTicket_member->value.IsNull()) SteamTicket = SteamTicket_member->value.GetString();
+                const Value::ConstMemberIterator ForceLink_member = obj.FindMember("ForceLink");
+                if (ForceLink_member != obj.MemberEnd() && !ForceLink_member->value.IsNull()) ForceLink = ForceLink_member->value.GetBool();
 
                 return true;
             }
@@ -11164,15 +11224,18 @@ namespace PlayFab
         struct LinkTwitchAccountRequest : public PlayFabBaseModel
         {
             Aws::String AccessToken;
+            OptionalBool ForceLink;
 
             LinkTwitchAccountRequest() :
                 PlayFabBaseModel(),
-                AccessToken()
+                AccessToken(),
+                ForceLink()
             {}
 
             LinkTwitchAccountRequest(const LinkTwitchAccountRequest& src) :
                 PlayFabBaseModel(),
-                AccessToken(src.AccessToken)
+                AccessToken(src.AccessToken),
+                ForceLink(src.ForceLink)
             {}
 
             LinkTwitchAccountRequest(const rapidjson::Value& obj) : LinkTwitchAccountRequest()
@@ -11188,6 +11251,7 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("AccessToken"); writer.String(AccessToken.c_str());
+                if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
                 writer.EndObject();
             }
 
@@ -11195,6 +11259,8 @@ namespace PlayFab
             {
                 const Value::ConstMemberIterator AccessToken_member = obj.FindMember("AccessToken");
                 if (AccessToken_member != obj.MemberEnd() && !AccessToken_member->value.IsNull()) AccessToken = AccessToken_member->value.GetString();
+                const Value::ConstMemberIterator ForceLink_member = obj.FindMember("ForceLink");
+                if (ForceLink_member != obj.MemberEnd() && !ForceLink_member->value.IsNull()) ForceLink = ForceLink_member->value.GetBool();
 
                 return true;
             }

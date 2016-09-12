@@ -367,6 +367,11 @@ void PlayFabAdminApiWrapper::AddPlayerTag(AdminModels::AddPlayerTagRequest& requ
     PlayFabAdminApi::AddPlayerTag(request, callback, errorCallback, customData);
 }
 
+void PlayFabAdminApiWrapper::GetAllActionGroups(ProcessApiCallback<AdminModels::GetAllActionGroupsResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::GetAllActionGroups(callback, errorCallback, customData);
+}
+
 void PlayFabAdminApiWrapper::GetAllSegments(ProcessApiCallback<AdminModels::GetAllSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabAdminApi::GetAllSegments(callback, errorCallback, customData);

@@ -2168,6 +2168,36 @@ void PlayFabAdminApi::OnAddPlayerTagResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabAdminApi::GetAllActionGroups(
+
+    ProcessApiCallback<GetAllActionGroupsResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Admin/GetAllActionGroups"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, "", customData, callback, errorCallback, OnGetAllActionGroupsResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabAdminApi::OnGetAllActionGroupsResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        GetAllActionGroupsResult* outResult = new GetAllActionGroupsResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<GetAllActionGroupsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetAllActionGroupsResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabAdminApi::GetAllSegments(
 
     ProcessApiCallback<GetAllSegmentsResult> callback,

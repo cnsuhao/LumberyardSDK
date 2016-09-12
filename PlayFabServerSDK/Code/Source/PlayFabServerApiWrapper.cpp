@@ -472,6 +472,11 @@ void PlayFabServerApiWrapper::AddPlayerTag(ServerModels::AddPlayerTagRequest& re
     PlayFabServerApi::AddPlayerTag(request, callback, errorCallback, customData);
 }
 
+void PlayFabServerApiWrapper::GetAllActionGroups(ProcessApiCallback<ServerModels::GetAllActionGroupsResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::GetAllActionGroups(callback, errorCallback, customData);
+}
+
 void PlayFabServerApiWrapper::GetAllSegments(ProcessApiCallback<ServerModels::GetAllSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::GetAllSegments(callback, errorCallback, customData);

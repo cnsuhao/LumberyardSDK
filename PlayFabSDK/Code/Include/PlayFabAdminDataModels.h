@@ -1202,6 +1202,7 @@ namespace PlayFab
             bool IsTradable;
             Aws::String ItemImageUrl;
             bool IsLimitedEdition;
+            Int32 InitialLimitedEditionCount;
 
             CatalogItem() :
                 PlayFabBaseModel(),
@@ -1221,7 +1222,8 @@ namespace PlayFab
                 IsStackable(false),
                 IsTradable(false),
                 ItemImageUrl(),
-                IsLimitedEdition(false)
+                IsLimitedEdition(false),
+                InitialLimitedEditionCount(0)
             {}
 
             CatalogItem(const CatalogItem& src) :
@@ -1242,7 +1244,8 @@ namespace PlayFab
                 IsStackable(src.IsStackable),
                 IsTradable(src.IsTradable),
                 ItemImageUrl(src.ItemImageUrl),
-                IsLimitedEdition(src.IsLimitedEdition)
+                IsLimitedEdition(src.IsLimitedEdition),
+                InitialLimitedEditionCount(src.InitialLimitedEditionCount)
             {}
 
             CatalogItem(const rapidjson::Value& obj) : CatalogItem()
@@ -1298,6 +1301,7 @@ namespace PlayFab
                 writer.String("IsTradable"); writer.Bool(IsTradable);
                 if (ItemImageUrl.length() > 0) { writer.String("ItemImageUrl"); writer.String(ItemImageUrl.c_str()); }
                 writer.String("IsLimitedEdition"); writer.Bool(IsLimitedEdition);
+                writer.String("InitialLimitedEditionCount"); writer.Int(InitialLimitedEditionCount);
                 writer.EndObject();
             }
 
@@ -1350,6 +1354,8 @@ namespace PlayFab
                 if (ItemImageUrl_member != obj.MemberEnd() && !ItemImageUrl_member->value.IsNull()) ItemImageUrl = ItemImageUrl_member->value.GetString();
                 const Value::ConstMemberIterator IsLimitedEdition_member = obj.FindMember("IsLimitedEdition");
                 if (IsLimitedEdition_member != obj.MemberEnd() && !IsLimitedEdition_member->value.IsNull()) IsLimitedEdition = IsLimitedEdition_member->value.GetBool();
+                const Value::ConstMemberIterator InitialLimitedEditionCount_member = obj.FindMember("InitialLimitedEditionCount");
+                if (InitialLimitedEditionCount_member != obj.MemberEnd() && !InitialLimitedEditionCount_member->value.IsNull()) InitialLimitedEditionCount = InitialLimitedEditionCount_member->value.GetInt();
 
                 return true;
             }
@@ -2505,6 +2511,134 @@ namespace PlayFab
                 if (MaxPlayerCount_member != obj.MemberEnd() && !MaxPlayerCount_member->value.IsNull()) MaxPlayerCount = MaxPlayerCount_member->value.GetUint();
                 const Value::ConstMemberIterator StartOpen_member = obj.FindMember("StartOpen");
                 if (StartOpen_member != obj.MemberEnd() && !StartOpen_member->value.IsNull()) StartOpen = StartOpen_member->value.GetBool();
+
+                return true;
+            }
+        };
+
+        struct GetActionGroupResult : public PlayFabBaseModel
+        {
+            Aws::String Name;
+            Aws::String Id;
+
+            GetActionGroupResult() :
+                PlayFabBaseModel(),
+                Name(),
+                Id()
+            {}
+
+            GetActionGroupResult(const GetActionGroupResult& src) :
+                PlayFabBaseModel(),
+                Name(src.Name),
+                Id(src.Id)
+            {}
+
+            GetActionGroupResult(const rapidjson::Value& obj) : GetActionGroupResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetActionGroupResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("Name"); writer.String(Name.c_str());
+                if (Id.length() > 0) { writer.String("Id"); writer.String(Id.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Name_member = obj.FindMember("Name");
+                if (Name_member != obj.MemberEnd() && !Name_member->value.IsNull()) Name = Name_member->value.GetString();
+                const Value::ConstMemberIterator Id_member = obj.FindMember("Id");
+                if (Id_member != obj.MemberEnd() && !Id_member->value.IsNull()) Id = Id_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct GetAllActionGroupsRequest : public PlayFabBaseModel
+        {
+
+            GetAllActionGroupsRequest() :
+                PlayFabBaseModel()
+            {}
+
+            GetAllActionGroupsRequest(const GetAllActionGroupsRequest& src) :
+                PlayFabBaseModel()
+            {}
+
+            GetAllActionGroupsRequest(const rapidjson::Value& obj) : GetAllActionGroupsRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetAllActionGroupsRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
+        struct GetAllActionGroupsResult : public PlayFabBaseModel
+        {
+            std::list<GetActionGroupResult> ActionGroups;
+
+            GetAllActionGroupsResult() :
+                PlayFabBaseModel(),
+                ActionGroups()
+            {}
+
+            GetAllActionGroupsResult(const GetAllActionGroupsResult& src) :
+                PlayFabBaseModel(),
+                ActionGroups(src.ActionGroups)
+            {}
+
+            GetAllActionGroupsResult(const rapidjson::Value& obj) : GetAllActionGroupsResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetAllActionGroupsResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("ActionGroups");
+    writer.StartArray();
+    for (std::list<GetActionGroupResult>::iterator iter = ActionGroups.begin(); iter != ActionGroups.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+    
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator ActionGroups_member = obj.FindMember("ActionGroups");
+    if (ActionGroups_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = ActionGroups_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            ActionGroups.push_back(GetActionGroupResult(memberList[i]));
+        }
+    }
 
                 return true;
             }
@@ -3834,6 +3968,7 @@ namespace PlayFab
             OptionalTime LastLogin;
             OptionalTime BannedUntil;
             std::map<Aws::String, Int32> Statistics;
+            OptionalUint32 TotalValueToDateInUSD;
             std::map<Aws::String, Uint32> ValuesToDate;
             std::list<Aws::String> Tags;
             std::map<Aws::String, Int32> VirtualCurrencyBalances;
@@ -3853,6 +3988,7 @@ namespace PlayFab
                 LastLogin(),
                 BannedUntil(),
                 Statistics(),
+                TotalValueToDateInUSD(),
                 ValuesToDate(),
                 Tags(),
                 VirtualCurrencyBalances(),
@@ -3873,6 +4009,7 @@ namespace PlayFab
                 LastLogin(src.LastLogin),
                 BannedUntil(src.BannedUntil),
                 Statistics(src.Statistics),
+                TotalValueToDateInUSD(src.TotalValueToDateInUSD),
                 ValuesToDate(src.ValuesToDate),
                 Tags(src.Tags),
                 VirtualCurrencyBalances(src.VirtualCurrencyBalances),
@@ -3910,6 +4047,7 @@ namespace PlayFab
     }
     writer.EndObject();
      }
+                if (TotalValueToDateInUSD.notNull()) { writer.String("TotalValueToDateInUSD"); writer.Uint(TotalValueToDateInUSD); }
                 if (!ValuesToDate.empty()) {
     writer.String("ValuesToDate");
     writer.StartObject();
@@ -3993,6 +4131,8 @@ namespace PlayFab
             Statistics[iter->name.GetString()] = iter->value.GetInt();
         }
     }
+                const Value::ConstMemberIterator TotalValueToDateInUSD_member = obj.FindMember("TotalValueToDateInUSD");
+                if (TotalValueToDateInUSD_member != obj.MemberEnd() && !TotalValueToDateInUSD_member->value.IsNull()) TotalValueToDateInUSD = TotalValueToDateInUSD_member->value.GetUint();
                 const Value::ConstMemberIterator ValuesToDate_member = obj.FindMember("ValuesToDate");
     if (ValuesToDate_member != obj.MemberEnd()) {
         for (Value::ConstMemberIterator iter = ValuesToDate_member->value.MemberBegin(); iter != ValuesToDate_member->value.MemberEnd(); ++iter) {

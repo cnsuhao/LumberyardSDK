@@ -82,6 +82,7 @@ namespace PlayFab
         static void GetContentUploadUrl(AdminModels::GetContentUploadUrlRequest& request, ProcessApiCallback<AdminModels::GetContentUploadUrlResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void ResetCharacterStatistics(AdminModels::ResetCharacterStatisticsRequest& request, ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void AddPlayerTag(AdminModels::AddPlayerTagRequest& request, ProcessApiCallback<AdminModels::AddPlayerTagResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void GetAllActionGroups(ProcessApiCallback<AdminModels::GetAllActionGroupsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetAllSegments(ProcessApiCallback<AdminModels::GetAllSegmentsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPlayerSegments(AdminModels::GetPlayersSegmentsRequest& request, ProcessApiCallback<AdminModels::GetPlayerSegmentsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPlayersInSegment(AdminModels::GetPlayersInSegmentRequest& request, ProcessApiCallback<AdminModels::GetPlayersInSegmentResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -165,6 +166,7 @@ namespace PlayFab
         static void OnGetContentUploadUrlResult(PlayFabRequest* request);
         static void OnResetCharacterStatisticsResult(PlayFabRequest* request);
         static void OnAddPlayerTagResult(PlayFabRequest* request);
+        static void OnGetAllActionGroupsResult(PlayFabRequest* request);
         static void OnGetAllSegmentsResult(PlayFabRequest* request);
         static void OnGetPlayerSegmentsResult(PlayFabRequest* request);
         static void OnGetPlayersInSegmentResult(PlayFabRequest* request);
