@@ -93,6 +93,78 @@ namespace PlayFab
             }
         };
 
+        struct DeregisterGameRequest : public PlayFabBaseModel
+        {
+            Aws::String LobbyId;
+
+            DeregisterGameRequest() :
+                PlayFabBaseModel(),
+                LobbyId()
+            {}
+
+            DeregisterGameRequest(const DeregisterGameRequest& src) :
+                PlayFabBaseModel(),
+                LobbyId(src.LobbyId)
+            {}
+
+            DeregisterGameRequest(const rapidjson::Value& obj) : DeregisterGameRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~DeregisterGameRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("LobbyId"); writer.String(LobbyId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator LobbyId_member = obj.FindMember("LobbyId");
+                if (LobbyId_member != obj.MemberEnd() && !LobbyId_member->value.IsNull()) LobbyId = LobbyId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct DeregisterGameResponse : public PlayFabBaseModel
+        {
+
+            DeregisterGameResponse() :
+                PlayFabBaseModel()
+            {}
+
+            DeregisterGameResponse(const DeregisterGameResponse& src) :
+                PlayFabBaseModel()
+            {}
+
+            DeregisterGameResponse(const rapidjson::Value& obj) : DeregisterGameResponse()
+            {
+                readFromValue(obj);
+            }
+
+            ~DeregisterGameResponse()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
         struct ItemInstance : public PlayFabBaseModel
         {
             Aws::String ItemId;
@@ -443,6 +515,125 @@ namespace PlayFab
 
             return RegionUSCentral; // Basically critical fail
         }
+
+        struct RegisterGameRequest : public PlayFabBaseModel
+        {
+            Aws::String ServerHost;
+            Aws::String ServerPort;
+            Aws::String Build;
+            Region pfRegion;
+            Aws::String GameMode;
+            std::map<Aws::String, Aws::String> Tags;
+
+            RegisterGameRequest() :
+                PlayFabBaseModel(),
+                ServerHost(),
+                ServerPort(),
+                Build(),
+                pfRegion(),
+                GameMode(),
+                Tags()
+            {}
+
+            RegisterGameRequest(const RegisterGameRequest& src) :
+                PlayFabBaseModel(),
+                ServerHost(src.ServerHost),
+                ServerPort(src.ServerPort),
+                Build(src.Build),
+                pfRegion(src.pfRegion),
+                GameMode(src.GameMode),
+                Tags(src.Tags)
+            {}
+
+            RegisterGameRequest(const rapidjson::Value& obj) : RegisterGameRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~RegisterGameRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("ServerHost"); writer.String(ServerHost.c_str());
+                writer.String("ServerPort"); writer.String(ServerPort.c_str());
+                writer.String("Build"); writer.String(Build.c_str());
+                writer.String("Region"); writeRegionEnumJSON(pfRegion, writer);
+                writer.String("GameMode"); writer.String(GameMode.c_str());
+                if (!Tags.empty()) {
+    writer.String("Tags");
+    writer.StartObject();
+    for (std::map<Aws::String, Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); ++iter) {
+        writer.String(iter->first.c_str()); writer.String(iter->second.c_str());
+    }
+    writer.EndObject();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator ServerHost_member = obj.FindMember("ServerHost");
+                if (ServerHost_member != obj.MemberEnd() && !ServerHost_member->value.IsNull()) ServerHost = ServerHost_member->value.GetString();
+                const Value::ConstMemberIterator ServerPort_member = obj.FindMember("ServerPort");
+                if (ServerPort_member != obj.MemberEnd() && !ServerPort_member->value.IsNull()) ServerPort = ServerPort_member->value.GetString();
+                const Value::ConstMemberIterator Build_member = obj.FindMember("Build");
+                if (Build_member != obj.MemberEnd() && !Build_member->value.IsNull()) Build = Build_member->value.GetString();
+                const Value::ConstMemberIterator Region_member = obj.FindMember("Region");
+                if (Region_member != obj.MemberEnd() && !Region_member->value.IsNull()) pfRegion = readRegionFromValue(Region_member->value);
+                const Value::ConstMemberIterator GameMode_member = obj.FindMember("GameMode");
+                if (GameMode_member != obj.MemberEnd() && !GameMode_member->value.IsNull()) GameMode = GameMode_member->value.GetString();
+                const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
+    if (Tags_member != obj.MemberEnd()) {
+        for (Value::ConstMemberIterator iter = Tags_member->value.MemberBegin(); iter != Tags_member->value.MemberEnd(); ++iter) {
+            Tags[iter->name.GetString()] = iter->value.GetString();
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct RegisterGameResponse : public PlayFabBaseModel
+        {
+            Aws::String LobbyId;
+
+            RegisterGameResponse() :
+                PlayFabBaseModel(),
+                LobbyId()
+            {}
+
+            RegisterGameResponse(const RegisterGameResponse& src) :
+                PlayFabBaseModel(),
+                LobbyId(src.LobbyId)
+            {}
+
+            RegisterGameResponse(const rapidjson::Value& obj) : RegisterGameResponse()
+            {
+                readFromValue(obj);
+            }
+
+            ~RegisterGameResponse()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (LobbyId.length() > 0) { writer.String("LobbyId"); writer.String(LobbyId.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator LobbyId_member = obj.FindMember("LobbyId");
+                if (LobbyId_member != obj.MemberEnd() && !LobbyId_member->value.IsNull()) LobbyId = LobbyId_member->value.GetString();
+
+                return true;
+            }
+        };
 
         struct StartGameRequest : public PlayFabBaseModel
         {

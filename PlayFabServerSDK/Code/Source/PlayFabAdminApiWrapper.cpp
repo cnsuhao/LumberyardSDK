@@ -112,9 +112,19 @@ void PlayFabAdminApiWrapper::IncrementPlayerStatisticVersion(AdminModels::Increm
     PlayFabAdminApi::IncrementPlayerStatisticVersion(request, callback, errorCallback, customData);
 }
 
+void PlayFabAdminApiWrapper::RefundPurchase(AdminModels::RefundPurchaseRequest& request, ProcessApiCallback<AdminModels::RefundPurchaseResponse> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::RefundPurchase(request, callback, errorCallback, customData);
+}
+
 void PlayFabAdminApiWrapper::ResetUserStatistics(AdminModels::ResetUserStatisticsRequest& request, ProcessApiCallback<AdminModels::ResetUserStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabAdminApi::ResetUserStatistics(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::ResolvePurchaseDispute(AdminModels::ResolvePurchaseDisputeRequest& request, ProcessApiCallback<AdminModels::ResolvePurchaseDisputeResponse> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::ResolvePurchaseDispute(request, callback, errorCallback, customData);
 }
 
 void PlayFabAdminApiWrapper::UpdatePlayerStatisticDefinition(AdminModels::UpdatePlayerStatisticDefinitionRequest& request, ProcessApiCallback<AdminModels::UpdatePlayerStatisticDefinitionResult> callback, ErrorCallback errorCallback, void* customData)

@@ -62,6 +62,11 @@ void PlayFabServerApiWrapper::DeleteUsers(ServerModels::DeleteUsersRequest& requ
     PlayFabServerApi::DeleteUsers(request, callback, errorCallback, customData);
 }
 
+void PlayFabServerApiWrapper::GetFriendLeaderboard(ServerModels::GetFriendLeaderboardRequest& request, ProcessApiCallback<ServerModels::GetLeaderboardResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::GetFriendLeaderboard(request, callback, errorCallback, customData);
+}
+
 void PlayFabServerApiWrapper::GetLeaderboard(ServerModels::GetLeaderboardRequest& request, ProcessApiCallback<ServerModels::GetLeaderboardResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::GetLeaderboard(request, callback, errorCallback, customData);
@@ -312,6 +317,26 @@ void PlayFabServerApiWrapper::UpdateUserInventoryItemCustomData(ServerModels::Up
     PlayFabServerApi::UpdateUserInventoryItemCustomData(request, callback, errorCallback, customData);
 }
 
+void PlayFabServerApiWrapper::AddFriend(ServerModels::AddFriendRequest& request, ProcessApiCallback<ServerModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::AddFriend(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::GetFriendsList(ServerModels::GetFriendsListRequest& request, ProcessApiCallback<ServerModels::GetFriendsListResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::GetFriendsList(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::RemoveFriend(ServerModels::RemoveFriendRequest& request, ProcessApiCallback<ServerModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::RemoveFriend(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::DeregisterGame(ServerModels::DeregisterGameRequest& request, ProcessApiCallback<ServerModels::DeregisterGameResponse> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::DeregisterGame(request, callback, errorCallback, customData);
+}
+
 void PlayFabServerApiWrapper::NotifyMatchmakerPlayerLeft(ServerModels::NotifyMatchmakerPlayerLeftRequest& request, ProcessApiCallback<ServerModels::NotifyMatchmakerPlayerLeftResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::NotifyMatchmakerPlayerLeft(request, callback, errorCallback, customData);
@@ -322,6 +347,16 @@ void PlayFabServerApiWrapper::RedeemMatchmakerTicket(ServerModels::RedeemMatchma
     PlayFabServerApi::RedeemMatchmakerTicket(request, callback, errorCallback, customData);
 }
 
+void PlayFabServerApiWrapper::RefreshGameServerInstanceHeartbeat(ServerModels::RefreshGameServerInstanceHeartbeatRequest& request, ProcessApiCallback<ServerModels::RefreshGameServerInstanceHeartbeatResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::RefreshGameServerInstanceHeartbeat(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::RegisterGame(ServerModels::RegisterGameRequest& request, ProcessApiCallback<ServerModels::RegisterGameResponse> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::RegisterGame(request, callback, errorCallback, customData);
+}
+
 void PlayFabServerApiWrapper::SetGameServerInstanceData(ServerModels::SetGameServerInstanceDataRequest& request, ProcessApiCallback<ServerModels::SetGameServerInstanceDataResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::SetGameServerInstanceData(request, callback, errorCallback, customData);
@@ -330,6 +365,11 @@ void PlayFabServerApiWrapper::SetGameServerInstanceData(ServerModels::SetGameSer
 void PlayFabServerApiWrapper::SetGameServerInstanceState(ServerModels::SetGameServerInstanceStateRequest& request, ProcessApiCallback<ServerModels::SetGameServerInstanceStateResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::SetGameServerInstanceState(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::SetGameServerInstanceTags(ServerModels::SetGameServerInstanceTagsRequest& request, ProcessApiCallback<ServerModels::SetGameServerInstanceTagsResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::SetGameServerInstanceTags(request, callback, errorCallback, customData);
 }
 
 void PlayFabServerApiWrapper::AwardSteamAchievement(ServerModels::AwardSteamAchievementRequest& request, ProcessApiCallback<ServerModels::AwardSteamAchievementResult> callback, ErrorCallback errorCallback, void* customData)

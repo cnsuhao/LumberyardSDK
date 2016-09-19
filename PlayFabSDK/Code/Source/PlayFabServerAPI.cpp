@@ -338,6 +338,36 @@ void PlayFabServerApi::OnDeleteUsersResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabServerApi::GetFriendLeaderboard(
+    GetFriendLeaderboardRequest& request,
+    ProcessApiCallback<GetLeaderboardResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/GetFriendLeaderboard"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetFriendLeaderboardResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnGetFriendLeaderboardResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        GetLeaderboardResult* outResult = new GetLeaderboardResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<GetLeaderboardResult> successCallback = reinterpret_cast<ProcessApiCallback<GetLeaderboardResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabServerApi::GetLeaderboard(
     GetLeaderboardRequest& request,
     ProcessApiCallback<GetLeaderboardResult> callback,
@@ -1838,6 +1868,126 @@ void PlayFabServerApi::OnUpdateUserInventoryItemCustomDataResult(PlayFabRequest*
     }
 }
 
+void PlayFabServerApi::AddFriend(
+    AddFriendRequest& request,
+    ProcessApiCallback<EmptyResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/AddFriend"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnAddFriendResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnAddFriendResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        EmptyResult* outResult = new EmptyResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<EmptyResult> successCallback = reinterpret_cast<ProcessApiCallback<EmptyResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabServerApi::GetFriendsList(
+    GetFriendsListRequest& request,
+    ProcessApiCallback<GetFriendsListResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/GetFriendsList"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetFriendsListResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnGetFriendsListResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        GetFriendsListResult* outResult = new GetFriendsListResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<GetFriendsListResult> successCallback = reinterpret_cast<ProcessApiCallback<GetFriendsListResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabServerApi::RemoveFriend(
+    RemoveFriendRequest& request,
+    ProcessApiCallback<EmptyResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/RemoveFriend"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRemoveFriendResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnRemoveFriendResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        EmptyResult* outResult = new EmptyResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<EmptyResult> successCallback = reinterpret_cast<ProcessApiCallback<EmptyResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabServerApi::DeregisterGame(
+    DeregisterGameRequest& request,
+    ProcessApiCallback<DeregisterGameResponse> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/DeregisterGame"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeregisterGameResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnDeregisterGameResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        DeregisterGameResponse* outResult = new DeregisterGameResponse;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<DeregisterGameResponse> successCallback = reinterpret_cast<ProcessApiCallback<DeregisterGameResponse>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabServerApi::NotifyMatchmakerPlayerLeft(
     NotifyMatchmakerPlayerLeftRequest& request,
     ProcessApiCallback<NotifyMatchmakerPlayerLeftResult> callback,
@@ -1898,6 +2048,66 @@ void PlayFabServerApi::OnRedeemMatchmakerTicketResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabServerApi::RefreshGameServerInstanceHeartbeat(
+    RefreshGameServerInstanceHeartbeatRequest& request,
+    ProcessApiCallback<RefreshGameServerInstanceHeartbeatResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/RefreshGameServerInstanceHeartbeat"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRefreshGameServerInstanceHeartbeatResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnRefreshGameServerInstanceHeartbeatResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        RefreshGameServerInstanceHeartbeatResult* outResult = new RefreshGameServerInstanceHeartbeatResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<RefreshGameServerInstanceHeartbeatResult> successCallback = reinterpret_cast<ProcessApiCallback<RefreshGameServerInstanceHeartbeatResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabServerApi::RegisterGame(
+    RegisterGameRequest& request,
+    ProcessApiCallback<RegisterGameResponse> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/RegisterGame"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRegisterGameResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnRegisterGameResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        RegisterGameResponse* outResult = new RegisterGameResponse;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<RegisterGameResponse> successCallback = reinterpret_cast<ProcessApiCallback<RegisterGameResponse>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabServerApi::SetGameServerInstanceData(
     SetGameServerInstanceDataRequest& request,
     ProcessApiCallback<SetGameServerInstanceDataResult> callback,
@@ -1951,6 +2161,36 @@ void PlayFabServerApi::OnSetGameServerInstanceStateResult(PlayFabRequest* reques
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<SetGameServerInstanceStateResult> successCallback = reinterpret_cast<ProcessApiCallback<SetGameServerInstanceStateResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabServerApi::SetGameServerInstanceTags(
+    SetGameServerInstanceTagsRequest& request,
+    ProcessApiCallback<SetGameServerInstanceTagsResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/SetGameServerInstanceTags"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetGameServerInstanceTagsResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnSetGameServerInstanceTagsResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        SetGameServerInstanceTagsResult* outResult = new SetGameServerInstanceTagsResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<SetGameServerInstanceTagsResult> successCallback = reinterpret_cast<ProcessApiCallback<SetGameServerInstanceTagsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;

@@ -8237,6 +8237,96 @@ namespace PlayFab
             }
         };
 
+        struct RefundPurchaseRequest : public PlayFabBaseModel
+        {
+            Aws::String PlayFabId;
+            Aws::String OrderId;
+            Aws::String Reason;
+
+            RefundPurchaseRequest() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                OrderId(),
+                Reason()
+            {}
+
+            RefundPurchaseRequest(const RefundPurchaseRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                OrderId(src.OrderId),
+                Reason(src.Reason)
+            {}
+
+            RefundPurchaseRequest(const rapidjson::Value& obj) : RefundPurchaseRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~RefundPurchaseRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+                writer.String("OrderId"); writer.String(OrderId.c_str());
+                if (Reason.length() > 0) { writer.String("Reason"); writer.String(Reason.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+                const Value::ConstMemberIterator OrderId_member = obj.FindMember("OrderId");
+                if (OrderId_member != obj.MemberEnd() && !OrderId_member->value.IsNull()) OrderId = OrderId_member->value.GetString();
+                const Value::ConstMemberIterator Reason_member = obj.FindMember("Reason");
+                if (Reason_member != obj.MemberEnd() && !Reason_member->value.IsNull()) Reason = Reason_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct RefundPurchaseResponse : public PlayFabBaseModel
+        {
+            Aws::String PurchaseStatus;
+
+            RefundPurchaseResponse() :
+                PlayFabBaseModel(),
+                PurchaseStatus()
+            {}
+
+            RefundPurchaseResponse(const RefundPurchaseResponse& src) :
+                PlayFabBaseModel(),
+                PurchaseStatus(src.PurchaseStatus)
+            {}
+
+            RefundPurchaseResponse(const rapidjson::Value& obj) : RefundPurchaseResponse()
+            {
+                readFromValue(obj);
+            }
+
+            ~RefundPurchaseResponse()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (PurchaseStatus.length() > 0) { writer.String("PurchaseStatus"); writer.String(PurchaseStatus.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PurchaseStatus_member = obj.FindMember("PurchaseStatus");
+                if (PurchaseStatus_member != obj.MemberEnd() && !PurchaseStatus_member->value.IsNull()) PurchaseStatus = PurchaseStatus_member->value.GetString();
+
+                return true;
+            }
+        };
+
         struct RemovePlayerTagRequest : public PlayFabBaseModel
         {
             Aws::String PlayFabId;
@@ -8677,6 +8767,139 @@ namespace PlayFab
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
+
+                return true;
+            }
+        };
+
+        enum ResolutionOutcome
+        {
+            ResolutionOutcomeRevoke,
+            ResolutionOutcomeReinstate,
+            ResolutionOutcomeManual
+        };
+
+        inline void writeResolutionOutcomeEnumJSON(ResolutionOutcome enumVal, PFStringJsonWriter& writer)
+        {
+            switch (enumVal)
+            {
+            case ResolutionOutcomeRevoke: writer.String("Revoke"); break;
+            case ResolutionOutcomeReinstate: writer.String("Reinstate"); break;
+            case ResolutionOutcomeManual: writer.String("Manual"); break;
+
+            }
+        }
+
+        inline ResolutionOutcome readResolutionOutcomeFromValue(const rapidjson::Value& obj)
+        {
+            static std::map<Aws::String, ResolutionOutcome> _ResolutionOutcomeMap;
+            if (_ResolutionOutcomeMap.size() == 0)
+            {
+                // Auto-generate the map on the first use
+                _ResolutionOutcomeMap["Revoke"] = ResolutionOutcomeRevoke;
+                _ResolutionOutcomeMap["Reinstate"] = ResolutionOutcomeReinstate;
+                _ResolutionOutcomeMap["Manual"] = ResolutionOutcomeManual;
+
+            }
+
+            auto output = _ResolutionOutcomeMap.find(obj.GetString());
+            if (output != _ResolutionOutcomeMap.end())
+                return output->second;
+
+            return ResolutionOutcomeRevoke; // Basically critical fail
+        }
+
+        struct ResolvePurchaseDisputeRequest : public PlayFabBaseModel
+        {
+            Aws::String PlayFabId;
+            Aws::String OrderId;
+            Aws::String Reason;
+            ResolutionOutcome Outcome;
+
+            ResolvePurchaseDisputeRequest() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                OrderId(),
+                Reason(),
+                Outcome()
+            {}
+
+            ResolvePurchaseDisputeRequest(const ResolvePurchaseDisputeRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                OrderId(src.OrderId),
+                Reason(src.Reason),
+                Outcome(src.Outcome)
+            {}
+
+            ResolvePurchaseDisputeRequest(const rapidjson::Value& obj) : ResolvePurchaseDisputeRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~ResolvePurchaseDisputeRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+                writer.String("OrderId"); writer.String(OrderId.c_str());
+                if (Reason.length() > 0) { writer.String("Reason"); writer.String(Reason.c_str()); }
+                writer.String("Outcome"); writeResolutionOutcomeEnumJSON(Outcome, writer);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+                const Value::ConstMemberIterator OrderId_member = obj.FindMember("OrderId");
+                if (OrderId_member != obj.MemberEnd() && !OrderId_member->value.IsNull()) OrderId = OrderId_member->value.GetString();
+                const Value::ConstMemberIterator Reason_member = obj.FindMember("Reason");
+                if (Reason_member != obj.MemberEnd() && !Reason_member->value.IsNull()) Reason = Reason_member->value.GetString();
+                const Value::ConstMemberIterator Outcome_member = obj.FindMember("Outcome");
+                if (Outcome_member != obj.MemberEnd() && !Outcome_member->value.IsNull()) Outcome = readResolutionOutcomeFromValue(Outcome_member->value);
+
+                return true;
+            }
+        };
+
+        struct ResolvePurchaseDisputeResponse : public PlayFabBaseModel
+        {
+            Aws::String PurchaseStatus;
+
+            ResolvePurchaseDisputeResponse() :
+                PlayFabBaseModel(),
+                PurchaseStatus()
+            {}
+
+            ResolvePurchaseDisputeResponse(const ResolvePurchaseDisputeResponse& src) :
+                PlayFabBaseModel(),
+                PurchaseStatus(src.PurchaseStatus)
+            {}
+
+            ResolvePurchaseDisputeResponse(const rapidjson::Value& obj) : ResolvePurchaseDisputeResponse()
+            {
+                readFromValue(obj);
+            }
+
+            ~ResolvePurchaseDisputeResponse()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (PurchaseStatus.length() > 0) { writer.String("PurchaseStatus"); writer.String(PurchaseStatus.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PurchaseStatus_member = obj.FindMember("PurchaseStatus");
+                if (PurchaseStatus_member != obj.MemberEnd() && !PurchaseStatus_member->value.IsNull()) PurchaseStatus = PurchaseStatus_member->value.GetString();
 
                 return true;
             }
