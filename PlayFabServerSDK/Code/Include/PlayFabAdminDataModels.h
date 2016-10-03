@@ -5374,8 +5374,7 @@ namespace PlayFab
             SourceTypeBackEnd,
             SourceTypeGameClient,
             SourceTypeGameServer,
-            SourceTypePartner,
-            SourceTypeStream
+            SourceTypePartner
         };
 
         inline void writeSourceTypeEnumJSON(SourceType enumVal, PFStringJsonWriter& writer)
@@ -5387,7 +5386,6 @@ namespace PlayFab
             case SourceTypeGameClient: writer.String("GameClient"); break;
             case SourceTypeGameServer: writer.String("GameServer"); break;
             case SourceTypePartner: writer.String("Partner"); break;
-            case SourceTypeStream: writer.String("Stream"); break;
 
             }
         }
@@ -5403,7 +5401,6 @@ namespace PlayFab
                 _SourceTypeMap["GameClient"] = SourceTypeGameClient;
                 _SourceTypeMap["GameServer"] = SourceTypeGameServer;
                 _SourceTypeMap["Partner"] = SourceTypePartner;
-                _SourceTypeMap["Stream"] = SourceTypeStream;
 
             }
 

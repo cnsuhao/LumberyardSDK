@@ -348,6 +348,11 @@ void PlayFabClientApiWrapper::GetStoreItems(ClientModels::GetStoreItemsRequest& 
     PlayFabClientApi::GetStoreItems(request, callback, errorCallback, customData);
 }
 
+void PlayFabClientApiWrapper::GetTime(ProcessApiCallback<ClientModels::GetTimeResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::GetTime(callback, errorCallback, customData);
+}
+
 void PlayFabClientApiWrapper::GetTitleData(ClientModels::GetTitleDataRequest& request, ProcessApiCallback<ClientModels::GetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::GetTitleData(request, callback, errorCallback, customData);

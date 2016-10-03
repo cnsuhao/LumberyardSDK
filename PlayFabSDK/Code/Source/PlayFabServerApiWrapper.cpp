@@ -177,6 +177,11 @@ void PlayFabServerApiWrapper::GetPublisherData(ServerModels::GetPublisherDataReq
     PlayFabServerApi::GetPublisherData(request, callback, errorCallback, customData);
 }
 
+void PlayFabServerApiWrapper::GetTime(ProcessApiCallback<ServerModels::GetTimeResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::GetTime(callback, errorCallback, customData);
+}
+
 void PlayFabServerApiWrapper::GetTitleData(ServerModels::GetTitleDataRequest& request, ProcessApiCallback<ServerModels::GetTitleDataResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::GetTitleData(request, callback, errorCallback, customData);

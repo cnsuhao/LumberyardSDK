@@ -9309,8 +9309,7 @@ namespace PlayFab
             SourceTypeBackEnd,
             SourceTypeGameClient,
             SourceTypeGameServer,
-            SourceTypePartner,
-            SourceTypeStream
+            SourceTypePartner
         };
 
         inline void writeSourceTypeEnumJSON(SourceType enumVal, PFStringJsonWriter& writer)
@@ -9322,7 +9321,6 @@ namespace PlayFab
             case SourceTypeGameClient: writer.String("GameClient"); break;
             case SourceTypeGameServer: writer.String("GameServer"); break;
             case SourceTypePartner: writer.String("Partner"); break;
-            case SourceTypeStream: writer.String("Stream"); break;
 
             }
         }
@@ -9338,7 +9336,6 @@ namespace PlayFab
                 _SourceTypeMap["GameClient"] = SourceTypeGameClient;
                 _SourceTypeMap["GameServer"] = SourceTypeGameServer;
                 _SourceTypeMap["Partner"] = SourceTypePartner;
-                _SourceTypeMap["Stream"] = SourceTypeStream;
 
             }
 
@@ -9471,6 +9468,78 @@ namespace PlayFab
                 if (StoreId_member != obj.MemberEnd() && !StoreId_member->value.IsNull()) StoreId = StoreId_member->value.GetString();
                 const Value::ConstMemberIterator MarketingData_member = obj.FindMember("MarketingData");
                 if (MarketingData_member != obj.MemberEnd() && !MarketingData_member->value.IsNull()) MarketingData = new StoreMarketingModel(MarketingData_member->value);
+
+                return true;
+            }
+        };
+
+        struct GetTimeRequest : public PlayFabBaseModel
+        {
+
+            GetTimeRequest() :
+                PlayFabBaseModel()
+            {}
+
+            GetTimeRequest(const GetTimeRequest& src) :
+                PlayFabBaseModel()
+            {}
+
+            GetTimeRequest(const rapidjson::Value& obj) : GetTimeRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetTimeRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
+        struct GetTimeResult : public PlayFabBaseModel
+        {
+            time_t Time;
+
+            GetTimeResult() :
+                PlayFabBaseModel(),
+                Time(0)
+            {}
+
+            GetTimeResult(const GetTimeResult& src) :
+                PlayFabBaseModel(),
+                Time(src.Time)
+            {}
+
+            GetTimeResult(const rapidjson::Value& obj) : GetTimeResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetTimeResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("Time"); writeDatetime(Time, writer);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Time_member = obj.FindMember("Time");
+                if (Time_member != obj.MemberEnd() && !Time_member->value.IsNull()) Time = readDatetime(Time_member->value);
 
                 return true;
             }
@@ -12820,6 +12889,7 @@ namespace PlayFab
             Aws::String ProviderData;
             Aws::String PurchaseConfirmationPageURL;
             std::map<Aws::String, Int32> VirtualCurrency;
+            Aws::String ProviderToken;
 
             PayForPurchaseResult() :
                 PlayFabBaseModel(),
@@ -12831,7 +12901,8 @@ namespace PlayFab
                 CreditApplied(0),
                 ProviderData(),
                 PurchaseConfirmationPageURL(),
-                VirtualCurrency()
+                VirtualCurrency(),
+                ProviderToken()
             {}
 
             PayForPurchaseResult(const PayForPurchaseResult& src) :
@@ -12844,7 +12915,8 @@ namespace PlayFab
                 CreditApplied(src.CreditApplied),
                 ProviderData(src.ProviderData),
                 PurchaseConfirmationPageURL(src.PurchaseConfirmationPageURL),
-                VirtualCurrency(src.VirtualCurrency)
+                VirtualCurrency(src.VirtualCurrency),
+                ProviderToken(src.ProviderToken)
             {}
 
             PayForPurchaseResult(const rapidjson::Value& obj) : PayForPurchaseResult()
@@ -12882,6 +12954,7 @@ namespace PlayFab
     }
     writer.EndObject();
      }
+                if (ProviderToken.length() > 0) { writer.String("ProviderToken"); writer.String(ProviderToken.c_str()); }
                 writer.EndObject();
             }
 
@@ -12913,6 +12986,8 @@ namespace PlayFab
             VirtualCurrency[iter->name.GetString()] = iter->value.GetInt();
         }
     }
+                const Value::ConstMemberIterator ProviderToken_member = obj.FindMember("ProviderToken");
+                if (ProviderToken_member != obj.MemberEnd() && !ProviderToken_member->value.IsNull()) ProviderToken = ProviderToken_member->value.GetString();
 
                 return true;
             }

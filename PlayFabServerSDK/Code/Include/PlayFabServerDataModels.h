@@ -8247,6 +8247,78 @@ namespace PlayFab
             }
         };
 
+        struct GetTimeRequest : public PlayFabBaseModel
+        {
+
+            GetTimeRequest() :
+                PlayFabBaseModel()
+            {}
+
+            GetTimeRequest(const GetTimeRequest& src) :
+                PlayFabBaseModel()
+            {}
+
+            GetTimeRequest(const rapidjson::Value& obj) : GetTimeRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetTimeRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
+        struct GetTimeResult : public PlayFabBaseModel
+        {
+            time_t Time;
+
+            GetTimeResult() :
+                PlayFabBaseModel(),
+                Time(0)
+            {}
+
+            GetTimeResult(const GetTimeResult& src) :
+                PlayFabBaseModel(),
+                Time(src.Time)
+            {}
+
+            GetTimeResult(const rapidjson::Value& obj) : GetTimeResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetTimeResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("Time"); writeDatetime(Time, writer);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Time_member = obj.FindMember("Time");
+                if (Time_member != obj.MemberEnd() && !Time_member->value.IsNull()) Time = readDatetime(Time_member->value);
+
+                return true;
+            }
+        };
+
         struct GetTitleDataRequest : public PlayFabBaseModel
         {
             std::list<Aws::String> Keys;
