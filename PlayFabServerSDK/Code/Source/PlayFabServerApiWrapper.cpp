@@ -122,11 +122,6 @@ void PlayFabServerApiWrapper::GetUserReadOnlyData(ServerModels::GetUserDataReque
     PlayFabServerApi::GetUserReadOnlyData(request, callback, errorCallback, customData);
 }
 
-void PlayFabServerApiWrapper::GetUserStatistics(ServerModels::GetUserStatisticsRequest& request, ProcessApiCallback<ServerModels::GetUserStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabServerApi::GetUserStatistics(request, callback, errorCallback, customData);
-}
-
 void PlayFabServerApiWrapper::UpdatePlayerStatistics(ServerModels::UpdatePlayerStatisticsRequest& request, ProcessApiCallback<ServerModels::UpdatePlayerStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::UpdatePlayerStatistics(request, callback, errorCallback, customData);
@@ -160,11 +155,6 @@ void PlayFabServerApiWrapper::UpdateUserPublisherReadOnlyData(ServerModels::Upda
 void PlayFabServerApiWrapper::UpdateUserReadOnlyData(ServerModels::UpdateUserDataRequest& request, ProcessApiCallback<ServerModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::UpdateUserReadOnlyData(request, callback, errorCallback, customData);
-}
-
-void PlayFabServerApiWrapper::UpdateUserStatistics(ServerModels::UpdateUserStatisticsRequest& request, ProcessApiCallback<ServerModels::UpdateUserStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabServerApi::UpdateUserStatistics(request, callback, errorCallback, customData);
 }
 
 void PlayFabServerApiWrapper::GetCatalogItems(ServerModels::GetCatalogItemsRequest& request, ProcessApiCallback<ServerModels::GetCatalogItemsResult> callback, ErrorCallback errorCallback, void* customData)
@@ -380,11 +370,6 @@ void PlayFabServerApiWrapper::SetGameServerInstanceTags(ServerModels::SetGameSer
 void PlayFabServerApiWrapper::AwardSteamAchievement(ServerModels::AwardSteamAchievementRequest& request, ProcessApiCallback<ServerModels::AwardSteamAchievementResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::AwardSteamAchievement(request, callback, errorCallback, customData);
-}
-
-void PlayFabServerApiWrapper::LogEvent(ServerModels::LogEventRequest& request, ProcessApiCallback<ServerModels::LogEventResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabServerApi::LogEvent(request, callback, errorCallback, customData);
 }
 
 void PlayFabServerApiWrapper::WriteCharacterEvent(ServerModels::WriteServerCharacterEventRequest& request, ProcessApiCallback<ServerModels::WriteEventResponse> callback, ErrorCallback errorCallback, void* customData)

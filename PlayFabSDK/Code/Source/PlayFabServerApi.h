@@ -33,7 +33,6 @@ namespace PlayFab
         static void GetUserPublisherInternalData(ServerModels::GetUserDataRequest& request, ProcessApiCallback<ServerModels::GetUserDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetUserPublisherReadOnlyData(ServerModels::GetUserDataRequest& request, ProcessApiCallback<ServerModels::GetUserDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetUserReadOnlyData(ServerModels::GetUserDataRequest& request, ProcessApiCallback<ServerModels::GetUserDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
-        static void GetUserStatistics(ServerModels::GetUserStatisticsRequest& request, ProcessApiCallback<ServerModels::GetUserStatisticsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void UpdatePlayerStatistics(ServerModels::UpdatePlayerStatisticsRequest& request, ProcessApiCallback<ServerModels::UpdatePlayerStatisticsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void UpdateUserData(ServerModels::UpdateUserDataRequest& request, ProcessApiCallback<ServerModels::UpdateUserDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void UpdateUserInternalData(ServerModels::UpdateUserInternalDataRequest& request, ProcessApiCallback<ServerModels::UpdateUserDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -41,7 +40,6 @@ namespace PlayFab
         static void UpdateUserPublisherInternalData(ServerModels::UpdateUserInternalDataRequest& request, ProcessApiCallback<ServerModels::UpdateUserDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void UpdateUserPublisherReadOnlyData(ServerModels::UpdateUserDataRequest& request, ProcessApiCallback<ServerModels::UpdateUserDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void UpdateUserReadOnlyData(ServerModels::UpdateUserDataRequest& request, ProcessApiCallback<ServerModels::UpdateUserDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
-        static void UpdateUserStatistics(ServerModels::UpdateUserStatisticsRequest& request, ProcessApiCallback<ServerModels::UpdateUserStatisticsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetCatalogItems(ServerModels::GetCatalogItemsRequest& request, ProcessApiCallback<ServerModels::GetCatalogItemsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPublisherData(ServerModels::GetPublisherDataRequest& request, ProcessApiCallback<ServerModels::GetPublisherDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetTime(ProcessApiCallback<ServerModels::GetTimeResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -85,7 +83,6 @@ namespace PlayFab
         static void SetGameServerInstanceState(ServerModels::SetGameServerInstanceStateRequest& request, ProcessApiCallback<ServerModels::SetGameServerInstanceStateResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void SetGameServerInstanceTags(ServerModels::SetGameServerInstanceTagsRequest& request, ProcessApiCallback<ServerModels::SetGameServerInstanceTagsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void AwardSteamAchievement(ServerModels::AwardSteamAchievementRequest& request, ProcessApiCallback<ServerModels::AwardSteamAchievementResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
-        static void LogEvent(ServerModels::LogEventRequest& request, ProcessApiCallback<ServerModels::LogEventResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void WriteCharacterEvent(ServerModels::WriteServerCharacterEventRequest& request, ProcessApiCallback<ServerModels::WriteEventResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void WritePlayerEvent(ServerModels::WriteServerPlayerEventRequest& request, ProcessApiCallback<ServerModels::WriteEventResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void WriteTitleEvent(ServerModels::WriteTitleEventRequest& request, ProcessApiCallback<ServerModels::WriteEventResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -147,7 +144,6 @@ namespace PlayFab
         static void OnGetUserPublisherInternalDataResult(PlayFabRequest* request);
         static void OnGetUserPublisherReadOnlyDataResult(PlayFabRequest* request);
         static void OnGetUserReadOnlyDataResult(PlayFabRequest* request);
-        static void OnGetUserStatisticsResult(PlayFabRequest* request);
         static void OnUpdatePlayerStatisticsResult(PlayFabRequest* request);
         static void OnUpdateUserDataResult(PlayFabRequest* request);
         static void OnUpdateUserInternalDataResult(PlayFabRequest* request);
@@ -155,7 +151,6 @@ namespace PlayFab
         static void OnUpdateUserPublisherInternalDataResult(PlayFabRequest* request);
         static void OnUpdateUserPublisherReadOnlyDataResult(PlayFabRequest* request);
         static void OnUpdateUserReadOnlyDataResult(PlayFabRequest* request);
-        static void OnUpdateUserStatisticsResult(PlayFabRequest* request);
         static void OnGetCatalogItemsResult(PlayFabRequest* request);
         static void OnGetPublisherDataResult(PlayFabRequest* request);
         static void OnGetTimeResult(PlayFabRequest* request);
@@ -199,7 +194,6 @@ namespace PlayFab
         static void OnSetGameServerInstanceStateResult(PlayFabRequest* request);
         static void OnSetGameServerInstanceTagsResult(PlayFabRequest* request);
         static void OnAwardSteamAchievementResult(PlayFabRequest* request);
-        static void OnLogEventResult(PlayFabRequest* request);
         static void OnWriteCharacterEventResult(PlayFabRequest* request);
         static void OnWritePlayerEventResult(PlayFabRequest* request);
         static void OnWriteTitleEventResult(PlayFabRequest* request);

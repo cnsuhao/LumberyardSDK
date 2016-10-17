@@ -288,14 +288,13 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
-                if (!PlayFabIds.empty()) {
-    writer.String("PlayFabIds");
+                writer.String("PlayFabIds");
     writer.StartArray();
     for (std::list<Aws::String>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
         writer.String(iter->c_str());
     }
     writer.EndArray();
-     }
+    
                 writer.EndObject();
             }
 
@@ -3313,7 +3312,7 @@ namespace PlayFab
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (SharedGroupId.length() > 0) { writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str()); }
+                writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
                 writer.EndObject();
             }
 
@@ -3853,7 +3852,7 @@ namespace PlayFab
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
+                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
                 writer.String("FunctionName"); writer.String(FunctionName.c_str());
                 if (FunctionParameter.notNull()) { writer.String("FunctionParameter"); FunctionParameter.writeJSON(writer); }
                 if (RevisionSelection.notNull()) { writer.String("RevisionSelection"); writeCloudScriptRevisionOptionEnumJSON(RevisionSelection, writer); }
@@ -7537,18 +7536,15 @@ namespace PlayFab
 
         struct GetPlayFabIDsFromSteamIDsRequest : public PlayFabBaseModel
         {
-            std::list<Uint64> SteamIDs;
             std::list<Aws::String> SteamStringIDs;
 
             GetPlayFabIDsFromSteamIDsRequest() :
                 PlayFabBaseModel(),
-                SteamIDs(),
                 SteamStringIDs()
             {}
 
             GetPlayFabIDsFromSteamIDsRequest(const GetPlayFabIDsFromSteamIDsRequest& src) :
                 PlayFabBaseModel(),
-                SteamIDs(src.SteamIDs),
                 SteamStringIDs(src.SteamStringIDs)
             {}
 
@@ -7564,14 +7560,6 @@ namespace PlayFab
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (!SteamIDs.empty()) {
-    writer.String("SteamIDs");
-    writer.StartArray();
-    for (std::list<Uint64>::iterator iter = SteamIDs.begin(); iter != SteamIDs.end(); iter++) {
-        writer.Uint64(*iter);
-    }
-    writer.EndArray();
-     }
                 if (!SteamStringIDs.empty()) {
     writer.String("SteamStringIDs");
     writer.StartArray();
@@ -7585,13 +7573,6 @@ namespace PlayFab
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
-                const Value::ConstMemberIterator SteamIDs_member = obj.FindMember("SteamIDs");
-    if (SteamIDs_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = SteamIDs_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            SteamIDs.push_back(memberList[i].GetUint64());
-        }
-    }
                 const Value::ConstMemberIterator SteamStringIDs_member = obj.FindMember("SteamStringIDs");
     if (SteamStringIDs_member != obj.MemberEnd()) {
         const rapidjson::Value& memberList = SteamStringIDs_member->value;
@@ -7606,20 +7587,17 @@ namespace PlayFab
 
         struct SteamPlayFabIdPair : public PlayFabBaseModel
         {
-            Uint64 SteamId;
             Aws::String SteamStringId;
             Aws::String PlayFabId;
 
             SteamPlayFabIdPair() :
                 PlayFabBaseModel(),
-                SteamId(0),
                 SteamStringId(),
                 PlayFabId()
             {}
 
             SteamPlayFabIdPair(const SteamPlayFabIdPair& src) :
                 PlayFabBaseModel(),
-                SteamId(src.SteamId),
                 SteamStringId(src.SteamStringId),
                 PlayFabId(src.PlayFabId)
             {}
@@ -7636,7 +7614,6 @@ namespace PlayFab
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("SteamId"); writer.Uint64(SteamId);
                 if (SteamStringId.length() > 0) { writer.String("SteamStringId"); writer.String(SteamStringId.c_str()); }
                 if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
                 writer.EndObject();
@@ -7644,8 +7621,6 @@ namespace PlayFab
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
-                const Value::ConstMemberIterator SteamId_member = obj.FindMember("SteamId");
-                if (SteamId_member != obj.MemberEnd() && !SteamId_member->value.IsNull()) SteamId = SteamId_member->value.GetUint64();
                 const Value::ConstMemberIterator SteamStringId_member = obj.FindMember("SteamStringId");
                 if (SteamStringId_member != obj.MemberEnd() && !SteamStringId_member->value.IsNull()) SteamStringId = SteamStringId_member->value.GetString();
                 const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
@@ -8091,7 +8066,7 @@ namespace PlayFab
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (SharedGroupId.length() > 0) { writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str()); }
+                writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
                 if (!Keys.empty()) {
     writer.String("Keys");
     writer.StartArray();
@@ -8991,101 +8966,6 @@ namespace PlayFab
             }
         };
 
-        struct GetUserStatisticsRequest : public PlayFabBaseModel
-        {
-            Aws::String PlayFabId;
-
-            GetUserStatisticsRequest() :
-                PlayFabBaseModel(),
-                PlayFabId()
-            {}
-
-            GetUserStatisticsRequest(const GetUserStatisticsRequest& src) :
-                PlayFabBaseModel(),
-                PlayFabId(src.PlayFabId)
-            {}
-
-            GetUserStatisticsRequest(const rapidjson::Value& obj) : GetUserStatisticsRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~GetUserStatisticsRequest()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
-                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
-
-                return true;
-            }
-        };
-
-        struct GetUserStatisticsResult : public PlayFabBaseModel
-        {
-            Aws::String PlayFabId;
-            std::map<Aws::String, Int32> UserStatistics;
-
-            GetUserStatisticsResult() :
-                PlayFabBaseModel(),
-                PlayFabId(),
-                UserStatistics()
-            {}
-
-            GetUserStatisticsResult(const GetUserStatisticsResult& src) :
-                PlayFabBaseModel(),
-                PlayFabId(src.PlayFabId),
-                UserStatistics(src.UserStatistics)
-            {}
-
-            GetUserStatisticsResult(const rapidjson::Value& obj) : GetUserStatisticsResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~GetUserStatisticsResult()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                if (!UserStatistics.empty()) {
-    writer.String("UserStatistics");
-    writer.StartObject();
-    for (std::map<Aws::String, Int32>::iterator iter = UserStatistics.begin(); iter != UserStatistics.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Int(iter->second);
-    }
-    writer.EndObject();
-     }
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
-                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
-                const Value::ConstMemberIterator UserStatistics_member = obj.FindMember("UserStatistics");
-    if (UserStatistics_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = UserStatistics_member->value.MemberBegin(); iter != UserStatistics_member->value.MemberEnd(); ++iter) {
-            UserStatistics[iter->name.GetString()] = iter->value.GetInt();
-        }
-    }
-
-                return true;
-            }
-        };
-
         struct GrantCharacterToUserRequest : public PlayFabBaseModel
         {
             Aws::String PlayFabId;
@@ -9874,125 +9754,6 @@ namespace PlayFab
             }
         };
 
-        struct LogEventRequest : public PlayFabBaseModel
-        {
-            Aws::String PlayFabId;
-            Aws::String EntityId;
-            Aws::String EntityType;
-            OptionalTime Timestamp;
-            Aws::String EventName;
-            std::map<Aws::String, MultitypeVar> Body;
-            bool ProfileSetEvent;
-
-            LogEventRequest() :
-                PlayFabBaseModel(),
-                PlayFabId(),
-                EntityId(),
-                EntityType(),
-                Timestamp(),
-                EventName(),
-                Body(),
-                ProfileSetEvent(false)
-            {}
-
-            LogEventRequest(const LogEventRequest& src) :
-                PlayFabBaseModel(),
-                PlayFabId(src.PlayFabId),
-                EntityId(src.EntityId),
-                EntityType(src.EntityType),
-                Timestamp(src.Timestamp),
-                EventName(src.EventName),
-                Body(src.Body),
-                ProfileSetEvent(src.ProfileSetEvent)
-            {}
-
-            LogEventRequest(const rapidjson::Value& obj) : LogEventRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~LogEventRequest()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                if (PlayFabId.length() > 0) { writer.String("PlayFabId"); writer.String(PlayFabId.c_str()); }
-                if (EntityId.length() > 0) { writer.String("EntityId"); writer.String(EntityId.c_str()); }
-                if (EntityType.length() > 0) { writer.String("EntityType"); writer.String(EntityType.c_str()); }
-                if (Timestamp.notNull()) { writer.String("Timestamp"); writeDatetime(Timestamp, writer); }
-                if (EventName.length() > 0) { writer.String("EventName"); writer.String(EventName.c_str()); }
-                if (!Body.empty()) {
-    writer.String("Body");
-    writer.StartObject();
-    for (std::map<Aws::String, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
-        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-    }
-    writer.EndObject();
-     }
-                writer.String("ProfileSetEvent"); writer.Bool(ProfileSetEvent);
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
-                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
-                const Value::ConstMemberIterator EntityId_member = obj.FindMember("EntityId");
-                if (EntityId_member != obj.MemberEnd() && !EntityId_member->value.IsNull()) EntityId = EntityId_member->value.GetString();
-                const Value::ConstMemberIterator EntityType_member = obj.FindMember("EntityType");
-                if (EntityType_member != obj.MemberEnd() && !EntityType_member->value.IsNull()) EntityType = EntityType_member->value.GetString();
-                const Value::ConstMemberIterator Timestamp_member = obj.FindMember("Timestamp");
-                if (Timestamp_member != obj.MemberEnd() && !Timestamp_member->value.IsNull()) Timestamp = readDatetime(Timestamp_member->value);
-                const Value::ConstMemberIterator EventName_member = obj.FindMember("EventName");
-                if (EventName_member != obj.MemberEnd() && !EventName_member->value.IsNull()) EventName = EventName_member->value.GetString();
-                const Value::ConstMemberIterator Body_member = obj.FindMember("Body");
-    if (Body_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Body_member->value.MemberBegin(); iter != Body_member->value.MemberEnd(); ++iter) {
-            Body[iter->name.GetString()] = MultitypeVar(iter->value);
-        }
-    }
-                const Value::ConstMemberIterator ProfileSetEvent_member = obj.FindMember("ProfileSetEvent");
-                if (ProfileSetEvent_member != obj.MemberEnd() && !ProfileSetEvent_member->value.IsNull()) ProfileSetEvent = ProfileSetEvent_member->value.GetBool();
-
-                return true;
-            }
-        };
-
-        struct LogEventResult : public PlayFabBaseModel
-        {
-
-            LogEventResult() :
-                PlayFabBaseModel()
-            {}
-
-            LogEventResult(const LogEventResult& src) :
-                PlayFabBaseModel()
-            {}
-
-            LogEventResult(const rapidjson::Value& obj) : LogEventResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~LogEventResult()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-
-                return true;
-            }
-        };
-
         struct ModifyCharacterVirtualCurrencyResult : public PlayFabBaseModel
         {
             Aws::String VirtualCurrency;
@@ -10499,8 +10260,7 @@ namespace PlayFab
             PlayerConnectionStateUnassigned,
             PlayerConnectionStateConnecting,
             PlayerConnectionStateParticipating,
-            PlayerConnectionStateParticipated,
-            PlayerConnectionStateReconnecting
+            PlayerConnectionStateParticipated
         };
 
         inline void writePlayerConnectionStateEnumJSON(PlayerConnectionState enumVal, PFStringJsonWriter& writer)
@@ -10511,7 +10271,6 @@ namespace PlayFab
             case PlayerConnectionStateConnecting: writer.String("Connecting"); break;
             case PlayerConnectionStateParticipating: writer.String("Participating"); break;
             case PlayerConnectionStateParticipated: writer.String("Participated"); break;
-            case PlayerConnectionStateReconnecting: writer.String("Reconnecting"); break;
 
             }
         }
@@ -10526,7 +10285,6 @@ namespace PlayFab
                 _PlayerConnectionStateMap["Connecting"] = PlayerConnectionStateConnecting;
                 _PlayerConnectionStateMap["Participating"] = PlayerConnectionStateParticipating;
                 _PlayerConnectionStateMap["Participated"] = PlayerConnectionStateParticipated;
-                _PlayerConnectionStateMap["Reconnecting"] = PlayerConnectionStateReconnecting;
 
             }
 
@@ -11168,14 +10926,13 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("SharedGroupId"); writer.String(SharedGroupId.c_str());
-                if (!PlayFabIds.empty()) {
-    writer.String("PlayFabIds");
+                writer.String("PlayFabIds");
     writer.StartArray();
     for (std::list<Aws::String>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
         writer.String(iter->c_str());
     }
     writer.EndArray();
-     }
+    
                 writer.EndObject();
             }
 
@@ -13320,95 +13077,6 @@ namespace PlayFab
             KeysToRemove.push_back(memberList[i].GetString());
         }
     }
-
-                return true;
-            }
-        };
-
-        struct UpdateUserStatisticsRequest : public PlayFabBaseModel
-        {
-            Aws::String PlayFabId;
-            std::map<Aws::String, Int32> UserStatistics;
-
-            UpdateUserStatisticsRequest() :
-                PlayFabBaseModel(),
-                PlayFabId(),
-                UserStatistics()
-            {}
-
-            UpdateUserStatisticsRequest(const UpdateUserStatisticsRequest& src) :
-                PlayFabBaseModel(),
-                PlayFabId(src.PlayFabId),
-                UserStatistics(src.UserStatistics)
-            {}
-
-            UpdateUserStatisticsRequest(const rapidjson::Value& obj) : UpdateUserStatisticsRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~UpdateUserStatisticsRequest()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
-                if (!UserStatistics.empty()) {
-    writer.String("UserStatistics");
-    writer.StartObject();
-    for (std::map<Aws::String, Int32>::iterator iter = UserStatistics.begin(); iter != UserStatistics.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Int(iter->second);
-    }
-    writer.EndObject();
-     }
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
-                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
-                const Value::ConstMemberIterator UserStatistics_member = obj.FindMember("UserStatistics");
-    if (UserStatistics_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = UserStatistics_member->value.MemberBegin(); iter != UserStatistics_member->value.MemberEnd(); ++iter) {
-            UserStatistics[iter->name.GetString()] = iter->value.GetInt();
-        }
-    }
-
-                return true;
-            }
-        };
-
-        struct UpdateUserStatisticsResult : public PlayFabBaseModel
-        {
-
-            UpdateUserStatisticsResult() :
-                PlayFabBaseModel()
-            {}
-
-            UpdateUserStatisticsResult(const UpdateUserStatisticsResult& src) :
-                PlayFabBaseModel()
-            {}
-
-            UpdateUserStatisticsResult(const rapidjson::Value& obj) : UpdateUserStatisticsResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~UpdateUserStatisticsResult()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
 
                 return true;
             }

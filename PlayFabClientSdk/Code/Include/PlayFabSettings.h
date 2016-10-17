@@ -17,7 +17,6 @@ namespace PlayFab
         Aws::String productionEnvironmentURL;
         Aws::String titleId; // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
         ErrorCallback globalErrorHandler;
-        Aws::String logicServerURL; // Deprecated
         Aws::String advertisingIdType; // Set this to the appropriate AD_TYPE_X constant below
         Aws::String advertisingIdValue; // Set this to corresponding device value
 
@@ -31,8 +30,6 @@ namespace PlayFab
 
         Aws::String getURL(const Aws::String& callPath)
         {
-            if (callPath == "/Client/RunCloudScript")
-                return getLogicURL(callPath);
             if (serverURL.length() == 0)
                 serverURL = "https://"+titleId+(useDevelopmentEnvironment ? developmentEnvironmentURL : productionEnvironmentURL);
             return serverURL + callPath;
@@ -40,10 +37,5 @@ namespace PlayFab
 
     private:
         Aws::String serverURL; // A cache of the constructed url string
-
-        Aws::String getLogicURL(const Aws::String& callPath)
-        {
-            return logicServerURL + callPath;
-        }
     };
 }

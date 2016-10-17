@@ -253,11 +253,6 @@ void PlayFabClientApiWrapper::GetFriendLeaderboard(ClientModels::GetFriendLeader
     PlayFabClientApi::GetFriendLeaderboard(request, callback, errorCallback, customData);
 }
 
-void PlayFabClientApiWrapper::GetFriendLeaderboardAroundCurrentUser(ClientModels::GetFriendLeaderboardAroundCurrentUserRequest& request, ProcessApiCallback<ClientModels::GetFriendLeaderboardAroundCurrentUserResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::GetFriendLeaderboardAroundCurrentUser(request, callback, errorCallback, customData);
-}
-
 void PlayFabClientApiWrapper::GetFriendLeaderboardAroundPlayer(ClientModels::GetFriendLeaderboardAroundPlayerRequest& request, ProcessApiCallback<ClientModels::GetFriendLeaderboardAroundPlayerResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::GetFriendLeaderboardAroundPlayer(request, callback, errorCallback, customData);
@@ -266,11 +261,6 @@ void PlayFabClientApiWrapper::GetFriendLeaderboardAroundPlayer(ClientModels::Get
 void PlayFabClientApiWrapper::GetLeaderboard(ClientModels::GetLeaderboardRequest& request, ProcessApiCallback<ClientModels::GetLeaderboardResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::GetLeaderboard(request, callback, errorCallback, customData);
-}
-
-void PlayFabClientApiWrapper::GetLeaderboardAroundCurrentUser(ClientModels::GetLeaderboardAroundCurrentUserRequest& request, ProcessApiCallback<ClientModels::GetLeaderboardAroundCurrentUserResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::GetLeaderboardAroundCurrentUser(request, callback, errorCallback, customData);
 }
 
 void PlayFabClientApiWrapper::GetLeaderboardAroundPlayer(ClientModels::GetLeaderboardAroundPlayerRequest& request, ProcessApiCallback<ClientModels::GetLeaderboardAroundPlayerResult> callback, ErrorCallback errorCallback, void* customData)
@@ -308,11 +298,6 @@ void PlayFabClientApiWrapper::GetUserReadOnlyData(ClientModels::GetUserDataReque
     PlayFabClientApi::GetUserReadOnlyData(request, callback, errorCallback, customData);
 }
 
-void PlayFabClientApiWrapper::GetUserStatistics(ProcessApiCallback<ClientModels::GetUserStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::GetUserStatistics(callback, errorCallback, customData);
-}
-
 void PlayFabClientApiWrapper::UpdatePlayerStatistics(ClientModels::UpdatePlayerStatisticsRequest& request, ProcessApiCallback<ClientModels::UpdatePlayerStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::UpdatePlayerStatistics(request, callback, errorCallback, customData);
@@ -326,11 +311,6 @@ void PlayFabClientApiWrapper::UpdateUserData(ClientModels::UpdateUserDataRequest
 void PlayFabClientApiWrapper::UpdateUserPublisherData(ClientModels::UpdateUserDataRequest& request, ProcessApiCallback<ClientModels::UpdateUserDataResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::UpdateUserPublisherData(request, callback, errorCallback, customData);
-}
-
-void PlayFabClientApiWrapper::UpdateUserStatistics(ClientModels::UpdateUserStatisticsRequest& request, ProcessApiCallback<ClientModels::UpdateUserStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::UpdateUserStatistics(request, callback, errorCallback, customData);
 }
 
 void PlayFabClientApiWrapper::GetCatalogItems(ClientModels::GetCatalogItemsRequest& request, ProcessApiCallback<ClientModels::GetCatalogItemsResult> callback, ErrorCallback errorCallback, void* customData)
@@ -493,11 +473,6 @@ void PlayFabClientApiWrapper::ValidateGooglePlayPurchase(ClientModels::ValidateG
     PlayFabClientApi::ValidateGooglePlayPurchase(request, callback, errorCallback, customData);
 }
 
-void PlayFabClientApiWrapper::LogEvent(ClientModels::LogEventRequest& request, ProcessApiCallback<ClientModels::LogEventResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::LogEvent(request, callback, errorCallback, customData);
-}
-
 void PlayFabClientApiWrapper::WriteCharacterEvent(ClientModels::WriteClientCharacterEventRequest& request, ProcessApiCallback<ClientModels::WriteEventResponse> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::WriteCharacterEvent(request, callback, errorCallback, customData);
@@ -541,16 +516,6 @@ void PlayFabClientApiWrapper::UpdateSharedGroupData(ClientModels::UpdateSharedGr
 void PlayFabClientApiWrapper::ExecuteCloudScript(ClientModels::ExecuteCloudScriptRequest& request, ProcessApiCallback<ClientModels::ExecuteCloudScriptResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::ExecuteCloudScript(request, callback, errorCallback, customData);
-}
-
-void PlayFabClientApiWrapper::GetCloudScriptUrl(ClientModels::GetCloudScriptUrlRequest& request, ProcessApiCallback<ClientModels::GetCloudScriptUrlResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::GetCloudScriptUrl(request, callback, errorCallback, customData);
-}
-
-void PlayFabClientApiWrapper::RunCloudScript(ClientModels::RunCloudScriptRequest& request, ProcessApiCallback<ClientModels::RunCloudScriptResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::RunCloudScript(request, callback, errorCallback, customData);
 }
 
 void PlayFabClientApiWrapper::GetContentDownloadUrl(ClientModels::GetContentDownloadUrlRequest& request, ProcessApiCallback<ClientModels::GetContentDownloadUrlResult> callback, ErrorCallback errorCallback, void* customData)

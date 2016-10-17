@@ -21,7 +21,7 @@ void PlayFabClientApi::MultiStepClientLogin(bool needsAttribution)
         if (PlayFabSettings::playFabSettings.advertisingIdType == PlayFabSettings::playFabSettings.AD_TYPE_IDFA)
             request.Idfa = PlayFabSettings::playFabSettings.advertisingIdValue;
         else if (PlayFabSettings::playFabSettings.advertisingIdType == PlayFabSettings::playFabSettings.AD_TYPE_ANDROID_ID)
-            request.Android_Id = PlayFabSettings::playFabSettings.advertisingIdValue;
+            request.Adid = PlayFabSettings::playFabSettings.advertisingIdValue;
         else
             return;
         AttributeInstall(request, nullptr, nullptr);
@@ -1531,36 +1531,6 @@ void PlayFabClientApi::OnGetFriendLeaderboardResult(PlayFabRequest* request)
     }
 }
 
-void PlayFabClientApi::GetFriendLeaderboardAroundCurrentUser(
-    GetFriendLeaderboardAroundCurrentUserRequest& request,
-    ProcessApiCallback<GetFriendLeaderboardAroundCurrentUserResult> callback,
-    ErrorCallback errorCallback,
-    void* customData
-    )
-{
-
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetFriendLeaderboardAroundCurrentUser"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetFriendLeaderboardAroundCurrentUserResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
-}
-
-void PlayFabClientApi::OnGetFriendLeaderboardAroundCurrentUserResult(PlayFabRequest* request)
-{
-    if (PlayFabBaseModel::DecodeRequest(request))
-    {
-        GetFriendLeaderboardAroundCurrentUserResult* outResult = new GetFriendLeaderboardAroundCurrentUserResult;
-        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
-
-
-        if (request->mResultCallback != nullptr)
-        {
-            ProcessApiCallback<GetFriendLeaderboardAroundCurrentUserResult> successCallback = reinterpret_cast<ProcessApiCallback<GetFriendLeaderboardAroundCurrentUserResult>>(request->mResultCallback);
-            successCallback(*outResult, request->mCustomData);
-        }
-        delete outResult;
-        delete request;
-    }
-}
-
 void PlayFabClientApi::GetFriendLeaderboardAroundPlayer(
     GetFriendLeaderboardAroundPlayerRequest& request,
     ProcessApiCallback<GetFriendLeaderboardAroundPlayerResult> callback,
@@ -1614,36 +1584,6 @@ void PlayFabClientApi::OnGetLeaderboardResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<GetLeaderboardResult> successCallback = reinterpret_cast<ProcessApiCallback<GetLeaderboardResult>>(request->mResultCallback);
-            successCallback(*outResult, request->mCustomData);
-        }
-        delete outResult;
-        delete request;
-    }
-}
-
-void PlayFabClientApi::GetLeaderboardAroundCurrentUser(
-    GetLeaderboardAroundCurrentUserRequest& request,
-    ProcessApiCallback<GetLeaderboardAroundCurrentUserResult> callback,
-    ErrorCallback errorCallback,
-    void* customData
-    )
-{
-
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetLeaderboardAroundCurrentUser"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetLeaderboardAroundCurrentUserResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
-}
-
-void PlayFabClientApi::OnGetLeaderboardAroundCurrentUserResult(PlayFabRequest* request)
-{
-    if (PlayFabBaseModel::DecodeRequest(request))
-    {
-        GetLeaderboardAroundCurrentUserResult* outResult = new GetLeaderboardAroundCurrentUserResult;
-        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
-
-
-        if (request->mResultCallback != nullptr)
-        {
-            ProcessApiCallback<GetLeaderboardAroundCurrentUserResult> successCallback = reinterpret_cast<ProcessApiCallback<GetLeaderboardAroundCurrentUserResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1861,36 +1801,6 @@ void PlayFabClientApi::OnGetUserReadOnlyDataResult(PlayFabRequest* request)
     }
 }
 
-void PlayFabClientApi::GetUserStatistics(
-
-    ProcessApiCallback<GetUserStatisticsResult> callback,
-    ErrorCallback errorCallback,
-    void* customData
-    )
-{
-
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetUserStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnGetUserStatisticsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
-}
-
-void PlayFabClientApi::OnGetUserStatisticsResult(PlayFabRequest* request)
-{
-    if (PlayFabBaseModel::DecodeRequest(request))
-    {
-        GetUserStatisticsResult* outResult = new GetUserStatisticsResult;
-        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
-
-
-        if (request->mResultCallback != nullptr)
-        {
-            ProcessApiCallback<GetUserStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetUserStatisticsResult>>(request->mResultCallback);
-            successCallback(*outResult, request->mCustomData);
-        }
-        delete outResult;
-        delete request;
-    }
-}
-
 void PlayFabClientApi::UpdatePlayerStatistics(
     UpdatePlayerStatisticsRequest& request,
     ProcessApiCallback<UpdatePlayerStatisticsResult> callback,
@@ -1974,36 +1884,6 @@ void PlayFabClientApi::OnUpdateUserPublisherDataResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<UpdateUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<UpdateUserDataResult>>(request->mResultCallback);
-            successCallback(*outResult, request->mCustomData);
-        }
-        delete outResult;
-        delete request;
-    }
-}
-
-void PlayFabClientApi::UpdateUserStatistics(
-    UpdateUserStatisticsRequest& request,
-    ProcessApiCallback<UpdateUserStatisticsResult> callback,
-    ErrorCallback errorCallback,
-    void* customData
-    )
-{
-
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UpdateUserStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserStatisticsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
-}
-
-void PlayFabClientApi::OnUpdateUserStatisticsResult(PlayFabRequest* request)
-{
-    if (PlayFabBaseModel::DecodeRequest(request))
-    {
-        UpdateUserStatisticsResult* outResult = new UpdateUserStatisticsResult;
-        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
-
-
-        if (request->mResultCallback != nullptr)
-        {
-            ProcessApiCallback<UpdateUserStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<UpdateUserStatisticsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2971,36 +2851,6 @@ void PlayFabClientApi::OnValidateGooglePlayPurchaseResult(PlayFabRequest* reques
     }
 }
 
-void PlayFabClientApi::LogEvent(
-    LogEventRequest& request,
-    ProcessApiCallback<LogEventResult> callback,
-    ErrorCallback errorCallback,
-    void* customData
-    )
-{
-
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LogEvent"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLogEventResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
-}
-
-void PlayFabClientApi::OnLogEventResult(PlayFabRequest* request)
-{
-    if (PlayFabBaseModel::DecodeRequest(request))
-    {
-        LogEventResult* outResult = new LogEventResult;
-        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
-
-
-        if (request->mResultCallback != nullptr)
-        {
-            ProcessApiCallback<LogEventResult> successCallback = reinterpret_cast<ProcessApiCallback<LogEventResult>>(request->mResultCallback);
-            successCallback(*outResult, request->mCustomData);
-        }
-        delete outResult;
-        delete request;
-    }
-}
-
 void PlayFabClientApi::WriteCharacterEvent(
     WriteClientCharacterEventRequest& request,
     ProcessApiCallback<WriteEventResponse> callback,
@@ -3264,67 +3114,6 @@ void PlayFabClientApi::OnExecuteCloudScriptResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<ExecuteCloudScriptResult> successCallback = reinterpret_cast<ProcessApiCallback<ExecuteCloudScriptResult>>(request->mResultCallback);
-            successCallback(*outResult, request->mCustomData);
-        }
-        delete outResult;
-        delete request;
-    }
-}
-
-void PlayFabClientApi::GetCloudScriptUrl(
-    GetCloudScriptUrlRequest& request,
-    ProcessApiCallback<GetCloudScriptUrlResult> callback,
-    ErrorCallback errorCallback,
-    void* customData
-    )
-{
-
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetCloudScriptUrl"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetCloudScriptUrlResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
-}
-
-void PlayFabClientApi::OnGetCloudScriptUrlResult(PlayFabRequest* request)
-{
-    if (PlayFabBaseModel::DecodeRequest(request))
-    {
-        GetCloudScriptUrlResult* outResult = new GetCloudScriptUrlResult;
-        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
-
-if (outResult->Url.length() > 0) PlayFabSettings::playFabSettings.logicServerURL = outResult->Url;
-
-        if (request->mResultCallback != nullptr)
-        {
-            ProcessApiCallback<GetCloudScriptUrlResult> successCallback = reinterpret_cast<ProcessApiCallback<GetCloudScriptUrlResult>>(request->mResultCallback);
-            successCallback(*outResult, request->mCustomData);
-        }
-        delete outResult;
-        delete request;
-    }
-}
-
-void PlayFabClientApi::RunCloudScript(
-    RunCloudScriptRequest& request,
-    ProcessApiCallback<RunCloudScriptResult> callback,
-    ErrorCallback errorCallback,
-    void* customData
-    )
-{
-
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/RunCloudScript"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnRunCloudScriptResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
-}
-
-void PlayFabClientApi::OnRunCloudScriptResult(PlayFabRequest* request)
-{
-    if (PlayFabBaseModel::DecodeRequest(request))
-    {
-        RunCloudScriptResult* outResult = new RunCloudScriptResult;
-        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
-
-
-        if (request->mResultCallback != nullptr)
-        {
-            ProcessApiCallback<RunCloudScriptResult> successCallback = reinterpret_cast<ProcessApiCallback<RunCloudScriptResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;

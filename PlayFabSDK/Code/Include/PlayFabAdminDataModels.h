@@ -8632,7 +8632,7 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("Username"); writer.String(Username.c_str());
-                writer.String("Password"); writer.String(Password.c_str());
+                if (Password.length() > 0) { writer.String("Password"); writer.String(Password.c_str()); }
                 writer.EndObject();
             }
 
@@ -9910,14 +9910,12 @@ namespace PlayFab
 
         struct UpdateCloudScriptRequest : public PlayFabBaseModel
         {
-            OptionalInt32 Version;
             std::list<CloudScriptFile> Files;
             bool Publish;
             Aws::String DeveloperPlayFabId;
 
             UpdateCloudScriptRequest() :
                 PlayFabBaseModel(),
-                Version(),
                 Files(),
                 Publish(false),
                 DeveloperPlayFabId()
@@ -9925,7 +9923,6 @@ namespace PlayFab
 
             UpdateCloudScriptRequest(const UpdateCloudScriptRequest& src) :
                 PlayFabBaseModel(),
-                Version(src.Version),
                 Files(src.Files),
                 Publish(src.Publish),
                 DeveloperPlayFabId(src.DeveloperPlayFabId)
@@ -9943,7 +9940,6 @@ namespace PlayFab
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Version.notNull()) { writer.String("Version"); writer.Int(Version); }
                 writer.String("Files");
     writer.StartArray();
     for (std::list<CloudScriptFile>::iterator iter = Files.begin(); iter != Files.end(); iter++) {
@@ -9958,8 +9954,6 @@ namespace PlayFab
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
-                const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
-                if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
                 const Value::ConstMemberIterator Files_member = obj.FindMember("Files");
     if (Files_member != obj.MemberEnd()) {
         const rapidjson::Value& memberList = Files_member->value;

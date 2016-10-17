@@ -698,36 +698,6 @@ void PlayFabServerApi::OnGetUserReadOnlyDataResult(PlayFabRequest* request)
     }
 }
 
-void PlayFabServerApi::GetUserStatistics(
-    GetUserStatisticsRequest& request,
-    ProcessApiCallback<GetUserStatisticsResult> callback,
-    ErrorCallback errorCallback,
-    void* customData
-    )
-{
-
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/GetUserStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetUserStatisticsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
-}
-
-void PlayFabServerApi::OnGetUserStatisticsResult(PlayFabRequest* request)
-{
-    if (PlayFabBaseModel::DecodeRequest(request))
-    {
-        GetUserStatisticsResult* outResult = new GetUserStatisticsResult;
-        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
-
-
-        if (request->mResultCallback != nullptr)
-        {
-            ProcessApiCallback<GetUserStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<GetUserStatisticsResult>>(request->mResultCallback);
-            successCallback(*outResult, request->mCustomData);
-        }
-        delete outResult;
-        delete request;
-    }
-}
-
 void PlayFabServerApi::UpdatePlayerStatistics(
     UpdatePlayerStatisticsRequest& request,
     ProcessApiCallback<UpdatePlayerStatisticsResult> callback,
@@ -931,36 +901,6 @@ void PlayFabServerApi::OnUpdateUserReadOnlyDataResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<UpdateUserDataResult> successCallback = reinterpret_cast<ProcessApiCallback<UpdateUserDataResult>>(request->mResultCallback);
-            successCallback(*outResult, request->mCustomData);
-        }
-        delete outResult;
-        delete request;
-    }
-}
-
-void PlayFabServerApi::UpdateUserStatistics(
-    UpdateUserStatisticsRequest& request,
-    ProcessApiCallback<UpdateUserStatisticsResult> callback,
-    ErrorCallback errorCallback,
-    void* customData
-    )
-{
-
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/UpdateUserStatistics"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnUpdateUserStatisticsResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
-}
-
-void PlayFabServerApi::OnUpdateUserStatisticsResult(PlayFabRequest* request)
-{
-    if (PlayFabBaseModel::DecodeRequest(request))
-    {
-        UpdateUserStatisticsResult* outResult = new UpdateUserStatisticsResult;
-        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
-
-
-        if (request->mResultCallback != nullptr)
-        {
-            ProcessApiCallback<UpdateUserStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<UpdateUserStatisticsResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -2251,36 +2191,6 @@ void PlayFabServerApi::OnAwardSteamAchievementResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<AwardSteamAchievementResult> successCallback = reinterpret_cast<ProcessApiCallback<AwardSteamAchievementResult>>(request->mResultCallback);
-            successCallback(*outResult, request->mCustomData);
-        }
-        delete outResult;
-        delete request;
-    }
-}
-
-void PlayFabServerApi::LogEvent(
-    LogEventRequest& request,
-    ProcessApiCallback<LogEventResult> callback,
-    ErrorCallback errorCallback,
-    void* customData
-    )
-{
-
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/LogEvent"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnLogEventResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
-}
-
-void PlayFabServerApi::OnLogEventResult(PlayFabRequest* request)
-{
-    if (PlayFabBaseModel::DecodeRequest(request))
-    {
-        LogEventResult* outResult = new LogEventResult;
-        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
-
-
-        if (request->mResultCallback != nullptr)
-        {
-            ProcessApiCallback<LogEventResult> successCallback = reinterpret_cast<ProcessApiCallback<LogEventResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
