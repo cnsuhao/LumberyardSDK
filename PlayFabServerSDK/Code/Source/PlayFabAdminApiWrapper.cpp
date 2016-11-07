@@ -407,3 +407,53 @@ void PlayFabAdminApiWrapper::RemovePlayerTag(AdminModels::RemovePlayerTagRequest
     PlayFabAdminApi::RemovePlayerTag(request, callback, errorCallback, customData);
 }
 
+void PlayFabAdminApiWrapper::AbortTaskInstance(AdminModels::AbortTaskInstanceRequest& request, ProcessApiCallback<AdminModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::AbortTaskInstance(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::CreateActionsOnPlayersInSegmentTask(AdminModels::CreateActionsOnPlayerSegmentTaskRequest& request, ProcessApiCallback<AdminModels::CreateTaskResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::CreateActionsOnPlayersInSegmentTask(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::CreateCloudScriptTask(AdminModels::CreateCloudScriptTaskRequest& request, ProcessApiCallback<AdminModels::CreateTaskResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::CreateCloudScriptTask(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::DeleteTask(AdminModels::DeleteTaskRequest& request, ProcessApiCallback<AdminModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::DeleteTask(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::GetActionsOnPlayersInSegmentTaskInstance(AdminModels::GetTaskInstanceRequest& request, ProcessApiCallback<AdminModels::GetActionsOnPlayersInSegmentTaskInstanceResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::GetActionsOnPlayersInSegmentTaskInstance(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::GetCloudScriptTaskInstance(AdminModels::GetTaskInstanceRequest& request, ProcessApiCallback<AdminModels::GetCloudScriptTaskInstanceResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::GetCloudScriptTaskInstance(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::GetTaskInstances(AdminModels::GetTaskInstancesRequest& request, ProcessApiCallback<AdminModels::GetTaskInstancesResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::GetTaskInstances(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::GetTasks(AdminModels::GetTasksRequest& request, ProcessApiCallback<AdminModels::GetTasksResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::GetTasks(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::RunTask(AdminModels::RunTaskRequest& request, ProcessApiCallback<AdminModels::RunTaskResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::RunTask(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::UpdateTask(AdminModels::UpdateTaskRequest& request, ProcessApiCallback<AdminModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::UpdateTask(request, callback, errorCallback, customData);
+}
+
