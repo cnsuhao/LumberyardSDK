@@ -10,6 +10,8 @@ namespace PlayFab
     class PlayFabAdminApi
     {
     public:        // ------------ Generated Api calls
+        static void GetPolicy(AdminModels::GetPolicyRequest& request, ProcessApiCallback<AdminModels::GetPolicyResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void UpdatePolicy(AdminModels::UpdatePolicyRequest& request, ProcessApiCallback<AdminModels::UpdatePolicyResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void BanUsers(AdminModels::BanUsersRequest& request, ProcessApiCallback<AdminModels::BanUsersResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetUserAccountInfo(AdminModels::LookupUserAccountInfoRequest& request, ProcessApiCallback<AdminModels::LookupUserAccountInfoResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetUserBans(AdminModels::GetUserBansRequest& request, ProcessApiCallback<AdminModels::GetUserBansResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -106,6 +108,8 @@ namespace PlayFab
         PlayFabAdminApi();
 
         // ------------ Generated result handlers
+        static void OnGetPolicyResult(PlayFabRequest* request);
+        static void OnUpdatePolicyResult(PlayFabRequest* request);
         static void OnBanUsersResult(PlayFabRequest* request);
         static void OnGetUserAccountInfoResult(PlayFabRequest* request);
         static void OnGetUserBansResult(PlayFabRequest* request);

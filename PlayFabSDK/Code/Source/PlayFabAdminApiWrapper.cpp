@@ -7,6 +7,16 @@ PlayFabAdminApiWrapper PlayFabAdminApiWrapper::globalWrapper;
 
 // ------------ Generated API call wrappers
 
+void PlayFabAdminApiWrapper::GetPolicy(AdminModels::GetPolicyRequest& request, ProcessApiCallback<AdminModels::GetPolicyResponse> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::GetPolicy(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::UpdatePolicy(AdminModels::UpdatePolicyRequest& request, ProcessApiCallback<AdminModels::UpdatePolicyResponse> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::UpdatePolicy(request, callback, errorCallback, customData);
+}
+
 void PlayFabAdminApiWrapper::BanUsers(AdminModels::BanUsersRequest& request, ProcessApiCallback<AdminModels::BanUsersResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabAdminApi::BanUsers(request, callback, errorCallback, customData);

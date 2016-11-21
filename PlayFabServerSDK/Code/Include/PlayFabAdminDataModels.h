@@ -4111,6 +4111,37 @@ namespace PlayFab
             }
         };
 
+        enum EffectType
+        {
+            EffectTypeAllow
+        };
+
+        inline void writeEffectTypeEnumJSON(EffectType enumVal, PFStringJsonWriter& writer)
+        {
+            switch (enumVal)
+            {
+            case EffectTypeAllow: writer.String("Allow"); break;
+
+            }
+        }
+
+        inline EffectType readEffectTypeFromValue(const rapidjson::Value& obj)
+        {
+            static std::map<Aws::String, EffectType> _EffectTypeMap;
+            if (_EffectTypeMap.size() == 0)
+            {
+                // Auto-generate the map on the first use
+                _EffectTypeMap["Allow"] = EffectTypeAllow;
+
+            }
+
+            auto output = _EffectTypeMap.find(obj.GetString());
+            if (output != _EffectTypeMap.end())
+                return output->second;
+
+            return EffectTypeAllow; // Basically critical fail
+        }
+
         struct EmptyResult : public PlayFabBaseModel
         {
 
@@ -6538,6 +6569,165 @@ namespace PlayFab
         const rapidjson::Value& memberList = Tags_member->value;
         for (SizeType i = 0; i < memberList.Size(); i++) {
             Tags.push_back(memberList[i].GetString());
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct GetPolicyRequest : public PlayFabBaseModel
+        {
+            Aws::String PolicyName;
+
+            GetPolicyRequest() :
+                PlayFabBaseModel(),
+                PolicyName()
+            {}
+
+            GetPolicyRequest(const GetPolicyRequest& src) :
+                PlayFabBaseModel(),
+                PolicyName(src.PolicyName)
+            {}
+
+            GetPolicyRequest(const rapidjson::Value& obj) : GetPolicyRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPolicyRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (PolicyName.length() > 0) { writer.String("PolicyName"); writer.String(PolicyName.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PolicyName_member = obj.FindMember("PolicyName");
+                if (PolicyName_member != obj.MemberEnd() && !PolicyName_member->value.IsNull()) PolicyName = PolicyName_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct PermissionStatement : public PlayFabBaseModel
+        {
+            Aws::String Resource;
+            Aws::String Action;
+            EffectType Effect;
+            Aws::String Principal;
+            Aws::String Comment;
+
+            PermissionStatement() :
+                PlayFabBaseModel(),
+                Resource(),
+                Action(),
+                Effect(),
+                Principal(),
+                Comment()
+            {}
+
+            PermissionStatement(const PermissionStatement& src) :
+                PlayFabBaseModel(),
+                Resource(src.Resource),
+                Action(src.Action),
+                Effect(src.Effect),
+                Principal(src.Principal),
+                Comment(src.Comment)
+            {}
+
+            PermissionStatement(const rapidjson::Value& obj) : PermissionStatement()
+            {
+                readFromValue(obj);
+            }
+
+            ~PermissionStatement()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("Resource"); writer.String(Resource.c_str());
+                writer.String("Action"); writer.String(Action.c_str());
+                writer.String("Effect"); writeEffectTypeEnumJSON(Effect, writer);
+                writer.String("Principal"); writer.String(Principal.c_str());
+                if (Comment.length() > 0) { writer.String("Comment"); writer.String(Comment.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Resource_member = obj.FindMember("Resource");
+                if (Resource_member != obj.MemberEnd() && !Resource_member->value.IsNull()) Resource = Resource_member->value.GetString();
+                const Value::ConstMemberIterator Action_member = obj.FindMember("Action");
+                if (Action_member != obj.MemberEnd() && !Action_member->value.IsNull()) Action = Action_member->value.GetString();
+                const Value::ConstMemberIterator Effect_member = obj.FindMember("Effect");
+                if (Effect_member != obj.MemberEnd() && !Effect_member->value.IsNull()) Effect = readEffectTypeFromValue(Effect_member->value);
+                const Value::ConstMemberIterator Principal_member = obj.FindMember("Principal");
+                if (Principal_member != obj.MemberEnd() && !Principal_member->value.IsNull()) Principal = Principal_member->value.GetString();
+                const Value::ConstMemberIterator Comment_member = obj.FindMember("Comment");
+                if (Comment_member != obj.MemberEnd() && !Comment_member->value.IsNull()) Comment = Comment_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct GetPolicyResponse : public PlayFabBaseModel
+        {
+            Aws::String PolicyName;
+            std::list<PermissionStatement> Statements;
+
+            GetPolicyResponse() :
+                PlayFabBaseModel(),
+                PolicyName(),
+                Statements()
+            {}
+
+            GetPolicyResponse(const GetPolicyResponse& src) :
+                PlayFabBaseModel(),
+                PolicyName(src.PolicyName),
+                Statements(src.Statements)
+            {}
+
+            GetPolicyResponse(const rapidjson::Value& obj) : GetPolicyResponse()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPolicyResponse()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (PolicyName.length() > 0) { writer.String("PolicyName"); writer.String(PolicyName.c_str()); }
+                if (!Statements.empty()) {
+    writer.String("Statements");
+    writer.StartArray();
+    for (std::list<PermissionStatement>::iterator iter = Statements.begin(); iter != Statements.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PolicyName_member = obj.FindMember("PolicyName");
+                if (PolicyName_member != obj.MemberEnd() && !PolicyName_member->value.IsNull()) PolicyName = PolicyName_member->value.GetString();
+                const Value::ConstMemberIterator Statements_member = obj.FindMember("Statements");
+    if (Statements_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Statements_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Statements.push_back(PermissionStatement(memberList[i]));
         }
     }
 
@@ -10912,18 +11102,15 @@ namespace PlayFab
         struct UserCredentials : public PlayFabBaseModel
         {
             Aws::String Username;
-            Aws::String Password;
 
             UserCredentials() :
                 PlayFabBaseModel(),
-                Username(),
-                Password()
+                Username()
             {}
 
             UserCredentials(const UserCredentials& src) :
                 PlayFabBaseModel(),
-                Username(src.Username),
-                Password(src.Password)
+                Username(src.Username)
             {}
 
             UserCredentials(const rapidjson::Value& obj) : UserCredentials()
@@ -10939,7 +11126,6 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("Username"); writer.String(Username.c_str());
-                if (Password.length() > 0) { writer.String("Password"); writer.String(Password.c_str()); }
                 writer.EndObject();
             }
 
@@ -10947,8 +11133,6 @@ namespace PlayFab
             {
                 const Value::ConstMemberIterator Username_member = obj.FindMember("Username");
                 if (Username_member != obj.MemberEnd() && !Username_member->value.IsNull()) Username = Username_member->value.GetString();
-                const Value::ConstMemberIterator Password_member = obj.FindMember("Password");
-                if (Password_member != obj.MemberEnd() && !Password_member->value.IsNull()) Password = Password_member->value.GetString();
 
                 return true;
             }
@@ -12487,6 +12671,125 @@ namespace PlayFab
             {
                 const Value::ConstMemberIterator Statistic_member = obj.FindMember("Statistic");
                 if (Statistic_member != obj.MemberEnd() && !Statistic_member->value.IsNull()) Statistic = new PlayerStatisticDefinition(Statistic_member->value);
+
+                return true;
+            }
+        };
+
+        struct UpdatePolicyRequest : public PlayFabBaseModel
+        {
+            Aws::String PolicyName;
+            std::list<PermissionStatement> Statements;
+            bool OverwritePolicy;
+
+            UpdatePolicyRequest() :
+                PlayFabBaseModel(),
+                PolicyName(),
+                Statements(),
+                OverwritePolicy(false)
+            {}
+
+            UpdatePolicyRequest(const UpdatePolicyRequest& src) :
+                PlayFabBaseModel(),
+                PolicyName(src.PolicyName),
+                Statements(src.Statements),
+                OverwritePolicy(src.OverwritePolicy)
+            {}
+
+            UpdatePolicyRequest(const rapidjson::Value& obj) : UpdatePolicyRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~UpdatePolicyRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("PolicyName"); writer.String(PolicyName.c_str());
+                writer.String("Statements");
+    writer.StartArray();
+    for (std::list<PermissionStatement>::iterator iter = Statements.begin(); iter != Statements.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+    
+                writer.String("OverwritePolicy"); writer.Bool(OverwritePolicy);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PolicyName_member = obj.FindMember("PolicyName");
+                if (PolicyName_member != obj.MemberEnd() && !PolicyName_member->value.IsNull()) PolicyName = PolicyName_member->value.GetString();
+                const Value::ConstMemberIterator Statements_member = obj.FindMember("Statements");
+    if (Statements_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Statements_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Statements.push_back(PermissionStatement(memberList[i]));
+        }
+    }
+                const Value::ConstMemberIterator OverwritePolicy_member = obj.FindMember("OverwritePolicy");
+                if (OverwritePolicy_member != obj.MemberEnd() && !OverwritePolicy_member->value.IsNull()) OverwritePolicy = OverwritePolicy_member->value.GetBool();
+
+                return true;
+            }
+        };
+
+        struct UpdatePolicyResponse : public PlayFabBaseModel
+        {
+            Aws::String PolicyName;
+            std::list<PermissionStatement> Statements;
+
+            UpdatePolicyResponse() :
+                PlayFabBaseModel(),
+                PolicyName(),
+                Statements()
+            {}
+
+            UpdatePolicyResponse(const UpdatePolicyResponse& src) :
+                PlayFabBaseModel(),
+                PolicyName(src.PolicyName),
+                Statements(src.Statements)
+            {}
+
+            UpdatePolicyResponse(const rapidjson::Value& obj) : UpdatePolicyResponse()
+            {
+                readFromValue(obj);
+            }
+
+            ~UpdatePolicyResponse()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (PolicyName.length() > 0) { writer.String("PolicyName"); writer.String(PolicyName.c_str()); }
+                if (!Statements.empty()) {
+    writer.String("Statements");
+    writer.StartArray();
+    for (std::list<PermissionStatement>::iterator iter = Statements.begin(); iter != Statements.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PolicyName_member = obj.FindMember("PolicyName");
+                if (PolicyName_member != obj.MemberEnd() && !PolicyName_member->value.IsNull()) PolicyName = PolicyName_member->value.GetString();
+                const Value::ConstMemberIterator Statements_member = obj.FindMember("Statements");
+    if (Statements_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Statements_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Statements.push_back(PermissionStatement(memberList[i]));
+        }
+    }
 
                 return true;
             }
