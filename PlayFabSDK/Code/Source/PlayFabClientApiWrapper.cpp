@@ -133,11 +133,6 @@ void PlayFabClientApiWrapper::GetPlayFabIDsFromTwitchIDs(ClientModels::GetPlayFa
     PlayFabClientApi::GetPlayFabIDsFromTwitchIDs(request, callback, errorCallback, customData);
 }
 
-void PlayFabClientApiWrapper::GetUserCombinedInfo(ClientModels::GetUserCombinedInfoRequest& request, ProcessApiCallback<ClientModels::GetUserCombinedInfoResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::GetUserCombinedInfo(request, callback, errorCallback, customData);
-}
-
 void PlayFabClientApiWrapper::LinkAndroidDeviceID(ClientModels::LinkAndroidDeviceIDRequest& request, ProcessApiCallback<ClientModels::LinkAndroidDeviceIDResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::LinkAndroidDeviceID(request, callback, errorCallback, customData);

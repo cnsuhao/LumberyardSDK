@@ -811,36 +811,6 @@ void PlayFabClientApi::OnGetPlayFabIDsFromTwitchIDsResult(PlayFabRequest* reques
     }
 }
 
-void PlayFabClientApi::GetUserCombinedInfo(
-    GetUserCombinedInfoRequest& request,
-    ProcessApiCallback<GetUserCombinedInfoResult> callback,
-    ErrorCallback errorCallback,
-    void* customData
-    )
-{
-
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetUserCombinedInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetUserCombinedInfoResult);
-    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
-}
-
-void PlayFabClientApi::OnGetUserCombinedInfoResult(PlayFabRequest* request)
-{
-    if (PlayFabBaseModel::DecodeRequest(request))
-    {
-        GetUserCombinedInfoResult* outResult = new GetUserCombinedInfoResult;
-        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
-
-
-        if (request->mResultCallback != nullptr)
-        {
-            ProcessApiCallback<GetUserCombinedInfoResult> successCallback = reinterpret_cast<ProcessApiCallback<GetUserCombinedInfoResult>>(request->mResultCallback);
-            successCallback(*outResult, request->mCustomData);
-        }
-        delete outResult;
-        delete request;
-    }
-}
-
 void PlayFabClientApi::LinkAndroidDeviceID(
     LinkAndroidDeviceIDRequest& request,
     ProcessApiCallback<LinkAndroidDeviceIDResult> callback,
