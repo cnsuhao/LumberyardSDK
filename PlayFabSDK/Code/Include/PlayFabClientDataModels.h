@@ -10318,17 +10318,20 @@ namespace PlayFab
 
         struct LinkGoogleAccountRequest : public PlayFabBaseModel
         {
+            Aws::String ServerAuthCode;
             Aws::String AccessToken;
             OptionalBool ForceLink;
 
             LinkGoogleAccountRequest() :
                 PlayFabBaseModel(),
+                ServerAuthCode(),
                 AccessToken(),
                 ForceLink()
             {}
 
             LinkGoogleAccountRequest(const LinkGoogleAccountRequest& src) :
                 PlayFabBaseModel(),
+                ServerAuthCode(src.ServerAuthCode),
                 AccessToken(src.AccessToken),
                 ForceLink(src.ForceLink)
             {}
@@ -10345,13 +10348,16 @@ namespace PlayFab
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("AccessToken"); writer.String(AccessToken.c_str());
+                if (ServerAuthCode.length() > 0) { writer.String("ServerAuthCode"); writer.String(ServerAuthCode.c_str()); }
+                if (AccessToken.length() > 0) { writer.String("AccessToken"); writer.String(AccessToken.c_str()); }
                 if (ForceLink.notNull()) { writer.String("ForceLink"); writer.Bool(ForceLink); }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
+                const Value::ConstMemberIterator ServerAuthCode_member = obj.FindMember("ServerAuthCode");
+                if (ServerAuthCode_member != obj.MemberEnd() && !ServerAuthCode_member->value.IsNull()) ServerAuthCode = ServerAuthCode_member->value.GetString();
                 const Value::ConstMemberIterator AccessToken_member = obj.FindMember("AccessToken");
                 if (AccessToken_member != obj.MemberEnd() && !AccessToken_member->value.IsNull()) AccessToken = AccessToken_member->value.GetString();
                 const Value::ConstMemberIterator ForceLink_member = obj.FindMember("ForceLink");
@@ -11229,6 +11235,7 @@ namespace PlayFab
         struct LoginWithGoogleAccountRequest : public PlayFabBaseModel
         {
             Aws::String TitleId;
+            Aws::String ServerAuthCode;
             Aws::String AccessToken;
             OptionalBool CreateAccount;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
@@ -11236,6 +11243,7 @@ namespace PlayFab
             LoginWithGoogleAccountRequest() :
                 PlayFabBaseModel(),
                 TitleId(),
+                ServerAuthCode(),
                 AccessToken(),
                 CreateAccount(),
                 InfoRequestParameters(nullptr)
@@ -11244,6 +11252,7 @@ namespace PlayFab
             LoginWithGoogleAccountRequest(const LoginWithGoogleAccountRequest& src) :
                 PlayFabBaseModel(),
                 TitleId(src.TitleId),
+                ServerAuthCode(src.ServerAuthCode),
                 AccessToken(src.AccessToken),
                 CreateAccount(src.CreateAccount),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr)
@@ -11263,7 +11272,8 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("TitleId"); writer.String(TitleId.c_str());
-                writer.String("AccessToken"); writer.String(AccessToken.c_str());
+                if (ServerAuthCode.length() > 0) { writer.String("ServerAuthCode"); writer.String(ServerAuthCode.c_str()); }
+                if (AccessToken.length() > 0) { writer.String("AccessToken"); writer.String(AccessToken.c_str()); }
                 if (CreateAccount.notNull()) { writer.String("CreateAccount"); writer.Bool(CreateAccount); }
                 if (InfoRequestParameters != nullptr) { writer.String("InfoRequestParameters"); InfoRequestParameters->writeJSON(writer); }
                 writer.EndObject();
@@ -11273,6 +11283,8 @@ namespace PlayFab
             {
                 const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
                 if (TitleId_member != obj.MemberEnd() && !TitleId_member->value.IsNull()) TitleId = TitleId_member->value.GetString();
+                const Value::ConstMemberIterator ServerAuthCode_member = obj.FindMember("ServerAuthCode");
+                if (ServerAuthCode_member != obj.MemberEnd() && !ServerAuthCode_member->value.IsNull()) ServerAuthCode = ServerAuthCode_member->value.GetString();
                 const Value::ConstMemberIterator AccessToken_member = obj.FindMember("AccessToken");
                 if (AccessToken_member != obj.MemberEnd() && !AccessToken_member->value.IsNull()) AccessToken = AccessToken_member->value.GetString();
                 const Value::ConstMemberIterator CreateAccount_member = obj.FindMember("CreateAccount");
@@ -11844,6 +11856,51 @@ namespace PlayFab
                 if (BalanceChange_member != obj.MemberEnd() && !BalanceChange_member->value.IsNull()) BalanceChange = BalanceChange_member->value.GetInt();
                 const Value::ConstMemberIterator Balance_member = obj.FindMember("Balance");
                 if (Balance_member != obj.MemberEnd() && !Balance_member->value.IsNull()) Balance = Balance_member->value.GetInt();
+
+                return true;
+            }
+        };
+
+        struct NameIdentifier : public PlayFabBaseModel
+        {
+            Aws::String Name;
+            Aws::String Id;
+
+            NameIdentifier() :
+                PlayFabBaseModel(),
+                Name(),
+                Id()
+            {}
+
+            NameIdentifier(const NameIdentifier& src) :
+                PlayFabBaseModel(),
+                Name(src.Name),
+                Id(src.Id)
+            {}
+
+            NameIdentifier(const rapidjson::Value& obj) : NameIdentifier()
+            {
+                readFromValue(obj);
+            }
+
+            ~NameIdentifier()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (Name.length() > 0) { writer.String("Name"); writer.String(Name.c_str()); }
+                if (Id.length() > 0) { writer.String("Id"); writer.String(Id.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Name_member = obj.FindMember("Name");
+                if (Name_member != obj.MemberEnd() && !Name_member->value.IsNull()) Name = Name_member->value.GetString();
+                const Value::ConstMemberIterator Id_member = obj.FindMember("Id");
+                if (Id_member != obj.MemberEnd() && !Id_member->value.IsNull()) Id = Id_member->value.GetString();
 
                 return true;
             }
