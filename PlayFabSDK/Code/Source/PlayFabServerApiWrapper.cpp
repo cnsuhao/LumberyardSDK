@@ -52,6 +52,11 @@ void PlayFabServerApiWrapper::SendPushNotification(ServerModels::SendPushNotific
     PlayFabServerApi::SendPushNotification(request, callback, errorCallback, customData);
 }
 
+void PlayFabServerApiWrapper::UpdateAvatarUrl(ServerModels::UpdateAvatarUrlRequest& request, ProcessApiCallback<ServerModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::UpdateAvatarUrl(request, callback, errorCallback, customData);
+}
+
 void PlayFabServerApiWrapper::UpdateBans(ServerModels::UpdateBansRequest& request, ProcessApiCallback<ServerModels::UpdateBansResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::UpdateBans(request, callback, errorCallback, customData);
@@ -325,6 +330,11 @@ void PlayFabServerApiWrapper::GetFriendsList(ServerModels::GetFriendsListRequest
 void PlayFabServerApiWrapper::RemoveFriend(ServerModels::RemoveFriendRequest& request, ProcessApiCallback<ServerModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::RemoveFriend(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::SetFriendTags(ServerModels::SetFriendTagsRequest& request, ProcessApiCallback<ServerModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::SetFriendTags(request, callback, errorCallback, customData);
 }
 
 void PlayFabServerApiWrapper::DeregisterGame(ServerModels::DeregisterGameRequest& request, ProcessApiCallback<ServerModels::DeregisterGameResponse> callback, ErrorCallback errorCallback, void* customData)

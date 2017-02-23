@@ -18,6 +18,16 @@ void PlayFabClientApiWrapper::GetPhotonAuthenticationToken(ClientModels::GetPhot
     PlayFabClientApi::GetPhotonAuthenticationToken(request, callback, errorCallback, customData);
 }
 
+void PlayFabClientApiWrapper::GetWindowsHelloChallenge(ClientModels::GetWindowsHelloChallengeRequest& request, ProcessApiCallback<ClientModels::GetWindowsHelloChallengeResponse> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::GetWindowsHelloChallenge(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::LinkWindowsHello(ClientModels::LinkWindowsHelloAccountRequest& request, ProcessApiCallback<ClientModels::LinkWindowsHelloAccountResponse> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::LinkWindowsHello(request, callback, errorCallback, customData);
+}
+
 void PlayFabClientApiWrapper::LoginWithAndroidDeviceID(ClientModels::LoginWithAndroidDeviceIDRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::LoginWithAndroidDeviceID(request, callback, errorCallback, customData);
@@ -73,9 +83,24 @@ void PlayFabClientApiWrapper::LoginWithTwitch(ClientModels::LoginWithTwitchReque
     PlayFabClientApi::LoginWithTwitch(request, callback, errorCallback, customData);
 }
 
+void PlayFabClientApiWrapper::LoginWithWindowsHello(ClientModels::LoginWithWindowsHelloRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::LoginWithWindowsHello(request, callback, errorCallback, customData);
+}
+
 void PlayFabClientApiWrapper::RegisterPlayFabUser(ClientModels::RegisterPlayFabUserRequest& request, ProcessApiCallback<ClientModels::RegisterPlayFabUserResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::RegisterPlayFabUser(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::RegisterWithWindowsHello(ClientModels::RegisterWithWindowsHelloRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::RegisterWithWindowsHello(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::UnlinkWindowsHello(ClientModels::UnlinkWindowsHelloAccountRequest& request, ProcessApiCallback<ClientModels::UnlinkWindowsHelloAccountResponse> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::UnlinkWindowsHello(request, callback, errorCallback, customData);
 }
 
 void PlayFabClientApiWrapper::AddGenericID(ClientModels::AddGenericIDRequest& request, ProcessApiCallback<ClientModels::AddGenericIDResult> callback, ErrorCallback errorCallback, void* customData)
@@ -236,6 +261,11 @@ void PlayFabClientApiWrapper::UnlinkSteamAccount(ProcessApiCallback<ClientModels
 void PlayFabClientApiWrapper::UnlinkTwitch(ProcessApiCallback<ClientModels::UnlinkTwitchAccountResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::UnlinkTwitch(callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::UpdateAvatarUrl(ClientModels::UpdateAvatarUrlRequest& request, ProcessApiCallback<ClientModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::UpdateAvatarUrl(request, callback, errorCallback, customData);
 }
 
 void PlayFabClientApiWrapper::UpdateUserTitleDisplayName(ClientModels::UpdateUserTitleDisplayNameRequest& request, ProcessApiCallback<ClientModels::UpdateUserTitleDisplayNameResult> callback, ErrorCallback errorCallback, void* customData)
@@ -611,5 +641,10 @@ void PlayFabClientApiWrapper::GetPlayerSegments(ProcessApiCallback<ClientModels:
 void PlayFabClientApiWrapper::GetPlayerTags(ClientModels::GetPlayerTagsRequest& request, ProcessApiCallback<ClientModels::GetPlayerTagsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::GetPlayerTags(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::ValidateWindowsStoreReceipt(ClientModels::ValidateWindowsReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::ValidateWindowsStoreReceipt(request, callback, errorCallback, customData);
 }
 

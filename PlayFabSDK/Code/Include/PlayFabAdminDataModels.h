@@ -5521,7 +5521,8 @@ namespace PlayFab
             LoginIdentityProviderFacebook,
             LoginIdentityProviderIOSDevice,
             LoginIdentityProviderAndroidDevice,
-            LoginIdentityProviderTwitch
+            LoginIdentityProviderTwitch,
+            LoginIdentityProviderWindowsHello
         };
 
         inline void writeLoginIdentityProviderEnumJSON(LoginIdentityProvider enumVal, PFStringJsonWriter& writer)
@@ -5541,6 +5542,7 @@ namespace PlayFab
             case LoginIdentityProviderIOSDevice: writer.String("IOSDevice"); break;
             case LoginIdentityProviderAndroidDevice: writer.String("AndroidDevice"); break;
             case LoginIdentityProviderTwitch: writer.String("Twitch"); break;
+            case LoginIdentityProviderWindowsHello: writer.String("WindowsHello"); break;
 
             }
         }
@@ -5564,6 +5566,7 @@ namespace PlayFab
                 _LoginIdentityProviderMap["IOSDevice"] = LoginIdentityProviderIOSDevice;
                 _LoginIdentityProviderMap["AndroidDevice"] = LoginIdentityProviderAndroidDevice;
                 _LoginIdentityProviderMap["Twitch"] = LoginIdentityProviderTwitch;
+                _LoginIdentityProviderMap["WindowsHello"] = LoginIdentityProviderWindowsHello;
 
             }
 
@@ -5840,6 +5843,7 @@ namespace PlayFab
             OptionalTime Created;
             OptionalTime LastLogin;
             OptionalTime BannedUntil;
+            Aws::String AvatarUrl;
             std::map<Aws::String, Int32> Statistics;
             OptionalUint32 TotalValueToDateInUSD;
             std::map<Aws::String, Uint32> ValuesToDate;
@@ -5861,6 +5865,7 @@ namespace PlayFab
                 Created(),
                 LastLogin(),
                 BannedUntil(),
+                AvatarUrl(),
                 Statistics(),
                 TotalValueToDateInUSD(),
                 ValuesToDate(),
@@ -5883,6 +5888,7 @@ namespace PlayFab
                 Created(src.Created),
                 LastLogin(src.LastLogin),
                 BannedUntil(src.BannedUntil),
+                AvatarUrl(src.AvatarUrl),
                 Statistics(src.Statistics),
                 TotalValueToDateInUSD(src.TotalValueToDateInUSD),
                 ValuesToDate(src.ValuesToDate),
@@ -5915,6 +5921,7 @@ namespace PlayFab
                 if (Created.notNull()) { writer.String("Created"); writeDatetime(Created, writer); }
                 if (LastLogin.notNull()) { writer.String("LastLogin"); writeDatetime(LastLogin, writer); }
                 if (BannedUntil.notNull()) { writer.String("BannedUntil"); writeDatetime(BannedUntil, writer); }
+                if (AvatarUrl.length() > 0) { writer.String("AvatarUrl"); writer.String(AvatarUrl.c_str()); }
                 if (!Statistics.empty()) {
     writer.String("Statistics");
     writer.StartObject();
@@ -6009,6 +6016,8 @@ namespace PlayFab
                 if (LastLogin_member != obj.MemberEnd() && !LastLogin_member->value.IsNull()) LastLogin = readDatetime(LastLogin_member->value);
                 const Value::ConstMemberIterator BannedUntil_member = obj.FindMember("BannedUntil");
                 if (BannedUntil_member != obj.MemberEnd() && !BannedUntil_member->value.IsNull()) BannedUntil = readDatetime(BannedUntil_member->value);
+                const Value::ConstMemberIterator AvatarUrl_member = obj.FindMember("AvatarUrl");
+                if (AvatarUrl_member != obj.MemberEnd() && !AvatarUrl_member->value.IsNull()) AvatarUrl = AvatarUrl_member->value.GetString();
                 const Value::ConstMemberIterator Statistics_member = obj.FindMember("Statistics");
     if (Statistics_member != obj.MemberEnd()) {
         for (Value::ConstMemberIterator iter = Statistics_member->value.MemberBegin(); iter != Statistics_member->value.MemberEnd(); ++iter) {
@@ -9448,7 +9457,8 @@ namespace PlayFab
             UserOriginationCustomId,
             UserOriginationXboxLive,
             UserOriginationParse,
-            UserOriginationTwitch
+            UserOriginationTwitch,
+            UserOriginationWindowsHello
         };
 
         inline void writeUserOriginationEnumJSON(UserOrigination enumVal, PFStringJsonWriter& writer)
@@ -9472,6 +9482,7 @@ namespace PlayFab
             case UserOriginationXboxLive: writer.String("XboxLive"); break;
             case UserOriginationParse: writer.String("Parse"); break;
             case UserOriginationTwitch: writer.String("Twitch"); break;
+            case UserOriginationWindowsHello: writer.String("WindowsHello"); break;
 
             }
         }
@@ -9499,6 +9510,7 @@ namespace PlayFab
                 _UserOriginationMap["XboxLive"] = UserOriginationXboxLive;
                 _UserOriginationMap["Parse"] = UserOriginationParse;
                 _UserOriginationMap["Twitch"] = UserOriginationTwitch;
+                _UserOriginationMap["WindowsHello"] = UserOriginationWindowsHello;
 
             }
 
@@ -9517,6 +9529,7 @@ namespace PlayFab
             OptionalTime LastLogin;
             OptionalTime FirstLogin;
             OptionalBool isBanned;
+            Aws::String AvatarUrl;
 
             UserTitleInfo() :
                 PlayFabBaseModel(),
@@ -9525,7 +9538,8 @@ namespace PlayFab
                 Created(0),
                 LastLogin(),
                 FirstLogin(),
-                isBanned()
+                isBanned(),
+                AvatarUrl()
             {}
 
             UserTitleInfo(const UserTitleInfo& src) :
@@ -9535,7 +9549,8 @@ namespace PlayFab
                 Created(src.Created),
                 LastLogin(src.LastLogin),
                 FirstLogin(src.FirstLogin),
-                isBanned(src.isBanned)
+                isBanned(src.isBanned),
+                AvatarUrl(src.AvatarUrl)
             {}
 
             UserTitleInfo(const rapidjson::Value& obj) : UserTitleInfo()
@@ -9556,6 +9571,7 @@ namespace PlayFab
                 if (LastLogin.notNull()) { writer.String("LastLogin"); writeDatetime(LastLogin, writer); }
                 if (FirstLogin.notNull()) { writer.String("FirstLogin"); writeDatetime(FirstLogin, writer); }
                 if (isBanned.notNull()) { writer.String("isBanned"); writer.Bool(isBanned); }
+                if (AvatarUrl.length() > 0) { writer.String("AvatarUrl"); writer.String(AvatarUrl.c_str()); }
                 writer.EndObject();
             }
 
@@ -9573,6 +9589,8 @@ namespace PlayFab
                 if (FirstLogin_member != obj.MemberEnd() && !FirstLogin_member->value.IsNull()) FirstLogin = readDatetime(FirstLogin_member->value);
                 const Value::ConstMemberIterator isBanned_member = obj.FindMember("isBanned");
                 if (isBanned_member != obj.MemberEnd() && !isBanned_member->value.IsNull()) isBanned = isBanned_member->value.GetBool();
+                const Value::ConstMemberIterator AvatarUrl_member = obj.FindMember("AvatarUrl");
+                if (AvatarUrl_member != obj.MemberEnd() && !AvatarUrl_member->value.IsNull()) AvatarUrl = AvatarUrl_member->value.GetString();
 
                 return true;
             }
