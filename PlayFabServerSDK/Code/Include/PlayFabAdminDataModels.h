@@ -4113,7 +4113,8 @@ namespace PlayFab
 
         enum EffectType
         {
-            EffectTypeAllow
+            EffectTypeAllow,
+            EffectTypeDeny
         };
 
         inline void writeEffectTypeEnumJSON(EffectType enumVal, PFStringJsonWriter& writer)
@@ -4121,6 +4122,7 @@ namespace PlayFab
             switch (enumVal)
             {
             case EffectTypeAllow: writer.String("Allow"); break;
+            case EffectTypeDeny: writer.String("Deny"); break;
 
             }
         }
@@ -4132,6 +4134,7 @@ namespace PlayFab
             {
                 // Auto-generate the map on the first use
                 _EffectTypeMap["Allow"] = EffectTypeAllow;
+                _EffectTypeMap["Deny"] = EffectTypeDeny;
 
             }
 
@@ -6352,6 +6355,49 @@ namespace PlayFab
             return StatisticVersionArchivalStatusNotScheduled; // Basically critical fail
         }
 
+        enum StatisticVersionStatus
+        {
+            StatisticVersionStatusActive,
+            StatisticVersionStatusSnapshotPending,
+            StatisticVersionStatusSnapshot,
+            StatisticVersionStatusArchivalPending,
+            StatisticVersionStatusArchived
+        };
+
+        inline void writeStatisticVersionStatusEnumJSON(StatisticVersionStatus enumVal, PFStringJsonWriter& writer)
+        {
+            switch (enumVal)
+            {
+            case StatisticVersionStatusActive: writer.String("Active"); break;
+            case StatisticVersionStatusSnapshotPending: writer.String("SnapshotPending"); break;
+            case StatisticVersionStatusSnapshot: writer.String("Snapshot"); break;
+            case StatisticVersionStatusArchivalPending: writer.String("ArchivalPending"); break;
+            case StatisticVersionStatusArchived: writer.String("Archived"); break;
+
+            }
+        }
+
+        inline StatisticVersionStatus readStatisticVersionStatusFromValue(const rapidjson::Value& obj)
+        {
+            static std::map<Aws::String, StatisticVersionStatus> _StatisticVersionStatusMap;
+            if (_StatisticVersionStatusMap.size() == 0)
+            {
+                // Auto-generate the map on the first use
+                _StatisticVersionStatusMap["Active"] = StatisticVersionStatusActive;
+                _StatisticVersionStatusMap["SnapshotPending"] = StatisticVersionStatusSnapshotPending;
+                _StatisticVersionStatusMap["Snapshot"] = StatisticVersionStatusSnapshot;
+                _StatisticVersionStatusMap["ArchivalPending"] = StatisticVersionStatusArchivalPending;
+                _StatisticVersionStatusMap["Archived"] = StatisticVersionStatusArchived;
+
+            }
+
+            auto output = _StatisticVersionStatusMap.find(obj.GetString());
+            if (output != _StatisticVersionStatusMap.end())
+                return output->second;
+
+            return StatisticVersionStatusActive; // Basically critical fail
+        }
+
         struct PlayerStatisticVersion : public PlayFabBaseModel
         {
             Aws::String StatisticName;
@@ -6361,6 +6407,7 @@ namespace PlayFab
             OptionalTime ScheduledDeactivationTime;
             OptionalTime DeactivationTime;
             Boxed<StatisticVersionArchivalStatus> ArchivalStatus;
+            Boxed<StatisticVersionStatus> Status;
             Aws::String ArchiveDownloadUrl;
 
             PlayerStatisticVersion() :
@@ -6372,6 +6419,7 @@ namespace PlayFab
                 ScheduledDeactivationTime(),
                 DeactivationTime(),
                 ArchivalStatus(),
+                Status(),
                 ArchiveDownloadUrl()
             {}
 
@@ -6384,6 +6432,7 @@ namespace PlayFab
                 ScheduledDeactivationTime(src.ScheduledDeactivationTime),
                 DeactivationTime(src.DeactivationTime),
                 ArchivalStatus(src.ArchivalStatus),
+                Status(src.Status),
                 ArchiveDownloadUrl(src.ArchiveDownloadUrl)
             {}
 
@@ -6406,6 +6455,7 @@ namespace PlayFab
                 if (ScheduledDeactivationTime.notNull()) { writer.String("ScheduledDeactivationTime"); writeDatetime(ScheduledDeactivationTime, writer); }
                 if (DeactivationTime.notNull()) { writer.String("DeactivationTime"); writeDatetime(DeactivationTime, writer); }
                 if (ArchivalStatus.notNull()) { writer.String("ArchivalStatus"); writeStatisticVersionArchivalStatusEnumJSON(ArchivalStatus, writer); }
+                if (Status.notNull()) { writer.String("Status"); writeStatisticVersionStatusEnumJSON(Status, writer); }
                 if (ArchiveDownloadUrl.length() > 0) { writer.String("ArchiveDownloadUrl"); writer.String(ArchiveDownloadUrl.c_str()); }
                 writer.EndObject();
             }
@@ -6426,6 +6476,8 @@ namespace PlayFab
                 if (DeactivationTime_member != obj.MemberEnd() && !DeactivationTime_member->value.IsNull()) DeactivationTime = readDatetime(DeactivationTime_member->value);
                 const Value::ConstMemberIterator ArchivalStatus_member = obj.FindMember("ArchivalStatus");
                 if (ArchivalStatus_member != obj.MemberEnd() && !ArchivalStatus_member->value.IsNull()) ArchivalStatus = readStatisticVersionArchivalStatusFromValue(ArchivalStatus_member->value);
+                const Value::ConstMemberIterator Status_member = obj.FindMember("Status");
+                if (Status_member != obj.MemberEnd() && !Status_member->value.IsNull()) Status = readStatisticVersionStatusFromValue(Status_member->value);
                 const Value::ConstMemberIterator ArchiveDownloadUrl_member = obj.FindMember("ArchiveDownloadUrl");
                 if (ArchiveDownloadUrl_member != obj.MemberEnd() && !ArchiveDownloadUrl_member->value.IsNull()) ArchiveDownloadUrl = ArchiveDownloadUrl_member->value.GetString();
 

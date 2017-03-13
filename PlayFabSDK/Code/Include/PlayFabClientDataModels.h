@@ -332,32 +332,32 @@ namespace PlayFab
             }
         };
 
-        struct AdCampaignAttribution : public PlayFabBaseModel
+        struct AdCampaignAttributionModel : public PlayFabBaseModel
         {
             Aws::String Platform;
             Aws::String CampaignId;
             time_t AttributedAt;
 
-            AdCampaignAttribution() :
+            AdCampaignAttributionModel() :
                 PlayFabBaseModel(),
                 Platform(),
                 CampaignId(),
                 AttributedAt(0)
             {}
 
-            AdCampaignAttribution(const AdCampaignAttribution& src) :
+            AdCampaignAttributionModel(const AdCampaignAttributionModel& src) :
                 PlayFabBaseModel(),
                 Platform(src.Platform),
                 CampaignId(src.CampaignId),
                 AttributedAt(src.AttributedAt)
             {}
 
-            AdCampaignAttribution(const rapidjson::Value& obj) : AdCampaignAttribution()
+            AdCampaignAttributionModel(const rapidjson::Value& obj) : AdCampaignAttributionModel()
             {
                 readFromValue(obj);
             }
 
-            ~AdCampaignAttribution()
+            ~AdCampaignAttributionModel()
             {
             }
 
@@ -6467,6 +6467,123 @@ namespace PlayFab
             }
         };
 
+        struct PlayerProfileViewConstraints : public PlayFabBaseModel
+        {
+            bool ShowDisplayName;
+            bool ShowCreated;
+            bool ShowOrigination;
+            bool ShowLastLogin;
+            bool ShowBannedUntil;
+            bool ShowStatistics;
+            bool ShowCampaignAttributions;
+            bool ShowPushNotificationRegistrations;
+            bool ShowLinkedAccounts;
+            bool ShowTotalValueToDateInUsd;
+            bool ShowValuesToDate;
+            bool ShowTags;
+            bool ShowLocations;
+            bool ShowAvatarUrl;
+
+            PlayerProfileViewConstraints() :
+                PlayFabBaseModel(),
+                ShowDisplayName(false),
+                ShowCreated(false),
+                ShowOrigination(false),
+                ShowLastLogin(false),
+                ShowBannedUntil(false),
+                ShowStatistics(false),
+                ShowCampaignAttributions(false),
+                ShowPushNotificationRegistrations(false),
+                ShowLinkedAccounts(false),
+                ShowTotalValueToDateInUsd(false),
+                ShowValuesToDate(false),
+                ShowTags(false),
+                ShowLocations(false),
+                ShowAvatarUrl(false)
+            {}
+
+            PlayerProfileViewConstraints(const PlayerProfileViewConstraints& src) :
+                PlayFabBaseModel(),
+                ShowDisplayName(src.ShowDisplayName),
+                ShowCreated(src.ShowCreated),
+                ShowOrigination(src.ShowOrigination),
+                ShowLastLogin(src.ShowLastLogin),
+                ShowBannedUntil(src.ShowBannedUntil),
+                ShowStatistics(src.ShowStatistics),
+                ShowCampaignAttributions(src.ShowCampaignAttributions),
+                ShowPushNotificationRegistrations(src.ShowPushNotificationRegistrations),
+                ShowLinkedAccounts(src.ShowLinkedAccounts),
+                ShowTotalValueToDateInUsd(src.ShowTotalValueToDateInUsd),
+                ShowValuesToDate(src.ShowValuesToDate),
+                ShowTags(src.ShowTags),
+                ShowLocations(src.ShowLocations),
+                ShowAvatarUrl(src.ShowAvatarUrl)
+            {}
+
+            PlayerProfileViewConstraints(const rapidjson::Value& obj) : PlayerProfileViewConstraints()
+            {
+                readFromValue(obj);
+            }
+
+            ~PlayerProfileViewConstraints()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("ShowDisplayName"); writer.Bool(ShowDisplayName);
+                writer.String("ShowCreated"); writer.Bool(ShowCreated);
+                writer.String("ShowOrigination"); writer.Bool(ShowOrigination);
+                writer.String("ShowLastLogin"); writer.Bool(ShowLastLogin);
+                writer.String("ShowBannedUntil"); writer.Bool(ShowBannedUntil);
+                writer.String("ShowStatistics"); writer.Bool(ShowStatistics);
+                writer.String("ShowCampaignAttributions"); writer.Bool(ShowCampaignAttributions);
+                writer.String("ShowPushNotificationRegistrations"); writer.Bool(ShowPushNotificationRegistrations);
+                writer.String("ShowLinkedAccounts"); writer.Bool(ShowLinkedAccounts);
+                writer.String("ShowTotalValueToDateInUsd"); writer.Bool(ShowTotalValueToDateInUsd);
+                writer.String("ShowValuesToDate"); writer.Bool(ShowValuesToDate);
+                writer.String("ShowTags"); writer.Bool(ShowTags);
+                writer.String("ShowLocations"); writer.Bool(ShowLocations);
+                writer.String("ShowAvatarUrl"); writer.Bool(ShowAvatarUrl);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator ShowDisplayName_member = obj.FindMember("ShowDisplayName");
+                if (ShowDisplayName_member != obj.MemberEnd() && !ShowDisplayName_member->value.IsNull()) ShowDisplayName = ShowDisplayName_member->value.GetBool();
+                const Value::ConstMemberIterator ShowCreated_member = obj.FindMember("ShowCreated");
+                if (ShowCreated_member != obj.MemberEnd() && !ShowCreated_member->value.IsNull()) ShowCreated = ShowCreated_member->value.GetBool();
+                const Value::ConstMemberIterator ShowOrigination_member = obj.FindMember("ShowOrigination");
+                if (ShowOrigination_member != obj.MemberEnd() && !ShowOrigination_member->value.IsNull()) ShowOrigination = ShowOrigination_member->value.GetBool();
+                const Value::ConstMemberIterator ShowLastLogin_member = obj.FindMember("ShowLastLogin");
+                if (ShowLastLogin_member != obj.MemberEnd() && !ShowLastLogin_member->value.IsNull()) ShowLastLogin = ShowLastLogin_member->value.GetBool();
+                const Value::ConstMemberIterator ShowBannedUntil_member = obj.FindMember("ShowBannedUntil");
+                if (ShowBannedUntil_member != obj.MemberEnd() && !ShowBannedUntil_member->value.IsNull()) ShowBannedUntil = ShowBannedUntil_member->value.GetBool();
+                const Value::ConstMemberIterator ShowStatistics_member = obj.FindMember("ShowStatistics");
+                if (ShowStatistics_member != obj.MemberEnd() && !ShowStatistics_member->value.IsNull()) ShowStatistics = ShowStatistics_member->value.GetBool();
+                const Value::ConstMemberIterator ShowCampaignAttributions_member = obj.FindMember("ShowCampaignAttributions");
+                if (ShowCampaignAttributions_member != obj.MemberEnd() && !ShowCampaignAttributions_member->value.IsNull()) ShowCampaignAttributions = ShowCampaignAttributions_member->value.GetBool();
+                const Value::ConstMemberIterator ShowPushNotificationRegistrations_member = obj.FindMember("ShowPushNotificationRegistrations");
+                if (ShowPushNotificationRegistrations_member != obj.MemberEnd() && !ShowPushNotificationRegistrations_member->value.IsNull()) ShowPushNotificationRegistrations = ShowPushNotificationRegistrations_member->value.GetBool();
+                const Value::ConstMemberIterator ShowLinkedAccounts_member = obj.FindMember("ShowLinkedAccounts");
+                if (ShowLinkedAccounts_member != obj.MemberEnd() && !ShowLinkedAccounts_member->value.IsNull()) ShowLinkedAccounts = ShowLinkedAccounts_member->value.GetBool();
+                const Value::ConstMemberIterator ShowTotalValueToDateInUsd_member = obj.FindMember("ShowTotalValueToDateInUsd");
+                if (ShowTotalValueToDateInUsd_member != obj.MemberEnd() && !ShowTotalValueToDateInUsd_member->value.IsNull()) ShowTotalValueToDateInUsd = ShowTotalValueToDateInUsd_member->value.GetBool();
+                const Value::ConstMemberIterator ShowValuesToDate_member = obj.FindMember("ShowValuesToDate");
+                if (ShowValuesToDate_member != obj.MemberEnd() && !ShowValuesToDate_member->value.IsNull()) ShowValuesToDate = ShowValuesToDate_member->value.GetBool();
+                const Value::ConstMemberIterator ShowTags_member = obj.FindMember("ShowTags");
+                if (ShowTags_member != obj.MemberEnd() && !ShowTags_member->value.IsNull()) ShowTags = ShowTags_member->value.GetBool();
+                const Value::ConstMemberIterator ShowLocations_member = obj.FindMember("ShowLocations");
+                if (ShowLocations_member != obj.MemberEnd() && !ShowLocations_member->value.IsNull()) ShowLocations = ShowLocations_member->value.GetBool();
+                const Value::ConstMemberIterator ShowAvatarUrl_member = obj.FindMember("ShowAvatarUrl");
+                if (ShowAvatarUrl_member != obj.MemberEnd() && !ShowAvatarUrl_member->value.IsNull()) ShowAvatarUrl = ShowAvatarUrl_member->value.GetBool();
+
+                return true;
+            }
+        };
+
         struct GetFriendLeaderboardAroundPlayerRequest : public PlayFabBaseModel
         {
             Aws::String StatisticName;
@@ -6476,6 +6593,7 @@ namespace PlayFab
             OptionalBool IncludeFacebookFriends;
             Int32 Version;
             bool UseSpecificVersion;
+            PlayerProfileViewConstraints* ProfileConstraints;
 
             GetFriendLeaderboardAroundPlayerRequest() :
                 PlayFabBaseModel(),
@@ -6485,7 +6603,8 @@ namespace PlayFab
                 IncludeSteamFriends(),
                 IncludeFacebookFriends(),
                 Version(0),
-                UseSpecificVersion(false)
+                UseSpecificVersion(false),
+                ProfileConstraints(nullptr)
             {}
 
             GetFriendLeaderboardAroundPlayerRequest(const GetFriendLeaderboardAroundPlayerRequest& src) :
@@ -6496,7 +6615,8 @@ namespace PlayFab
                 IncludeSteamFriends(src.IncludeSteamFriends),
                 IncludeFacebookFriends(src.IncludeFacebookFriends),
                 Version(src.Version),
-                UseSpecificVersion(src.UseSpecificVersion)
+                UseSpecificVersion(src.UseSpecificVersion),
+                ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
             {}
 
             GetFriendLeaderboardAroundPlayerRequest(const rapidjson::Value& obj) : GetFriendLeaderboardAroundPlayerRequest()
@@ -6506,6 +6626,7 @@ namespace PlayFab
 
             ~GetFriendLeaderboardAroundPlayerRequest()
             {
+                if (ProfileConstraints != nullptr) delete ProfileConstraints;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -6518,6 +6639,7 @@ namespace PlayFab
                 if (IncludeFacebookFriends.notNull()) { writer.String("IncludeFacebookFriends"); writer.Bool(IncludeFacebookFriends); }
                 writer.String("Version"); writer.Int(Version);
                 writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion);
+                if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -6537,6 +6659,8 @@ namespace PlayFab
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
                 const Value::ConstMemberIterator UseSpecificVersion_member = obj.FindMember("UseSpecificVersion");
                 if (UseSpecificVersion_member != obj.MemberEnd() && !UseSpecificVersion_member->value.IsNull()) UseSpecificVersion = UseSpecificVersion_member->value.GetBool();
+                const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
+                if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
 
                 return true;
             }
@@ -6612,15 +6736,15 @@ namespace PlayFab
             return LoginIdentityProviderUnknown; // Basically critical fail
         }
 
-        struct PlayerLocation : public PlayFabBaseModel
+        struct LocationModel : public PlayFabBaseModel
         {
-            ContinentCode pfContinentCode;
-            CountryCode pfCountryCode;
+            Boxed<ContinentCode> pfContinentCode;
+            Boxed<CountryCode> pfCountryCode;
             Aws::String City;
             OptionalDouble Latitude;
             OptionalDouble Longitude;
 
-            PlayerLocation() :
+            LocationModel() :
                 PlayFabBaseModel(),
                 pfContinentCode(),
                 pfCountryCode(),
@@ -6629,7 +6753,7 @@ namespace PlayFab
                 Longitude()
             {}
 
-            PlayerLocation(const PlayerLocation& src) :
+            LocationModel(const LocationModel& src) :
                 PlayFabBaseModel(),
                 pfContinentCode(src.pfContinentCode),
                 pfCountryCode(src.pfCountryCode),
@@ -6638,20 +6762,20 @@ namespace PlayFab
                 Longitude(src.Longitude)
             {}
 
-            PlayerLocation(const rapidjson::Value& obj) : PlayerLocation()
+            LocationModel(const rapidjson::Value& obj) : LocationModel()
             {
                 readFromValue(obj);
             }
 
-            ~PlayerLocation()
+            ~LocationModel()
             {
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("ContinentCode"); writeContinentCodeEnumJSON(pfContinentCode, writer);
-                writer.String("CountryCode"); writeCountryCodeEnumJSON(pfCountryCode, writer);
+                if (pfContinentCode.notNull()) { writer.String("ContinentCode"); writeContinentCodeEnumJSON(pfContinentCode, writer); }
+                if (pfCountryCode.notNull()) { writer.String("CountryCode"); writeCountryCodeEnumJSON(pfCountryCode, writer); }
                 if (City.length() > 0) { writer.String("City"); writer.String(City.c_str()); }
                 if (Latitude.notNull()) { writer.String("Latitude"); writer.Double(Latitude); }
                 if (Longitude.notNull()) { writer.String("Longitude"); writer.Double(Longitude); }
@@ -6670,6 +6794,45 @@ namespace PlayFab
                 if (Latitude_member != obj.MemberEnd() && !Latitude_member->value.IsNull()) Latitude = Latitude_member->value.GetDouble();
                 const Value::ConstMemberIterator Longitude_member = obj.FindMember("Longitude");
                 if (Longitude_member != obj.MemberEnd() && !Longitude_member->value.IsNull()) Longitude = Longitude_member->value.GetDouble();
+
+                return true;
+            }
+        };
+
+        struct TagModel : public PlayFabBaseModel
+        {
+            Aws::String TagValue;
+
+            TagModel() :
+                PlayFabBaseModel(),
+                TagValue()
+            {}
+
+            TagModel(const TagModel& src) :
+                PlayFabBaseModel(),
+                TagValue(src.TagValue)
+            {}
+
+            TagModel(const rapidjson::Value& obj) : TagModel()
+            {
+                readFromValue(obj);
+            }
+
+            ~TagModel()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (TagValue.length() > 0) { writer.String("TagValue"); writer.String(TagValue.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator TagValue_member = obj.FindMember("TagValue");
+                if (TagValue_member != obj.MemberEnd() && !TagValue_member->value.IsNull()) TagValue = TagValue_member->value.GetString();
 
                 return true;
             }
@@ -6709,29 +6872,29 @@ namespace PlayFab
             return PushNotificationPlatformApplePushNotificationService; // Basically critical fail
         }
 
-        struct PushNotificationRegistration : public PlayFabBaseModel
+        struct PushNotificationRegistrationModel : public PlayFabBaseModel
         {
             Boxed<PushNotificationPlatform> Platform;
             Aws::String NotificationEndpointARN;
 
-            PushNotificationRegistration() :
+            PushNotificationRegistrationModel() :
                 PlayFabBaseModel(),
                 Platform(),
                 NotificationEndpointARN()
             {}
 
-            PushNotificationRegistration(const PushNotificationRegistration& src) :
+            PushNotificationRegistrationModel(const PushNotificationRegistrationModel& src) :
                 PlayFabBaseModel(),
                 Platform(src.Platform),
                 NotificationEndpointARN(src.NotificationEndpointARN)
             {}
 
-            PushNotificationRegistration(const rapidjson::Value& obj) : PushNotificationRegistration()
+            PushNotificationRegistrationModel(const rapidjson::Value& obj) : PushNotificationRegistrationModel()
             {
                 readFromValue(obj);
             }
 
-            ~PushNotificationRegistration()
+            ~PushNotificationRegistrationModel()
             {
             }
 
@@ -6754,14 +6917,14 @@ namespace PlayFab
             }
         };
 
-        struct PlayerLinkedAccount : public PlayFabBaseModel
+        struct LinkedPlatformAccountModel : public PlayFabBaseModel
         {
             Boxed<LoginIdentityProvider> Platform;
             Aws::String PlatformUserId;
             Aws::String Username;
             Aws::String Email;
 
-            PlayerLinkedAccount() :
+            LinkedPlatformAccountModel() :
                 PlayFabBaseModel(),
                 Platform(),
                 PlatformUserId(),
@@ -6769,7 +6932,7 @@ namespace PlayFab
                 Email()
             {}
 
-            PlayerLinkedAccount(const PlayerLinkedAccount& src) :
+            LinkedPlatformAccountModel(const LinkedPlatformAccountModel& src) :
                 PlayFabBaseModel(),
                 Platform(src.Platform),
                 PlatformUserId(src.PlatformUserId),
@@ -6777,12 +6940,12 @@ namespace PlayFab
                 Email(src.Email)
             {}
 
-            PlayerLinkedAccount(const rapidjson::Value& obj) : PlayerLinkedAccount()
+            LinkedPlatformAccountModel(const rapidjson::Value& obj) : LinkedPlatformAccountModel()
             {
                 readFromValue(obj);
             }
 
-            ~PlayerLinkedAccount()
+            ~LinkedPlatformAccountModel()
             {
             }
 
@@ -6811,197 +6974,251 @@ namespace PlayFab
             }
         };
 
-        struct PlayerStatistic : public PlayFabBaseModel
+        struct ValueToDateModel : public PlayFabBaseModel
         {
-            Aws::String Id;
-            Int32 StatisticVersion;
-            Int32 StatisticValue;
-            Aws::String Name;
+            Aws::String Currency;
+            Uint32 TotalValue;
+            Aws::String TotalValueAsDecimal;
 
-            PlayerStatistic() :
+            ValueToDateModel() :
                 PlayFabBaseModel(),
-                Id(),
-                StatisticVersion(0),
-                StatisticValue(0),
-                Name()
+                Currency(),
+                TotalValue(0),
+                TotalValueAsDecimal()
             {}
 
-            PlayerStatistic(const PlayerStatistic& src) :
+            ValueToDateModel(const ValueToDateModel& src) :
                 PlayFabBaseModel(),
-                Id(src.Id),
-                StatisticVersion(src.StatisticVersion),
-                StatisticValue(src.StatisticValue),
-                Name(src.Name)
+                Currency(src.Currency),
+                TotalValue(src.TotalValue),
+                TotalValueAsDecimal(src.TotalValueAsDecimal)
             {}
 
-            PlayerStatistic(const rapidjson::Value& obj) : PlayerStatistic()
+            ValueToDateModel(const rapidjson::Value& obj) : ValueToDateModel()
             {
                 readFromValue(obj);
             }
 
-            ~PlayerStatistic()
+            ~ValueToDateModel()
             {
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Id.length() > 0) { writer.String("Id"); writer.String(Id.c_str()); }
-                writer.String("StatisticVersion"); writer.Int(StatisticVersion);
-                writer.String("StatisticValue"); writer.Int(StatisticValue);
-                if (Name.length() > 0) { writer.String("Name"); writer.String(Name.c_str()); }
+                if (Currency.length() > 0) { writer.String("Currency"); writer.String(Currency.c_str()); }
+                writer.String("TotalValue"); writer.Uint(TotalValue);
+                if (TotalValueAsDecimal.length() > 0) { writer.String("TotalValueAsDecimal"); writer.String(TotalValueAsDecimal.c_str()); }
                 writer.EndObject();
             }
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
-                const Value::ConstMemberIterator Id_member = obj.FindMember("Id");
-                if (Id_member != obj.MemberEnd() && !Id_member->value.IsNull()) Id = Id_member->value.GetString();
-                const Value::ConstMemberIterator StatisticVersion_member = obj.FindMember("StatisticVersion");
-                if (StatisticVersion_member != obj.MemberEnd() && !StatisticVersion_member->value.IsNull()) StatisticVersion = StatisticVersion_member->value.GetInt();
-                const Value::ConstMemberIterator StatisticValue_member = obj.FindMember("StatisticValue");
-                if (StatisticValue_member != obj.MemberEnd() && !StatisticValue_member->value.IsNull()) StatisticValue = StatisticValue_member->value.GetInt();
-                const Value::ConstMemberIterator Name_member = obj.FindMember("Name");
-                if (Name_member != obj.MemberEnd() && !Name_member->value.IsNull()) Name = Name_member->value.GetString();
+                const Value::ConstMemberIterator Currency_member = obj.FindMember("Currency");
+                if (Currency_member != obj.MemberEnd() && !Currency_member->value.IsNull()) Currency = Currency_member->value.GetString();
+                const Value::ConstMemberIterator TotalValue_member = obj.FindMember("TotalValue");
+                if (TotalValue_member != obj.MemberEnd() && !TotalValue_member->value.IsNull()) TotalValue = TotalValue_member->value.GetUint();
+                const Value::ConstMemberIterator TotalValueAsDecimal_member = obj.FindMember("TotalValueAsDecimal");
+                if (TotalValueAsDecimal_member != obj.MemberEnd() && !TotalValueAsDecimal_member->value.IsNull()) TotalValueAsDecimal = TotalValueAsDecimal_member->value.GetString();
 
                 return true;
             }
         };
 
-        struct PlayerProfile : public PlayFabBaseModel
+        struct VirtualCurrencyBalanceModel : public PlayFabBaseModel
         {
-            Aws::String PlayerId;
-            Aws::String TitleId;
-            Aws::String DisplayName;
-            Aws::String PublisherId;
-            Boxed<LoginIdentityProvider> Origination;
-            OptionalTime Created;
-            OptionalTime LastLogin;
-            OptionalTime BannedUntil;
-            Aws::String AvatarUrl;
-            std::map<Aws::String, Int32> Statistics;
-            OptionalUint32 TotalValueToDateInUSD;
-            std::map<Aws::String, Uint32> ValuesToDate;
-            std::list<Aws::String> Tags;
-            std::map<Aws::String, PlayerLocation> Locations;
-            std::map<Aws::String, Int32> VirtualCurrencyBalances;
-            std::list<AdCampaignAttribution> AdCampaignAttributions;
-            std::list<PushNotificationRegistration> PushNotificationRegistrations;
-            std::list<PlayerLinkedAccount> LinkedAccounts;
-            std::list<PlayerStatistic> PlayerStatistics;
+            Aws::String Currency;
+            Int32 TotalValue;
 
-            PlayerProfile() :
+            VirtualCurrencyBalanceModel() :
                 PlayFabBaseModel(),
-                PlayerId(),
-                TitleId(),
-                DisplayName(),
-                PublisherId(),
-                Origination(),
-                Created(),
-                LastLogin(),
-                BannedUntil(),
-                AvatarUrl(),
-                Statistics(),
-                TotalValueToDateInUSD(),
-                ValuesToDate(),
-                Tags(),
-                Locations(),
-                VirtualCurrencyBalances(),
-                AdCampaignAttributions(),
-                PushNotificationRegistrations(),
-                LinkedAccounts(),
-                PlayerStatistics()
+                Currency(),
+                TotalValue(0)
             {}
 
-            PlayerProfile(const PlayerProfile& src) :
+            VirtualCurrencyBalanceModel(const VirtualCurrencyBalanceModel& src) :
                 PlayFabBaseModel(),
-                PlayerId(src.PlayerId),
-                TitleId(src.TitleId),
-                DisplayName(src.DisplayName),
-                PublisherId(src.PublisherId),
-                Origination(src.Origination),
-                Created(src.Created),
-                LastLogin(src.LastLogin),
-                BannedUntil(src.BannedUntil),
-                AvatarUrl(src.AvatarUrl),
-                Statistics(src.Statistics),
-                TotalValueToDateInUSD(src.TotalValueToDateInUSD),
-                ValuesToDate(src.ValuesToDate),
-                Tags(src.Tags),
-                Locations(src.Locations),
-                VirtualCurrencyBalances(src.VirtualCurrencyBalances),
-                AdCampaignAttributions(src.AdCampaignAttributions),
-                PushNotificationRegistrations(src.PushNotificationRegistrations),
-                LinkedAccounts(src.LinkedAccounts),
-                PlayerStatistics(src.PlayerStatistics)
+                Currency(src.Currency),
+                TotalValue(src.TotalValue)
             {}
 
-            PlayerProfile(const rapidjson::Value& obj) : PlayerProfile()
+            VirtualCurrencyBalanceModel(const rapidjson::Value& obj) : VirtualCurrencyBalanceModel()
             {
                 readFromValue(obj);
             }
 
-            ~PlayerProfile()
+            ~VirtualCurrencyBalanceModel()
             {
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (PlayerId.length() > 0) { writer.String("PlayerId"); writer.String(PlayerId.c_str()); }
-                if (TitleId.length() > 0) { writer.String("TitleId"); writer.String(TitleId.c_str()); }
-                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
+                if (Currency.length() > 0) { writer.String("Currency"); writer.String(Currency.c_str()); }
+                writer.String("TotalValue"); writer.Int(TotalValue);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Currency_member = obj.FindMember("Currency");
+                if (Currency_member != obj.MemberEnd() && !Currency_member->value.IsNull()) Currency = Currency_member->value.GetString();
+                const Value::ConstMemberIterator TotalValue_member = obj.FindMember("TotalValue");
+                if (TotalValue_member != obj.MemberEnd() && !TotalValue_member->value.IsNull()) TotalValue = TotalValue_member->value.GetInt();
+
+                return true;
+            }
+        };
+
+        struct StatisticModel : public PlayFabBaseModel
+        {
+            Aws::String Name;
+            Int32 Version;
+            Int32 Value;
+
+            StatisticModel() :
+                PlayFabBaseModel(),
+                Name(),
+                Version(0),
+                Value(0)
+            {}
+
+            StatisticModel(const StatisticModel& src) :
+                PlayFabBaseModel(),
+                Name(src.Name),
+                Version(src.Version),
+                Value(src.Value)
+            {}
+
+            StatisticModel(const rapidjson::Value& obj) : StatisticModel()
+            {
+                readFromValue(obj);
+            }
+
+            ~StatisticModel()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (Name.length() > 0) { writer.String("Name"); writer.String(Name.c_str()); }
+                writer.String("Version"); writer.Int(Version);
+                writer.String("Value"); writer.Int(Value);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Name_member = obj.FindMember("Name");
+                if (Name_member != obj.MemberEnd() && !Name_member->value.IsNull()) Name = Name_member->value.GetString();
+                const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
+                if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
+                const Value::ConstMemberIterator Value_member = obj.FindMember("Value");
+                if (Value_member != obj.MemberEnd() && !Value_member->value.IsNull()) Value = Value_member->value.GetInt();
+
+                return true;
+            }
+        };
+
+        struct PlayerProfileModel : public PlayFabBaseModel
+        {
+            Aws::String PublisherId;
+            Aws::String TitleId;
+            Aws::String PlayerId;
+            OptionalTime Created;
+            Boxed<LoginIdentityProvider> Origination;
+            OptionalTime LastLogin;
+            OptionalTime BannedUntil;
+            std::list<LocationModel> Locations;
+            Aws::String DisplayName;
+            Aws::String AvatarUrl;
+            std::list<TagModel> Tags;
+            std::list<PushNotificationRegistrationModel> PushNotificationRegistrations;
+            std::list<LinkedPlatformAccountModel> LinkedAccounts;
+            std::list<AdCampaignAttributionModel> AdCampaignAttributions;
+            OptionalUint32 TotalValueToDateInUSD;
+            std::list<ValueToDateModel> ValuesToDate;
+            std::list<VirtualCurrencyBalanceModel> VirtualCurrencyBalances;
+            std::list<StatisticModel> Statistics;
+
+            PlayerProfileModel() :
+                PlayFabBaseModel(),
+                PublisherId(),
+                TitleId(),
+                PlayerId(),
+                Created(),
+                Origination(),
+                LastLogin(),
+                BannedUntil(),
+                Locations(),
+                DisplayName(),
+                AvatarUrl(),
+                Tags(),
+                PushNotificationRegistrations(),
+                LinkedAccounts(),
+                AdCampaignAttributions(),
+                TotalValueToDateInUSD(),
+                ValuesToDate(),
+                VirtualCurrencyBalances(),
+                Statistics()
+            {}
+
+            PlayerProfileModel(const PlayerProfileModel& src) :
+                PlayFabBaseModel(),
+                PublisherId(src.PublisherId),
+                TitleId(src.TitleId),
+                PlayerId(src.PlayerId),
+                Created(src.Created),
+                Origination(src.Origination),
+                LastLogin(src.LastLogin),
+                BannedUntil(src.BannedUntil),
+                Locations(src.Locations),
+                DisplayName(src.DisplayName),
+                AvatarUrl(src.AvatarUrl),
+                Tags(src.Tags),
+                PushNotificationRegistrations(src.PushNotificationRegistrations),
+                LinkedAccounts(src.LinkedAccounts),
+                AdCampaignAttributions(src.AdCampaignAttributions),
+                TotalValueToDateInUSD(src.TotalValueToDateInUSD),
+                ValuesToDate(src.ValuesToDate),
+                VirtualCurrencyBalances(src.VirtualCurrencyBalances),
+                Statistics(src.Statistics)
+            {}
+
+            PlayerProfileModel(const rapidjson::Value& obj) : PlayerProfileModel()
+            {
+                readFromValue(obj);
+            }
+
+            ~PlayerProfileModel()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
                 if (PublisherId.length() > 0) { writer.String("PublisherId"); writer.String(PublisherId.c_str()); }
-                if (Origination.notNull()) { writer.String("Origination"); writeLoginIdentityProviderEnumJSON(Origination, writer); }
+                if (TitleId.length() > 0) { writer.String("TitleId"); writer.String(TitleId.c_str()); }
+                if (PlayerId.length() > 0) { writer.String("PlayerId"); writer.String(PlayerId.c_str()); }
                 if (Created.notNull()) { writer.String("Created"); writeDatetime(Created, writer); }
+                if (Origination.notNull()) { writer.String("Origination"); writeLoginIdentityProviderEnumJSON(Origination, writer); }
                 if (LastLogin.notNull()) { writer.String("LastLogin"); writeDatetime(LastLogin, writer); }
                 if (BannedUntil.notNull()) { writer.String("BannedUntil"); writeDatetime(BannedUntil, writer); }
-                if (AvatarUrl.length() > 0) { writer.String("AvatarUrl"); writer.String(AvatarUrl.c_str()); }
-                if (!Statistics.empty()) {
-    writer.String("Statistics");
-    writer.StartObject();
-    for (std::map<Aws::String, Int32>::iterator iter = Statistics.begin(); iter != Statistics.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Int(iter->second);
-    }
-    writer.EndObject();
-     }
-                if (TotalValueToDateInUSD.notNull()) { writer.String("TotalValueToDateInUSD"); writer.Uint(TotalValueToDateInUSD); }
-                if (!ValuesToDate.empty()) {
-    writer.String("ValuesToDate");
-    writer.StartObject();
-    for (std::map<Aws::String, Uint32>::iterator iter = ValuesToDate.begin(); iter != ValuesToDate.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Uint(iter->second);
-    }
-    writer.EndObject();
-     }
-                if (!Tags.empty()) {
-    writer.String("Tags");
+                if (!Locations.empty()) {
+    writer.String("Locations");
     writer.StartArray();
-    for (std::list<Aws::String>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
-        writer.String(iter->c_str());
+    for (std::list<LocationModel>::iterator iter = Locations.begin(); iter != Locations.end(); iter++) {
+        iter->writeJSON(writer);
     }
     writer.EndArray();
      }
-                if (!Locations.empty()) {
-    writer.String("Locations");
-    writer.StartObject();
-    for (std::map<Aws::String, PlayerLocation>::iterator iter = Locations.begin(); iter != Locations.end(); ++iter) {
-        writer.String(iter->first.c_str()); iter->second.writeJSON(writer);
-    }
-    writer.EndObject();
-     }
-                if (!VirtualCurrencyBalances.empty()) {
-    writer.String("VirtualCurrencyBalances");
-    writer.StartObject();
-    for (std::map<Aws::String, Int32>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); ++iter) {
-        writer.String(iter->first.c_str()); writer.Int(iter->second);
-    }
-    writer.EndObject();
-     }
-                if (!AdCampaignAttributions.empty()) {
-    writer.String("AdCampaignAttributions");
+                if (DisplayName.length() > 0) { writer.String("DisplayName"); writer.String(DisplayName.c_str()); }
+                if (AvatarUrl.length() > 0) { writer.String("AvatarUrl"); writer.String(AvatarUrl.c_str()); }
+                if (!Tags.empty()) {
+    writer.String("Tags");
     writer.StartArray();
-    for (std::list<AdCampaignAttribution>::iterator iter = AdCampaignAttributions.begin(); iter != AdCampaignAttributions.end(); iter++) {
+    for (std::list<TagModel>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
         iter->writeJSON(writer);
     }
     writer.EndArray();
@@ -7009,7 +7226,7 @@ namespace PlayFab
                 if (!PushNotificationRegistrations.empty()) {
     writer.String("PushNotificationRegistrations");
     writer.StartArray();
-    for (std::list<PushNotificationRegistration>::iterator iter = PushNotificationRegistrations.begin(); iter != PushNotificationRegistrations.end(); iter++) {
+    for (std::list<PushNotificationRegistrationModel>::iterator iter = PushNotificationRegistrations.begin(); iter != PushNotificationRegistrations.end(); iter++) {
         iter->writeJSON(writer);
     }
     writer.EndArray();
@@ -7017,15 +7234,40 @@ namespace PlayFab
                 if (!LinkedAccounts.empty()) {
     writer.String("LinkedAccounts");
     writer.StartArray();
-    for (std::list<PlayerLinkedAccount>::iterator iter = LinkedAccounts.begin(); iter != LinkedAccounts.end(); iter++) {
+    for (std::list<LinkedPlatformAccountModel>::iterator iter = LinkedAccounts.begin(); iter != LinkedAccounts.end(); iter++) {
         iter->writeJSON(writer);
     }
     writer.EndArray();
      }
-                if (!PlayerStatistics.empty()) {
-    writer.String("PlayerStatistics");
+                if (!AdCampaignAttributions.empty()) {
+    writer.String("AdCampaignAttributions");
     writer.StartArray();
-    for (std::list<PlayerStatistic>::iterator iter = PlayerStatistics.begin(); iter != PlayerStatistics.end(); iter++) {
+    for (std::list<AdCampaignAttributionModel>::iterator iter = AdCampaignAttributions.begin(); iter != AdCampaignAttributions.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                if (TotalValueToDateInUSD.notNull()) { writer.String("TotalValueToDateInUSD"); writer.Uint(TotalValueToDateInUSD); }
+                if (!ValuesToDate.empty()) {
+    writer.String("ValuesToDate");
+    writer.StartArray();
+    for (std::list<ValueToDateModel>::iterator iter = ValuesToDate.begin(); iter != ValuesToDate.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                if (!VirtualCurrencyBalances.empty()) {
+    writer.String("VirtualCurrencyBalances");
+    writer.StartArray();
+    for (std::list<VirtualCurrencyBalanceModel>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                if (!Statistics.empty()) {
+    writer.String("Statistics");
+    writer.StartArray();
+    for (std::list<StatisticModel>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
         iter->writeJSON(writer);
     }
     writer.EndArray();
@@ -7035,83 +7277,80 @@ namespace PlayFab
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
-                const Value::ConstMemberIterator PlayerId_member = obj.FindMember("PlayerId");
-                if (PlayerId_member != obj.MemberEnd() && !PlayerId_member->value.IsNull()) PlayerId = PlayerId_member->value.GetString();
-                const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
-                if (TitleId_member != obj.MemberEnd() && !TitleId_member->value.IsNull()) TitleId = TitleId_member->value.GetString();
-                const Value::ConstMemberIterator DisplayName_member = obj.FindMember("DisplayName");
-                if (DisplayName_member != obj.MemberEnd() && !DisplayName_member->value.IsNull()) DisplayName = DisplayName_member->value.GetString();
                 const Value::ConstMemberIterator PublisherId_member = obj.FindMember("PublisherId");
                 if (PublisherId_member != obj.MemberEnd() && !PublisherId_member->value.IsNull()) PublisherId = PublisherId_member->value.GetString();
-                const Value::ConstMemberIterator Origination_member = obj.FindMember("Origination");
-                if (Origination_member != obj.MemberEnd() && !Origination_member->value.IsNull()) Origination = readLoginIdentityProviderFromValue(Origination_member->value);
+                const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
+                if (TitleId_member != obj.MemberEnd() && !TitleId_member->value.IsNull()) TitleId = TitleId_member->value.GetString();
+                const Value::ConstMemberIterator PlayerId_member = obj.FindMember("PlayerId");
+                if (PlayerId_member != obj.MemberEnd() && !PlayerId_member->value.IsNull()) PlayerId = PlayerId_member->value.GetString();
                 const Value::ConstMemberIterator Created_member = obj.FindMember("Created");
                 if (Created_member != obj.MemberEnd() && !Created_member->value.IsNull()) Created = readDatetime(Created_member->value);
+                const Value::ConstMemberIterator Origination_member = obj.FindMember("Origination");
+                if (Origination_member != obj.MemberEnd() && !Origination_member->value.IsNull()) Origination = readLoginIdentityProviderFromValue(Origination_member->value);
                 const Value::ConstMemberIterator LastLogin_member = obj.FindMember("LastLogin");
                 if (LastLogin_member != obj.MemberEnd() && !LastLogin_member->value.IsNull()) LastLogin = readDatetime(LastLogin_member->value);
                 const Value::ConstMemberIterator BannedUntil_member = obj.FindMember("BannedUntil");
                 if (BannedUntil_member != obj.MemberEnd() && !BannedUntil_member->value.IsNull()) BannedUntil = readDatetime(BannedUntil_member->value);
+                const Value::ConstMemberIterator Locations_member = obj.FindMember("Locations");
+    if (Locations_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Locations_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Locations.push_back(LocationModel(memberList[i]));
+        }
+    }
+                const Value::ConstMemberIterator DisplayName_member = obj.FindMember("DisplayName");
+                if (DisplayName_member != obj.MemberEnd() && !DisplayName_member->value.IsNull()) DisplayName = DisplayName_member->value.GetString();
                 const Value::ConstMemberIterator AvatarUrl_member = obj.FindMember("AvatarUrl");
                 if (AvatarUrl_member != obj.MemberEnd() && !AvatarUrl_member->value.IsNull()) AvatarUrl = AvatarUrl_member->value.GetString();
-                const Value::ConstMemberIterator Statistics_member = obj.FindMember("Statistics");
-    if (Statistics_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Statistics_member->value.MemberBegin(); iter != Statistics_member->value.MemberEnd(); ++iter) {
-            Statistics[iter->name.GetString()] = iter->value.GetInt();
-        }
-    }
-                const Value::ConstMemberIterator TotalValueToDateInUSD_member = obj.FindMember("TotalValueToDateInUSD");
-                if (TotalValueToDateInUSD_member != obj.MemberEnd() && !TotalValueToDateInUSD_member->value.IsNull()) TotalValueToDateInUSD = TotalValueToDateInUSD_member->value.GetUint();
-                const Value::ConstMemberIterator ValuesToDate_member = obj.FindMember("ValuesToDate");
-    if (ValuesToDate_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = ValuesToDate_member->value.MemberBegin(); iter != ValuesToDate_member->value.MemberEnd(); ++iter) {
-            ValuesToDate[iter->name.GetString()] = iter->value.GetUint();
-        }
-    }
                 const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
     if (Tags_member != obj.MemberEnd()) {
         const rapidjson::Value& memberList = Tags_member->value;
         for (SizeType i = 0; i < memberList.Size(); i++) {
-            Tags.push_back(memberList[i].GetString());
-        }
-    }
-                const Value::ConstMemberIterator Locations_member = obj.FindMember("Locations");
-    if (Locations_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = Locations_member->value.MemberBegin(); iter != Locations_member->value.MemberEnd(); ++iter) {
-            Locations[iter->name.GetString()] = PlayerLocation(iter->value);
-        }
-    }
-                const Value::ConstMemberIterator VirtualCurrencyBalances_member = obj.FindMember("VirtualCurrencyBalances");
-    if (VirtualCurrencyBalances_member != obj.MemberEnd()) {
-        for (Value::ConstMemberIterator iter = VirtualCurrencyBalances_member->value.MemberBegin(); iter != VirtualCurrencyBalances_member->value.MemberEnd(); ++iter) {
-            VirtualCurrencyBalances[iter->name.GetString()] = iter->value.GetInt();
-        }
-    }
-                const Value::ConstMemberIterator AdCampaignAttributions_member = obj.FindMember("AdCampaignAttributions");
-    if (AdCampaignAttributions_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = AdCampaignAttributions_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            AdCampaignAttributions.push_back(AdCampaignAttribution(memberList[i]));
+            Tags.push_back(TagModel(memberList[i]));
         }
     }
                 const Value::ConstMemberIterator PushNotificationRegistrations_member = obj.FindMember("PushNotificationRegistrations");
     if (PushNotificationRegistrations_member != obj.MemberEnd()) {
         const rapidjson::Value& memberList = PushNotificationRegistrations_member->value;
         for (SizeType i = 0; i < memberList.Size(); i++) {
-            PushNotificationRegistrations.push_back(PushNotificationRegistration(memberList[i]));
+            PushNotificationRegistrations.push_back(PushNotificationRegistrationModel(memberList[i]));
         }
     }
                 const Value::ConstMemberIterator LinkedAccounts_member = obj.FindMember("LinkedAccounts");
     if (LinkedAccounts_member != obj.MemberEnd()) {
         const rapidjson::Value& memberList = LinkedAccounts_member->value;
         for (SizeType i = 0; i < memberList.Size(); i++) {
-            LinkedAccounts.push_back(PlayerLinkedAccount(memberList[i]));
+            LinkedAccounts.push_back(LinkedPlatformAccountModel(memberList[i]));
         }
     }
-                const Value::ConstMemberIterator PlayerStatistics_member = obj.FindMember("PlayerStatistics");
-    if (PlayerStatistics_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = PlayerStatistics_member->value;
+                const Value::ConstMemberIterator AdCampaignAttributions_member = obj.FindMember("AdCampaignAttributions");
+    if (AdCampaignAttributions_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = AdCampaignAttributions_member->value;
         for (SizeType i = 0; i < memberList.Size(); i++) {
-            PlayerStatistics.push_back(PlayerStatistic(memberList[i]));
+            AdCampaignAttributions.push_back(AdCampaignAttributionModel(memberList[i]));
+        }
+    }
+                const Value::ConstMemberIterator TotalValueToDateInUSD_member = obj.FindMember("TotalValueToDateInUSD");
+                if (TotalValueToDateInUSD_member != obj.MemberEnd() && !TotalValueToDateInUSD_member->value.IsNull()) TotalValueToDateInUSD = TotalValueToDateInUSD_member->value.GetUint();
+                const Value::ConstMemberIterator ValuesToDate_member = obj.FindMember("ValuesToDate");
+    if (ValuesToDate_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = ValuesToDate_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            ValuesToDate.push_back(ValueToDateModel(memberList[i]));
+        }
+    }
+                const Value::ConstMemberIterator VirtualCurrencyBalances_member = obj.FindMember("VirtualCurrencyBalances");
+    if (VirtualCurrencyBalances_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = VirtualCurrencyBalances_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            VirtualCurrencyBalances.push_back(VirtualCurrencyBalanceModel(memberList[i]));
+        }
+    }
+                const Value::ConstMemberIterator Statistics_member = obj.FindMember("Statistics");
+    if (Statistics_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = Statistics_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            Statistics.push_back(StatisticModel(memberList[i]));
         }
     }
 
@@ -7125,7 +7364,7 @@ namespace PlayFab
             Aws::String DisplayName;
             Int32 StatValue;
             Int32 Position;
-            PlayerProfile* Profile;
+            PlayerProfileModel* Profile;
 
             PlayerLeaderboardEntry() :
                 PlayFabBaseModel(),
@@ -7142,7 +7381,7 @@ namespace PlayFab
                 DisplayName(src.DisplayName),
                 StatValue(src.StatValue),
                 Position(src.Position),
-                Profile(src.Profile ? new PlayerProfile(*src.Profile) : nullptr)
+                Profile(src.Profile ? new PlayerProfileModel(*src.Profile) : nullptr)
             {}
 
             PlayerLeaderboardEntry(const rapidjson::Value& obj) : PlayerLeaderboardEntry()
@@ -7177,7 +7416,7 @@ namespace PlayFab
                 const Value::ConstMemberIterator Position_member = obj.FindMember("Position");
                 if (Position_member != obj.MemberEnd() && !Position_member->value.IsNull()) Position = Position_member->value.GetInt();
                 const Value::ConstMemberIterator Profile_member = obj.FindMember("Profile");
-                if (Profile_member != obj.MemberEnd() && !Profile_member->value.IsNull()) Profile = new PlayerProfile(Profile_member->value);
+                if (Profile_member != obj.MemberEnd() && !Profile_member->value.IsNull()) Profile = new PlayerProfileModel(Profile_member->value);
 
                 return true;
             }
@@ -7255,6 +7494,7 @@ namespace PlayFab
             OptionalBool IncludeFacebookFriends;
             Int32 Version;
             bool UseSpecificVersion;
+            PlayerProfileViewConstraints* ProfileConstraints;
 
             GetFriendLeaderboardRequest() :
                 PlayFabBaseModel(),
@@ -7264,7 +7504,8 @@ namespace PlayFab
                 IncludeSteamFriends(),
                 IncludeFacebookFriends(),
                 Version(0),
-                UseSpecificVersion(false)
+                UseSpecificVersion(false),
+                ProfileConstraints(nullptr)
             {}
 
             GetFriendLeaderboardRequest(const GetFriendLeaderboardRequest& src) :
@@ -7275,7 +7516,8 @@ namespace PlayFab
                 IncludeSteamFriends(src.IncludeSteamFriends),
                 IncludeFacebookFriends(src.IncludeFacebookFriends),
                 Version(src.Version),
-                UseSpecificVersion(src.UseSpecificVersion)
+                UseSpecificVersion(src.UseSpecificVersion),
+                ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
             {}
 
             GetFriendLeaderboardRequest(const rapidjson::Value& obj) : GetFriendLeaderboardRequest()
@@ -7285,6 +7527,7 @@ namespace PlayFab
 
             ~GetFriendLeaderboardRequest()
             {
+                if (ProfileConstraints != nullptr) delete ProfileConstraints;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -7297,6 +7540,7 @@ namespace PlayFab
                 if (IncludeFacebookFriends.notNull()) { writer.String("IncludeFacebookFriends"); writer.Bool(IncludeFacebookFriends); }
                 writer.String("Version"); writer.Int(Version);
                 writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion);
+                if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -7316,6 +7560,8 @@ namespace PlayFab
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
                 const Value::ConstMemberIterator UseSpecificVersion_member = obj.FindMember("UseSpecificVersion");
                 if (UseSpecificVersion_member != obj.MemberEnd() && !UseSpecificVersion_member->value.IsNull()) UseSpecificVersion = UseSpecificVersion_member->value.GetBool();
+                const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
+                if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
 
                 return true;
             }
@@ -7532,6 +7778,7 @@ namespace PlayFab
             OptionalInt32 MaxResultsCount;
             Int32 Version;
             bool UseSpecificVersion;
+            PlayerProfileViewConstraints* ProfileConstraints;
 
             GetLeaderboardAroundPlayerRequest() :
                 PlayFabBaseModel(),
@@ -7539,7 +7786,8 @@ namespace PlayFab
                 StatisticName(),
                 MaxResultsCount(),
                 Version(0),
-                UseSpecificVersion(false)
+                UseSpecificVersion(false),
+                ProfileConstraints(nullptr)
             {}
 
             GetLeaderboardAroundPlayerRequest(const GetLeaderboardAroundPlayerRequest& src) :
@@ -7548,7 +7796,8 @@ namespace PlayFab
                 StatisticName(src.StatisticName),
                 MaxResultsCount(src.MaxResultsCount),
                 Version(src.Version),
-                UseSpecificVersion(src.UseSpecificVersion)
+                UseSpecificVersion(src.UseSpecificVersion),
+                ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
             {}
 
             GetLeaderboardAroundPlayerRequest(const rapidjson::Value& obj) : GetLeaderboardAroundPlayerRequest()
@@ -7558,6 +7807,7 @@ namespace PlayFab
 
             ~GetLeaderboardAroundPlayerRequest()
             {
+                if (ProfileConstraints != nullptr) delete ProfileConstraints;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -7568,6 +7818,7 @@ namespace PlayFab
                 if (MaxResultsCount.notNull()) { writer.String("MaxResultsCount"); writer.Int(MaxResultsCount); }
                 writer.String("Version"); writer.Int(Version);
                 writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion);
+                if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -7583,6 +7834,8 @@ namespace PlayFab
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
                 const Value::ConstMemberIterator UseSpecificVersion_member = obj.FindMember("UseSpecificVersion");
                 if (UseSpecificVersion_member != obj.MemberEnd() && !UseSpecificVersion_member->value.IsNull()) UseSpecificVersion = UseSpecificVersion_member->value.GetBool();
+                const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
+                if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
 
                 return true;
             }
@@ -7754,6 +8007,7 @@ namespace PlayFab
             OptionalInt32 MaxResultsCount;
             Int32 Version;
             bool UseSpecificVersion;
+            PlayerProfileViewConstraints* ProfileConstraints;
 
             GetLeaderboardRequest() :
                 PlayFabBaseModel(),
@@ -7761,7 +8015,8 @@ namespace PlayFab
                 StartPosition(0),
                 MaxResultsCount(),
                 Version(0),
-                UseSpecificVersion(false)
+                UseSpecificVersion(false),
+                ProfileConstraints(nullptr)
             {}
 
             GetLeaderboardRequest(const GetLeaderboardRequest& src) :
@@ -7770,7 +8025,8 @@ namespace PlayFab
                 StartPosition(src.StartPosition),
                 MaxResultsCount(src.MaxResultsCount),
                 Version(src.Version),
-                UseSpecificVersion(src.UseSpecificVersion)
+                UseSpecificVersion(src.UseSpecificVersion),
+                ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
             {}
 
             GetLeaderboardRequest(const rapidjson::Value& obj) : GetLeaderboardRequest()
@@ -7780,6 +8036,7 @@ namespace PlayFab
 
             ~GetLeaderboardRequest()
             {
+                if (ProfileConstraints != nullptr) delete ProfileConstraints;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -7790,6 +8047,7 @@ namespace PlayFab
                 if (MaxResultsCount.notNull()) { writer.String("MaxResultsCount"); writer.Int(MaxResultsCount); }
                 writer.String("Version"); writer.Int(Version);
                 writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion);
+                if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -7805,6 +8063,8 @@ namespace PlayFab
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
                 const Value::ConstMemberIterator UseSpecificVersion_member = obj.FindMember("UseSpecificVersion");
                 if (UseSpecificVersion_member != obj.MemberEnd() && !UseSpecificVersion_member->value.IsNull()) UseSpecificVersion = UseSpecificVersion_member->value.GetBool();
+                const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
+                if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
 
                 return true;
             }
