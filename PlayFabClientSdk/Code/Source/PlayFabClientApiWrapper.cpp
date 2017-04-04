@@ -23,11 +23,6 @@ void PlayFabClientApiWrapper::GetWindowsHelloChallenge(ClientModels::GetWindowsH
     PlayFabClientApi::GetWindowsHelloChallenge(request, callback, errorCallback, customData);
 }
 
-void PlayFabClientApiWrapper::LinkWindowsHello(ClientModels::LinkWindowsHelloAccountRequest& request, ProcessApiCallback<ClientModels::LinkWindowsHelloAccountResponse> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::LinkWindowsHello(request, callback, errorCallback, customData);
-}
-
 void PlayFabClientApiWrapper::LoginWithAndroidDeviceID(ClientModels::LoginWithAndroidDeviceIDRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::LoginWithAndroidDeviceID(request, callback, errorCallback, customData);
@@ -96,11 +91,6 @@ void PlayFabClientApiWrapper::RegisterPlayFabUser(ClientModels::RegisterPlayFabU
 void PlayFabClientApiWrapper::RegisterWithWindowsHello(ClientModels::RegisterWithWindowsHelloRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::RegisterWithWindowsHello(request, callback, errorCallback, customData);
-}
-
-void PlayFabClientApiWrapper::UnlinkWindowsHello(ClientModels::UnlinkWindowsHelloAccountRequest& request, ProcessApiCallback<ClientModels::UnlinkWindowsHelloAccountResponse> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::UnlinkWindowsHello(request, callback, errorCallback, customData);
 }
 
 void PlayFabClientApiWrapper::AddGenericID(ClientModels::AddGenericIDRequest& request, ProcessApiCallback<ClientModels::AddGenericIDResult> callback, ErrorCallback errorCallback, void* customData)
@@ -203,6 +193,11 @@ void PlayFabClientApiWrapper::LinkTwitch(ClientModels::LinkTwitchAccountRequest&
     PlayFabClientApi::LinkTwitch(request, callback, errorCallback, customData);
 }
 
+void PlayFabClientApiWrapper::LinkWindowsHello(ClientModels::LinkWindowsHelloAccountRequest& request, ProcessApiCallback<ClientModels::LinkWindowsHelloAccountResponse> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::LinkWindowsHello(request, callback, errorCallback, customData);
+}
+
 void PlayFabClientApiWrapper::RemoveGenericID(ClientModels::RemoveGenericIDRequest& request, ProcessApiCallback<ClientModels::RemoveGenericIDResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::RemoveGenericID(request, callback, errorCallback, customData);
@@ -261,6 +256,11 @@ void PlayFabClientApiWrapper::UnlinkSteamAccount(ProcessApiCallback<ClientModels
 void PlayFabClientApiWrapper::UnlinkTwitch(ProcessApiCallback<ClientModels::UnlinkTwitchAccountResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::UnlinkTwitch(callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::UnlinkWindowsHello(ClientModels::UnlinkWindowsHelloAccountRequest& request, ProcessApiCallback<ClientModels::UnlinkWindowsHelloAccountResponse> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::UnlinkWindowsHello(request, callback, errorCallback, customData);
 }
 
 void PlayFabClientApiWrapper::UpdateAvatarUrl(ClientModels::UpdateAvatarUrlRequest& request, ProcessApiCallback<ClientModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)

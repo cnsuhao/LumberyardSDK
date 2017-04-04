@@ -6346,8 +6346,8 @@ namespace PlayFab
             Int32 MaxResultsCount;
             OptionalBool IncludeSteamFriends;
             OptionalBool IncludeFacebookFriends;
-            Int32 Version;
-            bool UseSpecificVersion;
+            OptionalInt32 Version;
+            OptionalBool UseSpecificVersion;
             PlayerProfileViewConstraints* ProfileConstraints;
 
             GetFriendLeaderboardRequest() :
@@ -6358,8 +6358,8 @@ namespace PlayFab
                 MaxResultsCount(0),
                 IncludeSteamFriends(),
                 IncludeFacebookFriends(),
-                Version(0),
-                UseSpecificVersion(false),
+                Version(),
+                UseSpecificVersion(),
                 ProfileConstraints(nullptr)
             {}
 
@@ -6395,8 +6395,8 @@ namespace PlayFab
                 writer.String("MaxResultsCount"); writer.Int(MaxResultsCount);
                 if (IncludeSteamFriends.notNull()) { writer.String("IncludeSteamFriends"); writer.Bool(IncludeSteamFriends); }
                 if (IncludeFacebookFriends.notNull()) { writer.String("IncludeFacebookFriends"); writer.Bool(IncludeFacebookFriends); }
-                writer.String("Version"); writer.Int(Version);
-                writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion);
+                if (Version.notNull()) { writer.String("Version"); writer.Int(Version); }
+                if (UseSpecificVersion.notNull()) { writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion); }
                 if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
                 writer.EndObject();
             }
@@ -6648,8 +6648,8 @@ namespace PlayFab
             Aws::String PlayFabId;
             Int32 MaxResultsCount;
             PlayerProfileViewConstraints* ProfileConstraints;
-            Int32 Version;
-            bool UseSpecificVersion;
+            OptionalInt32 Version;
+            OptionalBool UseSpecificVersion;
 
             GetLeaderboardAroundUserRequest() :
                 PlayFabBaseModel(),
@@ -6657,8 +6657,8 @@ namespace PlayFab
                 PlayFabId(),
                 MaxResultsCount(0),
                 ProfileConstraints(nullptr),
-                Version(0),
-                UseSpecificVersion(false)
+                Version(),
+                UseSpecificVersion()
             {}
 
             GetLeaderboardAroundUserRequest(const GetLeaderboardAroundUserRequest& src) :
@@ -6688,8 +6688,8 @@ namespace PlayFab
                 writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
                 writer.String("MaxResultsCount"); writer.Int(MaxResultsCount);
                 if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
-                writer.String("Version"); writer.Int(Version);
-                writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion);
+                if (Version.notNull()) { writer.String("Version"); writer.Int(Version); }
+                if (UseSpecificVersion.notNull()) { writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion); }
                 writer.EndObject();
             }
 
@@ -7639,8 +7639,8 @@ namespace PlayFab
             Int32 StartPosition;
             Int32 MaxResultsCount;
             PlayerProfileViewConstraints* ProfileConstraints;
-            Int32 Version;
-            bool UseSpecificVersion;
+            OptionalInt32 Version;
+            OptionalBool UseSpecificVersion;
 
             GetLeaderboardRequest() :
                 PlayFabBaseModel(),
@@ -7648,8 +7648,8 @@ namespace PlayFab
                 StartPosition(0),
                 MaxResultsCount(0),
                 ProfileConstraints(nullptr),
-                Version(0),
-                UseSpecificVersion(false)
+                Version(),
+                UseSpecificVersion()
             {}
 
             GetLeaderboardRequest(const GetLeaderboardRequest& src) :
@@ -7679,8 +7679,8 @@ namespace PlayFab
                 writer.String("StartPosition"); writer.Int(StartPosition);
                 writer.String("MaxResultsCount"); writer.Int(MaxResultsCount);
                 if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
-                writer.String("Version"); writer.Int(Version);
-                writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion);
+                if (Version.notNull()) { writer.String("Version"); writer.Int(Version); }
+                if (UseSpecificVersion.notNull()) { writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion); }
                 writer.EndObject();
             }
 
