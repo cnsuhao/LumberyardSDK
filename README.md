@@ -9,7 +9,7 @@ Welcome to the PlayFab Amazon Lumberyard SDK.
 
 None of this will work for the latest Lumberyard, 1.9. The best option today, for Lumberyard 1.9 is to use: http://docs.aws.amazon.com/lumberyard/latest/userguide/gems-system-gem-aws.html plus our LuaSdk: https://github.com/PlayFab/LuaSdk.  This combination will eventually be an official SDK, but for now you'll need to put the combination together yourself.
 
-Please let us know if you are a Lumberyard customer on our [Forums](https://community.playfab.com/index.html).
+Please post any PlayFab related questions on our [Forums](https://community.playfab.com/index.html).
 
 ## 1. Overview:
 
