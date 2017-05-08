@@ -4791,7 +4791,9 @@ namespace PlayFab
             Aws::String FunctionName;
             Int32 Revision;
             MultitypeVar FunctionResult;
+            OptionalBool FunctionResultTooLarge;
             std::list<LogStatement> Logs;
+            OptionalBool LogsTooLarge;
             double ExecutionTimeSeconds;
             double ProcessorTimeSeconds;
             Uint32 MemoryConsumedBytes;
@@ -4804,7 +4806,9 @@ namespace PlayFab
                 FunctionName(),
                 Revision(0),
                 FunctionResult(),
+                FunctionResultTooLarge(),
                 Logs(),
+                LogsTooLarge(),
                 ExecutionTimeSeconds(0),
                 ProcessorTimeSeconds(0),
                 MemoryConsumedBytes(0),
@@ -4818,7 +4822,9 @@ namespace PlayFab
                 FunctionName(src.FunctionName),
                 Revision(src.Revision),
                 FunctionResult(src.FunctionResult),
+                FunctionResultTooLarge(src.FunctionResultTooLarge),
                 Logs(src.Logs),
+                LogsTooLarge(src.LogsTooLarge),
                 ExecutionTimeSeconds(src.ExecutionTimeSeconds),
                 ProcessorTimeSeconds(src.ProcessorTimeSeconds),
                 MemoryConsumedBytes(src.MemoryConsumedBytes),
@@ -4843,6 +4849,7 @@ namespace PlayFab
                 if (FunctionName.length() > 0) { writer.String("FunctionName"); writer.String(FunctionName.c_str()); }
                 writer.String("Revision"); writer.Int(Revision);
                 if (FunctionResult.notNull()) { writer.String("FunctionResult"); FunctionResult.writeJSON(writer); }
+                if (FunctionResultTooLarge.notNull()) { writer.String("FunctionResultTooLarge"); writer.Bool(FunctionResultTooLarge); }
                 if (!Logs.empty()) {
     writer.String("Logs");
     writer.StartArray();
@@ -4851,6 +4858,7 @@ namespace PlayFab
     }
     writer.EndArray();
      }
+                if (LogsTooLarge.notNull()) { writer.String("LogsTooLarge"); writer.Bool(LogsTooLarge); }
                 writer.String("ExecutionTimeSeconds"); writer.Double(ExecutionTimeSeconds);
                 writer.String("ProcessorTimeSeconds"); writer.Double(ProcessorTimeSeconds);
                 writer.String("MemoryConsumedBytes"); writer.Uint(MemoryConsumedBytes);
@@ -4868,6 +4876,8 @@ namespace PlayFab
                 if (Revision_member != obj.MemberEnd() && !Revision_member->value.IsNull()) Revision = Revision_member->value.GetInt();
                 const Value::ConstMemberIterator FunctionResult_member = obj.FindMember("FunctionResult");
                 if (FunctionResult_member != obj.MemberEnd() && !FunctionResult_member->value.IsNull()) FunctionResult = MultitypeVar(FunctionResult_member->value);
+                const Value::ConstMemberIterator FunctionResultTooLarge_member = obj.FindMember("FunctionResultTooLarge");
+                if (FunctionResultTooLarge_member != obj.MemberEnd() && !FunctionResultTooLarge_member->value.IsNull()) FunctionResultTooLarge = FunctionResultTooLarge_member->value.GetBool();
                 const Value::ConstMemberIterator Logs_member = obj.FindMember("Logs");
     if (Logs_member != obj.MemberEnd()) {
         const rapidjson::Value& memberList = Logs_member->value;
@@ -4875,6 +4885,8 @@ namespace PlayFab
             Logs.push_back(LogStatement(memberList[i]));
         }
     }
+                const Value::ConstMemberIterator LogsTooLarge_member = obj.FindMember("LogsTooLarge");
+                if (LogsTooLarge_member != obj.MemberEnd() && !LogsTooLarge_member->value.IsNull()) LogsTooLarge = LogsTooLarge_member->value.GetBool();
                 const Value::ConstMemberIterator ExecutionTimeSeconds_member = obj.FindMember("ExecutionTimeSeconds");
                 if (ExecutionTimeSeconds_member != obj.MemberEnd() && !ExecutionTimeSeconds_member->value.IsNull()) ExecutionTimeSeconds = ExecutionTimeSeconds_member->value.GetDouble();
                 const Value::ConstMemberIterator ProcessorTimeSeconds_member = obj.FindMember("ProcessorTimeSeconds");

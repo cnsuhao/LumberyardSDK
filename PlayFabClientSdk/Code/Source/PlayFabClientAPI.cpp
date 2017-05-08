@@ -1189,7 +1189,7 @@ void PlayFabClientApi::LinkWindowsHello(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLinkWindowsHelloResult);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/LinkWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkWindowsHelloResult);
     PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
 }
 
@@ -1579,7 +1579,7 @@ void PlayFabClientApi::UnlinkWindowsHello(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnUnlinkWindowsHelloResult);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/UnlinkWindowsHello"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlinkWindowsHelloResult);
     PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
 }
 
@@ -3891,7 +3891,7 @@ void PlayFabClientApi::ValidateWindowsStoreReceipt(
     )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ValidateWindowsStoreReceipt"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnValidateWindowsStoreReceiptResult);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/ValidateWindowsStoreReceipt"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnValidateWindowsStoreReceiptResult);
     PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
 }
 
