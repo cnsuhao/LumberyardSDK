@@ -1,14 +1,18 @@
-PlayFab Amazon Lumberyard SDK README
-========
+# PlayFab Amazon Lumberyard SDK README
+
 Welcome to the PlayFab Amazon Lumberyard SDK.
 
-Built for Amazon Lumberyard 1.3 Beta
+* Best Build: https://github.com/PlayFab/LumberyardSDK/releases/tag/0.0.160712
+* Works for the original launch, Lumberyard 1.0
+* This Build: Built for Amazon Lumberyard 1.3 Beta
+  * Lumberyard is still in beta, and we have experienced some build issues with version 1.3.  As such, this repo is provided as-is, and may include errors.  If you experience issues with Lumberyard, please contact Lumberyard support.  If you find specific errors in our SDK, feel free to submit a pull request which resolves the issue.
 
-Lumberyard is still in beta, and we have experienced some build issues with version 1.3.  As such, this repo is provided as-is, and may include errors.  If you experience issues with Lumberyard, please contact Lumberyard support.  If you find specific errors in our SDK, feel free to submit a pull request which resolves the issue.
+None of this will work for the latest Lumberyard, 1.9. The best option today, for Lumberyard 1.9 is to use: http://docs.aws.amazon.com/lumberyard/latest/userguide/gems-system-gem-aws.html plus our LuaSdk: https://github.com/PlayFab/LuaSdk.  This combination will eventually be an official SDK, but for now you'll need to put the combination together yourself.
 
+Please let us know if you are a Lumberyard customer on our [Forums](https://community.playfab.com/index.html).
 
-1. Overview:
-----
+## 1. Overview:
+
 This document describes the PlayFabSdk Lumberyard Gem, and usage.
 
 The Lumberyard SDK will give you the ability to call any public PlayFab API from a Lumberyard project.
@@ -16,8 +20,8 @@ The Lumberyard SDK will give you the ability to call any public PlayFab API from
 The PlayFab platform runs on AWS, and PlayFab has express permission from Amazon to provide services for Lumberyard.
 
 
-2. Prerequisites:
-----
+## 2. Prerequisites:
+
 * Install Lumberyard: https://aws.amazon.com/lumberyard/downloads/
  * Fully unpacked and installed, Lumberyard will need at least 50-80 gigabytes of space
   * This does not include the files specific to your project, which may be 5-20 additional gigabytes (or more, depending on your project)
@@ -38,8 +42,8 @@ To connect to the PlayFab service, your machine must be running TLS v1.2 or bett
 * [Support for SSL/TLS protocols on Windows](http://blogs.msdn.com/b/kaushal/archive/2011/10/02/support-for-ssl-tls-protocols-on-windows.aspx)
 
 
-3. Gem Installation:
-----
+## 3. Gem Installation:
+
 * **To build a Client**: use the PlayFabClientSDK.
 * **To build a Server**: If your game-server is a separate stand-alone console application, it is possible to use the [C++ WindowsSDK](https://github.com/PlayFab/WindowsSDK).
 If your game-server requires a fully-loaded Lumberyard environment, you can also use the PlayFabServerSDK provided with in the Lumberyard SDK.
@@ -61,8 +65,8 @@ Do not mix the client/server/combo files, or your project may not compile.
     * (You must have administrator access on your machine)
     * This will make it easier to integrate future PlayFab updates
 
-4. Gem-Dependency:
-----
+## 4. Gem-Dependency:
+
 If you create your own Gem, you can access PlayFab by adding a Gem-dependency in your gem.json file.
 * Navigate to: {LumberyardLocation}/dev/Gems/{YourGem}/gem.json
 * Use this guide to add a dependency to PlayFab: http://docs.aws.amazon.com/lumberyard/latest/userguide/gems-system.html
@@ -80,8 +84,7 @@ If you create your own Gem, you can access PlayFab by adding a Gem-dependency in
  * A working example can be found here: https://github.com/PlayFab/LumberyardSDK/blob/master/TestGemClient/gem.json
 
 
-5. testTitleData.json file required for example test files.
-----
+## 5. testTitleData.json file required for example test files.
 
 This sdk includes an optional flow node that is used by PlayFab to verify sdk features are fully functional.
 
@@ -90,8 +93,8 @@ Please read about the testTitleData.json format, and purpose here:
 It is read from the hard-coded loction of: TEST_TITLE_DATA_LOC in PlayFabApiTestNode.cpp, you can redirect this to an input that matches your file location
 
 
-6. Troubleshooting:
-----
+## 6. Troubleshooting:
+
 In the future, if you update your PlayFabSdk to a new version, Lumberyard may crash on startup. Rerun the "Follow these screenshots to configure lumberyard to include the PlayFabSdk Gem" steps to resolve the issue
 
 For a complete list of available APIs, check out the [online documentation](http://api.playfab.com/Documentation/).
@@ -105,11 +108,10 @@ Our Developer Success Team can assist with answering any questions as well as pr
 [Forums, Support and Knowledge Base](https://community.playfab.com/index.html)
 
 
-7. Copyright and Licensing Information:
-----
+## 7. Copyright and Licensing Information:
+
   Apache License --
   Version 2.0, January 2004
   http://www.apache.org/licenses/
 
   Full details available within the LICENSE file.
-
