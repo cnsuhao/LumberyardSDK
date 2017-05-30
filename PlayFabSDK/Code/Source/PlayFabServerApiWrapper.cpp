@@ -17,6 +17,11 @@ void PlayFabServerApiWrapper::BanUsers(ServerModels::BanUsersRequest& request, P
     PlayFabServerApi::BanUsers(request, callback, errorCallback, customData);
 }
 
+void PlayFabServerApiWrapper::GetPlayerProfile(ServerModels::GetPlayerProfileRequest& request, ProcessApiCallback<ServerModels::GetPlayerProfileResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::GetPlayerProfile(request, callback, errorCallback, customData);
+}
+
 void PlayFabServerApiWrapper::GetPlayFabIDsFromFacebookIDs(ServerModels::GetPlayFabIDsFromFacebookIDsRequest& request, ProcessApiCallback<ServerModels::GetPlayFabIDsFromFacebookIDsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::GetPlayFabIDsFromFacebookIDs(request, callback, errorCallback, customData);

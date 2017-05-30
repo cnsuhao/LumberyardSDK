@@ -8238,6 +8238,8 @@ namespace PlayFab
             std::list<Aws::String> TitleDataKeys;
             bool GetPlayerStatistics;
             std::list<Aws::String> PlayerStatisticNames;
+            bool GetPlayerProfile;
+            PlayerProfileViewConstraints* ProfileConstraints;
 
             GetPlayerCombinedInfoRequestParams() :
                 PlayFabBaseModel(),
@@ -8253,7 +8255,9 @@ namespace PlayFab
                 GetTitleData(false),
                 TitleDataKeys(),
                 GetPlayerStatistics(false),
-                PlayerStatisticNames()
+                PlayerStatisticNames(),
+                GetPlayerProfile(false),
+                ProfileConstraints(nullptr)
             {}
 
             GetPlayerCombinedInfoRequestParams(const GetPlayerCombinedInfoRequestParams& src) :
@@ -8270,7 +8274,9 @@ namespace PlayFab
                 GetTitleData(src.GetTitleData),
                 TitleDataKeys(src.TitleDataKeys),
                 GetPlayerStatistics(src.GetPlayerStatistics),
-                PlayerStatisticNames(src.PlayerStatisticNames)
+                PlayerStatisticNames(src.PlayerStatisticNames),
+                GetPlayerProfile(src.GetPlayerProfile),
+                ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
             {}
 
             GetPlayerCombinedInfoRequestParams(const rapidjson::Value& obj) : GetPlayerCombinedInfoRequestParams()
@@ -8280,6 +8286,7 @@ namespace PlayFab
 
             ~GetPlayerCombinedInfoRequestParams()
             {
+                if (ProfileConstraints != nullptr) delete ProfileConstraints;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -8326,6 +8333,8 @@ namespace PlayFab
     }
     writer.EndArray();
      }
+                writer.String("GetPlayerProfile"); writer.Bool(GetPlayerProfile);
+                if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -8377,6 +8386,10 @@ namespace PlayFab
             PlayerStatisticNames.push_back(memberList[i].GetString());
         }
     }
+                const Value::ConstMemberIterator GetPlayerProfile_member = obj.FindMember("GetPlayerProfile");
+                if (GetPlayerProfile_member != obj.MemberEnd() && !GetPlayerProfile_member->value.IsNull()) GetPlayerProfile = GetPlayerProfile_member->value.GetBool();
+                const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
+                if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
 
                 return true;
             }
@@ -8492,6 +8505,7 @@ namespace PlayFab
             std::list<CharacterInventory> CharacterInventories;
             std::map<Aws::String, Aws::String> TitleData;
             std::list<StatisticValue> PlayerStatistics;
+            PlayerProfileModel* PlayerProfile;
 
             GetPlayerCombinedInfoResultPayload() :
                 PlayFabBaseModel(),
@@ -8506,7 +8520,8 @@ namespace PlayFab
                 CharacterList(),
                 CharacterInventories(),
                 TitleData(),
-                PlayerStatistics()
+                PlayerStatistics(),
+                PlayerProfile(nullptr)
             {}
 
             GetPlayerCombinedInfoResultPayload(const GetPlayerCombinedInfoResultPayload& src) :
@@ -8522,7 +8537,8 @@ namespace PlayFab
                 CharacterList(src.CharacterList),
                 CharacterInventories(src.CharacterInventories),
                 TitleData(src.TitleData),
-                PlayerStatistics(src.PlayerStatistics)
+                PlayerStatistics(src.PlayerStatistics),
+                PlayerProfile(src.PlayerProfile ? new PlayerProfileModel(*src.PlayerProfile) : nullptr)
             {}
 
             GetPlayerCombinedInfoResultPayload(const rapidjson::Value& obj) : GetPlayerCombinedInfoResultPayload()
@@ -8533,6 +8549,7 @@ namespace PlayFab
             ~GetPlayerCombinedInfoResultPayload()
             {
                 if (AccountInfo != nullptr) delete AccountInfo;
+                if (PlayerProfile != nullptr) delete PlayerProfile;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -8613,6 +8630,7 @@ namespace PlayFab
     }
     writer.EndArray();
      }
+                if (PlayerProfile != nullptr) { writer.String("PlayerProfile"); PlayerProfile->writeJSON(writer); }
                 writer.EndObject();
             }
 
@@ -8682,6 +8700,8 @@ namespace PlayFab
             PlayerStatistics.push_back(StatisticValue(memberList[i]));
         }
     }
+                const Value::ConstMemberIterator PlayerProfile_member = obj.FindMember("PlayerProfile");
+                if (PlayerProfile_member != obj.MemberEnd() && !PlayerProfile_member->value.IsNull()) PlayerProfile = new PlayerProfileModel(PlayerProfile_member->value);
 
                 return true;
             }
@@ -8728,6 +8748,92 @@ namespace PlayFab
                 if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
                 const Value::ConstMemberIterator InfoResultPayload_member = obj.FindMember("InfoResultPayload");
                 if (InfoResultPayload_member != obj.MemberEnd() && !InfoResultPayload_member->value.IsNull()) InfoResultPayload = new GetPlayerCombinedInfoResultPayload(InfoResultPayload_member->value);
+
+                return true;
+            }
+        };
+
+        struct GetPlayerProfileRequest : public PlayFabBaseModel
+        {
+            Aws::String PlayFabId;
+            PlayerProfileViewConstraints* ProfileConstraints;
+
+            GetPlayerProfileRequest() :
+                PlayFabBaseModel(),
+                PlayFabId(),
+                ProfileConstraints(nullptr)
+            {}
+
+            GetPlayerProfileRequest(const GetPlayerProfileRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId),
+                ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
+            {}
+
+            GetPlayerProfileRequest(const rapidjson::Value& obj) : GetPlayerProfileRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayerProfileRequest()
+            {
+                if (ProfileConstraints != nullptr) delete ProfileConstraints;
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+                if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+                const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
+                if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
+
+                return true;
+            }
+        };
+
+        struct GetPlayerProfileResult : public PlayFabBaseModel
+        {
+            PlayerProfileModel* PlayerProfile;
+
+            GetPlayerProfileResult() :
+                PlayFabBaseModel(),
+                PlayerProfile(nullptr)
+            {}
+
+            GetPlayerProfileResult(const GetPlayerProfileResult& src) :
+                PlayFabBaseModel(),
+                PlayerProfile(src.PlayerProfile ? new PlayerProfileModel(*src.PlayerProfile) : nullptr)
+            {}
+
+            GetPlayerProfileResult(const rapidjson::Value& obj) : GetPlayerProfileResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayerProfileResult()
+            {
+                if (PlayerProfile != nullptr) delete PlayerProfile;
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (PlayerProfile != nullptr) { writer.String("PlayerProfile"); PlayerProfile->writeJSON(writer); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayerProfile_member = obj.FindMember("PlayerProfile");
+                if (PlayerProfile_member != obj.MemberEnd() && !PlayerProfile_member->value.IsNull()) PlayerProfile = new PlayerProfileModel(PlayerProfile_member->value);
 
                 return true;
             }
@@ -10435,7 +10541,6 @@ namespace PlayFab
             Aws::String TransactionId;
             Aws::String TransactionStatus;
             time_t PurchaseDate;
-            std::list<ItemInstance> Items;
 
             GetPurchaseResult() :
                 PlayFabBaseModel(),
@@ -10443,8 +10548,7 @@ namespace PlayFab
                 PaymentProvider(),
                 TransactionId(),
                 TransactionStatus(),
-                PurchaseDate(0),
-                Items()
+                PurchaseDate(0)
             {}
 
             GetPurchaseResult(const GetPurchaseResult& src) :
@@ -10453,8 +10557,7 @@ namespace PlayFab
                 PaymentProvider(src.PaymentProvider),
                 TransactionId(src.TransactionId),
                 TransactionStatus(src.TransactionStatus),
-                PurchaseDate(src.PurchaseDate),
-                Items(src.Items)
+                PurchaseDate(src.PurchaseDate)
             {}
 
             GetPurchaseResult(const rapidjson::Value& obj) : GetPurchaseResult()
@@ -10474,14 +10577,6 @@ namespace PlayFab
                 if (TransactionId.length() > 0) { writer.String("TransactionId"); writer.String(TransactionId.c_str()); }
                 if (TransactionStatus.length() > 0) { writer.String("TransactionStatus"); writer.String(TransactionStatus.c_str()); }
                 writer.String("PurchaseDate"); writeDatetime(PurchaseDate, writer);
-                if (!Items.empty()) {
-    writer.String("Items");
-    writer.StartArray();
-    for (std::list<ItemInstance>::iterator iter = Items.begin(); iter != Items.end(); iter++) {
-        iter->writeJSON(writer);
-    }
-    writer.EndArray();
-     }
                 writer.EndObject();
             }
 
@@ -10497,13 +10592,6 @@ namespace PlayFab
                 if (TransactionStatus_member != obj.MemberEnd() && !TransactionStatus_member->value.IsNull()) TransactionStatus = TransactionStatus_member->value.GetString();
                 const Value::ConstMemberIterator PurchaseDate_member = obj.FindMember("PurchaseDate");
                 if (PurchaseDate_member != obj.MemberEnd() && !PurchaseDate_member->value.IsNull()) PurchaseDate = readDatetime(PurchaseDate_member->value);
-                const Value::ConstMemberIterator Items_member = obj.FindMember("Items");
-    if (Items_member != obj.MemberEnd()) {
-        const rapidjson::Value& memberList = Items_member->value;
-        for (SizeType i = 0; i < memberList.Size(); i++) {
-            Items.push_back(ItemInstance(memberList[i]));
-        }
-    }
 
                 return true;
             }
@@ -15304,12 +15392,12 @@ namespace PlayFab
 
         struct ReportPlayerClientResult : public PlayFabBaseModel
         {
-            bool Updated;
+            OptionalBool Updated;
             Int32 SubmissionsRemaining;
 
             ReportPlayerClientResult() :
                 PlayFabBaseModel(),
-                Updated(false),
+                Updated(),
                 SubmissionsRemaining(0)
             {}
 
@@ -15331,7 +15419,7 @@ namespace PlayFab
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                writer.String("Updated"); writer.Bool(Updated);
+                if (Updated.notNull()) { writer.String("Updated"); writer.Bool(Updated); }
                 writer.String("SubmissionsRemaining"); writer.Int(SubmissionsRemaining);
                 writer.EndObject();
             }
