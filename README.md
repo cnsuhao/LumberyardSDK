@@ -35,7 +35,7 @@ The PlayFab platform runs on AWS, and PlayFab has express permission from Amazon
 * Follow the "Programming" series of tutorials to set up your Lumberyard environment (halfway down the page, search for "Programming")
  * https://gamedev.amazon.com/forums/tutorials
 
-Users should be very familiar with the topics covered in our [getting started guide](https://playfab.com/docs/getting-started-with-playfab/).
+Users should be very familiar with the topics covered in our [getting started guide](https://api.playfab.com/docs/general-getting-started).
 To connect to the PlayFab service, your machine must be running TLS v1.2 or better.
 * For Windows, this means Windows 7 and above
 * [Official Microsoft Documentation](https://msdn.microsoft.com/en-us/library/windows/desktop/aa380516%28v=vs.85%29.aspx)
