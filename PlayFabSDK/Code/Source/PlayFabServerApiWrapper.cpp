@@ -382,11 +382,6 @@ void PlayFabServerApiWrapper::SetGameServerInstanceTags(ServerModels::SetGameSer
     PlayFabServerApi::SetGameServerInstanceTags(request, callback, errorCallback, customData);
 }
 
-void PlayFabServerApiWrapper::AwardSteamAchievement(ServerModels::AwardSteamAchievementRequest& request, ProcessApiCallback<ServerModels::AwardSteamAchievementResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabServerApi::AwardSteamAchievement(request, callback, errorCallback, customData);
-}
-
 void PlayFabServerApiWrapper::WriteCharacterEvent(ServerModels::WriteServerCharacterEventRequest& request, ProcessApiCallback<ServerModels::WriteEventResponse> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::WriteCharacterEvent(request, callback, errorCallback, customData);
@@ -545,5 +540,10 @@ void PlayFabServerApiWrapper::GetPlayerTags(ServerModels::GetPlayerTagsRequest& 
 void PlayFabServerApiWrapper::RemovePlayerTag(ServerModels::RemovePlayerTagRequest& request, ProcessApiCallback<ServerModels::RemovePlayerTagResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::RemovePlayerTag(request, callback, errorCallback, customData);
+}
+
+void PlayFabServerApiWrapper::AwardSteamAchievement(ServerModels::AwardSteamAchievementRequest& request, ProcessApiCallback<ServerModels::AwardSteamAchievementResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::AwardSteamAchievement(request, callback, errorCallback, customData);
 }
 

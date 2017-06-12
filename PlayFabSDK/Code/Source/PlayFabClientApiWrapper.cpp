@@ -458,21 +458,6 @@ void PlayFabClientApiWrapper::SetFriendTags(ClientModels::SetFriendTagsRequest& 
     PlayFabClientApi::SetFriendTags(request, callback, errorCallback, customData);
 }
 
-void PlayFabClientApiWrapper::RegisterForIOSPushNotification(ClientModels::RegisterForIOSPushNotificationRequest& request, ProcessApiCallback<ClientModels::RegisterForIOSPushNotificationResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::RegisterForIOSPushNotification(request, callback, errorCallback, customData);
-}
-
-void PlayFabClientApiWrapper::RestoreIOSPurchases(ClientModels::RestoreIOSPurchasesRequest& request, ProcessApiCallback<ClientModels::RestoreIOSPurchasesResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::RestoreIOSPurchases(request, callback, errorCallback, customData);
-}
-
-void PlayFabClientApiWrapper::ValidateIOSReceipt(ClientModels::ValidateIOSReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateIOSReceiptResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::ValidateIOSReceipt(request, callback, errorCallback, customData);
-}
-
 void PlayFabClientApiWrapper::GetCurrentGames(ClientModels::CurrentGamesRequest& request, ProcessApiCallback<ClientModels::CurrentGamesResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::GetCurrentGames(request, callback, errorCallback, customData);
@@ -491,16 +476,6 @@ void PlayFabClientApiWrapper::Matchmake(ClientModels::MatchmakeRequest& request,
 void PlayFabClientApiWrapper::StartGame(ClientModels::StartGameRequest& request, ProcessApiCallback<ClientModels::StartGameResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::StartGame(request, callback, errorCallback, customData);
-}
-
-void PlayFabClientApiWrapper::AndroidDevicePushNotificationRegistration(ClientModels::AndroidDevicePushNotificationRegistrationRequest& request, ProcessApiCallback<ClientModels::AndroidDevicePushNotificationRegistrationResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::AndroidDevicePushNotificationRegistration(request, callback, errorCallback, customData);
-}
-
-void PlayFabClientApiWrapper::ValidateGooglePlayPurchase(ClientModels::ValidateGooglePlayPurchaseRequest& request, ProcessApiCallback<ClientModels::ValidateGooglePlayPurchaseResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::ValidateGooglePlayPurchase(request, callback, errorCallback, customData);
 }
 
 void PlayFabClientApiWrapper::WriteCharacterEvent(ClientModels::WriteClientCharacterEventRequest& request, ProcessApiCallback<ClientModels::WriteEventResponse> callback, ErrorCallback errorCallback, void* customData)
@@ -603,11 +578,6 @@ void PlayFabClientApiWrapper::UpdateCharacterData(ClientModels::UpdateCharacterD
     PlayFabClientApi::UpdateCharacterData(request, callback, errorCallback, customData);
 }
 
-void PlayFabClientApiWrapper::ValidateAmazonIAPReceipt(ClientModels::ValidateAmazonReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateAmazonReceiptResult> callback, ErrorCallback errorCallback, void* customData)
-{
-    PlayFabClientApi::ValidateAmazonIAPReceipt(request, callback, errorCallback, customData);
-}
-
 void PlayFabClientApiWrapper::AcceptTrade(ClientModels::AcceptTradeRequest& request, ProcessApiCallback<ClientModels::AcceptTradeResponse> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::AcceptTrade(request, callback, errorCallback, customData);
@@ -646,6 +616,36 @@ void PlayFabClientApiWrapper::GetPlayerSegments(ProcessApiCallback<ClientModels:
 void PlayFabClientApiWrapper::GetPlayerTags(ClientModels::GetPlayerTagsRequest& request, ProcessApiCallback<ClientModels::GetPlayerTagsResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::GetPlayerTags(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::AndroidDevicePushNotificationRegistration(ClientModels::AndroidDevicePushNotificationRegistrationRequest& request, ProcessApiCallback<ClientModels::AndroidDevicePushNotificationRegistrationResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::AndroidDevicePushNotificationRegistration(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::RegisterForIOSPushNotification(ClientModels::RegisterForIOSPushNotificationRequest& request, ProcessApiCallback<ClientModels::RegisterForIOSPushNotificationResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::RegisterForIOSPushNotification(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::RestoreIOSPurchases(ClientModels::RestoreIOSPurchasesRequest& request, ProcessApiCallback<ClientModels::RestoreIOSPurchasesResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::RestoreIOSPurchases(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::ValidateAmazonIAPReceipt(ClientModels::ValidateAmazonReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateAmazonReceiptResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::ValidateAmazonIAPReceipt(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::ValidateGooglePlayPurchase(ClientModels::ValidateGooglePlayPurchaseRequest& request, ProcessApiCallback<ClientModels::ValidateGooglePlayPurchaseResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::ValidateGooglePlayPurchase(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::ValidateIOSReceipt(ClientModels::ValidateIOSReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateIOSReceiptResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::ValidateIOSReceipt(request, callback, errorCallback, customData);
 }
 
 void PlayFabClientApiWrapper::ValidateWindowsStoreReceipt(ClientModels::ValidateWindowsReceiptRequest& request, ProcessApiCallback<ClientModels::ValidateWindowsReceiptResult> callback, ErrorCallback errorCallback, void* customData)
