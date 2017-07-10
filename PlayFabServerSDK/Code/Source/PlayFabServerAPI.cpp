@@ -38,6 +38,36 @@ void PlayFabServerApi::OnAuthenticateSessionTicketResult(PlayFabRequest* request
     }
 }
 
+void PlayFabServerApi::SetPlayerSecret(
+    SetPlayerSecretRequest& request,
+    ProcessApiCallback<SetPlayerSecretResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Server/SetPlayerSecret"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings.developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSetPlayerSecretResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnSetPlayerSecretResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        SetPlayerSecretResult* outResult = new SetPlayerSecretResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<SetPlayerSecretResult> successCallback = reinterpret_cast<ProcessApiCallback<SetPlayerSecretResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabServerApi::BanUsers(
     BanUsersRequest& request,
     ProcessApiCallback<BanUsersResult> callback,

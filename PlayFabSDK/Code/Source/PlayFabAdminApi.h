@@ -10,7 +10,12 @@ namespace PlayFab
     class PlayFabAdminApi
     {
     public:        // ------------ Generated Api calls
+        static void CreatePlayerSharedSecret(AdminModels::CreatePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::CreatePlayerSharedSecretResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void DeletePlayerSharedSecret(AdminModels::DeletePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::DeletePlayerSharedSecretResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void GetPlayerSharedSecrets(ProcessApiCallback<AdminModels::GetPlayerSharedSecretsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPolicy(AdminModels::GetPolicyRequest& request, ProcessApiCallback<AdminModels::GetPolicyResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void SetPlayerSecret(AdminModels::SetPlayerSecretRequest& request, ProcessApiCallback<AdminModels::SetPlayerSecretResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void UpdatePlayerSharedSecret(AdminModels::UpdatePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::UpdatePlayerSharedSecretResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void UpdatePolicy(AdminModels::UpdatePolicyRequest& request, ProcessApiCallback<AdminModels::UpdatePolicyResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void BanUsers(AdminModels::BanUsersRequest& request, ProcessApiCallback<AdminModels::BanUsersResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetUserAccountInfo(AdminModels::LookupUserAccountInfoRequest& request, ProcessApiCallback<AdminModels::LookupUserAccountInfoResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -108,7 +113,12 @@ namespace PlayFab
         PlayFabAdminApi();
 
         // ------------ Generated result handlers
+        static void OnCreatePlayerSharedSecretResult(PlayFabRequest* request);
+        static void OnDeletePlayerSharedSecretResult(PlayFabRequest* request);
+        static void OnGetPlayerSharedSecretsResult(PlayFabRequest* request);
         static void OnGetPolicyResult(PlayFabRequest* request);
+        static void OnSetPlayerSecretResult(PlayFabRequest* request);
+        static void OnUpdatePlayerSharedSecretResult(PlayFabRequest* request);
         static void OnUpdatePolicyResult(PlayFabRequest* request);
         static void OnBanUsersResult(PlayFabRequest* request);
         static void OnGetUserAccountInfoResult(PlayFabRequest* request);

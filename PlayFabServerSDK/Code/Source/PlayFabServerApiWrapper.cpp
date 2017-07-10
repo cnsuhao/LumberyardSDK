@@ -12,6 +12,11 @@ void PlayFabServerApiWrapper::AuthenticateSessionTicket(ServerModels::Authentica
     PlayFabServerApi::AuthenticateSessionTicket(request, callback, errorCallback, customData);
 }
 
+void PlayFabServerApiWrapper::SetPlayerSecret(ServerModels::SetPlayerSecretRequest& request, ProcessApiCallback<ServerModels::SetPlayerSecretResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabServerApi::SetPlayerSecret(request, callback, errorCallback, customData);
+}
+
 void PlayFabServerApiWrapper::BanUsers(ServerModels::BanUsersRequest& request, ProcessApiCallback<ServerModels::BanUsersResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabServerApi::BanUsers(request, callback, errorCallback, customData);

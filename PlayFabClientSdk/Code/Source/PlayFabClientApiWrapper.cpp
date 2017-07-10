@@ -18,6 +18,11 @@ void PlayFabClientApiWrapper::GetPhotonAuthenticationToken(ClientModels::GetPhot
     PlayFabClientApi::GetPhotonAuthenticationToken(request, callback, errorCallback, customData);
 }
 
+void PlayFabClientApiWrapper::GetTitlePublicKey(ClientModels::GetTitlePublicKeyRequest& request, ProcessApiCallback<ClientModels::GetTitlePublicKeyResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::GetTitlePublicKey(request, callback, errorCallback, customData);
+}
+
 void PlayFabClientApiWrapper::GetWindowsHelloChallenge(ClientModels::GetWindowsHelloChallengeRequest& request, ProcessApiCallback<ClientModels::GetWindowsHelloChallengeResponse> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::GetWindowsHelloChallenge(request, callback, errorCallback, customData);
@@ -91,6 +96,11 @@ void PlayFabClientApiWrapper::RegisterPlayFabUser(ClientModels::RegisterPlayFabU
 void PlayFabClientApiWrapper::RegisterWithWindowsHello(ClientModels::RegisterWithWindowsHelloRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabClientApi::RegisterWithWindowsHello(request, callback, errorCallback, customData);
+}
+
+void PlayFabClientApiWrapper::SetPlayerSecret(ClientModels::SetPlayerSecretRequest& request, ProcessApiCallback<ClientModels::SetPlayerSecretResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabClientApi::SetPlayerSecret(request, callback, errorCallback, customData);
 }
 
 void PlayFabClientApiWrapper::AddGenericID(ClientModels::AddGenericIDRequest& request, ProcessApiCallback<ClientModels::AddGenericIDResult> callback, ErrorCallback errorCallback, void* customData)

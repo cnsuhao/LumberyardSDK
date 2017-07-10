@@ -6604,7 +6604,6 @@ namespace PlayFab
             OptionalBool IncludeSteamFriends;
             OptionalBool IncludeFacebookFriends;
             OptionalInt32 Version;
-            OptionalBool UseSpecificVersion;
             PlayerProfileViewConstraints* ProfileConstraints;
 
             GetFriendLeaderboardAroundPlayerRequest() :
@@ -6615,7 +6614,6 @@ namespace PlayFab
                 IncludeSteamFriends(),
                 IncludeFacebookFriends(),
                 Version(),
-                UseSpecificVersion(),
                 ProfileConstraints(nullptr)
             {}
 
@@ -6627,7 +6625,6 @@ namespace PlayFab
                 IncludeSteamFriends(src.IncludeSteamFriends),
                 IncludeFacebookFriends(src.IncludeFacebookFriends),
                 Version(src.Version),
-                UseSpecificVersion(src.UseSpecificVersion),
                 ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
             {}
 
@@ -6650,7 +6647,6 @@ namespace PlayFab
                 if (IncludeSteamFriends.notNull()) { writer.String("IncludeSteamFriends"); writer.Bool(IncludeSteamFriends); }
                 if (IncludeFacebookFriends.notNull()) { writer.String("IncludeFacebookFriends"); writer.Bool(IncludeFacebookFriends); }
                 if (Version.notNull()) { writer.String("Version"); writer.Int(Version); }
-                if (UseSpecificVersion.notNull()) { writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion); }
                 if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
                 writer.EndObject();
             }
@@ -6669,8 +6665,6 @@ namespace PlayFab
                 if (IncludeFacebookFriends_member != obj.MemberEnd() && !IncludeFacebookFriends_member->value.IsNull()) IncludeFacebookFriends = IncludeFacebookFriends_member->value.GetBool();
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
-                const Value::ConstMemberIterator UseSpecificVersion_member = obj.FindMember("UseSpecificVersion");
-                if (UseSpecificVersion_member != obj.MemberEnd() && !UseSpecificVersion_member->value.IsNull()) UseSpecificVersion = UseSpecificVersion_member->value.GetBool();
                 const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
                 if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
 
@@ -7505,7 +7499,6 @@ namespace PlayFab
             OptionalBool IncludeSteamFriends;
             OptionalBool IncludeFacebookFriends;
             OptionalInt32 Version;
-            OptionalBool UseSpecificVersion;
             PlayerProfileViewConstraints* ProfileConstraints;
 
             GetFriendLeaderboardRequest() :
@@ -7516,7 +7509,6 @@ namespace PlayFab
                 IncludeSteamFriends(),
                 IncludeFacebookFriends(),
                 Version(),
-                UseSpecificVersion(),
                 ProfileConstraints(nullptr)
             {}
 
@@ -7528,7 +7520,6 @@ namespace PlayFab
                 IncludeSteamFriends(src.IncludeSteamFriends),
                 IncludeFacebookFriends(src.IncludeFacebookFriends),
                 Version(src.Version),
-                UseSpecificVersion(src.UseSpecificVersion),
                 ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
             {}
 
@@ -7551,7 +7542,6 @@ namespace PlayFab
                 if (IncludeSteamFriends.notNull()) { writer.String("IncludeSteamFriends"); writer.Bool(IncludeSteamFriends); }
                 if (IncludeFacebookFriends.notNull()) { writer.String("IncludeFacebookFriends"); writer.Bool(IncludeFacebookFriends); }
                 if (Version.notNull()) { writer.String("Version"); writer.Int(Version); }
-                if (UseSpecificVersion.notNull()) { writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion); }
                 if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
                 writer.EndObject();
             }
@@ -7570,8 +7560,6 @@ namespace PlayFab
                 if (IncludeFacebookFriends_member != obj.MemberEnd() && !IncludeFacebookFriends_member->value.IsNull()) IncludeFacebookFriends = IncludeFacebookFriends_member->value.GetBool();
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
-                const Value::ConstMemberIterator UseSpecificVersion_member = obj.FindMember("UseSpecificVersion");
-                if (UseSpecificVersion_member != obj.MemberEnd() && !UseSpecificVersion_member->value.IsNull()) UseSpecificVersion = UseSpecificVersion_member->value.GetBool();
                 const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
                 if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
 
@@ -7789,7 +7777,6 @@ namespace PlayFab
             Aws::String StatisticName;
             OptionalInt32 MaxResultsCount;
             OptionalInt32 Version;
-            OptionalBool UseSpecificVersion;
             PlayerProfileViewConstraints* ProfileConstraints;
 
             GetLeaderboardAroundPlayerRequest() :
@@ -7798,7 +7785,6 @@ namespace PlayFab
                 StatisticName(),
                 MaxResultsCount(),
                 Version(),
-                UseSpecificVersion(),
                 ProfileConstraints(nullptr)
             {}
 
@@ -7808,7 +7794,6 @@ namespace PlayFab
                 StatisticName(src.StatisticName),
                 MaxResultsCount(src.MaxResultsCount),
                 Version(src.Version),
-                UseSpecificVersion(src.UseSpecificVersion),
                 ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
             {}
 
@@ -7829,7 +7814,6 @@ namespace PlayFab
                 writer.String("StatisticName"); writer.String(StatisticName.c_str());
                 if (MaxResultsCount.notNull()) { writer.String("MaxResultsCount"); writer.Int(MaxResultsCount); }
                 if (Version.notNull()) { writer.String("Version"); writer.Int(Version); }
-                if (UseSpecificVersion.notNull()) { writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion); }
                 if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
                 writer.EndObject();
             }
@@ -7844,8 +7828,6 @@ namespace PlayFab
                 if (MaxResultsCount_member != obj.MemberEnd() && !MaxResultsCount_member->value.IsNull()) MaxResultsCount = MaxResultsCount_member->value.GetInt();
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
-                const Value::ConstMemberIterator UseSpecificVersion_member = obj.FindMember("UseSpecificVersion");
-                if (UseSpecificVersion_member != obj.MemberEnd() && !UseSpecificVersion_member->value.IsNull()) UseSpecificVersion = UseSpecificVersion_member->value.GetBool();
                 const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
                 if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
 
@@ -8018,7 +8000,6 @@ namespace PlayFab
             Int32 StartPosition;
             OptionalInt32 MaxResultsCount;
             OptionalInt32 Version;
-            OptionalBool UseSpecificVersion;
             PlayerProfileViewConstraints* ProfileConstraints;
 
             GetLeaderboardRequest() :
@@ -8027,7 +8008,6 @@ namespace PlayFab
                 StartPosition(0),
                 MaxResultsCount(),
                 Version(),
-                UseSpecificVersion(),
                 ProfileConstraints(nullptr)
             {}
 
@@ -8037,7 +8017,6 @@ namespace PlayFab
                 StartPosition(src.StartPosition),
                 MaxResultsCount(src.MaxResultsCount),
                 Version(src.Version),
-                UseSpecificVersion(src.UseSpecificVersion),
                 ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
             {}
 
@@ -8058,7 +8037,6 @@ namespace PlayFab
                 writer.String("StartPosition"); writer.Int(StartPosition);
                 if (MaxResultsCount.notNull()) { writer.String("MaxResultsCount"); writer.Int(MaxResultsCount); }
                 if (Version.notNull()) { writer.String("Version"); writer.Int(Version); }
-                if (UseSpecificVersion.notNull()) { writer.String("UseSpecificVersion"); writer.Bool(UseSpecificVersion); }
                 if (ProfileConstraints != nullptr) { writer.String("ProfileConstraints"); ProfileConstraints->writeJSON(writer); }
                 writer.EndObject();
             }
@@ -8073,8 +8051,6 @@ namespace PlayFab
                 if (MaxResultsCount_member != obj.MemberEnd() && !MaxResultsCount_member->value.IsNull()) MaxResultsCount = MaxResultsCount_member->value.GetInt();
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
-                const Value::ConstMemberIterator UseSpecificVersion_member = obj.FindMember("UseSpecificVersion");
-                if (UseSpecificVersion_member != obj.MemberEnd() && !UseSpecificVersion_member->value.IsNull()) UseSpecificVersion = UseSpecificVersion_member->value.GetBool();
                 const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
                 if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
 
@@ -11400,6 +11376,90 @@ namespace PlayFab
             News.push_back(TitleNewsItem(memberList[i]));
         }
     }
+
+                return true;
+            }
+        };
+
+        struct GetTitlePublicKeyRequest : public PlayFabBaseModel
+        {
+            Aws::String TitleId;
+            Aws::String TitleSharedSecret;
+
+            GetTitlePublicKeyRequest() :
+                PlayFabBaseModel(),
+                TitleId(),
+                TitleSharedSecret()
+            {}
+
+            GetTitlePublicKeyRequest(const GetTitlePublicKeyRequest& src) :
+                PlayFabBaseModel(),
+                TitleId(src.TitleId),
+                TitleSharedSecret(src.TitleSharedSecret)
+            {}
+
+            GetTitlePublicKeyRequest(const rapidjson::Value& obj) : GetTitlePublicKeyRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetTitlePublicKeyRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("TitleId"); writer.String(TitleId.c_str());
+                writer.String("TitleSharedSecret"); writer.String(TitleSharedSecret.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
+                if (TitleId_member != obj.MemberEnd() && !TitleId_member->value.IsNull()) TitleId = TitleId_member->value.GetString();
+                const Value::ConstMemberIterator TitleSharedSecret_member = obj.FindMember("TitleSharedSecret");
+                if (TitleSharedSecret_member != obj.MemberEnd() && !TitleSharedSecret_member->value.IsNull()) TitleSharedSecret = TitleSharedSecret_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct GetTitlePublicKeyResult : public PlayFabBaseModel
+        {
+            Aws::String RSAPublicKey;
+
+            GetTitlePublicKeyResult() :
+                PlayFabBaseModel(),
+                RSAPublicKey()
+            {}
+
+            GetTitlePublicKeyResult(const GetTitlePublicKeyResult& src) :
+                PlayFabBaseModel(),
+                RSAPublicKey(src.RSAPublicKey)
+            {}
+
+            GetTitlePublicKeyResult(const rapidjson::Value& obj) : GetTitlePublicKeyResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetTitlePublicKeyResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (RSAPublicKey.length() > 0) { writer.String("RSAPublicKey"); writer.String(RSAPublicKey.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator RSAPublicKey_member = obj.FindMember("RSAPublicKey");
+                if (RSAPublicKey_member != obj.MemberEnd() && !RSAPublicKey_member->value.IsNull()) RSAPublicKey = RSAPublicKey_member->value.GetString();
 
                 return true;
             }
@@ -15658,6 +15718,84 @@ namespace PlayFab
             }
 
             ~SetFriendTagsResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
+        struct SetPlayerSecretRequest : public PlayFabBaseModel
+        {
+            Aws::String PlayerSecret;
+            Aws::String EncryptedRequest;
+
+            SetPlayerSecretRequest() :
+                PlayFabBaseModel(),
+                PlayerSecret(),
+                EncryptedRequest()
+            {}
+
+            SetPlayerSecretRequest(const SetPlayerSecretRequest& src) :
+                PlayFabBaseModel(),
+                PlayerSecret(src.PlayerSecret),
+                EncryptedRequest(src.EncryptedRequest)
+            {}
+
+            SetPlayerSecretRequest(const rapidjson::Value& obj) : SetPlayerSecretRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~SetPlayerSecretRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (PlayerSecret.length() > 0) { writer.String("PlayerSecret"); writer.String(PlayerSecret.c_str()); }
+                if (EncryptedRequest.length() > 0) { writer.String("EncryptedRequest"); writer.String(EncryptedRequest.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
+                if (PlayerSecret_member != obj.MemberEnd() && !PlayerSecret_member->value.IsNull()) PlayerSecret = PlayerSecret_member->value.GetString();
+                const Value::ConstMemberIterator EncryptedRequest_member = obj.FindMember("EncryptedRequest");
+                if (EncryptedRequest_member != obj.MemberEnd() && !EncryptedRequest_member->value.IsNull()) EncryptedRequest = EncryptedRequest_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct SetPlayerSecretResult : public PlayFabBaseModel
+        {
+
+            SetPlayerSecretResult() :
+                PlayFabBaseModel()
+            {}
+
+            SetPlayerSecretResult(const SetPlayerSecretResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            SetPlayerSecretResult(const rapidjson::Value& obj) : SetPlayerSecretResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~SetPlayerSecretResult()
             {
             }
 

@@ -15,6 +15,7 @@ namespace PlayFab
 
         // ------------ Generated Api calls
         static void GetPhotonAuthenticationToken(ClientModels::GetPhotonAuthenticationTokenRequest& request, ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void GetTitlePublicKey(ClientModels::GetTitlePublicKeyRequest& request, ProcessApiCallback<ClientModels::GetTitlePublicKeyResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetWindowsHelloChallenge(ClientModels::GetWindowsHelloChallengeRequest& request, ProcessApiCallback<ClientModels::GetWindowsHelloChallengeResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void LoginWithAndroidDeviceID(ClientModels::LoginWithAndroidDeviceIDRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void LoginWithCustomID(ClientModels::LoginWithCustomIDRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -30,6 +31,7 @@ namespace PlayFab
         static void LoginWithWindowsHello(ClientModels::LoginWithWindowsHelloRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void RegisterPlayFabUser(ClientModels::RegisterPlayFabUserRequest& request, ProcessApiCallback<ClientModels::RegisterPlayFabUserResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void RegisterWithWindowsHello(ClientModels::RegisterWithWindowsHelloRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void SetPlayerSecret(ClientModels::SetPlayerSecretRequest& request, ProcessApiCallback<ClientModels::SetPlayerSecretResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void AddGenericID(ClientModels::AddGenericIDRequest& request, ProcessApiCallback<ClientModels::AddGenericIDResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void AddUsernamePassword(ClientModels::AddUsernamePasswordRequest& request, ProcessApiCallback<ClientModels::AddUsernamePasswordResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetAccountInfo(ClientModels::GetAccountInfoRequest& request, ProcessApiCallback<ClientModels::GetAccountInfoResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -149,6 +151,7 @@ namespace PlayFab
 
         // ------------ Generated result handlers
         static void OnGetPhotonAuthenticationTokenResult(PlayFabRequest* request);
+        static void OnGetTitlePublicKeyResult(PlayFabRequest* request);
         static void OnGetWindowsHelloChallengeResult(PlayFabRequest* request);
         static void OnLoginWithAndroidDeviceIDResult(PlayFabRequest* request);
         static void OnLoginWithCustomIDResult(PlayFabRequest* request);
@@ -164,6 +167,7 @@ namespace PlayFab
         static void OnLoginWithWindowsHelloResult(PlayFabRequest* request);
         static void OnRegisterPlayFabUserResult(PlayFabRequest* request);
         static void OnRegisterWithWindowsHelloResult(PlayFabRequest* request);
+        static void OnSetPlayerSecretResult(PlayFabRequest* request);
         static void OnAddGenericIDResult(PlayFabRequest* request);
         static void OnAddUsernamePasswordResult(PlayFabRequest* request);
         static void OnGetAccountInfoResult(PlayFabRequest* request);

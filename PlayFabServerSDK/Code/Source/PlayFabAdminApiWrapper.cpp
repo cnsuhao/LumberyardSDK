@@ -7,9 +7,34 @@ PlayFabAdminApiWrapper PlayFabAdminApiWrapper::globalWrapper;
 
 // ------------ Generated API call wrappers
 
+void PlayFabAdminApiWrapper::CreatePlayerSharedSecret(AdminModels::CreatePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::CreatePlayerSharedSecretResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::CreatePlayerSharedSecret(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::DeletePlayerSharedSecret(AdminModels::DeletePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::DeletePlayerSharedSecretResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::DeletePlayerSharedSecret(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::GetPlayerSharedSecrets(ProcessApiCallback<AdminModels::GetPlayerSharedSecretsResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::GetPlayerSharedSecrets(callback, errorCallback, customData);
+}
+
 void PlayFabAdminApiWrapper::GetPolicy(AdminModels::GetPolicyRequest& request, ProcessApiCallback<AdminModels::GetPolicyResponse> callback, ErrorCallback errorCallback, void* customData)
 {
     PlayFabAdminApi::GetPolicy(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::SetPlayerSecret(AdminModels::SetPlayerSecretRequest& request, ProcessApiCallback<AdminModels::SetPlayerSecretResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::SetPlayerSecret(request, callback, errorCallback, customData);
+}
+
+void PlayFabAdminApiWrapper::UpdatePlayerSharedSecret(AdminModels::UpdatePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::UpdatePlayerSharedSecretResult> callback, ErrorCallback errorCallback, void* customData)
+{
+    PlayFabAdminApi::UpdatePlayerSharedSecret(request, callback, errorCallback, customData);
 }
 
 void PlayFabAdminApiWrapper::UpdatePolicy(AdminModels::UpdatePolicyRequest& request, ProcessApiCallback<AdminModels::UpdatePolicyResponse> callback, ErrorCallback errorCallback, void* customData)

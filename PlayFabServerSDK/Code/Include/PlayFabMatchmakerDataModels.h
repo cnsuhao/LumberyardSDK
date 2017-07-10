@@ -518,6 +518,7 @@ namespace PlayFab
 
         struct RegisterGameRequest : public PlayFabBaseModel
         {
+            Aws::String LobbyId;
             Aws::String ServerHost;
             Aws::String ServerPort;
             Aws::String Build;
@@ -527,6 +528,7 @@ namespace PlayFab
 
             RegisterGameRequest() :
                 PlayFabBaseModel(),
+                LobbyId(),
                 ServerHost(),
                 ServerPort(),
                 Build(),
@@ -537,6 +539,7 @@ namespace PlayFab
 
             RegisterGameRequest(const RegisterGameRequest& src) :
                 PlayFabBaseModel(),
+                LobbyId(src.LobbyId),
                 ServerHost(src.ServerHost),
                 ServerPort(src.ServerPort),
                 Build(src.Build),
@@ -557,6 +560,7 @@ namespace PlayFab
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
+                if (LobbyId.length() > 0) { writer.String("LobbyId"); writer.String(LobbyId.c_str()); }
                 writer.String("ServerHost"); writer.String(ServerHost.c_str());
                 writer.String("ServerPort"); writer.String(ServerPort.c_str());
                 writer.String("Build"); writer.String(Build.c_str());
@@ -575,6 +579,8 @@ namespace PlayFab
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
+                const Value::ConstMemberIterator LobbyId_member = obj.FindMember("LobbyId");
+                if (LobbyId_member != obj.MemberEnd() && !LobbyId_member->value.IsNull()) LobbyId = LobbyId_member->value.GetString();
                 const Value::ConstMemberIterator ServerHost_member = obj.FindMember("ServerHost");
                 if (ServerHost_member != obj.MemberEnd() && !ServerHost_member->value.IsNull()) ServerHost = ServerHost_member->value.GetString();
                 const Value::ConstMemberIterator ServerPort_member = obj.FindMember("ServerPort");

@@ -61,6 +61,36 @@ void PlayFabClientApi::OnGetPhotonAuthenticationTokenResult(PlayFabRequest* requ
     }
 }
 
+void PlayFabClientApi::GetTitlePublicKey(
+    GetTitlePublicKeyRequest& request,
+    ProcessApiCallback<GetTitlePublicKeyResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/GetTitlePublicKey"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnGetTitlePublicKeyResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnGetTitlePublicKeyResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        GetTitlePublicKeyResult* outResult = new GetTitlePublicKeyResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<GetTitlePublicKeyResult> successCallback = reinterpret_cast<ProcessApiCallback<GetTitlePublicKeyResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabClientApi::GetWindowsHelloChallenge(
     GetWindowsHelloChallengeRequest& request,
     ProcessApiCallback<GetWindowsHelloChallengeResponse> callback,
@@ -574,6 +604,36 @@ void PlayFabClientApi::OnRegisterWithWindowsHelloResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<LoginResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabClientApi::SetPlayerSecret(
+    SetPlayerSecretRequest& request,
+    ProcessApiCallback<SetPlayerSecretResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+    )
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings.getURL("/Client/SetPlayerSecret"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnSetPlayerSecretResult);
+    PlayFabRequestManager::playFabHttp.AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnSetPlayerSecretResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        SetPlayerSecretResult* outResult = new SetPlayerSecretResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<SetPlayerSecretResult> successCallback = reinterpret_cast<ProcessApiCallback<SetPlayerSecretResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;

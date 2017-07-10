@@ -3169,6 +3169,84 @@ namespace PlayFab
             }
         };
 
+        struct CreatePlayerSharedSecretRequest : public PlayFabBaseModel
+        {
+            Aws::String FriendlyName;
+
+            CreatePlayerSharedSecretRequest() :
+                PlayFabBaseModel(),
+                FriendlyName()
+            {}
+
+            CreatePlayerSharedSecretRequest(const CreatePlayerSharedSecretRequest& src) :
+                PlayFabBaseModel(),
+                FriendlyName(src.FriendlyName)
+            {}
+
+            CreatePlayerSharedSecretRequest(const rapidjson::Value& obj) : CreatePlayerSharedSecretRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~CreatePlayerSharedSecretRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (FriendlyName.length() > 0) { writer.String("FriendlyName"); writer.String(FriendlyName.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator FriendlyName_member = obj.FindMember("FriendlyName");
+                if (FriendlyName_member != obj.MemberEnd() && !FriendlyName_member->value.IsNull()) FriendlyName = FriendlyName_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct CreatePlayerSharedSecretResult : public PlayFabBaseModel
+        {
+            Aws::String SecretKey;
+
+            CreatePlayerSharedSecretResult() :
+                PlayFabBaseModel(),
+                SecretKey()
+            {}
+
+            CreatePlayerSharedSecretResult(const CreatePlayerSharedSecretResult& src) :
+                PlayFabBaseModel(),
+                SecretKey(src.SecretKey)
+            {}
+
+            CreatePlayerSharedSecretResult(const rapidjson::Value& obj) : CreatePlayerSharedSecretResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~CreatePlayerSharedSecretResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (SecretKey.length() > 0) { writer.String("SecretKey"); writer.String(SecretKey.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator SecretKey_member = obj.FindMember("SecretKey");
+                if (SecretKey_member != obj.MemberEnd() && !SecretKey_member->value.IsNull()) SecretKey = SecretKey_member->value.GetString();
+
+                return true;
+            }
+        };
+
         enum StatisticResetIntervalOption
         {
             StatisticResetIntervalOptionNever,
@@ -3987,6 +4065,78 @@ namespace PlayFab
             {
                 const Value::ConstMemberIterator Key_member = obj.FindMember("Key");
                 if (Key_member != obj.MemberEnd() && !Key_member->value.IsNull()) Key = Key_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct DeletePlayerSharedSecretRequest : public PlayFabBaseModel
+        {
+            Aws::String SecretKey;
+
+            DeletePlayerSharedSecretRequest() :
+                PlayFabBaseModel(),
+                SecretKey()
+            {}
+
+            DeletePlayerSharedSecretRequest(const DeletePlayerSharedSecretRequest& src) :
+                PlayFabBaseModel(),
+                SecretKey(src.SecretKey)
+            {}
+
+            DeletePlayerSharedSecretRequest(const rapidjson::Value& obj) : DeletePlayerSharedSecretRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~DeletePlayerSharedSecretRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (SecretKey.length() > 0) { writer.String("SecretKey"); writer.String(SecretKey.c_str()); }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator SecretKey_member = obj.FindMember("SecretKey");
+                if (SecretKey_member != obj.MemberEnd() && !SecretKey_member->value.IsNull()) SecretKey = SecretKey_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct DeletePlayerSharedSecretResult : public PlayFabBaseModel
+        {
+
+            DeletePlayerSharedSecretResult() :
+                PlayFabBaseModel()
+            {}
+
+            DeletePlayerSharedSecretResult(const DeletePlayerSharedSecretResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            DeletePlayerSharedSecretResult(const rapidjson::Value& obj) : DeletePlayerSharedSecretResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~DeletePlayerSharedSecretResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
 
                 return true;
             }
@@ -5534,6 +5684,141 @@ namespace PlayFab
         const rapidjson::Value& memberList = Segments_member->value;
         for (SizeType i = 0; i < memberList.Size(); i++) {
             Segments.push_back(GetSegmentResult(memberList[i]));
+        }
+    }
+
+                return true;
+            }
+        };
+
+        struct GetPlayerSharedSecretsRequest : public PlayFabBaseModel
+        {
+
+            GetPlayerSharedSecretsRequest() :
+                PlayFabBaseModel()
+            {}
+
+            GetPlayerSharedSecretsRequest(const GetPlayerSharedSecretsRequest& src) :
+                PlayFabBaseModel()
+            {}
+
+            GetPlayerSharedSecretsRequest(const rapidjson::Value& obj) : GetPlayerSharedSecretsRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayerSharedSecretsRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
+        struct SharedSecret : public PlayFabBaseModel
+        {
+            Aws::String SecretKey;
+            Aws::String FriendlyName;
+            bool Disabled;
+
+            SharedSecret() :
+                PlayFabBaseModel(),
+                SecretKey(),
+                FriendlyName(),
+                Disabled(false)
+            {}
+
+            SharedSecret(const SharedSecret& src) :
+                PlayFabBaseModel(),
+                SecretKey(src.SecretKey),
+                FriendlyName(src.FriendlyName),
+                Disabled(src.Disabled)
+            {}
+
+            SharedSecret(const rapidjson::Value& obj) : SharedSecret()
+            {
+                readFromValue(obj);
+            }
+
+            ~SharedSecret()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (SecretKey.length() > 0) { writer.String("SecretKey"); writer.String(SecretKey.c_str()); }
+                if (FriendlyName.length() > 0) { writer.String("FriendlyName"); writer.String(FriendlyName.c_str()); }
+                writer.String("Disabled"); writer.Bool(Disabled);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator SecretKey_member = obj.FindMember("SecretKey");
+                if (SecretKey_member != obj.MemberEnd() && !SecretKey_member->value.IsNull()) SecretKey = SecretKey_member->value.GetString();
+                const Value::ConstMemberIterator FriendlyName_member = obj.FindMember("FriendlyName");
+                if (FriendlyName_member != obj.MemberEnd() && !FriendlyName_member->value.IsNull()) FriendlyName = FriendlyName_member->value.GetString();
+                const Value::ConstMemberIterator Disabled_member = obj.FindMember("Disabled");
+                if (Disabled_member != obj.MemberEnd() && !Disabled_member->value.IsNull()) Disabled = Disabled_member->value.GetBool();
+
+                return true;
+            }
+        };
+
+        struct GetPlayerSharedSecretsResult : public PlayFabBaseModel
+        {
+            std::list<SharedSecret> SharedSecrets;
+
+            GetPlayerSharedSecretsResult() :
+                PlayFabBaseModel(),
+                SharedSecrets()
+            {}
+
+            GetPlayerSharedSecretsResult(const GetPlayerSharedSecretsResult& src) :
+                PlayFabBaseModel(),
+                SharedSecrets(src.SharedSecrets)
+            {}
+
+            GetPlayerSharedSecretsResult(const rapidjson::Value& obj) : GetPlayerSharedSecretsResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayerSharedSecretsResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (!SharedSecrets.empty()) {
+    writer.String("SharedSecrets");
+    writer.StartArray();
+    for (std::list<SharedSecret>::iterator iter = SharedSecrets.begin(); iter != SharedSecrets.end(); iter++) {
+        iter->writeJSON(writer);
+    }
+    writer.EndArray();
+     }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator SharedSecrets_member = obj.FindMember("SharedSecrets");
+    if (SharedSecrets_member != obj.MemberEnd()) {
+        const rapidjson::Value& memberList = SharedSecrets_member->value;
+        for (SizeType i = 0; i < memberList.Size(); i++) {
+            SharedSecrets.push_back(SharedSecret(memberList[i]));
         }
     }
 
@@ -10791,6 +11076,43 @@ namespace PlayFab
             }
         };
 
+        enum PushSetupPlatform
+        {
+            PushSetupPlatformGCM,
+            PushSetupPlatformAPNS,
+            PushSetupPlatformAPNS_SANDBOX
+        };
+
+        inline void writePushSetupPlatformEnumJSON(PushSetupPlatform enumVal, PFStringJsonWriter& writer)
+        {
+            switch (enumVal)
+            {
+            case PushSetupPlatformGCM: writer.String("GCM"); break;
+            case PushSetupPlatformAPNS: writer.String("APNS"); break;
+            case PushSetupPlatformAPNS_SANDBOX: writer.String("APNS_SANDBOX"); break;
+
+            }
+        }
+
+        inline PushSetupPlatform readPushSetupPlatformFromValue(const rapidjson::Value& obj)
+        {
+            static std::map<Aws::String, PushSetupPlatform> _PushSetupPlatformMap;
+            if (_PushSetupPlatformMap.size() == 0)
+            {
+                // Auto-generate the map on the first use
+                _PushSetupPlatformMap["GCM"] = PushSetupPlatformGCM;
+                _PushSetupPlatformMap["APNS"] = PushSetupPlatformAPNS;
+                _PushSetupPlatformMap["APNS_SANDBOX"] = PushSetupPlatformAPNS_SANDBOX;
+
+            }
+
+            auto output = _PushSetupPlatformMap.find(obj.GetString());
+            if (output != _PushSetupPlatformMap.end())
+                return output->second;
+
+            return PushSetupPlatformGCM; // Basically critical fail
+        }
+
         struct RandomResultTable : public PlayFabBaseModel
         {
             Aws::String TableId;
@@ -11935,6 +12257,84 @@ namespace PlayFab
             }
         };
 
+        struct SetPlayerSecretRequest : public PlayFabBaseModel
+        {
+            Aws::String PlayerSecret;
+            Aws::String PlayFabId;
+
+            SetPlayerSecretRequest() :
+                PlayFabBaseModel(),
+                PlayerSecret(),
+                PlayFabId()
+            {}
+
+            SetPlayerSecretRequest(const SetPlayerSecretRequest& src) :
+                PlayFabBaseModel(),
+                PlayerSecret(src.PlayerSecret),
+                PlayFabId(src.PlayFabId)
+            {}
+
+            SetPlayerSecretRequest(const rapidjson::Value& obj) : SetPlayerSecretRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~SetPlayerSecretRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("PlayerSecret"); writer.String(PlayerSecret.c_str());
+                writer.String("PlayFabId"); writer.String(PlayFabId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
+                if (PlayerSecret_member != obj.MemberEnd() && !PlayerSecret_member->value.IsNull()) PlayerSecret = PlayerSecret_member->value.GetString();
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct SetPlayerSecretResult : public PlayFabBaseModel
+        {
+
+            SetPlayerSecretResult() :
+                PlayFabBaseModel()
+            {}
+
+            SetPlayerSecretResult(const SetPlayerSecretResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            SetPlayerSecretResult(const rapidjson::Value& obj) : SetPlayerSecretResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~SetPlayerSecretResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
         struct SetPublishedRevisionRequest : public PlayFabBaseModel
         {
             Int32 Version;
@@ -12172,7 +12572,7 @@ namespace PlayFab
         struct SetupPushNotificationRequest : public PlayFabBaseModel
         {
             Aws::String Name;
-            Aws::String Platform;
+            PushSetupPlatform Platform;
             Aws::String Key;
             Aws::String Credential;
             bool OverwriteOldARN;
@@ -12208,7 +12608,7 @@ namespace PlayFab
             {
                 writer.StartObject();
                 writer.String("Name"); writer.String(Name.c_str());
-                writer.String("Platform"); writer.String(Platform.c_str());
+                writer.String("Platform"); writePushSetupPlatformEnumJSON(Platform, writer);
                 if (Key.length() > 0) { writer.String("Key"); writer.String(Key.c_str()); }
                 writer.String("Credential"); writer.String(Credential.c_str());
                 writer.String("OverwriteOldARN"); writer.Bool(OverwriteOldARN);
@@ -12220,7 +12620,7 @@ namespace PlayFab
                 const Value::ConstMemberIterator Name_member = obj.FindMember("Name");
                 if (Name_member != obj.MemberEnd() && !Name_member->value.IsNull()) Name = Name_member->value.GetString();
                 const Value::ConstMemberIterator Platform_member = obj.FindMember("Platform");
-                if (Platform_member != obj.MemberEnd() && !Platform_member->value.IsNull()) Platform = Platform_member->value.GetString();
+                if (Platform_member != obj.MemberEnd() && !Platform_member->value.IsNull()) Platform = readPushSetupPlatformFromValue(Platform_member->value);
                 const Value::ConstMemberIterator Key_member = obj.FindMember("Key");
                 if (Key_member != obj.MemberEnd() && !Key_member->value.IsNull()) Key = Key_member->value.GetString();
                 const Value::ConstMemberIterator Credential_member = obj.FindMember("Credential");
@@ -12739,6 +13139,90 @@ namespace PlayFab
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
                 const Value::ConstMemberIterator Revision_member = obj.FindMember("Revision");
                 if (Revision_member != obj.MemberEnd() && !Revision_member->value.IsNull()) Revision = Revision_member->value.GetInt();
+
+                return true;
+            }
+        };
+
+        struct UpdatePlayerSharedSecretRequest : public PlayFabBaseModel
+        {
+            Aws::String SecretKey;
+            Aws::String FriendlyName;
+            bool Disabled;
+
+            UpdatePlayerSharedSecretRequest() :
+                PlayFabBaseModel(),
+                SecretKey(),
+                FriendlyName(),
+                Disabled(false)
+            {}
+
+            UpdatePlayerSharedSecretRequest(const UpdatePlayerSharedSecretRequest& src) :
+                PlayFabBaseModel(),
+                SecretKey(src.SecretKey),
+                FriendlyName(src.FriendlyName),
+                Disabled(src.Disabled)
+            {}
+
+            UpdatePlayerSharedSecretRequest(const rapidjson::Value& obj) : UpdatePlayerSharedSecretRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~UpdatePlayerSharedSecretRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (SecretKey.length() > 0) { writer.String("SecretKey"); writer.String(SecretKey.c_str()); }
+                if (FriendlyName.length() > 0) { writer.String("FriendlyName"); writer.String(FriendlyName.c_str()); }
+                writer.String("Disabled"); writer.Bool(Disabled);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator SecretKey_member = obj.FindMember("SecretKey");
+                if (SecretKey_member != obj.MemberEnd() && !SecretKey_member->value.IsNull()) SecretKey = SecretKey_member->value.GetString();
+                const Value::ConstMemberIterator FriendlyName_member = obj.FindMember("FriendlyName");
+                if (FriendlyName_member != obj.MemberEnd() && !FriendlyName_member->value.IsNull()) FriendlyName = FriendlyName_member->value.GetString();
+                const Value::ConstMemberIterator Disabled_member = obj.FindMember("Disabled");
+                if (Disabled_member != obj.MemberEnd() && !Disabled_member->value.IsNull()) Disabled = Disabled_member->value.GetBool();
+
+                return true;
+            }
+        };
+
+        struct UpdatePlayerSharedSecretResult : public PlayFabBaseModel
+        {
+
+            UpdatePlayerSharedSecretResult() :
+                PlayFabBaseModel()
+            {}
+
+            UpdatePlayerSharedSecretResult(const UpdatePlayerSharedSecretResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            UpdatePlayerSharedSecretResult(const rapidjson::Value& obj) : UpdatePlayerSharedSecretResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~UpdatePlayerSharedSecretResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
 
                 return true;
             }

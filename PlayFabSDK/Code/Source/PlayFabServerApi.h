@@ -11,6 +11,7 @@ namespace PlayFab
     {
     public:        // ------------ Generated Api calls
         static void AuthenticateSessionTicket(ServerModels::AuthenticateSessionTicketRequest& request, ProcessApiCallback<ServerModels::AuthenticateSessionTicketResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void SetPlayerSecret(ServerModels::SetPlayerSecretRequest& request, ProcessApiCallback<ServerModels::SetPlayerSecretResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void BanUsers(ServerModels::BanUsersRequest& request, ProcessApiCallback<ServerModels::BanUsersResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPlayerProfile(ServerModels::GetPlayerProfileRequest& request, ProcessApiCallback<ServerModels::GetPlayerProfileResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPlayFabIDsFromFacebookIDs(ServerModels::GetPlayFabIDsFromFacebookIDsRequest& request, ProcessApiCallback<ServerModels::GetPlayFabIDsFromFacebookIDsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -125,6 +126,7 @@ namespace PlayFab
 
         // ------------ Generated result handlers
         static void OnAuthenticateSessionTicketResult(PlayFabRequest* request);
+        static void OnSetPlayerSecretResult(PlayFabRequest* request);
         static void OnBanUsersResult(PlayFabRequest* request);
         static void OnGetPlayerProfileResult(PlayFabRequest* request);
         static void OnGetPlayFabIDsFromFacebookIDsResult(PlayFabRequest* request);
