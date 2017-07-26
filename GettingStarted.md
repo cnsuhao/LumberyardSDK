@@ -1,11 +1,10 @@
-PlayFab Amazon Lumberyard SDK Getting Started Guide
-========
+# PlayFab Amazon Lumberyard SDK Getting Started Guide
+
 Welcome to the PlayFab Amazon Lumberyard SDK.
 
 In this guide, we will describe making your first PlayFab Api call using the PlayFabClientSdk.
 
-1. Prerequisites:
-----
+## 1. Prerequisites:
 
 1. [Install lumberyard](https://aws.amazon.com/lumberyard/downloads/)
 2. Read and finish the "Programming" section in this link to learn how to set up your Lumberyard development environment: https://gamedev.amazon.com/forums/tutorials
@@ -14,8 +13,8 @@ In this guide, we will describe making your first PlayFab Api call using the Pla
  * https://github.com/PlayFab/LumberyardSDK/blob/master/README.md#3-gem-installation
 4. It is expected that you have read and understand all "Programming" tutorials on this page: https://gamedev.amazon.com/forums/tutorials
 
-2. Your Lumberyard Gem
-----
+
+## 2. Your Lumberyard Gem
 
 * There is an excellent tutorial on creating your own gem labeled "Creating A Gem With Code" on this page:
  * https://gamedev.amazon.com/forums/tutorials
@@ -24,8 +23,8 @@ In this guide, we will describe making your first PlayFab Api call using the Pla
  * https://github.com/PlayFab/LumberyardSDK/blob/master/README.md#4-gem-dependency
 * At this point you are ready to make your first api call
 
-3. Prepare your gem to report API-Call results:
-----
+
+## 3. Prepare your gem to report API-Call results:
 
 This part of the guide is an extension of the "Creating A Gem With Code" Amazon tutorial.  You will add a static string to your gem, and update your OnPostUpdate function to print that string.
 
@@ -71,8 +70,7 @@ void PlayFabApiTest::PlayFabApiTestGem::OnPostUpdate(float fDeltaTime) // <-----
 ```
 
 
-4. Adding a login Api call to your gem:
-----
+## 4. Adding a login Api call to your gem:
 
 In this section we will add the code that makes an API call, and activate that code.
 
@@ -181,8 +179,7 @@ These last steps are done in-editor.  We will be borrowing Amazon's existing UiD
 You should note, the "request.CustomId" for this example is hard-coded.  For a real game, you may want to use a unique string as the customId for each player, or use one of our other [Client authentication apis](https://api.playfab.com/Documentation/Client) with proper information.  Editors note: I usually prefer [LoginWithEmailAddress](https://api.playfab.com/Documentation/Client/method/LoginWithEmailAddress), but Facebook, or device-specific logins are also very common/useful when possible.  You should only use [LoginWithCustomID](https://api.playfab.com/Documentation/Client/method/LoginWithCustomID) for testing, or when you can provide a guaranteed unique (and secure) string for every client running the game.  It is not suitable to use username as customID.  For that pattern, use [LoginWithPlayFab](https://api.playfab.com/Documentation/Client/method/LoginWithPlayFab).
 
 
-5. Troubleshooting:
-----
+## 5. Troubleshooting:
 
 #### Contact Us
 We love to hear from our developer community!
@@ -193,8 +190,8 @@ Our Developer Success Team can assist with answering any questions as well as pr
 [Forums, Support and Knowledge Base](https://community.playfab.com/hc/en-us)
 
 
-6. Copyright and Licensing Information:
-----
+## 6. Copyright and Licensing Information:
+
   Apache License --
   Version 2.0, January 2004
   http://www.apache.org/licenses/
