@@ -2,6 +2,8 @@
 
 Welcome to the PlayFab Amazon Lumberyard SDK.
 
+WARNING: This guide is out of date, and references steps for Lumberyard 1.3, which are no longer relevant to the upgrade to Lumberyard 1.9.  We will try to upgrade this guide soon.
+
 In this guide, we will describe making your first PlayFab Api call using the PlayFabClientSdk.
 
 ## 1. Prerequisites:
