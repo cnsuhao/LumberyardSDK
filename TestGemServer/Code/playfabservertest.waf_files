@@ -1,0 +1,19 @@
+{
+    "none": {
+        "Source": [
+            "Source/StdAfx.cpp",
+            "Source/StdAfx.h"
+        ]
+    },
+    "auto": {
+        "Include": [
+            "Include/PlayFabServerTest/PlayFabServerTestBus.h"
+        ],
+        "Source": [
+            "Source/PlayFabServerApiTestNode.cpp",
+            "Source/PlayFabServerTestModule.cpp",
+            "Source/PlayFabServerTestSystemComponent.cpp",
+            "Source/PlayFabServerTestSystemComponent.h"
+        ]
+    }
+}

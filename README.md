@@ -65,6 +65,7 @@ Do not mix the client/server/combo files, or your project may not compile.
     * (You must have administrator access on your machine)
     * This will make it easier to integrate future PlayFab updates
 
+
 ## 4. Gem-Dependency:
 
 If you create your own Gem, you can access PlayFab by adding a Gem-dependency in your gem.json file.
@@ -108,7 +109,11 @@ Our Developer Success Team can assist with answering any questions as well as pr
 [Forums, Support and Knowledge Base](https://community.playfab.com/index.html)
 
 
-## 7. Copyright and Licensing Information:
+## 7. Acknolwedgements
+
+This SDK was updated from 1.3 to 1.9 by [Third Kind Games](https://www.thirdkindgames.com/). Many thanks!
+
+## 8. Copyright and Licensing Information:
 
   Apache License --
   Version 2.0, January 2004

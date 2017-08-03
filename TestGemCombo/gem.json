@@ -1,18 +1,18 @@
 {
-    "GemFormatVersion": 2,
-    "Uuid": "9a7579845dd84bd6b8c486837766939c",
-    "Name": "PlayFabApiTest",
-    "DisplayName": "PlayFabApiTest",
-    "Version": "0.1.0",
+    "GemFormatVersion": 3,
+    "Uuid": "fee877ce92be40deb14badcc4b93b6ff",
+    "Name": "PlayFabComboTest",
+    "DisplayName": "PlayFabComboTest",
+    "Version": "0.0.170710",
     "LinkType": "Dynamic",
-    "Summary": "PlayFab test gem.  Demonstrates the usage of the API from outside the PlayFab Gem, and verifies that the apis work.",
+    "Summary": "PlayFab test gem.  Demonstrates the usage of the API from outside the PlayFab Combo Gem, and verifies that the apis work.",
     "Tags": ["Untagged"],
     "IconPath": "preview.png",
     "Dependencies": [
         {
-            "Uuid": "ca11198cd2904c539c29d22409fbb628",
-            "VersionConstraints": [ ">=0.0.160302" ],
-            "_comment": "PlayFab Lumberyard Gem"
+            "Uuid": "abf1282cbb534d908e39e0684e34cb20",
+            "VersionConstraints": [ ">=0.0.170710" ],
+            "_comment": "PlayFab Combo Lumberyard Gem"
         }
     ]
 }

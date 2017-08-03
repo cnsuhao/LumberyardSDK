@@ -5,6 +5,7 @@ def build(bld):
         includes = [bld.Path('Code/CryEngine/CryAction'),
                     bld.Path('Code/CryEngine/CryAction/FlowSystem/Nodes'),
                     bld.Path('Code/CryEngine/LmbrAWS')],
-        win_use = bld.make_aws_library_task_list(['aws-cpp-sdk-core']),
-        win_features = ['AWSNativeSDK']
+        win_use = ['AWS-CPP-SDK-CORE'],
+        win_features = ['AWSNativeSDK'],
+        uselib = ['AWS_CPP_SDK_CORE']
     )

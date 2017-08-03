@@ -1,0 +1,40 @@
+{
+    "none": {
+        "Root": [
+            "Source/StdAfx.cpp",
+            "Source/StdAfx.h"
+        ],
+        "Interface": [
+            "Include/PlayFabServerSdk/PlayFabAdminDataModels.h",
+            "Include/PlayFabServerSdk/PlayFabServer_AdminBus.h",
+            "Include/PlayFabServerSdk/PlayFabMatchmakerDataModels.h",
+            "Include/PlayFabServerSdk/PlayFabServer_MatchmakerBus.h",
+            "Include/PlayFabServerSdk/PlayFabServerDataModels.h",
+            "Include/PlayFabServerSdk/PlayFabServer_ServerBus.h",
+            "Include/PlayFabServerSdk/PlayFabServer_SettingsBus.h",
+            "Include/PlayFabServerSdk/PlayFabBaseModel.h",
+            "Include/PlayFabServerSdk/PlayFabError.h",
+            "Include/PlayFabServerSdk/PlayFabHttp.h"
+        ],
+        "Implementation": [
+            "Source/PlayFabAdminApi.h",
+            "Source/PlayFabAdminAPI.cpp",
+            "Source/PlayFabServer_AdminSysComponent.h",
+            "Source/PlayFabServer_AdminSysComponent.cpp",
+            "Source/PlayFabMatchmakerApi.h",
+            "Source/PlayFabMatchmakerAPI.cpp",
+            "Source/PlayFabServer_MatchmakerSysComponent.h",
+            "Source/PlayFabServer_MatchmakerSysComponent.cpp",
+            "Source/PlayFabServerApi.h",
+            "Source/PlayFabServerAPI.cpp",
+            "Source/PlayFabServer_ServerSysComponent.h",
+            "Source/PlayFabServer_ServerSysComponent.cpp",
+            "Source/PlayFabServer_SettingsSysComponent.h",
+            "Source/PlayFabServer_SettingsSysComponent.cpp",
+            "Source/PlayFabServerSdkModule.cpp",
+            "Source/PlayFabHttp.cpp",
+            "Source/PlayFabSettings.h",
+            "Source/PlayFabSettings.cpp"
+        ]
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "none": {
+        "Root": [
+            "Source/StdAfx.cpp",
+            "Source/StdAfx.h"
+        ],
+        "Interface": [
+            "Include/PlayFabClientSdk/PlayFabClientDataModels.h",
+            "Include/PlayFabClientSdk/PlayFabClient_ClientBus.h",
+            "Include/PlayFabClientSdk/PlayFabClient_SettingsBus.h",
+            "Include/PlayFabClientSdk/PlayFabBaseModel.h",
+            "Include/PlayFabClientSdk/PlayFabError.h",
+            "Include/PlayFabClientSdk/PlayFabHttp.h"
+        ],
+        "Implementation": [
+            "Source/PlayFabClientApi.h",
+            "Source/PlayFabClientAPI.cpp",
+            "Source/PlayFabClient_ClientSysComponent.h",
+            "Source/PlayFabClient_ClientSysComponent.cpp",
+            "Source/PlayFabClient_SettingsSysComponent.h",
+            "Source/PlayFabClient_SettingsSysComponent.cpp",
+            "Source/PlayFabClientSdkModule.cpp",
+            "Source/PlayFabHttp.cpp",
+            "Source/PlayFabSettings.h",
+            "Source/PlayFabSettings.cpp"
+        ]
+    }
+}

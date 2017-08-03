@@ -1,0 +1,46 @@
+{
+    "none": {
+        "Root": [
+            "Source/StdAfx.cpp",
+            "Source/StdAfx.h"
+        ],
+        "Interface": [
+            "Include/PlayFabComboSdk/PlayFabAdminDataModels.h",
+            "Include/PlayFabComboSdk/PlayFabCombo_AdminBus.h",
+            "Include/PlayFabComboSdk/PlayFabMatchmakerDataModels.h",
+            "Include/PlayFabComboSdk/PlayFabCombo_MatchmakerBus.h",
+            "Include/PlayFabComboSdk/PlayFabServerDataModels.h",
+            "Include/PlayFabComboSdk/PlayFabCombo_ServerBus.h",
+            "Include/PlayFabComboSdk/PlayFabClientDataModels.h",
+            "Include/PlayFabComboSdk/PlayFabCombo_ClientBus.h",
+            "Include/PlayFabComboSdk/PlayFabCombo_SettingsBus.h",
+            "Include/PlayFabComboSdk/PlayFabBaseModel.h",
+            "Include/PlayFabComboSdk/PlayFabError.h",
+            "Include/PlayFabComboSdk/PlayFabHttp.h"
+        ],
+        "Implementation": [
+            "Source/PlayFabAdminApi.h",
+            "Source/PlayFabAdminAPI.cpp",
+            "Source/PlayFabCombo_AdminSysComponent.h",
+            "Source/PlayFabCombo_AdminSysComponent.cpp",
+            "Source/PlayFabMatchmakerApi.h",
+            "Source/PlayFabMatchmakerAPI.cpp",
+            "Source/PlayFabCombo_MatchmakerSysComponent.h",
+            "Source/PlayFabCombo_MatchmakerSysComponent.cpp",
+            "Source/PlayFabServerApi.h",
+            "Source/PlayFabServerAPI.cpp",
+            "Source/PlayFabCombo_ServerSysComponent.h",
+            "Source/PlayFabCombo_ServerSysComponent.cpp",
+            "Source/PlayFabClientApi.h",
+            "Source/PlayFabClientAPI.cpp",
+            "Source/PlayFabCombo_ClientSysComponent.h",
+            "Source/PlayFabCombo_ClientSysComponent.cpp",
+            "Source/PlayFabCombo_SettingsSysComponent.h",
+            "Source/PlayFabCombo_SettingsSysComponent.cpp",
+            "Source/PlayFabComboSdkModule.cpp",
+            "Source/PlayFabHttp.cpp",
+            "Source/PlayFabSettings.h",
+            "Source/PlayFabSettings.cpp"
+        ]
+    }
+}

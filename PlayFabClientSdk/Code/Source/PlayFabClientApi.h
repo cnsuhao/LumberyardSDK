@@ -1,17 +1,18 @@
 #pragma once
 
-#include "PlayFabError.h"
-#include "PlayFabHttp.h"
-#include "IPlayFabClientApi.h"
-#include "PlayFabClientDataModels.h"
+#include <PlayFabClientSdk/PlayFabError.h>
+#include <PlayFabClientSdk/PlayFabClientDataModels.h>
+#include <PlayFabClientSdk/PlayFabHttp.h>
 
-namespace PlayFab
+namespace PlayFabClientSdk
 {
     class PlayFabClientApi
     {
     public:
+
         // Public, Client-Specific
         static bool IsClientLoggedIn();
+        static void ForgetClientCredentials();  // #THIRD_KIND_PLAYFAB_SHUTDOWN_FIXES: - Added a logout function so that the statics can be destroyed before the system allocator.
 
         // ------------ Generated Api calls
         static void GetPhotonAuthenticationToken(ClientModels::GetPhotonAuthenticationTokenRequest& request, ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -283,6 +284,8 @@ namespace PlayFab
 
         // Private, Client-Specific
         static void MultiStepClientLogin(bool needsAttribution);
-        static Aws::String mUserSessionTicket;
+
+        // As a *slight* security improvement, this is private
+        static AZStd::string* mUserSessionTicket; // #THIRD_KIND_PLAYFAB_SHUTDOWN_FIXES: - Changed static to a pointer, so it can be deleted before the system allocator is destroyed.
     };
 };
