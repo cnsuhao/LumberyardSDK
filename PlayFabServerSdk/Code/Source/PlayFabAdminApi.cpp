@@ -247,6 +247,36 @@ void PlayFabAdminApi::OnBanUsersResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabAdminApi::DeletePlayer(
+    AdminModels::DeletePlayerRequest& request,
+    ProcessApiCallback<AdminModels::DeletePlayerResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeletePlayer"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeletePlayerResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabAdminApi::OnDeletePlayerResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        AdminModels::DeletePlayerResult* outResult = new AdminModels::DeletePlayerResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<AdminModels::DeletePlayerResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::DeletePlayerResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabAdminApi::GetUserAccountInfo(
     AdminModels::LookupUserAccountInfoRequest& request,
     ProcessApiCallback<AdminModels::LookupUserAccountInfoResult> callback,

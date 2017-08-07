@@ -3,7 +3,7 @@
     "Uuid": "1ef0cc192c26498e9d87e5940d0f0154",
     "Name": "PlayFabServerTest",
     "DisplayName": "PlayFabServerTest",
-    "Version": "0.0.170710",
+    "Version": "0.0.170807",
     "LinkType": "Dynamic",
     "Summary": "PlayFab test gem.  Demonstrates the usage of the API from outside the PlayFab Server Gem, and verifies that the apis work.",
     "Tags": ["Untagged"],
@@ -11,7 +11,7 @@
     "Dependencies": [
         {
             "Uuid": "a7bd94263453450a8cff6c8d047a82ee",
-            "VersionConstraints": [ ">=0.0.170710" ],
+            "VersionConstraints": [ ">=0.0.170807" ],
             "_comment": "PlayFab Server Lumberyard Gem"
         }
     ]

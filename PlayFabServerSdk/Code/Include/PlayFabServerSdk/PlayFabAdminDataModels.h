@@ -4529,6 +4529,79 @@ namespace PlayFabServerSdk
             }
         };
 
+        struct DeletePlayerRequest : public PlayFabBaseModel
+        {
+            AZStd::string PlayFabId;
+
+            DeletePlayerRequest() :
+                PlayFabBaseModel(),
+                PlayFabId()
+            {}
+
+            DeletePlayerRequest(const DeletePlayerRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId)
+            {}
+
+            DeletePlayerRequest(const rapidjson::Value& obj) : DeletePlayerRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~DeletePlayerRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.String("PlayFabId");
+                writer.String(PlayFabId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct DeletePlayerResult : public PlayFabBaseModel
+        {
+
+            DeletePlayerResult() :
+                PlayFabBaseModel()
+            {}
+
+            DeletePlayerResult(const DeletePlayerResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            DeletePlayerResult(const rapidjson::Value& obj) : DeletePlayerResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~DeletePlayerResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
         struct DeletePlayerSharedSecretRequest : public PlayFabBaseModel
         {
             AZStd::string SecretKey;

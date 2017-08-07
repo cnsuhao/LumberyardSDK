@@ -103,6 +103,10 @@ namespace PlayFabComboSdk
     {
         PlayFabAdminApi::BanUsers(request, callback, errorCallback, customData);
     }
+    void PlayFabCombo_AdminSysComponent::DeletePlayer(AdminModels::DeletePlayerRequest& request, ProcessApiCallback<AdminModels::DeletePlayerResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabAdminApi::DeletePlayer(request, callback, errorCallback, customData);
+    }
     void PlayFabCombo_AdminSysComponent::GetUserAccountInfo(AdminModels::LookupUserAccountInfoRequest& request, ProcessApiCallback<AdminModels::LookupUserAccountInfoResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabAdminApi::GetUserAccountInfo(request, callback, errorCallback, customData);
