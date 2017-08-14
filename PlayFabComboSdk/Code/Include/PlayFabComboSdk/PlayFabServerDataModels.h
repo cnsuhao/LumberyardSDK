@@ -5597,6 +5597,788 @@ namespace PlayFabComboSdk
             }
         };
 
+        enum LoginIdentityProvider
+        {
+            LoginIdentityProviderUnknown,
+            LoginIdentityProviderPlayFab,
+            LoginIdentityProviderCustom,
+            LoginIdentityProviderGameCenter,
+            LoginIdentityProviderGooglePlay,
+            LoginIdentityProviderSteam,
+            LoginIdentityProviderXBoxLive,
+            LoginIdentityProviderPSN,
+            LoginIdentityProviderKongregate,
+            LoginIdentityProviderFacebook,
+            LoginIdentityProviderIOSDevice,
+            LoginIdentityProviderAndroidDevice,
+            LoginIdentityProviderTwitch,
+            LoginIdentityProviderWindowsHello
+        };
+
+        inline void writeLoginIdentityProviderEnumJSON(LoginIdentityProvider enumVal, PFStringJsonWriter& writer)
+        {
+            switch (enumVal)
+            {
+            case LoginIdentityProviderUnknown: writer.String("Unknown"); break;
+            case LoginIdentityProviderPlayFab: writer.String("PlayFab"); break;
+            case LoginIdentityProviderCustom: writer.String("Custom"); break;
+            case LoginIdentityProviderGameCenter: writer.String("GameCenter"); break;
+            case LoginIdentityProviderGooglePlay: writer.String("GooglePlay"); break;
+            case LoginIdentityProviderSteam: writer.String("Steam"); break;
+            case LoginIdentityProviderXBoxLive: writer.String("XBoxLive"); break;
+            case LoginIdentityProviderPSN: writer.String("PSN"); break;
+            case LoginIdentityProviderKongregate: writer.String("Kongregate"); break;
+            case LoginIdentityProviderFacebook: writer.String("Facebook"); break;
+            case LoginIdentityProviderIOSDevice: writer.String("IOSDevice"); break;
+            case LoginIdentityProviderAndroidDevice: writer.String("AndroidDevice"); break;
+            case LoginIdentityProviderTwitch: writer.String("Twitch"); break;
+            case LoginIdentityProviderWindowsHello: writer.String("WindowsHello"); break;
+
+            }
+        }
+
+        inline LoginIdentityProvider readLoginIdentityProviderFromValue(const rapidjson::Value& obj)
+        {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<LoginIdentityProvider>(obj.GetInt());
+
+            static std::map<const char *, LoginIdentityProvider, PlayFabComboSdk::StringCompare> _LoginIdentityProviderMap;
+            if (_LoginIdentityProviderMap.size() == 0)
+            {
+                // Auto-generate the map on the first use
+                _LoginIdentityProviderMap["Unknown"] = LoginIdentityProviderUnknown;
+                _LoginIdentityProviderMap["PlayFab"] = LoginIdentityProviderPlayFab;
+                _LoginIdentityProviderMap["Custom"] = LoginIdentityProviderCustom;
+                _LoginIdentityProviderMap["GameCenter"] = LoginIdentityProviderGameCenter;
+                _LoginIdentityProviderMap["GooglePlay"] = LoginIdentityProviderGooglePlay;
+                _LoginIdentityProviderMap["Steam"] = LoginIdentityProviderSteam;
+                _LoginIdentityProviderMap["XBoxLive"] = LoginIdentityProviderXBoxLive;
+                _LoginIdentityProviderMap["PSN"] = LoginIdentityProviderPSN;
+                _LoginIdentityProviderMap["Kongregate"] = LoginIdentityProviderKongregate;
+                _LoginIdentityProviderMap["Facebook"] = LoginIdentityProviderFacebook;
+                _LoginIdentityProviderMap["IOSDevice"] = LoginIdentityProviderIOSDevice;
+                _LoginIdentityProviderMap["AndroidDevice"] = LoginIdentityProviderAndroidDevice;
+                _LoginIdentityProviderMap["Twitch"] = LoginIdentityProviderTwitch;
+                _LoginIdentityProviderMap["WindowsHello"] = LoginIdentityProviderWindowsHello;
+
+            }
+
+            auto output = _LoginIdentityProviderMap.find(obj.GetString());
+            if (output != _LoginIdentityProviderMap.end())
+                return output->second;
+
+            return LoginIdentityProviderUnknown; // Basically critical fail
+        }
+
+        struct LocationModel : public PlayFabBaseModel
+        {
+            Boxed<ContinentCode> pfContinentCode;
+            Boxed<CountryCode> pfCountryCode;
+            AZStd::string City;
+            OptionalDouble Latitude;
+            OptionalDouble Longitude;
+
+            LocationModel() :
+                PlayFabBaseModel(),
+                pfContinentCode(),
+                pfCountryCode(),
+                City(),
+                Latitude(),
+                Longitude()
+            {}
+
+            LocationModel(const LocationModel& src) :
+                PlayFabBaseModel(),
+                pfContinentCode(src.pfContinentCode),
+                pfCountryCode(src.pfCountryCode),
+                City(src.City),
+                Latitude(src.Latitude),
+                Longitude(src.Longitude)
+            {}
+
+            LocationModel(const rapidjson::Value& obj) : LocationModel()
+            {
+                readFromValue(obj);
+            }
+
+            ~LocationModel()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (pfContinentCode.notNull()) {
+                    writer.String("ContinentCode");
+                    writeContinentCodeEnumJSON(pfContinentCode, writer);
+                }
+                if (pfCountryCode.notNull()) {
+                    writer.String("CountryCode");
+                    writeCountryCodeEnumJSON(pfCountryCode, writer);
+                }
+                if (City.length() > 0) {
+                    writer.String("City");
+                    writer.String(City.c_str());
+                }
+                if (Latitude.notNull()) {
+                    writer.String("Latitude");
+                    writer.Double(Latitude);
+                }
+                if (Longitude.notNull()) {
+                    writer.String("Longitude");
+                    writer.Double(Longitude);
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator ContinentCode_member = obj.FindMember("ContinentCode");
+                if (ContinentCode_member != obj.MemberEnd() && !ContinentCode_member->value.IsNull()) pfContinentCode = readContinentCodeFromValue(ContinentCode_member->value);
+                const Value::ConstMemberIterator CountryCode_member = obj.FindMember("CountryCode");
+                if (CountryCode_member != obj.MemberEnd() && !CountryCode_member->value.IsNull()) pfCountryCode = readCountryCodeFromValue(CountryCode_member->value);
+                const Value::ConstMemberIterator City_member = obj.FindMember("City");
+                if (City_member != obj.MemberEnd() && !City_member->value.IsNull()) City = City_member->value.GetString();
+                const Value::ConstMemberIterator Latitude_member = obj.FindMember("Latitude");
+                if (Latitude_member != obj.MemberEnd() && !Latitude_member->value.IsNull()) Latitude = Latitude_member->value.GetDouble();
+                const Value::ConstMemberIterator Longitude_member = obj.FindMember("Longitude");
+                if (Longitude_member != obj.MemberEnd() && !Longitude_member->value.IsNull()) Longitude = Longitude_member->value.GetDouble();
+
+                return true;
+            }
+        };
+
+        struct TagModel : public PlayFabBaseModel
+        {
+            AZStd::string TagValue;
+
+            TagModel() :
+                PlayFabBaseModel(),
+                TagValue()
+            {}
+
+            TagModel(const TagModel& src) :
+                PlayFabBaseModel(),
+                TagValue(src.TagValue)
+            {}
+
+            TagModel(const rapidjson::Value& obj) : TagModel()
+            {
+                readFromValue(obj);
+            }
+
+            ~TagModel()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (TagValue.length() > 0) {
+                    writer.String("TagValue");
+                    writer.String(TagValue.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator TagValue_member = obj.FindMember("TagValue");
+                if (TagValue_member != obj.MemberEnd() && !TagValue_member->value.IsNull()) TagValue = TagValue_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        enum PushNotificationPlatform
+        {
+            PushNotificationPlatformApplePushNotificationService,
+            PushNotificationPlatformGoogleCloudMessaging
+        };
+
+        inline void writePushNotificationPlatformEnumJSON(PushNotificationPlatform enumVal, PFStringJsonWriter& writer)
+        {
+            switch (enumVal)
+            {
+            case PushNotificationPlatformApplePushNotificationService: writer.String("ApplePushNotificationService"); break;
+            case PushNotificationPlatformGoogleCloudMessaging: writer.String("GoogleCloudMessaging"); break;
+
+            }
+        }
+
+        inline PushNotificationPlatform readPushNotificationPlatformFromValue(const rapidjson::Value& obj)
+        {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<PushNotificationPlatform>(obj.GetInt());
+
+            static std::map<const char *, PushNotificationPlatform, PlayFabComboSdk::StringCompare> _PushNotificationPlatformMap;
+            if (_PushNotificationPlatformMap.size() == 0)
+            {
+                // Auto-generate the map on the first use
+                _PushNotificationPlatformMap["ApplePushNotificationService"] = PushNotificationPlatformApplePushNotificationService;
+                _PushNotificationPlatformMap["GoogleCloudMessaging"] = PushNotificationPlatformGoogleCloudMessaging;
+
+            }
+
+            auto output = _PushNotificationPlatformMap.find(obj.GetString());
+            if (output != _PushNotificationPlatformMap.end())
+                return output->second;
+
+            return PushNotificationPlatformApplePushNotificationService; // Basically critical fail
+        }
+
+        struct PushNotificationRegistrationModel : public PlayFabBaseModel
+        {
+            Boxed<PushNotificationPlatform> Platform;
+            AZStd::string NotificationEndpointARN;
+
+            PushNotificationRegistrationModel() :
+                PlayFabBaseModel(),
+                Platform(),
+                NotificationEndpointARN()
+            {}
+
+            PushNotificationRegistrationModel(const PushNotificationRegistrationModel& src) :
+                PlayFabBaseModel(),
+                Platform(src.Platform),
+                NotificationEndpointARN(src.NotificationEndpointARN)
+            {}
+
+            PushNotificationRegistrationModel(const rapidjson::Value& obj) : PushNotificationRegistrationModel()
+            {
+                readFromValue(obj);
+            }
+
+            ~PushNotificationRegistrationModel()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (Platform.notNull()) {
+                    writer.String("Platform");
+                    writePushNotificationPlatformEnumJSON(Platform, writer);
+                }
+                if (NotificationEndpointARN.length() > 0) {
+                    writer.String("NotificationEndpointARN");
+                    writer.String(NotificationEndpointARN.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Platform_member = obj.FindMember("Platform");
+                if (Platform_member != obj.MemberEnd() && !Platform_member->value.IsNull()) Platform = readPushNotificationPlatformFromValue(Platform_member->value);
+                const Value::ConstMemberIterator NotificationEndpointARN_member = obj.FindMember("NotificationEndpointARN");
+                if (NotificationEndpointARN_member != obj.MemberEnd() && !NotificationEndpointARN_member->value.IsNull()) NotificationEndpointARN = NotificationEndpointARN_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct LinkedPlatformAccountModel : public PlayFabBaseModel
+        {
+            Boxed<LoginIdentityProvider> Platform;
+            AZStd::string PlatformUserId;
+            AZStd::string Username;
+            AZStd::string Email;
+
+            LinkedPlatformAccountModel() :
+                PlayFabBaseModel(),
+                Platform(),
+                PlatformUserId(),
+                Username(),
+                Email()
+            {}
+
+            LinkedPlatformAccountModel(const LinkedPlatformAccountModel& src) :
+                PlayFabBaseModel(),
+                Platform(src.Platform),
+                PlatformUserId(src.PlatformUserId),
+                Username(src.Username),
+                Email(src.Email)
+            {}
+
+            LinkedPlatformAccountModel(const rapidjson::Value& obj) : LinkedPlatformAccountModel()
+            {
+                readFromValue(obj);
+            }
+
+            ~LinkedPlatformAccountModel()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (Platform.notNull()) {
+                    writer.String("Platform");
+                    writeLoginIdentityProviderEnumJSON(Platform, writer);
+                }
+                if (PlatformUserId.length() > 0) {
+                    writer.String("PlatformUserId");
+                    writer.String(PlatformUserId.c_str());
+                }
+                if (Username.length() > 0) {
+                    writer.String("Username");
+                    writer.String(Username.c_str());
+                }
+                if (Email.length() > 0) {
+                    writer.String("Email");
+                    writer.String(Email.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Platform_member = obj.FindMember("Platform");
+                if (Platform_member != obj.MemberEnd() && !Platform_member->value.IsNull()) Platform = readLoginIdentityProviderFromValue(Platform_member->value);
+                const Value::ConstMemberIterator PlatformUserId_member = obj.FindMember("PlatformUserId");
+                if (PlatformUserId_member != obj.MemberEnd() && !PlatformUserId_member->value.IsNull()) PlatformUserId = PlatformUserId_member->value.GetString();
+                const Value::ConstMemberIterator Username_member = obj.FindMember("Username");
+                if (Username_member != obj.MemberEnd() && !Username_member->value.IsNull()) Username = Username_member->value.GetString();
+                const Value::ConstMemberIterator Email_member = obj.FindMember("Email");
+                if (Email_member != obj.MemberEnd() && !Email_member->value.IsNull()) Email = Email_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct ValueToDateModel : public PlayFabBaseModel
+        {
+            AZStd::string Currency;
+            Uint32 TotalValue;
+            AZStd::string TotalValueAsDecimal;
+
+            ValueToDateModel() :
+                PlayFabBaseModel(),
+                Currency(),
+                TotalValue(0),
+                TotalValueAsDecimal()
+            {}
+
+            ValueToDateModel(const ValueToDateModel& src) :
+                PlayFabBaseModel(),
+                Currency(src.Currency),
+                TotalValue(src.TotalValue),
+                TotalValueAsDecimal(src.TotalValueAsDecimal)
+            {}
+
+            ValueToDateModel(const rapidjson::Value& obj) : ValueToDateModel()
+            {
+                readFromValue(obj);
+            }
+
+            ~ValueToDateModel()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (Currency.length() > 0) {
+                    writer.String("Currency");
+                    writer.String(Currency.c_str());
+                }
+                writer.String("TotalValue");
+                writer.Uint(TotalValue);
+                if (TotalValueAsDecimal.length() > 0) {
+                    writer.String("TotalValueAsDecimal");
+                    writer.String(TotalValueAsDecimal.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Currency_member = obj.FindMember("Currency");
+                if (Currency_member != obj.MemberEnd() && !Currency_member->value.IsNull()) Currency = Currency_member->value.GetString();
+                const Value::ConstMemberIterator TotalValue_member = obj.FindMember("TotalValue");
+                if (TotalValue_member != obj.MemberEnd() && !TotalValue_member->value.IsNull()) TotalValue = TotalValue_member->value.GetUint();
+                const Value::ConstMemberIterator TotalValueAsDecimal_member = obj.FindMember("TotalValueAsDecimal");
+                if (TotalValueAsDecimal_member != obj.MemberEnd() && !TotalValueAsDecimal_member->value.IsNull()) TotalValueAsDecimal = TotalValueAsDecimal_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct VirtualCurrencyBalanceModel : public PlayFabBaseModel
+        {
+            AZStd::string Currency;
+            Int32 TotalValue;
+
+            VirtualCurrencyBalanceModel() :
+                PlayFabBaseModel(),
+                Currency(),
+                TotalValue(0)
+            {}
+
+            VirtualCurrencyBalanceModel(const VirtualCurrencyBalanceModel& src) :
+                PlayFabBaseModel(),
+                Currency(src.Currency),
+                TotalValue(src.TotalValue)
+            {}
+
+            VirtualCurrencyBalanceModel(const rapidjson::Value& obj) : VirtualCurrencyBalanceModel()
+            {
+                readFromValue(obj);
+            }
+
+            ~VirtualCurrencyBalanceModel()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (Currency.length() > 0) {
+                    writer.String("Currency");
+                    writer.String(Currency.c_str());
+                }
+                writer.String("TotalValue");
+                writer.Int(TotalValue);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Currency_member = obj.FindMember("Currency");
+                if (Currency_member != obj.MemberEnd() && !Currency_member->value.IsNull()) Currency = Currency_member->value.GetString();
+                const Value::ConstMemberIterator TotalValue_member = obj.FindMember("TotalValue");
+                if (TotalValue_member != obj.MemberEnd() && !TotalValue_member->value.IsNull()) TotalValue = TotalValue_member->value.GetInt();
+
+                return true;
+            }
+        };
+
+        struct StatisticModel : public PlayFabBaseModel
+        {
+            AZStd::string Name;
+            Int32 Version;
+            Int32 Value;
+
+            StatisticModel() :
+                PlayFabBaseModel(),
+                Name(),
+                Version(0),
+                Value(0)
+            {}
+
+            StatisticModel(const StatisticModel& src) :
+                PlayFabBaseModel(),
+                Name(src.Name),
+                Version(src.Version),
+                Value(src.Value)
+            {}
+
+            StatisticModel(const rapidjson::Value& obj) : StatisticModel()
+            {
+                readFromValue(obj);
+            }
+
+            ~StatisticModel()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (Name.length() > 0) {
+                    writer.String("Name");
+                    writer.String(Name.c_str());
+                }
+                writer.String("Version");
+                writer.Int(Version);
+                writer.String("Value");
+                writer.Int(Value);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Name_member = obj.FindMember("Name");
+                if (Name_member != obj.MemberEnd() && !Name_member->value.IsNull()) Name = Name_member->value.GetString();
+                const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
+                if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
+                const Value::ConstMemberIterator Value_member = obj.FindMember("Value");
+                if (Value_member != obj.MemberEnd() && !Value_member->value.IsNull()) Value = Value_member->value.GetInt();
+
+                return true;
+            }
+        };
+
+        struct PlayerProfileModel : public PlayFabBaseModel
+        {
+            AZStd::string PublisherId;
+            AZStd::string TitleId;
+            AZStd::string PlayerId;
+            OptionalTime Created;
+            Boxed<LoginIdentityProvider> Origination;
+            OptionalTime LastLogin;
+            OptionalTime BannedUntil;
+            std::list<LocationModel> Locations;
+            AZStd::string DisplayName;
+            AZStd::string AvatarUrl;
+            std::list<TagModel> Tags;
+            std::list<PushNotificationRegistrationModel> PushNotificationRegistrations;
+            std::list<LinkedPlatformAccountModel> LinkedAccounts;
+            std::list<AdCampaignAttributionModel> AdCampaignAttributions;
+            OptionalUint32 TotalValueToDateInUSD;
+            std::list<ValueToDateModel> ValuesToDate;
+            std::list<VirtualCurrencyBalanceModel> VirtualCurrencyBalances;
+            std::list<StatisticModel> Statistics;
+
+            PlayerProfileModel() :
+                PlayFabBaseModel(),
+                PublisherId(),
+                TitleId(),
+                PlayerId(),
+                Created(),
+                Origination(),
+                LastLogin(),
+                BannedUntil(),
+                Locations(),
+                DisplayName(),
+                AvatarUrl(),
+                Tags(),
+                PushNotificationRegistrations(),
+                LinkedAccounts(),
+                AdCampaignAttributions(),
+                TotalValueToDateInUSD(),
+                ValuesToDate(),
+                VirtualCurrencyBalances(),
+                Statistics()
+            {}
+
+            PlayerProfileModel(const PlayerProfileModel& src) :
+                PlayFabBaseModel(),
+                PublisherId(src.PublisherId),
+                TitleId(src.TitleId),
+                PlayerId(src.PlayerId),
+                Created(src.Created),
+                Origination(src.Origination),
+                LastLogin(src.LastLogin),
+                BannedUntil(src.BannedUntil),
+                Locations(src.Locations),
+                DisplayName(src.DisplayName),
+                AvatarUrl(src.AvatarUrl),
+                Tags(src.Tags),
+                PushNotificationRegistrations(src.PushNotificationRegistrations),
+                LinkedAccounts(src.LinkedAccounts),
+                AdCampaignAttributions(src.AdCampaignAttributions),
+                TotalValueToDateInUSD(src.TotalValueToDateInUSD),
+                ValuesToDate(src.ValuesToDate),
+                VirtualCurrencyBalances(src.VirtualCurrencyBalances),
+                Statistics(src.Statistics)
+            {}
+
+            PlayerProfileModel(const rapidjson::Value& obj) : PlayerProfileModel()
+            {
+                readFromValue(obj);
+            }
+
+            ~PlayerProfileModel()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (PublisherId.length() > 0) {
+                    writer.String("PublisherId");
+                    writer.String(PublisherId.c_str());
+                }
+                if (TitleId.length() > 0) {
+                    writer.String("TitleId");
+                    writer.String(TitleId.c_str());
+                }
+                if (PlayerId.length() > 0) {
+                    writer.String("PlayerId");
+                    writer.String(PlayerId.c_str());
+                }
+                if (Created.notNull()) {
+                    writer.String("Created");
+                    writeDatetime(Created, writer);
+                }
+                if (Origination.notNull()) {
+                    writer.String("Origination");
+                    writeLoginIdentityProviderEnumJSON(Origination, writer);
+                }
+                if (LastLogin.notNull()) {
+                    writer.String("LastLogin");
+                    writeDatetime(LastLogin, writer);
+                }
+                if (BannedUntil.notNull()) {
+                    writer.String("BannedUntil");
+                    writeDatetime(BannedUntil, writer);
+                }
+                if (!Locations.empty()) {
+                    writer.String("Locations");
+                    writer.StartArray();
+                    for (std::list<LocationModel>::iterator iter = Locations.begin(); iter != Locations.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
+                if (DisplayName.length() > 0) {
+                    writer.String("DisplayName");
+                    writer.String(DisplayName.c_str());
+                }
+                if (AvatarUrl.length() > 0) {
+                    writer.String("AvatarUrl");
+                    writer.String(AvatarUrl.c_str());
+                }
+                if (!Tags.empty()) {
+                    writer.String("Tags");
+                    writer.StartArray();
+                    for (std::list<TagModel>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
+                if (!PushNotificationRegistrations.empty()) {
+                    writer.String("PushNotificationRegistrations");
+                    writer.StartArray();
+                    for (std::list<PushNotificationRegistrationModel>::iterator iter = PushNotificationRegistrations.begin(); iter != PushNotificationRegistrations.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
+                if (!LinkedAccounts.empty()) {
+                    writer.String("LinkedAccounts");
+                    writer.StartArray();
+                    for (std::list<LinkedPlatformAccountModel>::iterator iter = LinkedAccounts.begin(); iter != LinkedAccounts.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
+                if (!AdCampaignAttributions.empty()) {
+                    writer.String("AdCampaignAttributions");
+                    writer.StartArray();
+                    for (std::list<AdCampaignAttributionModel>::iterator iter = AdCampaignAttributions.begin(); iter != AdCampaignAttributions.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
+                if (TotalValueToDateInUSD.notNull()) {
+                    writer.String("TotalValueToDateInUSD");
+                    writer.Uint(TotalValueToDateInUSD);
+                }
+                if (!ValuesToDate.empty()) {
+                    writer.String("ValuesToDate");
+                    writer.StartArray();
+                    for (std::list<ValueToDateModel>::iterator iter = ValuesToDate.begin(); iter != ValuesToDate.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
+                if (!VirtualCurrencyBalances.empty()) {
+                    writer.String("VirtualCurrencyBalances");
+                    writer.StartArray();
+                    for (std::list<VirtualCurrencyBalanceModel>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
+                if (!Statistics.empty()) {
+                    writer.String("Statistics");
+                    writer.StartArray();
+                    for (std::list<StatisticModel>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PublisherId_member = obj.FindMember("PublisherId");
+                if (PublisherId_member != obj.MemberEnd() && !PublisherId_member->value.IsNull()) PublisherId = PublisherId_member->value.GetString();
+                const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
+                if (TitleId_member != obj.MemberEnd() && !TitleId_member->value.IsNull()) TitleId = TitleId_member->value.GetString();
+                const Value::ConstMemberIterator PlayerId_member = obj.FindMember("PlayerId");
+                if (PlayerId_member != obj.MemberEnd() && !PlayerId_member->value.IsNull()) PlayerId = PlayerId_member->value.GetString();
+                const Value::ConstMemberIterator Created_member = obj.FindMember("Created");
+                if (Created_member != obj.MemberEnd() && !Created_member->value.IsNull()) Created = readDatetime(Created_member->value);
+                const Value::ConstMemberIterator Origination_member = obj.FindMember("Origination");
+                if (Origination_member != obj.MemberEnd() && !Origination_member->value.IsNull()) Origination = readLoginIdentityProviderFromValue(Origination_member->value);
+                const Value::ConstMemberIterator LastLogin_member = obj.FindMember("LastLogin");
+                if (LastLogin_member != obj.MemberEnd() && !LastLogin_member->value.IsNull()) LastLogin = readDatetime(LastLogin_member->value);
+                const Value::ConstMemberIterator BannedUntil_member = obj.FindMember("BannedUntil");
+                if (BannedUntil_member != obj.MemberEnd() && !BannedUntil_member->value.IsNull()) BannedUntil = readDatetime(BannedUntil_member->value);
+                const Value::ConstMemberIterator Locations_member = obj.FindMember("Locations");
+                if (Locations_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Locations_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Locations.push_back(LocationModel(memberList[i]));
+                    }
+                }
+                const Value::ConstMemberIterator DisplayName_member = obj.FindMember("DisplayName");
+                if (DisplayName_member != obj.MemberEnd() && !DisplayName_member->value.IsNull()) DisplayName = DisplayName_member->value.GetString();
+                const Value::ConstMemberIterator AvatarUrl_member = obj.FindMember("AvatarUrl");
+                if (AvatarUrl_member != obj.MemberEnd() && !AvatarUrl_member->value.IsNull()) AvatarUrl = AvatarUrl_member->value.GetString();
+                const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
+                if (Tags_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Tags_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Tags.push_back(TagModel(memberList[i]));
+                    }
+                }
+                const Value::ConstMemberIterator PushNotificationRegistrations_member = obj.FindMember("PushNotificationRegistrations");
+                if (PushNotificationRegistrations_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = PushNotificationRegistrations_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        PushNotificationRegistrations.push_back(PushNotificationRegistrationModel(memberList[i]));
+                    }
+                }
+                const Value::ConstMemberIterator LinkedAccounts_member = obj.FindMember("LinkedAccounts");
+                if (LinkedAccounts_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = LinkedAccounts_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        LinkedAccounts.push_back(LinkedPlatformAccountModel(memberList[i]));
+                    }
+                }
+                const Value::ConstMemberIterator AdCampaignAttributions_member = obj.FindMember("AdCampaignAttributions");
+                if (AdCampaignAttributions_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = AdCampaignAttributions_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        AdCampaignAttributions.push_back(AdCampaignAttributionModel(memberList[i]));
+                    }
+                }
+                const Value::ConstMemberIterator TotalValueToDateInUSD_member = obj.FindMember("TotalValueToDateInUSD");
+                if (TotalValueToDateInUSD_member != obj.MemberEnd() && !TotalValueToDateInUSD_member->value.IsNull()) TotalValueToDateInUSD = TotalValueToDateInUSD_member->value.GetUint();
+                const Value::ConstMemberIterator ValuesToDate_member = obj.FindMember("ValuesToDate");
+                if (ValuesToDate_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = ValuesToDate_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        ValuesToDate.push_back(ValueToDateModel(memberList[i]));
+                    }
+                }
+                const Value::ConstMemberIterator VirtualCurrencyBalances_member = obj.FindMember("VirtualCurrencyBalances");
+                if (VirtualCurrencyBalances_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = VirtualCurrencyBalances_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        VirtualCurrencyBalances.push_back(VirtualCurrencyBalanceModel(memberList[i]));
+                    }
+                }
+                const Value::ConstMemberIterator Statistics_member = obj.FindMember("Statistics");
+                if (Statistics_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Statistics_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Statistics.push_back(StatisticModel(memberList[i]));
+                    }
+                }
+
+                return true;
+            }
+        };
+
         struct FriendInfo : public PlayFabBaseModel
         {
             AZStd::string FriendPlayFabId;
@@ -5607,6 +6389,7 @@ namespace PlayFabComboSdk
             UserFacebookInfo* FacebookInfo;
             UserSteamInfo* SteamInfo;
             UserGameCenterInfo* GameCenterInfo;
+            PlayerProfileModel* Profile;
 
             FriendInfo() :
                 PlayFabBaseModel(),
@@ -5617,7 +6400,8 @@ namespace PlayFabComboSdk
                 CurrentMatchmakerLobbyId(),
                 FacebookInfo(nullptr),
                 SteamInfo(nullptr),
-                GameCenterInfo(nullptr)
+                GameCenterInfo(nullptr),
+                Profile(nullptr)
             {}
 
             FriendInfo(const FriendInfo& src) :
@@ -5629,7 +6413,8 @@ namespace PlayFabComboSdk
                 CurrentMatchmakerLobbyId(src.CurrentMatchmakerLobbyId),
                 FacebookInfo(src.FacebookInfo ? new UserFacebookInfo(*src.FacebookInfo) : nullptr),
                 SteamInfo(src.SteamInfo ? new UserSteamInfo(*src.SteamInfo) : nullptr),
-                GameCenterInfo(src.GameCenterInfo ? new UserGameCenterInfo(*src.GameCenterInfo) : nullptr)
+                GameCenterInfo(src.GameCenterInfo ? new UserGameCenterInfo(*src.GameCenterInfo) : nullptr),
+                Profile(src.Profile ? new PlayerProfileModel(*src.Profile) : nullptr)
             {}
 
             FriendInfo(const rapidjson::Value& obj) : FriendInfo()
@@ -5642,6 +6427,7 @@ namespace PlayFabComboSdk
                 if (FacebookInfo != nullptr) delete FacebookInfo;
                 if (SteamInfo != nullptr) delete SteamInfo;
                 if (GameCenterInfo != nullptr) delete GameCenterInfo;
+                if (Profile != nullptr) delete Profile;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -5683,6 +6469,10 @@ namespace PlayFabComboSdk
                     writer.String("GameCenterInfo");
                     GameCenterInfo->writeJSON(writer);
                 }
+                if (Profile != nullptr) {
+                    writer.String("Profile");
+                    Profile->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -5709,6 +6499,8 @@ namespace PlayFabComboSdk
                 if (SteamInfo_member != obj.MemberEnd() && !SteamInfo_member->value.IsNull()) SteamInfo = new UserSteamInfo(SteamInfo_member->value);
                 const Value::ConstMemberIterator GameCenterInfo_member = obj.FindMember("GameCenterInfo");
                 if (GameCenterInfo_member != obj.MemberEnd() && !GameCenterInfo_member->value.IsNull()) GameCenterInfo = new UserGameCenterInfo(GameCenterInfo_member->value);
+                const Value::ConstMemberIterator Profile_member = obj.FindMember("Profile");
+                if (Profile_member != obj.MemberEnd() && !Profile_member->value.IsNull()) Profile = new PlayerProfileModel(Profile_member->value);
 
                 return true;
             }
@@ -7150,19 +7942,22 @@ namespace PlayFabComboSdk
             AZStd::string PlayFabId;
             OptionalBool IncludeSteamFriends;
             OptionalBool IncludeFacebookFriends;
+            PlayerProfileViewConstraints* ProfileConstraints;
 
             GetFriendsListRequest() :
                 PlayFabBaseModel(),
                 PlayFabId(),
                 IncludeSteamFriends(),
-                IncludeFacebookFriends()
+                IncludeFacebookFriends(),
+                ProfileConstraints(nullptr)
             {}
 
             GetFriendsListRequest(const GetFriendsListRequest& src) :
                 PlayFabBaseModel(),
                 PlayFabId(src.PlayFabId),
                 IncludeSteamFriends(src.IncludeSteamFriends),
-                IncludeFacebookFriends(src.IncludeFacebookFriends)
+                IncludeFacebookFriends(src.IncludeFacebookFriends),
+                ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
             {}
 
             GetFriendsListRequest(const rapidjson::Value& obj) : GetFriendsListRequest()
@@ -7172,6 +7967,7 @@ namespace PlayFabComboSdk
 
             ~GetFriendsListRequest()
             {
+                if (ProfileConstraints != nullptr) delete ProfileConstraints;
             }
 
             void writeJSON(PFStringJsonWriter& writer) override
@@ -7187,6 +7983,10 @@ namespace PlayFabComboSdk
                     writer.String("IncludeFacebookFriends");
                     writer.Bool(IncludeFacebookFriends);
                 }
+                if (ProfileConstraints != nullptr) {
+                    writer.String("ProfileConstraints");
+                    ProfileConstraints->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -7198,6 +7998,8 @@ namespace PlayFabComboSdk
                 if (IncludeSteamFriends_member != obj.MemberEnd() && !IncludeSteamFriends_member->value.IsNull()) IncludeSteamFriends = IncludeSteamFriends_member->value.GetBool();
                 const Value::ConstMemberIterator IncludeFacebookFriends_member = obj.FindMember("IncludeFacebookFriends");
                 if (IncludeFacebookFriends_member != obj.MemberEnd() && !IncludeFacebookFriends_member->value.IsNull()) IncludeFacebookFriends = IncludeFacebookFriends_member->value.GetBool();
+                const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
+                if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
 
                 return true;
             }
@@ -7443,788 +8245,6 @@ namespace PlayFabComboSdk
                 if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
-
-                return true;
-            }
-        };
-
-        enum LoginIdentityProvider
-        {
-            LoginIdentityProviderUnknown,
-            LoginIdentityProviderPlayFab,
-            LoginIdentityProviderCustom,
-            LoginIdentityProviderGameCenter,
-            LoginIdentityProviderGooglePlay,
-            LoginIdentityProviderSteam,
-            LoginIdentityProviderXBoxLive,
-            LoginIdentityProviderPSN,
-            LoginIdentityProviderKongregate,
-            LoginIdentityProviderFacebook,
-            LoginIdentityProviderIOSDevice,
-            LoginIdentityProviderAndroidDevice,
-            LoginIdentityProviderTwitch,
-            LoginIdentityProviderWindowsHello
-        };
-
-        inline void writeLoginIdentityProviderEnumJSON(LoginIdentityProvider enumVal, PFStringJsonWriter& writer)
-        {
-            switch (enumVal)
-            {
-            case LoginIdentityProviderUnknown: writer.String("Unknown"); break;
-            case LoginIdentityProviderPlayFab: writer.String("PlayFab"); break;
-            case LoginIdentityProviderCustom: writer.String("Custom"); break;
-            case LoginIdentityProviderGameCenter: writer.String("GameCenter"); break;
-            case LoginIdentityProviderGooglePlay: writer.String("GooglePlay"); break;
-            case LoginIdentityProviderSteam: writer.String("Steam"); break;
-            case LoginIdentityProviderXBoxLive: writer.String("XBoxLive"); break;
-            case LoginIdentityProviderPSN: writer.String("PSN"); break;
-            case LoginIdentityProviderKongregate: writer.String("Kongregate"); break;
-            case LoginIdentityProviderFacebook: writer.String("Facebook"); break;
-            case LoginIdentityProviderIOSDevice: writer.String("IOSDevice"); break;
-            case LoginIdentityProviderAndroidDevice: writer.String("AndroidDevice"); break;
-            case LoginIdentityProviderTwitch: writer.String("Twitch"); break;
-            case LoginIdentityProviderWindowsHello: writer.String("WindowsHello"); break;
-
-            }
-        }
-
-        inline LoginIdentityProvider readLoginIdentityProviderFromValue(const rapidjson::Value& obj)
-        {
-            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
-            if (obj.IsNumber())
-                return static_cast<LoginIdentityProvider>(obj.GetInt());
-
-            static std::map<const char *, LoginIdentityProvider, PlayFabComboSdk::StringCompare> _LoginIdentityProviderMap;
-            if (_LoginIdentityProviderMap.size() == 0)
-            {
-                // Auto-generate the map on the first use
-                _LoginIdentityProviderMap["Unknown"] = LoginIdentityProviderUnknown;
-                _LoginIdentityProviderMap["PlayFab"] = LoginIdentityProviderPlayFab;
-                _LoginIdentityProviderMap["Custom"] = LoginIdentityProviderCustom;
-                _LoginIdentityProviderMap["GameCenter"] = LoginIdentityProviderGameCenter;
-                _LoginIdentityProviderMap["GooglePlay"] = LoginIdentityProviderGooglePlay;
-                _LoginIdentityProviderMap["Steam"] = LoginIdentityProviderSteam;
-                _LoginIdentityProviderMap["XBoxLive"] = LoginIdentityProviderXBoxLive;
-                _LoginIdentityProviderMap["PSN"] = LoginIdentityProviderPSN;
-                _LoginIdentityProviderMap["Kongregate"] = LoginIdentityProviderKongregate;
-                _LoginIdentityProviderMap["Facebook"] = LoginIdentityProviderFacebook;
-                _LoginIdentityProviderMap["IOSDevice"] = LoginIdentityProviderIOSDevice;
-                _LoginIdentityProviderMap["AndroidDevice"] = LoginIdentityProviderAndroidDevice;
-                _LoginIdentityProviderMap["Twitch"] = LoginIdentityProviderTwitch;
-                _LoginIdentityProviderMap["WindowsHello"] = LoginIdentityProviderWindowsHello;
-
-            }
-
-            auto output = _LoginIdentityProviderMap.find(obj.GetString());
-            if (output != _LoginIdentityProviderMap.end())
-                return output->second;
-
-            return LoginIdentityProviderUnknown; // Basically critical fail
-        }
-
-        struct LocationModel : public PlayFabBaseModel
-        {
-            Boxed<ContinentCode> pfContinentCode;
-            Boxed<CountryCode> pfCountryCode;
-            AZStd::string City;
-            OptionalDouble Latitude;
-            OptionalDouble Longitude;
-
-            LocationModel() :
-                PlayFabBaseModel(),
-                pfContinentCode(),
-                pfCountryCode(),
-                City(),
-                Latitude(),
-                Longitude()
-            {}
-
-            LocationModel(const LocationModel& src) :
-                PlayFabBaseModel(),
-                pfContinentCode(src.pfContinentCode),
-                pfCountryCode(src.pfCountryCode),
-                City(src.City),
-                Latitude(src.Latitude),
-                Longitude(src.Longitude)
-            {}
-
-            LocationModel(const rapidjson::Value& obj) : LocationModel()
-            {
-                readFromValue(obj);
-            }
-
-            ~LocationModel()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                if (pfContinentCode.notNull()) {
-                    writer.String("ContinentCode");
-                    writeContinentCodeEnumJSON(pfContinentCode, writer);
-                }
-                if (pfCountryCode.notNull()) {
-                    writer.String("CountryCode");
-                    writeCountryCodeEnumJSON(pfCountryCode, writer);
-                }
-                if (City.length() > 0) {
-                    writer.String("City");
-                    writer.String(City.c_str());
-                }
-                if (Latitude.notNull()) {
-                    writer.String("Latitude");
-                    writer.Double(Latitude);
-                }
-                if (Longitude.notNull()) {
-                    writer.String("Longitude");
-                    writer.Double(Longitude);
-                }
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator ContinentCode_member = obj.FindMember("ContinentCode");
-                if (ContinentCode_member != obj.MemberEnd() && !ContinentCode_member->value.IsNull()) pfContinentCode = readContinentCodeFromValue(ContinentCode_member->value);
-                const Value::ConstMemberIterator CountryCode_member = obj.FindMember("CountryCode");
-                if (CountryCode_member != obj.MemberEnd() && !CountryCode_member->value.IsNull()) pfCountryCode = readCountryCodeFromValue(CountryCode_member->value);
-                const Value::ConstMemberIterator City_member = obj.FindMember("City");
-                if (City_member != obj.MemberEnd() && !City_member->value.IsNull()) City = City_member->value.GetString();
-                const Value::ConstMemberIterator Latitude_member = obj.FindMember("Latitude");
-                if (Latitude_member != obj.MemberEnd() && !Latitude_member->value.IsNull()) Latitude = Latitude_member->value.GetDouble();
-                const Value::ConstMemberIterator Longitude_member = obj.FindMember("Longitude");
-                if (Longitude_member != obj.MemberEnd() && !Longitude_member->value.IsNull()) Longitude = Longitude_member->value.GetDouble();
-
-                return true;
-            }
-        };
-
-        struct TagModel : public PlayFabBaseModel
-        {
-            AZStd::string TagValue;
-
-            TagModel() :
-                PlayFabBaseModel(),
-                TagValue()
-            {}
-
-            TagModel(const TagModel& src) :
-                PlayFabBaseModel(),
-                TagValue(src.TagValue)
-            {}
-
-            TagModel(const rapidjson::Value& obj) : TagModel()
-            {
-                readFromValue(obj);
-            }
-
-            ~TagModel()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                if (TagValue.length() > 0) {
-                    writer.String("TagValue");
-                    writer.String(TagValue.c_str());
-                }
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator TagValue_member = obj.FindMember("TagValue");
-                if (TagValue_member != obj.MemberEnd() && !TagValue_member->value.IsNull()) TagValue = TagValue_member->value.GetString();
-
-                return true;
-            }
-        };
-
-        enum PushNotificationPlatform
-        {
-            PushNotificationPlatformApplePushNotificationService,
-            PushNotificationPlatformGoogleCloudMessaging
-        };
-
-        inline void writePushNotificationPlatformEnumJSON(PushNotificationPlatform enumVal, PFStringJsonWriter& writer)
-        {
-            switch (enumVal)
-            {
-            case PushNotificationPlatformApplePushNotificationService: writer.String("ApplePushNotificationService"); break;
-            case PushNotificationPlatformGoogleCloudMessaging: writer.String("GoogleCloudMessaging"); break;
-
-            }
-        }
-
-        inline PushNotificationPlatform readPushNotificationPlatformFromValue(const rapidjson::Value& obj)
-        {
-            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
-            if (obj.IsNumber())
-                return static_cast<PushNotificationPlatform>(obj.GetInt());
-
-            static std::map<const char *, PushNotificationPlatform, PlayFabComboSdk::StringCompare> _PushNotificationPlatformMap;
-            if (_PushNotificationPlatformMap.size() == 0)
-            {
-                // Auto-generate the map on the first use
-                _PushNotificationPlatformMap["ApplePushNotificationService"] = PushNotificationPlatformApplePushNotificationService;
-                _PushNotificationPlatformMap["GoogleCloudMessaging"] = PushNotificationPlatformGoogleCloudMessaging;
-
-            }
-
-            auto output = _PushNotificationPlatformMap.find(obj.GetString());
-            if (output != _PushNotificationPlatformMap.end())
-                return output->second;
-
-            return PushNotificationPlatformApplePushNotificationService; // Basically critical fail
-        }
-
-        struct PushNotificationRegistrationModel : public PlayFabBaseModel
-        {
-            Boxed<PushNotificationPlatform> Platform;
-            AZStd::string NotificationEndpointARN;
-
-            PushNotificationRegistrationModel() :
-                PlayFabBaseModel(),
-                Platform(),
-                NotificationEndpointARN()
-            {}
-
-            PushNotificationRegistrationModel(const PushNotificationRegistrationModel& src) :
-                PlayFabBaseModel(),
-                Platform(src.Platform),
-                NotificationEndpointARN(src.NotificationEndpointARN)
-            {}
-
-            PushNotificationRegistrationModel(const rapidjson::Value& obj) : PushNotificationRegistrationModel()
-            {
-                readFromValue(obj);
-            }
-
-            ~PushNotificationRegistrationModel()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                if (Platform.notNull()) {
-                    writer.String("Platform");
-                    writePushNotificationPlatformEnumJSON(Platform, writer);
-                }
-                if (NotificationEndpointARN.length() > 0) {
-                    writer.String("NotificationEndpointARN");
-                    writer.String(NotificationEndpointARN.c_str());
-                }
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator Platform_member = obj.FindMember("Platform");
-                if (Platform_member != obj.MemberEnd() && !Platform_member->value.IsNull()) Platform = readPushNotificationPlatformFromValue(Platform_member->value);
-                const Value::ConstMemberIterator NotificationEndpointARN_member = obj.FindMember("NotificationEndpointARN");
-                if (NotificationEndpointARN_member != obj.MemberEnd() && !NotificationEndpointARN_member->value.IsNull()) NotificationEndpointARN = NotificationEndpointARN_member->value.GetString();
-
-                return true;
-            }
-        };
-
-        struct LinkedPlatformAccountModel : public PlayFabBaseModel
-        {
-            Boxed<LoginIdentityProvider> Platform;
-            AZStd::string PlatformUserId;
-            AZStd::string Username;
-            AZStd::string Email;
-
-            LinkedPlatformAccountModel() :
-                PlayFabBaseModel(),
-                Platform(),
-                PlatformUserId(),
-                Username(),
-                Email()
-            {}
-
-            LinkedPlatformAccountModel(const LinkedPlatformAccountModel& src) :
-                PlayFabBaseModel(),
-                Platform(src.Platform),
-                PlatformUserId(src.PlatformUserId),
-                Username(src.Username),
-                Email(src.Email)
-            {}
-
-            LinkedPlatformAccountModel(const rapidjson::Value& obj) : LinkedPlatformAccountModel()
-            {
-                readFromValue(obj);
-            }
-
-            ~LinkedPlatformAccountModel()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                if (Platform.notNull()) {
-                    writer.String("Platform");
-                    writeLoginIdentityProviderEnumJSON(Platform, writer);
-                }
-                if (PlatformUserId.length() > 0) {
-                    writer.String("PlatformUserId");
-                    writer.String(PlatformUserId.c_str());
-                }
-                if (Username.length() > 0) {
-                    writer.String("Username");
-                    writer.String(Username.c_str());
-                }
-                if (Email.length() > 0) {
-                    writer.String("Email");
-                    writer.String(Email.c_str());
-                }
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator Platform_member = obj.FindMember("Platform");
-                if (Platform_member != obj.MemberEnd() && !Platform_member->value.IsNull()) Platform = readLoginIdentityProviderFromValue(Platform_member->value);
-                const Value::ConstMemberIterator PlatformUserId_member = obj.FindMember("PlatformUserId");
-                if (PlatformUserId_member != obj.MemberEnd() && !PlatformUserId_member->value.IsNull()) PlatformUserId = PlatformUserId_member->value.GetString();
-                const Value::ConstMemberIterator Username_member = obj.FindMember("Username");
-                if (Username_member != obj.MemberEnd() && !Username_member->value.IsNull()) Username = Username_member->value.GetString();
-                const Value::ConstMemberIterator Email_member = obj.FindMember("Email");
-                if (Email_member != obj.MemberEnd() && !Email_member->value.IsNull()) Email = Email_member->value.GetString();
-
-                return true;
-            }
-        };
-
-        struct ValueToDateModel : public PlayFabBaseModel
-        {
-            AZStd::string Currency;
-            Uint32 TotalValue;
-            AZStd::string TotalValueAsDecimal;
-
-            ValueToDateModel() :
-                PlayFabBaseModel(),
-                Currency(),
-                TotalValue(0),
-                TotalValueAsDecimal()
-            {}
-
-            ValueToDateModel(const ValueToDateModel& src) :
-                PlayFabBaseModel(),
-                Currency(src.Currency),
-                TotalValue(src.TotalValue),
-                TotalValueAsDecimal(src.TotalValueAsDecimal)
-            {}
-
-            ValueToDateModel(const rapidjson::Value& obj) : ValueToDateModel()
-            {
-                readFromValue(obj);
-            }
-
-            ~ValueToDateModel()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                if (Currency.length() > 0) {
-                    writer.String("Currency");
-                    writer.String(Currency.c_str());
-                }
-                writer.String("TotalValue");
-                writer.Uint(TotalValue);
-                if (TotalValueAsDecimal.length() > 0) {
-                    writer.String("TotalValueAsDecimal");
-                    writer.String(TotalValueAsDecimal.c_str());
-                }
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator Currency_member = obj.FindMember("Currency");
-                if (Currency_member != obj.MemberEnd() && !Currency_member->value.IsNull()) Currency = Currency_member->value.GetString();
-                const Value::ConstMemberIterator TotalValue_member = obj.FindMember("TotalValue");
-                if (TotalValue_member != obj.MemberEnd() && !TotalValue_member->value.IsNull()) TotalValue = TotalValue_member->value.GetUint();
-                const Value::ConstMemberIterator TotalValueAsDecimal_member = obj.FindMember("TotalValueAsDecimal");
-                if (TotalValueAsDecimal_member != obj.MemberEnd() && !TotalValueAsDecimal_member->value.IsNull()) TotalValueAsDecimal = TotalValueAsDecimal_member->value.GetString();
-
-                return true;
-            }
-        };
-
-        struct VirtualCurrencyBalanceModel : public PlayFabBaseModel
-        {
-            AZStd::string Currency;
-            Int32 TotalValue;
-
-            VirtualCurrencyBalanceModel() :
-                PlayFabBaseModel(),
-                Currency(),
-                TotalValue(0)
-            {}
-
-            VirtualCurrencyBalanceModel(const VirtualCurrencyBalanceModel& src) :
-                PlayFabBaseModel(),
-                Currency(src.Currency),
-                TotalValue(src.TotalValue)
-            {}
-
-            VirtualCurrencyBalanceModel(const rapidjson::Value& obj) : VirtualCurrencyBalanceModel()
-            {
-                readFromValue(obj);
-            }
-
-            ~VirtualCurrencyBalanceModel()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                if (Currency.length() > 0) {
-                    writer.String("Currency");
-                    writer.String(Currency.c_str());
-                }
-                writer.String("TotalValue");
-                writer.Int(TotalValue);
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator Currency_member = obj.FindMember("Currency");
-                if (Currency_member != obj.MemberEnd() && !Currency_member->value.IsNull()) Currency = Currency_member->value.GetString();
-                const Value::ConstMemberIterator TotalValue_member = obj.FindMember("TotalValue");
-                if (TotalValue_member != obj.MemberEnd() && !TotalValue_member->value.IsNull()) TotalValue = TotalValue_member->value.GetInt();
-
-                return true;
-            }
-        };
-
-        struct StatisticModel : public PlayFabBaseModel
-        {
-            AZStd::string Name;
-            Int32 Version;
-            Int32 Value;
-
-            StatisticModel() :
-                PlayFabBaseModel(),
-                Name(),
-                Version(0),
-                Value(0)
-            {}
-
-            StatisticModel(const StatisticModel& src) :
-                PlayFabBaseModel(),
-                Name(src.Name),
-                Version(src.Version),
-                Value(src.Value)
-            {}
-
-            StatisticModel(const rapidjson::Value& obj) : StatisticModel()
-            {
-                readFromValue(obj);
-            }
-
-            ~StatisticModel()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                if (Name.length() > 0) {
-                    writer.String("Name");
-                    writer.String(Name.c_str());
-                }
-                writer.String("Version");
-                writer.Int(Version);
-                writer.String("Value");
-                writer.Int(Value);
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator Name_member = obj.FindMember("Name");
-                if (Name_member != obj.MemberEnd() && !Name_member->value.IsNull()) Name = Name_member->value.GetString();
-                const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
-                if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
-                const Value::ConstMemberIterator Value_member = obj.FindMember("Value");
-                if (Value_member != obj.MemberEnd() && !Value_member->value.IsNull()) Value = Value_member->value.GetInt();
-
-                return true;
-            }
-        };
-
-        struct PlayerProfileModel : public PlayFabBaseModel
-        {
-            AZStd::string PublisherId;
-            AZStd::string TitleId;
-            AZStd::string PlayerId;
-            OptionalTime Created;
-            Boxed<LoginIdentityProvider> Origination;
-            OptionalTime LastLogin;
-            OptionalTime BannedUntil;
-            std::list<LocationModel> Locations;
-            AZStd::string DisplayName;
-            AZStd::string AvatarUrl;
-            std::list<TagModel> Tags;
-            std::list<PushNotificationRegistrationModel> PushNotificationRegistrations;
-            std::list<LinkedPlatformAccountModel> LinkedAccounts;
-            std::list<AdCampaignAttributionModel> AdCampaignAttributions;
-            OptionalUint32 TotalValueToDateInUSD;
-            std::list<ValueToDateModel> ValuesToDate;
-            std::list<VirtualCurrencyBalanceModel> VirtualCurrencyBalances;
-            std::list<StatisticModel> Statistics;
-
-            PlayerProfileModel() :
-                PlayFabBaseModel(),
-                PublisherId(),
-                TitleId(),
-                PlayerId(),
-                Created(),
-                Origination(),
-                LastLogin(),
-                BannedUntil(),
-                Locations(),
-                DisplayName(),
-                AvatarUrl(),
-                Tags(),
-                PushNotificationRegistrations(),
-                LinkedAccounts(),
-                AdCampaignAttributions(),
-                TotalValueToDateInUSD(),
-                ValuesToDate(),
-                VirtualCurrencyBalances(),
-                Statistics()
-            {}
-
-            PlayerProfileModel(const PlayerProfileModel& src) :
-                PlayFabBaseModel(),
-                PublisherId(src.PublisherId),
-                TitleId(src.TitleId),
-                PlayerId(src.PlayerId),
-                Created(src.Created),
-                Origination(src.Origination),
-                LastLogin(src.LastLogin),
-                BannedUntil(src.BannedUntil),
-                Locations(src.Locations),
-                DisplayName(src.DisplayName),
-                AvatarUrl(src.AvatarUrl),
-                Tags(src.Tags),
-                PushNotificationRegistrations(src.PushNotificationRegistrations),
-                LinkedAccounts(src.LinkedAccounts),
-                AdCampaignAttributions(src.AdCampaignAttributions),
-                TotalValueToDateInUSD(src.TotalValueToDateInUSD),
-                ValuesToDate(src.ValuesToDate),
-                VirtualCurrencyBalances(src.VirtualCurrencyBalances),
-                Statistics(src.Statistics)
-            {}
-
-            PlayerProfileModel(const rapidjson::Value& obj) : PlayerProfileModel()
-            {
-                readFromValue(obj);
-            }
-
-            ~PlayerProfileModel()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) override
-            {
-                writer.StartObject();
-                if (PublisherId.length() > 0) {
-                    writer.String("PublisherId");
-                    writer.String(PublisherId.c_str());
-                }
-                if (TitleId.length() > 0) {
-                    writer.String("TitleId");
-                    writer.String(TitleId.c_str());
-                }
-                if (PlayerId.length() > 0) {
-                    writer.String("PlayerId");
-                    writer.String(PlayerId.c_str());
-                }
-                if (Created.notNull()) {
-                    writer.String("Created");
-                    writeDatetime(Created, writer);
-                }
-                if (Origination.notNull()) {
-                    writer.String("Origination");
-                    writeLoginIdentityProviderEnumJSON(Origination, writer);
-                }
-                if (LastLogin.notNull()) {
-                    writer.String("LastLogin");
-                    writeDatetime(LastLogin, writer);
-                }
-                if (BannedUntil.notNull()) {
-                    writer.String("BannedUntil");
-                    writeDatetime(BannedUntil, writer);
-                }
-                if (!Locations.empty()) {
-                    writer.String("Locations");
-                    writer.StartArray();
-                    for (std::list<LocationModel>::iterator iter = Locations.begin(); iter != Locations.end(); iter++) {
-                        iter->writeJSON(writer);
-                    }
-                    writer.EndArray();
-                }
-                if (DisplayName.length() > 0) {
-                    writer.String("DisplayName");
-                    writer.String(DisplayName.c_str());
-                }
-                if (AvatarUrl.length() > 0) {
-                    writer.String("AvatarUrl");
-                    writer.String(AvatarUrl.c_str());
-                }
-                if (!Tags.empty()) {
-                    writer.String("Tags");
-                    writer.StartArray();
-                    for (std::list<TagModel>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
-                        iter->writeJSON(writer);
-                    }
-                    writer.EndArray();
-                }
-                if (!PushNotificationRegistrations.empty()) {
-                    writer.String("PushNotificationRegistrations");
-                    writer.StartArray();
-                    for (std::list<PushNotificationRegistrationModel>::iterator iter = PushNotificationRegistrations.begin(); iter != PushNotificationRegistrations.end(); iter++) {
-                        iter->writeJSON(writer);
-                    }
-                    writer.EndArray();
-                }
-                if (!LinkedAccounts.empty()) {
-                    writer.String("LinkedAccounts");
-                    writer.StartArray();
-                    for (std::list<LinkedPlatformAccountModel>::iterator iter = LinkedAccounts.begin(); iter != LinkedAccounts.end(); iter++) {
-                        iter->writeJSON(writer);
-                    }
-                    writer.EndArray();
-                }
-                if (!AdCampaignAttributions.empty()) {
-                    writer.String("AdCampaignAttributions");
-                    writer.StartArray();
-                    for (std::list<AdCampaignAttributionModel>::iterator iter = AdCampaignAttributions.begin(); iter != AdCampaignAttributions.end(); iter++) {
-                        iter->writeJSON(writer);
-                    }
-                    writer.EndArray();
-                }
-                if (TotalValueToDateInUSD.notNull()) {
-                    writer.String("TotalValueToDateInUSD");
-                    writer.Uint(TotalValueToDateInUSD);
-                }
-                if (!ValuesToDate.empty()) {
-                    writer.String("ValuesToDate");
-                    writer.StartArray();
-                    for (std::list<ValueToDateModel>::iterator iter = ValuesToDate.begin(); iter != ValuesToDate.end(); iter++) {
-                        iter->writeJSON(writer);
-                    }
-                    writer.EndArray();
-                }
-                if (!VirtualCurrencyBalances.empty()) {
-                    writer.String("VirtualCurrencyBalances");
-                    writer.StartArray();
-                    for (std::list<VirtualCurrencyBalanceModel>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); iter++) {
-                        iter->writeJSON(writer);
-                    }
-                    writer.EndArray();
-                }
-                if (!Statistics.empty()) {
-                    writer.String("Statistics");
-                    writer.StartArray();
-                    for (std::list<StatisticModel>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
-                        iter->writeJSON(writer);
-                    }
-                    writer.EndArray();
-                }
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator PublisherId_member = obj.FindMember("PublisherId");
-                if (PublisherId_member != obj.MemberEnd() && !PublisherId_member->value.IsNull()) PublisherId = PublisherId_member->value.GetString();
-                const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
-                if (TitleId_member != obj.MemberEnd() && !TitleId_member->value.IsNull()) TitleId = TitleId_member->value.GetString();
-                const Value::ConstMemberIterator PlayerId_member = obj.FindMember("PlayerId");
-                if (PlayerId_member != obj.MemberEnd() && !PlayerId_member->value.IsNull()) PlayerId = PlayerId_member->value.GetString();
-                const Value::ConstMemberIterator Created_member = obj.FindMember("Created");
-                if (Created_member != obj.MemberEnd() && !Created_member->value.IsNull()) Created = readDatetime(Created_member->value);
-                const Value::ConstMemberIterator Origination_member = obj.FindMember("Origination");
-                if (Origination_member != obj.MemberEnd() && !Origination_member->value.IsNull()) Origination = readLoginIdentityProviderFromValue(Origination_member->value);
-                const Value::ConstMemberIterator LastLogin_member = obj.FindMember("LastLogin");
-                if (LastLogin_member != obj.MemberEnd() && !LastLogin_member->value.IsNull()) LastLogin = readDatetime(LastLogin_member->value);
-                const Value::ConstMemberIterator BannedUntil_member = obj.FindMember("BannedUntil");
-                if (BannedUntil_member != obj.MemberEnd() && !BannedUntil_member->value.IsNull()) BannedUntil = readDatetime(BannedUntil_member->value);
-                const Value::ConstMemberIterator Locations_member = obj.FindMember("Locations");
-                if (Locations_member != obj.MemberEnd()) {
-                    const rapidjson::Value& memberList = Locations_member->value;
-                    for (SizeType i = 0; i < memberList.Size(); i++) {
-                        Locations.push_back(LocationModel(memberList[i]));
-                    }
-                }
-                const Value::ConstMemberIterator DisplayName_member = obj.FindMember("DisplayName");
-                if (DisplayName_member != obj.MemberEnd() && !DisplayName_member->value.IsNull()) DisplayName = DisplayName_member->value.GetString();
-                const Value::ConstMemberIterator AvatarUrl_member = obj.FindMember("AvatarUrl");
-                if (AvatarUrl_member != obj.MemberEnd() && !AvatarUrl_member->value.IsNull()) AvatarUrl = AvatarUrl_member->value.GetString();
-                const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
-                if (Tags_member != obj.MemberEnd()) {
-                    const rapidjson::Value& memberList = Tags_member->value;
-                    for (SizeType i = 0; i < memberList.Size(); i++) {
-                        Tags.push_back(TagModel(memberList[i]));
-                    }
-                }
-                const Value::ConstMemberIterator PushNotificationRegistrations_member = obj.FindMember("PushNotificationRegistrations");
-                if (PushNotificationRegistrations_member != obj.MemberEnd()) {
-                    const rapidjson::Value& memberList = PushNotificationRegistrations_member->value;
-                    for (SizeType i = 0; i < memberList.Size(); i++) {
-                        PushNotificationRegistrations.push_back(PushNotificationRegistrationModel(memberList[i]));
-                    }
-                }
-                const Value::ConstMemberIterator LinkedAccounts_member = obj.FindMember("LinkedAccounts");
-                if (LinkedAccounts_member != obj.MemberEnd()) {
-                    const rapidjson::Value& memberList = LinkedAccounts_member->value;
-                    for (SizeType i = 0; i < memberList.Size(); i++) {
-                        LinkedAccounts.push_back(LinkedPlatformAccountModel(memberList[i]));
-                    }
-                }
-                const Value::ConstMemberIterator AdCampaignAttributions_member = obj.FindMember("AdCampaignAttributions");
-                if (AdCampaignAttributions_member != obj.MemberEnd()) {
-                    const rapidjson::Value& memberList = AdCampaignAttributions_member->value;
-                    for (SizeType i = 0; i < memberList.Size(); i++) {
-                        AdCampaignAttributions.push_back(AdCampaignAttributionModel(memberList[i]));
-                    }
-                }
-                const Value::ConstMemberIterator TotalValueToDateInUSD_member = obj.FindMember("TotalValueToDateInUSD");
-                if (TotalValueToDateInUSD_member != obj.MemberEnd() && !TotalValueToDateInUSD_member->value.IsNull()) TotalValueToDateInUSD = TotalValueToDateInUSD_member->value.GetUint();
-                const Value::ConstMemberIterator ValuesToDate_member = obj.FindMember("ValuesToDate");
-                if (ValuesToDate_member != obj.MemberEnd()) {
-                    const rapidjson::Value& memberList = ValuesToDate_member->value;
-                    for (SizeType i = 0; i < memberList.Size(); i++) {
-                        ValuesToDate.push_back(ValueToDateModel(memberList[i]));
-                    }
-                }
-                const Value::ConstMemberIterator VirtualCurrencyBalances_member = obj.FindMember("VirtualCurrencyBalances");
-                if (VirtualCurrencyBalances_member != obj.MemberEnd()) {
-                    const rapidjson::Value& memberList = VirtualCurrencyBalances_member->value;
-                    for (SizeType i = 0; i < memberList.Size(); i++) {
-                        VirtualCurrencyBalances.push_back(VirtualCurrencyBalanceModel(memberList[i]));
-                    }
-                }
-                const Value::ConstMemberIterator Statistics_member = obj.FindMember("Statistics");
-                if (Statistics_member != obj.MemberEnd()) {
-                    const rapidjson::Value& memberList = Statistics_member->value;
-                    for (SizeType i = 0; i < memberList.Size(); i++) {
-                        Statistics.push_back(StatisticModel(memberList[i]));
-                    }
-                }
 
                 return true;
             }
