@@ -3875,6 +3875,57 @@ namespace PlayFabServerSdk
             }
         };
 
+        struct ContactEmailInfoModel : public PlayFabBaseModel
+        {
+            AZStd::string Name;
+            AZStd::string EmailAddress;
+
+            ContactEmailInfoModel() :
+                PlayFabBaseModel(),
+                Name(),
+                EmailAddress()
+            {}
+
+            ContactEmailInfoModel(const ContactEmailInfoModel& src) :
+                PlayFabBaseModel(),
+                Name(src.Name),
+                EmailAddress(src.EmailAddress)
+            {}
+
+            ContactEmailInfoModel(const rapidjson::Value& obj) : ContactEmailInfoModel()
+            {
+                readFromValue(obj);
+            }
+
+            ~ContactEmailInfoModel()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (Name.length() > 0) {
+                    writer.String("Name");
+                    writer.String(Name.c_str());
+                }
+                if (EmailAddress.length() > 0) {
+                    writer.String("EmailAddress");
+                    writer.String(EmailAddress.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Name_member = obj.FindMember("Name");
+                if (Name_member != obj.MemberEnd() && !Name_member->value.IsNull()) Name = Name_member->value.GetString();
+                const Value::ConstMemberIterator EmailAddress_member = obj.FindMember("EmailAddress");
+                if (EmailAddress_member != obj.MemberEnd() && !EmailAddress_member->value.IsNull()) EmailAddress = EmailAddress_member->value.GetString();
+
+                return true;
+            }
+        };
+
         enum ContinentCode
         {
             ContinentCodeAF,
@@ -6127,6 +6178,7 @@ namespace PlayFabServerSdk
             std::list<TagModel> Tags;
             std::list<PushNotificationRegistrationModel> PushNotificationRegistrations;
             std::list<LinkedPlatformAccountModel> LinkedAccounts;
+            std::list<ContactEmailInfoModel> ContactEmailAddresses;
             std::list<AdCampaignAttributionModel> AdCampaignAttributions;
             OptionalUint32 TotalValueToDateInUSD;
             std::list<ValueToDateModel> ValuesToDate;
@@ -6148,6 +6200,7 @@ namespace PlayFabServerSdk
                 Tags(),
                 PushNotificationRegistrations(),
                 LinkedAccounts(),
+                ContactEmailAddresses(),
                 AdCampaignAttributions(),
                 TotalValueToDateInUSD(),
                 ValuesToDate(),
@@ -6170,6 +6223,7 @@ namespace PlayFabServerSdk
                 Tags(src.Tags),
                 PushNotificationRegistrations(src.PushNotificationRegistrations),
                 LinkedAccounts(src.LinkedAccounts),
+                ContactEmailAddresses(src.ContactEmailAddresses),
                 AdCampaignAttributions(src.AdCampaignAttributions),
                 TotalValueToDateInUSD(src.TotalValueToDateInUSD),
                 ValuesToDate(src.ValuesToDate),
@@ -6253,6 +6307,14 @@ namespace PlayFabServerSdk
                     writer.String("LinkedAccounts");
                     writer.StartArray();
                     for (std::list<LinkedPlatformAccountModel>::iterator iter = LinkedAccounts.begin(); iter != LinkedAccounts.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
+                if (!ContactEmailAddresses.empty()) {
+                    writer.String("ContactEmailAddresses");
+                    writer.StartArray();
+                    for (std::list<ContactEmailInfoModel>::iterator iter = ContactEmailAddresses.begin(); iter != ContactEmailAddresses.end(); iter++) {
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -6342,6 +6404,13 @@ namespace PlayFabServerSdk
                     const rapidjson::Value& memberList = LinkedAccounts_member->value;
                     for (SizeType i = 0; i < memberList.Size(); i++) {
                         LinkedAccounts.push_back(LinkedPlatformAccountModel(memberList[i]));
+                    }
+                }
+                const Value::ConstMemberIterator ContactEmailAddresses_member = obj.FindMember("ContactEmailAddresses");
+                if (ContactEmailAddresses_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = ContactEmailAddresses_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        ContactEmailAddresses.push_back(ContactEmailInfoModel(memberList[i]));
                     }
                 }
                 const Value::ConstMemberIterator AdCampaignAttributions_member = obj.FindMember("AdCampaignAttributions");
@@ -7719,6 +7788,7 @@ namespace PlayFabServerSdk
             bool ShowCampaignAttributions;
             bool ShowPushNotificationRegistrations;
             bool ShowLinkedAccounts;
+            bool ShowContactEmailAddresses;
             bool ShowTotalValueToDateInUsd;
             bool ShowValuesToDate;
             bool ShowTags;
@@ -7736,6 +7806,7 @@ namespace PlayFabServerSdk
                 ShowCampaignAttributions(false),
                 ShowPushNotificationRegistrations(false),
                 ShowLinkedAccounts(false),
+                ShowContactEmailAddresses(false),
                 ShowTotalValueToDateInUsd(false),
                 ShowValuesToDate(false),
                 ShowTags(false),
@@ -7754,6 +7825,7 @@ namespace PlayFabServerSdk
                 ShowCampaignAttributions(src.ShowCampaignAttributions),
                 ShowPushNotificationRegistrations(src.ShowPushNotificationRegistrations),
                 ShowLinkedAccounts(src.ShowLinkedAccounts),
+                ShowContactEmailAddresses(src.ShowContactEmailAddresses),
                 ShowTotalValueToDateInUsd(src.ShowTotalValueToDateInUsd),
                 ShowValuesToDate(src.ShowValuesToDate),
                 ShowTags(src.ShowTags),
@@ -7791,6 +7863,8 @@ namespace PlayFabServerSdk
                 writer.Bool(ShowPushNotificationRegistrations);
                 writer.String("ShowLinkedAccounts");
                 writer.Bool(ShowLinkedAccounts);
+                writer.String("ShowContactEmailAddresses");
+                writer.Bool(ShowContactEmailAddresses);
                 writer.String("ShowTotalValueToDateInUsd");
                 writer.Bool(ShowTotalValueToDateInUsd);
                 writer.String("ShowValuesToDate");
@@ -7824,6 +7898,8 @@ namespace PlayFabServerSdk
                 if (ShowPushNotificationRegistrations_member != obj.MemberEnd() && !ShowPushNotificationRegistrations_member->value.IsNull()) ShowPushNotificationRegistrations = ShowPushNotificationRegistrations_member->value.GetBool();
                 const Value::ConstMemberIterator ShowLinkedAccounts_member = obj.FindMember("ShowLinkedAccounts");
                 if (ShowLinkedAccounts_member != obj.MemberEnd() && !ShowLinkedAccounts_member->value.IsNull()) ShowLinkedAccounts = ShowLinkedAccounts_member->value.GetBool();
+                const Value::ConstMemberIterator ShowContactEmailAddresses_member = obj.FindMember("ShowContactEmailAddresses");
+                if (ShowContactEmailAddresses_member != obj.MemberEnd() && !ShowContactEmailAddresses_member->value.IsNull()) ShowContactEmailAddresses = ShowContactEmailAddresses_member->value.GetBool();
                 const Value::ConstMemberIterator ShowTotalValueToDateInUsd_member = obj.FindMember("ShowTotalValueToDateInUsd");
                 if (ShowTotalValueToDateInUsd_member != obj.MemberEnd() && !ShowTotalValueToDateInUsd_member->value.IsNull()) ShowTotalValueToDateInUsd = ShowTotalValueToDateInUsd_member->value.GetBool();
                 const Value::ConstMemberIterator ShowValuesToDate_member = obj.FindMember("ShowValuesToDate");
@@ -14476,18 +14552,15 @@ namespace PlayFabServerSdk
 
         struct ReportPlayerServerResult : public PlayFabBaseModel
         {
-            OptionalBool Updated;
             Int32 SubmissionsRemaining;
 
             ReportPlayerServerResult() :
                 PlayFabBaseModel(),
-                Updated(),
                 SubmissionsRemaining(0)
             {}
 
             ReportPlayerServerResult(const ReportPlayerServerResult& src) :
                 PlayFabBaseModel(),
-                Updated(src.Updated),
                 SubmissionsRemaining(src.SubmissionsRemaining)
             {}
 
@@ -14503,10 +14576,6 @@ namespace PlayFabServerSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Updated.notNull()) {
-                    writer.String("Updated");
-                    writer.Bool(Updated);
-                }
                 writer.String("SubmissionsRemaining");
                 writer.Int(SubmissionsRemaining);
                 writer.EndObject();
@@ -14514,8 +14583,6 @@ namespace PlayFabServerSdk
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
-                const Value::ConstMemberIterator Updated_member = obj.FindMember("Updated");
-                if (Updated_member != obj.MemberEnd() && !Updated_member->value.IsNull()) Updated = Updated_member->value.GetBool();
                 const Value::ConstMemberIterator SubmissionsRemaining_member = obj.FindMember("SubmissionsRemaining");
                 if (SubmissionsRemaining_member != obj.MemberEnd() && !SubmissionsRemaining_member->value.IsNull()) SubmissionsRemaining = SubmissionsRemaining_member->value.GetInt();
 
@@ -14809,13 +14876,15 @@ namespace PlayFabServerSdk
             AZStd::string Message;
             PushNotificationPackage* Package;
             AZStd::string Subject;
+            std::list<PushNotificationPlatform> TargetPlatforms;
 
             SendPushNotificationRequest() :
                 PlayFabBaseModel(),
                 Recipient(),
                 Message(),
                 Package(nullptr),
-                Subject()
+                Subject(),
+                TargetPlatforms()
             {}
 
             SendPushNotificationRequest(const SendPushNotificationRequest& src) :
@@ -14823,7 +14892,8 @@ namespace PlayFabServerSdk
                 Recipient(src.Recipient),
                 Message(src.Message),
                 Package(src.Package ? new PushNotificationPackage(*src.Package) : nullptr),
-                Subject(src.Subject)
+                Subject(src.Subject),
+                TargetPlatforms(src.TargetPlatforms)
             {}
 
             SendPushNotificationRequest(const rapidjson::Value& obj) : SendPushNotificationRequest()
@@ -14853,6 +14923,14 @@ namespace PlayFabServerSdk
                     writer.String("Subject");
                     writer.String(Subject.c_str());
                 }
+                if (!TargetPlatforms.empty()) {
+                    writer.String("TargetPlatforms");
+                    writer.StartArray();
+                    for (std::list<PushNotificationPlatform>::iterator iter = TargetPlatforms.begin(); iter != TargetPlatforms.end(); iter++) {
+                        writePushNotificationPlatformEnumJSON(*iter, writer);
+                    }
+                    writer.EndArray();
+                }
                 writer.EndObject();
             }
 
@@ -14866,6 +14944,13 @@ namespace PlayFabServerSdk
                 if (Package_member != obj.MemberEnd() && !Package_member->value.IsNull()) Package = new PushNotificationPackage(Package_member->value);
                 const Value::ConstMemberIterator Subject_member = obj.FindMember("Subject");
                 if (Subject_member != obj.MemberEnd() && !Subject_member->value.IsNull()) Subject = Subject_member->value.GetString();
+                const Value::ConstMemberIterator TargetPlatforms_member = obj.FindMember("TargetPlatforms");
+                if (TargetPlatforms_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = TargetPlatforms_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        TargetPlatforms.push_back(readPushNotificationPlatformFromValue(memberList[i]));
+                    }
+                }
 
                 return true;
             }

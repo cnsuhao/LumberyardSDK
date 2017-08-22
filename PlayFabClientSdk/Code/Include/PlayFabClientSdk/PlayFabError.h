@@ -328,7 +328,9 @@ namespace PlayFabClientSdk
         PlayFabErrorInvalidAuthToken = 1326,
         PlayFabErrorAuthTokenDoesNotExist = 1327,
         PlayFabErrorAuthTokenExpired = 1328,
-        PlayFabErrorAuthTokenAlreadyUsedToResetPassword = 1329
+        PlayFabErrorAuthTokenAlreadyUsedToResetPassword = 1329,
+        PlayFabErrorMembershipNameTooLong = 1330,
+        PlayFabErrorMembershipNotFound = 1331
     };
 
     struct PlayFabError

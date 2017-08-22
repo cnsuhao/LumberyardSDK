@@ -2499,6 +2499,57 @@ namespace PlayFabComboSdk
             }
         };
 
+        struct ContactEmailInfoModel : public PlayFabBaseModel
+        {
+            AZStd::string Name;
+            AZStd::string EmailAddress;
+
+            ContactEmailInfoModel() :
+                PlayFabBaseModel(),
+                Name(),
+                EmailAddress()
+            {}
+
+            ContactEmailInfoModel(const ContactEmailInfoModel& src) :
+                PlayFabBaseModel(),
+                Name(src.Name),
+                EmailAddress(src.EmailAddress)
+            {}
+
+            ContactEmailInfoModel(const rapidjson::Value& obj) : ContactEmailInfoModel()
+            {
+                readFromValue(obj);
+            }
+
+            ~ContactEmailInfoModel()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) override
+            {
+                writer.StartObject();
+                if (Name.length() > 0) {
+                    writer.String("Name");
+                    writer.String(Name.c_str());
+                }
+                if (EmailAddress.length() > 0) {
+                    writer.String("EmailAddress");
+                    writer.String(EmailAddress.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Name_member = obj.FindMember("Name");
+                if (Name_member != obj.MemberEnd() && !Name_member->value.IsNull()) Name = Name_member->value.GetString();
+                const Value::ConstMemberIterator EmailAddress_member = obj.FindMember("EmailAddress");
+                if (EmailAddress_member != obj.MemberEnd() && !EmailAddress_member->value.IsNull()) EmailAddress = EmailAddress_member->value.GetString();
+
+                return true;
+            }
+        };
+
         enum ContinentCode
         {
             ContinentCodeAF,
@@ -4113,7 +4164,8 @@ namespace PlayFabComboSdk
             OptionalInt32 MaxPlayers;
             std::list<AZStd::string> PlayerUserIds;
             Uint32 RunTime;
-            Boxed<GameInstanceState> GameServerState;
+            OptionalInt32 GameServerState;
+            Boxed<GameInstanceState> GameServerStateEnum;
             AZStd::string GameServerData;
             std::map<AZStd::string, AZStd::string> Tags;
             OptionalTime LastHeartbeat;
@@ -4131,6 +4183,7 @@ namespace PlayFabComboSdk
                 PlayerUserIds(),
                 RunTime(0),
                 GameServerState(),
+                GameServerStateEnum(),
                 GameServerData(),
                 Tags(),
                 LastHeartbeat(),
@@ -4149,6 +4202,7 @@ namespace PlayFabComboSdk
                 PlayerUserIds(src.PlayerUserIds),
                 RunTime(src.RunTime),
                 GameServerState(src.GameServerState),
+                GameServerStateEnum(src.GameServerStateEnum),
                 GameServerData(src.GameServerData),
                 Tags(src.Tags),
                 LastHeartbeat(src.LastHeartbeat),
@@ -4204,7 +4258,11 @@ namespace PlayFabComboSdk
                 writer.Uint(RunTime);
                 if (GameServerState.notNull()) {
                     writer.String("GameServerState");
-                    writeGameInstanceStateEnumJSON(GameServerState, writer);
+                    writer.Int(GameServerState);
+                }
+                if (GameServerStateEnum.notNull()) {
+                    writer.String("GameServerStateEnum");
+                    writeGameInstanceStateEnumJSON(GameServerStateEnum, writer);
                 }
                 if (GameServerData.length() > 0) {
                     writer.String("GameServerData");
@@ -4258,7 +4316,9 @@ namespace PlayFabComboSdk
                 const Value::ConstMemberIterator RunTime_member = obj.FindMember("RunTime");
                 if (RunTime_member != obj.MemberEnd() && !RunTime_member->value.IsNull()) RunTime = RunTime_member->value.GetUint();
                 const Value::ConstMemberIterator GameServerState_member = obj.FindMember("GameServerState");
-                if (GameServerState_member != obj.MemberEnd() && !GameServerState_member->value.IsNull()) GameServerState = readGameInstanceStateFromValue(GameServerState_member->value);
+                if (GameServerState_member != obj.MemberEnd() && !GameServerState_member->value.IsNull()) GameServerState = GameServerState_member->value.GetInt();
+                const Value::ConstMemberIterator GameServerStateEnum_member = obj.FindMember("GameServerStateEnum");
+                if (GameServerStateEnum_member != obj.MemberEnd() && !GameServerStateEnum_member->value.IsNull()) GameServerStateEnum = readGameInstanceStateFromValue(GameServerStateEnum_member->value);
                 const Value::ConstMemberIterator GameServerData_member = obj.FindMember("GameServerData");
                 if (GameServerData_member != obj.MemberEnd() && !GameServerData_member->value.IsNull()) GameServerData = GameServerData_member->value.GetString();
                 const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
@@ -5501,6 +5561,7 @@ namespace PlayFabComboSdk
             std::list<TagModel> Tags;
             std::list<PushNotificationRegistrationModel> PushNotificationRegistrations;
             std::list<LinkedPlatformAccountModel> LinkedAccounts;
+            std::list<ContactEmailInfoModel> ContactEmailAddresses;
             std::list<AdCampaignAttributionModel> AdCampaignAttributions;
             OptionalUint32 TotalValueToDateInUSD;
             std::list<ValueToDateModel> ValuesToDate;
@@ -5522,6 +5583,7 @@ namespace PlayFabComboSdk
                 Tags(),
                 PushNotificationRegistrations(),
                 LinkedAccounts(),
+                ContactEmailAddresses(),
                 AdCampaignAttributions(),
                 TotalValueToDateInUSD(),
                 ValuesToDate(),
@@ -5544,6 +5606,7 @@ namespace PlayFabComboSdk
                 Tags(src.Tags),
                 PushNotificationRegistrations(src.PushNotificationRegistrations),
                 LinkedAccounts(src.LinkedAccounts),
+                ContactEmailAddresses(src.ContactEmailAddresses),
                 AdCampaignAttributions(src.AdCampaignAttributions),
                 TotalValueToDateInUSD(src.TotalValueToDateInUSD),
                 ValuesToDate(src.ValuesToDate),
@@ -5627,6 +5690,14 @@ namespace PlayFabComboSdk
                     writer.String("LinkedAccounts");
                     writer.StartArray();
                     for (std::list<LinkedPlatformAccountModel>::iterator iter = LinkedAccounts.begin(); iter != LinkedAccounts.end(); iter++) {
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
+                if (!ContactEmailAddresses.empty()) {
+                    writer.String("ContactEmailAddresses");
+                    writer.StartArray();
+                    for (std::list<ContactEmailInfoModel>::iterator iter = ContactEmailAddresses.begin(); iter != ContactEmailAddresses.end(); iter++) {
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -5716,6 +5787,13 @@ namespace PlayFabComboSdk
                     const rapidjson::Value& memberList = LinkedAccounts_member->value;
                     for (SizeType i = 0; i < memberList.Size(); i++) {
                         LinkedAccounts.push_back(LinkedPlatformAccountModel(memberList[i]));
+                    }
+                }
+                const Value::ConstMemberIterator ContactEmailAddresses_member = obj.FindMember("ContactEmailAddresses");
+                if (ContactEmailAddresses_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = ContactEmailAddresses_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        ContactEmailAddresses.push_back(ContactEmailInfoModel(memberList[i]));
                     }
                 }
                 const Value::ConstMemberIterator AdCampaignAttributions_member = obj.FindMember("AdCampaignAttributions");
@@ -7911,6 +7989,7 @@ namespace PlayFabComboSdk
             bool ShowCampaignAttributions;
             bool ShowPushNotificationRegistrations;
             bool ShowLinkedAccounts;
+            bool ShowContactEmailAddresses;
             bool ShowTotalValueToDateInUsd;
             bool ShowValuesToDate;
             bool ShowTags;
@@ -7928,6 +8007,7 @@ namespace PlayFabComboSdk
                 ShowCampaignAttributions(false),
                 ShowPushNotificationRegistrations(false),
                 ShowLinkedAccounts(false),
+                ShowContactEmailAddresses(false),
                 ShowTotalValueToDateInUsd(false),
                 ShowValuesToDate(false),
                 ShowTags(false),
@@ -7946,6 +8026,7 @@ namespace PlayFabComboSdk
                 ShowCampaignAttributions(src.ShowCampaignAttributions),
                 ShowPushNotificationRegistrations(src.ShowPushNotificationRegistrations),
                 ShowLinkedAccounts(src.ShowLinkedAccounts),
+                ShowContactEmailAddresses(src.ShowContactEmailAddresses),
                 ShowTotalValueToDateInUsd(src.ShowTotalValueToDateInUsd),
                 ShowValuesToDate(src.ShowValuesToDate),
                 ShowTags(src.ShowTags),
@@ -7983,6 +8064,8 @@ namespace PlayFabComboSdk
                 writer.Bool(ShowPushNotificationRegistrations);
                 writer.String("ShowLinkedAccounts");
                 writer.Bool(ShowLinkedAccounts);
+                writer.String("ShowContactEmailAddresses");
+                writer.Bool(ShowContactEmailAddresses);
                 writer.String("ShowTotalValueToDateInUsd");
                 writer.Bool(ShowTotalValueToDateInUsd);
                 writer.String("ShowValuesToDate");
@@ -8016,6 +8099,8 @@ namespace PlayFabComboSdk
                 if (ShowPushNotificationRegistrations_member != obj.MemberEnd() && !ShowPushNotificationRegistrations_member->value.IsNull()) ShowPushNotificationRegistrations = ShowPushNotificationRegistrations_member->value.GetBool();
                 const Value::ConstMemberIterator ShowLinkedAccounts_member = obj.FindMember("ShowLinkedAccounts");
                 if (ShowLinkedAccounts_member != obj.MemberEnd() && !ShowLinkedAccounts_member->value.IsNull()) ShowLinkedAccounts = ShowLinkedAccounts_member->value.GetBool();
+                const Value::ConstMemberIterator ShowContactEmailAddresses_member = obj.FindMember("ShowContactEmailAddresses");
+                if (ShowContactEmailAddresses_member != obj.MemberEnd() && !ShowContactEmailAddresses_member->value.IsNull()) ShowContactEmailAddresses = ShowContactEmailAddresses_member->value.GetBool();
                 const Value::ConstMemberIterator ShowTotalValueToDateInUsd_member = obj.FindMember("ShowTotalValueToDateInUsd");
                 if (ShowTotalValueToDateInUsd_member != obj.MemberEnd() && !ShowTotalValueToDateInUsd_member->value.IsNull()) ShowTotalValueToDateInUsd = ShowTotalValueToDateInUsd_member->value.GetBool();
                 const Value::ConstMemberIterator ShowValuesToDate_member = obj.FindMember("ShowValuesToDate");
@@ -16979,18 +17064,15 @@ namespace PlayFabComboSdk
 
         struct ReportPlayerClientResult : public PlayFabBaseModel
         {
-            OptionalBool Updated;
             Int32 SubmissionsRemaining;
 
             ReportPlayerClientResult() :
                 PlayFabBaseModel(),
-                Updated(),
                 SubmissionsRemaining(0)
             {}
 
             ReportPlayerClientResult(const ReportPlayerClientResult& src) :
                 PlayFabBaseModel(),
-                Updated(src.Updated),
                 SubmissionsRemaining(src.SubmissionsRemaining)
             {}
 
@@ -17006,10 +17088,6 @@ namespace PlayFabComboSdk
             void writeJSON(PFStringJsonWriter& writer) override
             {
                 writer.StartObject();
-                if (Updated.notNull()) {
-                    writer.String("Updated");
-                    writer.Bool(Updated);
-                }
                 writer.String("SubmissionsRemaining");
                 writer.Int(SubmissionsRemaining);
                 writer.EndObject();
@@ -17017,8 +17095,6 @@ namespace PlayFabComboSdk
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
-                const Value::ConstMemberIterator Updated_member = obj.FindMember("Updated");
-                if (Updated_member != obj.MemberEnd() && !Updated_member->value.IsNull()) Updated = Updated_member->value.GetBool();
                 const Value::ConstMemberIterator SubmissionsRemaining_member = obj.FindMember("SubmissionsRemaining");
                 if (SubmissionsRemaining_member != obj.MemberEnd() && !SubmissionsRemaining_member->value.IsNull()) SubmissionsRemaining = SubmissionsRemaining_member->value.GetInt();
 
