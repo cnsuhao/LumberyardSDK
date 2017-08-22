@@ -13,7 +13,7 @@ namespace PlayFabClientSdk
         {
             AZStd::string OfferingPlayerId;
             AZStd::string TradeId;
-            std::list<AZStd::string> AcceptedInventoryInstanceIds;
+            AZStd::vector<AZStd::string> AcceptedInventoryInstanceIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             AcceptTradeRequest() :
                 PlayFabBaseModel(),
@@ -38,7 +38,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("OfferingPlayerId");
@@ -48,7 +48,7 @@ namespace PlayFabClientSdk
                 if (!AcceptedInventoryInstanceIds.empty()) {
                     writer.String("AcceptedInventoryInstanceIds");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = AcceptedInventoryInstanceIds.begin(); iter != AcceptedInventoryInstanceIds.end(); iter++) {
+                    for (auto iter = AcceptedInventoryInstanceIds.begin(); iter != AcceptedInventoryInstanceIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -132,12 +132,12 @@ namespace PlayFabClientSdk
             Boxed<TradeStatus> Status;
             AZStd::string TradeId;
             AZStd::string OfferingPlayerId;
-            std::list<AZStd::string> OfferedInventoryInstanceIds;
-            std::list<AZStd::string> OfferedCatalogItemIds;
-            std::list<AZStd::string> RequestedCatalogItemIds;
-            std::list<AZStd::string> AllowedPlayerIds;
+            AZStd::vector<AZStd::string> OfferedInventoryInstanceIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<AZStd::string> OfferedCatalogItemIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<AZStd::string> RequestedCatalogItemIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<AZStd::string> AllowedPlayerIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             AZStd::string AcceptedPlayerId;
-            std::list<AZStd::string> AcceptedInventoryInstanceIds;
+            AZStd::vector<AZStd::string> AcceptedInventoryInstanceIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             OptionalTime OpenedAt;
             OptionalTime FilledAt;
             OptionalTime CancelledAt;
@@ -186,7 +186,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Status.notNull()) {
@@ -204,7 +204,7 @@ namespace PlayFabClientSdk
                 if (!OfferedInventoryInstanceIds.empty()) {
                     writer.String("OfferedInventoryInstanceIds");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = OfferedInventoryInstanceIds.begin(); iter != OfferedInventoryInstanceIds.end(); iter++) {
+                    for (auto iter = OfferedInventoryInstanceIds.begin(); iter != OfferedInventoryInstanceIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -212,7 +212,7 @@ namespace PlayFabClientSdk
                 if (!OfferedCatalogItemIds.empty()) {
                     writer.String("OfferedCatalogItemIds");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = OfferedCatalogItemIds.begin(); iter != OfferedCatalogItemIds.end(); iter++) {
+                    for (auto iter = OfferedCatalogItemIds.begin(); iter != OfferedCatalogItemIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -220,7 +220,7 @@ namespace PlayFabClientSdk
                 if (!RequestedCatalogItemIds.empty()) {
                     writer.String("RequestedCatalogItemIds");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = RequestedCatalogItemIds.begin(); iter != RequestedCatalogItemIds.end(); iter++) {
+                    for (auto iter = RequestedCatalogItemIds.begin(); iter != RequestedCatalogItemIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -228,7 +228,7 @@ namespace PlayFabClientSdk
                 if (!AllowedPlayerIds.empty()) {
                     writer.String("AllowedPlayerIds");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = AllowedPlayerIds.begin(); iter != AllowedPlayerIds.end(); iter++) {
+                    for (auto iter = AllowedPlayerIds.begin(); iter != AllowedPlayerIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -240,7 +240,7 @@ namespace PlayFabClientSdk
                 if (!AcceptedInventoryInstanceIds.empty()) {
                     writer.String("AcceptedInventoryInstanceIds");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = AcceptedInventoryInstanceIds.begin(); iter != AcceptedInventoryInstanceIds.end(); iter++) {
+                    for (auto iter = AcceptedInventoryInstanceIds.begin(); iter != AcceptedInventoryInstanceIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -346,7 +346,7 @@ namespace PlayFabClientSdk
                 if (Trade != nullptr) delete Trade;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Trade != nullptr) {
@@ -394,7 +394,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Platform.length() > 0) {
@@ -455,7 +455,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (FriendPlayFabId.length() > 0) {
@@ -515,7 +515,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("Created");
@@ -558,7 +558,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("ServiceName");
@@ -602,7 +602,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("GenericId");
@@ -639,7 +639,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -655,7 +655,7 @@ namespace PlayFabClientSdk
         struct AddSharedGroupMembersRequest : public PlayFabBaseModel
         {
             AZStd::string SharedGroupId;
-            std::list<AZStd::string> PlayFabIds;
+            AZStd::vector<AZStd::string> PlayFabIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             AddSharedGroupMembersRequest() :
                 PlayFabBaseModel(),
@@ -678,14 +678,14 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("SharedGroupId");
                 writer.String(SharedGroupId.c_str());
                 writer.String("PlayFabIds");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
+                for (auto iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -728,7 +728,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -770,7 +770,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("Username");
@@ -818,7 +818,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Username.length() > 0) {
@@ -863,7 +863,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("VirtualCurrency");
@@ -913,7 +913,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("DeviceToken");
@@ -962,7 +962,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -1001,7 +1001,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Idfa.length() > 0) {
@@ -1046,7 +1046,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -1082,7 +1082,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("TradeId");
@@ -1123,7 +1123,7 @@ namespace PlayFabClientSdk
                 if (Trade != nullptr) delete Trade;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Trade != nullptr) {
@@ -1186,7 +1186,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (ItemId.length() > 0) {
@@ -1303,7 +1303,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (UsageCount.notNull()) {
@@ -1337,8 +1337,8 @@ namespace PlayFabClientSdk
         struct CatalogItemContainerInfo : public PlayFabBaseModel
         {
             AZStd::string KeyItemId;
-            std::list<AZStd::string> ItemContents;
-            std::list<AZStd::string> ResultTableContents;
+            AZStd::vector<AZStd::string> ItemContents; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<AZStd::string> ResultTableContents; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             std::map<AZStd::string, Uint32> VirtualCurrencyContents;
 
             CatalogItemContainerInfo() :
@@ -1366,7 +1366,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (KeyItemId.length() > 0) {
@@ -1376,7 +1376,7 @@ namespace PlayFabClientSdk
                 if (!ItemContents.empty()) {
                     writer.String("ItemContents");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = ItemContents.begin(); iter != ItemContents.end(); iter++) {
+                    for (auto iter = ItemContents.begin(); iter != ItemContents.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -1384,7 +1384,7 @@ namespace PlayFabClientSdk
                 if (!ResultTableContents.empty()) {
                     writer.String("ResultTableContents");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = ResultTableContents.begin(); iter != ResultTableContents.end(); iter++) {
+                    for (auto iter = ResultTableContents.begin(); iter != ResultTableContents.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -1432,8 +1432,8 @@ namespace PlayFabClientSdk
 
         struct CatalogItemBundleInfo : public PlayFabBaseModel
         {
-            std::list<AZStd::string> BundledItems;
-            std::list<AZStd::string> BundledResultTables;
+            AZStd::vector<AZStd::string> BundledItems; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<AZStd::string> BundledResultTables; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             std::map<AZStd::string, Uint32> BundledVirtualCurrencies;
 
             CatalogItemBundleInfo() :
@@ -1459,13 +1459,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!BundledItems.empty()) {
                     writer.String("BundledItems");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = BundledItems.begin(); iter != BundledItems.end(); iter++) {
+                    for (auto iter = BundledItems.begin(); iter != BundledItems.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -1473,7 +1473,7 @@ namespace PlayFabClientSdk
                 if (!BundledResultTables.empty()) {
                     writer.String("BundledResultTables");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = BundledResultTables.begin(); iter != BundledResultTables.end(); iter++) {
+                    for (auto iter = BundledResultTables.begin(); iter != BundledResultTables.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -1526,7 +1526,7 @@ namespace PlayFabClientSdk
             AZStd::string Description;
             std::map<AZStd::string, Uint32> VirtualCurrencyPrices;
             std::map<AZStd::string, Uint32> RealCurrencyPrices;
-            std::list<AZStd::string> Tags;
+            AZStd::vector<AZStd::string> Tags; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             AZStd::string CustomData;
             CatalogItemConsumableInfo* Consumable;
             CatalogItemContainerInfo* Container;
@@ -1594,7 +1594,7 @@ namespace PlayFabClientSdk
                 if (Bundle != nullptr) delete Bundle;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("ItemId");
@@ -1636,7 +1636,7 @@ namespace PlayFabClientSdk
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                    for (auto iter = Tags.begin(); iter != Tags.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -1745,7 +1745,7 @@ namespace PlayFabClientSdk
             AZStd::string DisplayName;
             AZStd::string UnitCurrency;
             Uint32 UnitPrice;
-            std::list<AZStd::string> BundleContents;
+            AZStd::vector<AZStd::string> BundleContents; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             std::map<AZStd::string, AZStd::string> CustomData;
 
             ItemInstance() :
@@ -1795,7 +1795,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (ItemId.length() > 0) {
@@ -1851,7 +1851,7 @@ namespace PlayFabClientSdk
                 if (!BundleContents.empty()) {
                     writer.String("BundleContents");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = BundleContents.begin(); iter != BundleContents.end(); iter++) {
+                    for (auto iter = BundleContents.begin(); iter != BundleContents.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -1917,7 +1917,7 @@ namespace PlayFabClientSdk
         struct CharacterInventory : public PlayFabBaseModel
         {
             AZStd::string CharacterId;
-            std::list<ItemInstance> Inventory;
+            AZStd::vector<ItemInstance> Inventory; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             CharacterInventory() :
                 PlayFabBaseModel(),
@@ -1940,7 +1940,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (CharacterId.length() > 0) {
@@ -1950,7 +1950,7 @@ namespace PlayFabClientSdk
                 if (!Inventory.empty()) {
                     writer.String("Inventory");
                     writer.StartArray();
-                    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
+                    for (auto iter = Inventory.begin(); iter != Inventory.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -2015,7 +2015,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PlayFabId.length() > 0) {
@@ -2095,7 +2095,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (CharacterId.length() > 0) {
@@ -2190,7 +2190,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Data.empty()) {
@@ -2220,8 +2220,8 @@ namespace PlayFabClientSdk
 
         struct CollectionFilter : public PlayFabBaseModel
         {
-            std::list<Container_Dictionary_String_String> Includes;
-            std::list<Container_Dictionary_String_String> Excludes;
+            AZStd::vector<Container_Dictionary_String_String> Includes; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<Container_Dictionary_String_String> Excludes; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             CollectionFilter() :
                 PlayFabBaseModel(),
@@ -2244,13 +2244,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Includes.empty()) {
                     writer.String("Includes");
                     writer.StartArray();
-                    for (std::list<Container_Dictionary_String_String>::iterator iter = Includes.begin(); iter != Includes.end(); iter++) {
+                    for (auto iter = Includes.begin(); iter != Includes.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -2258,7 +2258,7 @@ namespace PlayFabClientSdk
                 if (!Excludes.empty()) {
                     writer.String("Excludes");
                     writer.StartArray();
-                    for (std::list<Container_Dictionary_String_String>::iterator iter = Excludes.begin(); iter != Excludes.end(); iter++) {
+                    for (auto iter = Excludes.begin(); iter != Excludes.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -2310,7 +2310,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("OrderId");
@@ -2331,7 +2331,7 @@ namespace PlayFabClientSdk
         {
             AZStd::string OrderId;
             time_t PurchaseDate;
-            std::list<ItemInstance> Items;
+            AZStd::vector<ItemInstance> Items; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             ConfirmPurchaseResult() :
                 PlayFabBaseModel(),
@@ -2356,7 +2356,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (OrderId.length() > 0) {
@@ -2368,7 +2368,7 @@ namespace PlayFabClientSdk
                 if (!Items.empty()) {
                     writer.String("Items");
                     writer.StartArray();
-                    for (std::list<ItemInstance>::iterator iter = Items.begin(); iter != Items.end(); iter++) {
+                    for (auto iter = Items.begin(); iter != Items.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -2423,7 +2423,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("ItemInstanceId");
@@ -2476,7 +2476,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (ItemInstanceId.length() > 0) {
@@ -2525,7 +2525,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Name.length() > 0) {
@@ -3405,7 +3405,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (SharedGroupId.length() > 0) {
@@ -3447,7 +3447,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (SharedGroupId.length() > 0) {
@@ -4073,7 +4073,7 @@ namespace PlayFabClientSdk
                 if (TagFilter != nullptr) delete TagFilter;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (pfRegion.notNull()) {
@@ -4162,7 +4162,7 @@ namespace PlayFabClientSdk
             AZStd::string GameMode;
             AZStd::string StatisticName;
             OptionalInt32 MaxPlayers;
-            std::list<AZStd::string> PlayerUserIds;
+            AZStd::vector<AZStd::string> PlayerUserIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             Uint32 RunTime;
             OptionalInt32 GameServerState;
             Boxed<GameInstanceState> GameServerStateEnum;
@@ -4219,7 +4219,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (pfRegion.notNull()) {
@@ -4249,7 +4249,7 @@ namespace PlayFabClientSdk
                 if (!PlayerUserIds.empty()) {
                     writer.String("PlayerUserIds");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = PlayerUserIds.begin(); iter != PlayerUserIds.end(); iter++) {
+                    for (auto iter = PlayerUserIds.begin(); iter != PlayerUserIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -4340,7 +4340,7 @@ namespace PlayFabClientSdk
 
         struct CurrentGamesResult : public PlayFabBaseModel
         {
-            std::list<GameInfo> Games;
+            AZStd::vector<GameInfo> Games; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             Int32 PlayerCount;
             Int32 GameCount;
 
@@ -4367,13 +4367,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Games.empty()) {
                     writer.String("Games");
                     writer.StartArray();
-                    for (std::list<GameInfo>::iterator iter = Games.begin(); iter != Games.end(); iter++) {
+                    for (auto iter = Games.begin(); iter != Games.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -4423,7 +4423,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -4471,7 +4471,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("FunctionName");
@@ -4541,7 +4541,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Level.length() > 0) {
@@ -4601,7 +4601,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Error.length() > 0) {
@@ -4638,7 +4638,7 @@ namespace PlayFabClientSdk
             Int32 Revision;
             MultitypeVar FunctionResult;
             OptionalBool FunctionResultTooLarge;
-            std::list<LogStatement> Logs;
+            AZStd::vector<LogStatement> Logs; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             OptionalBool LogsTooLarge;
             double ExecutionTimeSeconds;
             double ProcessorTimeSeconds;
@@ -4689,7 +4689,7 @@ namespace PlayFabClientSdk
                 if (Error != nullptr) delete Error;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (FunctionName.length() > 0) {
@@ -4709,7 +4709,7 @@ namespace PlayFabClientSdk
                 if (!Logs.empty()) {
                     writer.String("Logs");
                     writer.StartArray();
-                    for (std::list<LogStatement>::iterator iter = Logs.begin(); iter != Logs.end(); iter++) {
+                    for (auto iter = Logs.begin(); iter != Logs.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -4797,7 +4797,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (FacebookId.length() > 0) {
@@ -4848,7 +4848,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (FacebookId.length() > 0) {
@@ -4952,7 +4952,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (SteamId.length() > 0) {
@@ -5012,7 +5012,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (GameCenterId.length() > 0) {
@@ -5140,7 +5140,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (pfContinentCode.notNull()) {
@@ -5206,7 +5206,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (TagValue.length() > 0) {
@@ -5289,7 +5289,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Platform.notNull()) {
@@ -5346,7 +5346,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Platform.notNull()) {
@@ -5412,7 +5412,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Currency.length() > 0) {
@@ -5467,7 +5467,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Currency.length() > 0) {
@@ -5519,7 +5519,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Name.length() > 0) {
@@ -5555,18 +5555,18 @@ namespace PlayFabClientSdk
             Boxed<LoginIdentityProvider> Origination;
             OptionalTime LastLogin;
             OptionalTime BannedUntil;
-            std::list<LocationModel> Locations;
+            AZStd::vector<LocationModel> Locations; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             AZStd::string DisplayName;
             AZStd::string AvatarUrl;
-            std::list<TagModel> Tags;
-            std::list<PushNotificationRegistrationModel> PushNotificationRegistrations;
-            std::list<LinkedPlatformAccountModel> LinkedAccounts;
-            std::list<ContactEmailInfoModel> ContactEmailAddresses;
-            std::list<AdCampaignAttributionModel> AdCampaignAttributions;
+            AZStd::vector<TagModel> Tags; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<PushNotificationRegistrationModel> PushNotificationRegistrations; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<LinkedPlatformAccountModel> LinkedAccounts; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<ContactEmailInfoModel> ContactEmailAddresses; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<AdCampaignAttributionModel> AdCampaignAttributions; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             OptionalUint32 TotalValueToDateInUSD;
-            std::list<ValueToDateModel> ValuesToDate;
-            std::list<VirtualCurrencyBalanceModel> VirtualCurrencyBalances;
-            std::list<StatisticModel> Statistics;
+            AZStd::vector<ValueToDateModel> ValuesToDate; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<VirtualCurrencyBalanceModel> VirtualCurrencyBalances; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<StatisticModel> Statistics; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             PlayerProfileModel() :
                 PlayFabBaseModel(),
@@ -5623,7 +5623,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PublisherId.length() > 0) {
@@ -5657,7 +5657,7 @@ namespace PlayFabClientSdk
                 if (!Locations.empty()) {
                     writer.String("Locations");
                     writer.StartArray();
-                    for (std::list<LocationModel>::iterator iter = Locations.begin(); iter != Locations.end(); iter++) {
+                    for (auto iter = Locations.begin(); iter != Locations.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -5673,7 +5673,7 @@ namespace PlayFabClientSdk
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartArray();
-                    for (std::list<TagModel>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                    for (auto iter = Tags.begin(); iter != Tags.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -5681,7 +5681,7 @@ namespace PlayFabClientSdk
                 if (!PushNotificationRegistrations.empty()) {
                     writer.String("PushNotificationRegistrations");
                     writer.StartArray();
-                    for (std::list<PushNotificationRegistrationModel>::iterator iter = PushNotificationRegistrations.begin(); iter != PushNotificationRegistrations.end(); iter++) {
+                    for (auto iter = PushNotificationRegistrations.begin(); iter != PushNotificationRegistrations.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -5689,7 +5689,7 @@ namespace PlayFabClientSdk
                 if (!LinkedAccounts.empty()) {
                     writer.String("LinkedAccounts");
                     writer.StartArray();
-                    for (std::list<LinkedPlatformAccountModel>::iterator iter = LinkedAccounts.begin(); iter != LinkedAccounts.end(); iter++) {
+                    for (auto iter = LinkedAccounts.begin(); iter != LinkedAccounts.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -5697,7 +5697,7 @@ namespace PlayFabClientSdk
                 if (!ContactEmailAddresses.empty()) {
                     writer.String("ContactEmailAddresses");
                     writer.StartArray();
-                    for (std::list<ContactEmailInfoModel>::iterator iter = ContactEmailAddresses.begin(); iter != ContactEmailAddresses.end(); iter++) {
+                    for (auto iter = ContactEmailAddresses.begin(); iter != ContactEmailAddresses.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -5705,7 +5705,7 @@ namespace PlayFabClientSdk
                 if (!AdCampaignAttributions.empty()) {
                     writer.String("AdCampaignAttributions");
                     writer.StartArray();
-                    for (std::list<AdCampaignAttributionModel>::iterator iter = AdCampaignAttributions.begin(); iter != AdCampaignAttributions.end(); iter++) {
+                    for (auto iter = AdCampaignAttributions.begin(); iter != AdCampaignAttributions.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -5717,7 +5717,7 @@ namespace PlayFabClientSdk
                 if (!ValuesToDate.empty()) {
                     writer.String("ValuesToDate");
                     writer.StartArray();
-                    for (std::list<ValueToDateModel>::iterator iter = ValuesToDate.begin(); iter != ValuesToDate.end(); iter++) {
+                    for (auto iter = ValuesToDate.begin(); iter != ValuesToDate.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -5725,7 +5725,7 @@ namespace PlayFabClientSdk
                 if (!VirtualCurrencyBalances.empty()) {
                     writer.String("VirtualCurrencyBalances");
                     writer.StartArray();
-                    for (std::list<VirtualCurrencyBalanceModel>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); iter++) {
+                    for (auto iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -5733,7 +5733,7 @@ namespace PlayFabClientSdk
                 if (!Statistics.empty()) {
                     writer.String("Statistics");
                     writer.StartArray();
-                    for (std::list<StatisticModel>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
+                    for (auto iter = Statistics.begin(); iter != Statistics.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -5836,7 +5836,7 @@ namespace PlayFabClientSdk
             AZStd::string FriendPlayFabId;
             AZStd::string Username;
             AZStd::string TitleDisplayName;
-            std::list<AZStd::string> Tags;
+            AZStd::vector<AZStd::string> Tags; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             AZStd::string CurrentMatchmakerLobbyId;
             UserFacebookInfo* FacebookInfo;
             UserSteamInfo* SteamInfo;
@@ -5882,7 +5882,7 @@ namespace PlayFabClientSdk
                 if (Profile != nullptr) delete Profile;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (FriendPlayFabId.length() > 0) {
@@ -5900,7 +5900,7 @@ namespace PlayFabClientSdk
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                    for (auto iter = Tags.begin(); iter != Tags.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -5984,7 +5984,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (GameCenterId.length() > 0) {
@@ -6035,7 +6035,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("BuildVersion");
@@ -6090,7 +6090,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (pfRegion.notNull()) {
@@ -6127,7 +6127,7 @@ namespace PlayFabClientSdk
 
         struct GameServerRegionsResult : public PlayFabBaseModel
         {
-            std::list<RegionInfo> Regions;
+            AZStd::vector<RegionInfo> Regions; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GameServerRegionsResult() :
                 PlayFabBaseModel(),
@@ -6148,13 +6148,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Regions.empty()) {
                     writer.String("Regions");
                     writer.StartArray();
-                    for (std::list<RegionInfo>::iterator iter = Regions.begin(); iter != Regions.end(); iter++) {
+                    for (auto iter = Regions.begin(); iter != Regions.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -6203,7 +6203,7 @@ namespace PlayFabClientSdk
                 if (GenericId != nullptr) delete GenericId;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (GenericId != nullptr) {
@@ -6260,7 +6260,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PlayFabId.length() > 0) {
@@ -6424,7 +6424,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (DisplayName.length() > 0) {
@@ -6500,7 +6500,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Email.length() > 0) {
@@ -6542,7 +6542,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (IosDeviceId.length() > 0) {
@@ -6584,7 +6584,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (AndroidDeviceId.length() > 0) {
@@ -6629,7 +6629,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (KongregateId.length() > 0) {
@@ -6680,7 +6680,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (TwitchId.length() > 0) {
@@ -6731,7 +6731,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PsnAccountId.length() > 0) {
@@ -6788,7 +6788,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (GoogleId.length() > 0) {
@@ -6848,7 +6848,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (XboxUserId.length() > 0) {
@@ -6890,7 +6890,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (CustomId.length() > 0) {
@@ -6990,7 +6990,7 @@ namespace PlayFabClientSdk
                 if (CustomIdInfo != nullptr) delete CustomIdInfo;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PlayFabId.length() > 0) {
@@ -7121,7 +7121,7 @@ namespace PlayFabClientSdk
                 if (AccountInfo != nullptr) delete AccountInfo;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (AccountInfo != nullptr) {
@@ -7163,7 +7163,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (CatalogVersion.length() > 0) {
@@ -7184,7 +7184,7 @@ namespace PlayFabClientSdk
 
         struct GetCatalogItemsResult : public PlayFabBaseModel
         {
-            std::list<CatalogItem> Catalog;
+            AZStd::vector<CatalogItem> Catalog; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetCatalogItemsResult() :
                 PlayFabBaseModel(),
@@ -7205,13 +7205,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Catalog.empty()) {
                     writer.String("Catalog");
                     writer.StartArray();
-                    for (std::list<CatalogItem>::iterator iter = Catalog.begin(); iter != Catalog.end(); iter++) {
+                    for (auto iter = Catalog.begin(); iter != Catalog.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -7237,7 +7237,7 @@ namespace PlayFabClientSdk
         {
             AZStd::string PlayFabId;
             AZStd::string CharacterId;
-            std::list<AZStd::string> Keys;
+            AZStd::vector<AZStd::string> Keys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             OptionalUint32 IfChangedFromDataVersion;
 
             GetCharacterDataRequest() :
@@ -7265,7 +7265,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PlayFabId.length() > 0) {
@@ -7277,7 +7277,7 @@ namespace PlayFabClientSdk
                 if (!Keys.empty()) {
                     writer.String("Keys");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                    for (auto iter = Keys.begin(); iter != Keys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -7376,7 +7376,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Value.length() > 0) {
@@ -7434,7 +7434,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (CharacterId.length() > 0) {
@@ -7498,7 +7498,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("CharacterId");
@@ -7550,7 +7550,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("SecondsToRecharge");
@@ -7578,7 +7578,7 @@ namespace PlayFabClientSdk
         struct GetCharacterInventoryResult : public PlayFabBaseModel
         {
             AZStd::string CharacterId;
-            std::list<ItemInstance> Inventory;
+            AZStd::vector<ItemInstance> Inventory; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             std::map<AZStd::string, Int32> VirtualCurrency;
             std::map<AZStd::string, VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
 
@@ -7607,7 +7607,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (CharacterId.length() > 0) {
@@ -7617,7 +7617,7 @@ namespace PlayFabClientSdk
                 if (!Inventory.empty()) {
                     writer.String("Inventory");
                     writer.StartArray();
-                    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
+                    for (auto iter = Inventory.begin(); iter != Inventory.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -7703,7 +7703,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (CharacterType.length() > 0) {
@@ -7738,7 +7738,7 @@ namespace PlayFabClientSdk
 
         struct GetCharacterLeaderboardResult : public PlayFabBaseModel
         {
-            std::list<CharacterLeaderboardEntry> Leaderboard;
+            AZStd::vector<CharacterLeaderboardEntry> Leaderboard; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetCharacterLeaderboardResult() :
                 PlayFabBaseModel(),
@@ -7759,13 +7759,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Leaderboard.empty()) {
                     writer.String("Leaderboard");
                     writer.StartArray();
-                    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                    for (auto iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -7810,7 +7810,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("CharacterId");
@@ -7850,7 +7850,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!CharacterStatistics.empty()) {
@@ -7907,7 +7907,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("Key");
@@ -7959,7 +7959,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (URL.length() > 0) {
@@ -8043,7 +8043,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("ShowDisplayName");
@@ -8158,7 +8158,7 @@ namespace PlayFabClientSdk
                 if (ProfileConstraints != nullptr) delete ProfileConstraints;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("StatisticName");
@@ -8247,7 +8247,7 @@ namespace PlayFabClientSdk
                 if (Profile != nullptr) delete Profile;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PlayFabId.length() > 0) {
@@ -8288,7 +8288,7 @@ namespace PlayFabClientSdk
 
         struct GetFriendLeaderboardAroundPlayerResult : public PlayFabBaseModel
         {
-            std::list<PlayerLeaderboardEntry> Leaderboard;
+            AZStd::vector<PlayerLeaderboardEntry> Leaderboard; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             Int32 Version;
             OptionalTime NextReset;
 
@@ -8315,13 +8315,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Leaderboard.empty()) {
                     writer.String("Leaderboard");
                     writer.StartArray();
-                    for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                    for (auto iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -8395,7 +8395,7 @@ namespace PlayFabClientSdk
                 if (ProfileConstraints != nullptr) delete ProfileConstraints;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("StatisticName");
@@ -8476,7 +8476,7 @@ namespace PlayFabClientSdk
                 if (ProfileConstraints != nullptr) delete ProfileConstraints;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (IncludeSteamFriends.notNull()) {
@@ -8509,7 +8509,7 @@ namespace PlayFabClientSdk
 
         struct GetFriendsListResult : public PlayFabBaseModel
         {
-            std::list<FriendInfo> Friends;
+            AZStd::vector<FriendInfo> Friends; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetFriendsListResult() :
                 PlayFabBaseModel(),
@@ -8530,13 +8530,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Friends.empty()) {
                     writer.String("Friends");
                     writer.StartArray();
-                    for (std::list<FriendInfo>::iterator iter = Friends.begin(); iter != Friends.end(); iter++) {
+                    for (auto iter = Friends.begin(); iter != Friends.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -8590,7 +8590,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("StatisticName");
@@ -8625,7 +8625,7 @@ namespace PlayFabClientSdk
 
         struct GetLeaderboardAroundCharacterResult : public PlayFabBaseModel
         {
-            std::list<CharacterLeaderboardEntry> Leaderboard;
+            AZStd::vector<CharacterLeaderboardEntry> Leaderboard; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetLeaderboardAroundCharacterResult() :
                 PlayFabBaseModel(),
@@ -8646,13 +8646,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Leaderboard.empty()) {
                     writer.String("Leaderboard");
                     writer.StartArray();
-                    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                    for (auto iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -8710,7 +8710,7 @@ namespace PlayFabClientSdk
                 if (ProfileConstraints != nullptr) delete ProfileConstraints;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PlayFabId.length() > 0) {
@@ -8753,7 +8753,7 @@ namespace PlayFabClientSdk
 
         struct GetLeaderboardAroundPlayerResult : public PlayFabBaseModel
         {
-            std::list<PlayerLeaderboardEntry> Leaderboard;
+            AZStd::vector<PlayerLeaderboardEntry> Leaderboard; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             Int32 Version;
             OptionalTime NextReset;
 
@@ -8780,13 +8780,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Leaderboard.empty()) {
                     writer.String("Leaderboard");
                     writer.StartArray();
-                    for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                    for (auto iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -8844,7 +8844,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("StatisticName");
@@ -8867,7 +8867,7 @@ namespace PlayFabClientSdk
 
         struct GetLeaderboardForUsersCharactersResult : public PlayFabBaseModel
         {
-            std::list<CharacterLeaderboardEntry> Leaderboard;
+            AZStd::vector<CharacterLeaderboardEntry> Leaderboard; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetLeaderboardForUsersCharactersResult() :
                 PlayFabBaseModel(),
@@ -8888,13 +8888,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Leaderboard.empty()) {
                     writer.String("Leaderboard");
                     writer.StartArray();
-                    for (std::list<CharacterLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                    for (auto iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -8952,7 +8952,7 @@ namespace PlayFabClientSdk
                 if (ProfileConstraints != nullptr) delete ProfileConstraints;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("StatisticName");
@@ -8993,7 +8993,7 @@ namespace PlayFabClientSdk
 
         struct GetLeaderboardResult : public PlayFabBaseModel
         {
-            std::list<PlayerLeaderboardEntry> Leaderboard;
+            AZStd::vector<PlayerLeaderboardEntry> Leaderboard; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             Int32 Version;
             OptionalTime NextReset;
 
@@ -9020,13 +9020,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Leaderboard.empty()) {
                     writer.String("Leaderboard");
                     writer.StartArray();
-                    for (std::list<PlayerLeaderboardEntry>::iterator iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) {
+                    for (auto iter = Leaderboard.begin(); iter != Leaderboard.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9081,7 +9081,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("PhotonApplicationId");
@@ -9121,7 +9121,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PhotonCustomAuthenticationToken.length() > 0) {
@@ -9146,15 +9146,15 @@ namespace PlayFabClientSdk
             bool GetUserInventory;
             bool GetUserVirtualCurrency;
             bool GetUserData;
-            std::list<AZStd::string> UserDataKeys;
+            AZStd::vector<AZStd::string> UserDataKeys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             bool GetUserReadOnlyData;
-            std::list<AZStd::string> UserReadOnlyDataKeys;
+            AZStd::vector<AZStd::string> UserReadOnlyDataKeys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             bool GetCharacterInventories;
             bool GetCharacterList;
             bool GetTitleData;
-            std::list<AZStd::string> TitleDataKeys;
+            AZStd::vector<AZStd::string> TitleDataKeys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             bool GetPlayerStatistics;
-            std::list<AZStd::string> PlayerStatisticNames;
+            AZStd::vector<AZStd::string> PlayerStatisticNames; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             bool GetPlayerProfile;
             PlayerProfileViewConstraints* ProfileConstraints;
 
@@ -9206,7 +9206,7 @@ namespace PlayFabClientSdk
                 if (ProfileConstraints != nullptr) delete ProfileConstraints;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("GetUserAccountInfo");
@@ -9220,7 +9220,7 @@ namespace PlayFabClientSdk
                 if (!UserDataKeys.empty()) {
                     writer.String("UserDataKeys");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = UserDataKeys.begin(); iter != UserDataKeys.end(); iter++) {
+                    for (auto iter = UserDataKeys.begin(); iter != UserDataKeys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -9230,7 +9230,7 @@ namespace PlayFabClientSdk
                 if (!UserReadOnlyDataKeys.empty()) {
                     writer.String("UserReadOnlyDataKeys");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = UserReadOnlyDataKeys.begin(); iter != UserReadOnlyDataKeys.end(); iter++) {
+                    for (auto iter = UserReadOnlyDataKeys.begin(); iter != UserReadOnlyDataKeys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -9244,7 +9244,7 @@ namespace PlayFabClientSdk
                 if (!TitleDataKeys.empty()) {
                     writer.String("TitleDataKeys");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = TitleDataKeys.begin(); iter != TitleDataKeys.end(); iter++) {
+                    for (auto iter = TitleDataKeys.begin(); iter != TitleDataKeys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -9254,7 +9254,7 @@ namespace PlayFabClientSdk
                 if (!PlayerStatisticNames.empty()) {
                     writer.String("PlayerStatisticNames");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = PlayerStatisticNames.begin(); iter != PlayerStatisticNames.end(); iter++) {
+                    for (auto iter = PlayerStatisticNames.begin(); iter != PlayerStatisticNames.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -9351,7 +9351,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PlayFabId.length() > 0) {
@@ -9403,7 +9403,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (StatisticName.length() > 0) {
@@ -9433,17 +9433,17 @@ namespace PlayFabClientSdk
         struct GetPlayerCombinedInfoResultPayload : public PlayFabBaseModel
         {
             UserAccountInfo* AccountInfo;
-            std::list<ItemInstance> UserInventory;
+            AZStd::vector<ItemInstance> UserInventory; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             std::map<AZStd::string, Int32> UserVirtualCurrency;
             std::map<AZStd::string, VirtualCurrencyRechargeTime> UserVirtualCurrencyRechargeTimes;
             std::map<AZStd::string, UserDataRecord> UserData;
             Uint32 UserDataVersion;
             std::map<AZStd::string, UserDataRecord> UserReadOnlyData;
             Uint32 UserReadOnlyDataVersion;
-            std::list<CharacterResult> CharacterList;
-            std::list<CharacterInventory> CharacterInventories;
+            AZStd::vector<CharacterResult> CharacterList; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<CharacterInventory> CharacterInventories; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             std::map<AZStd::string, AZStd::string> TitleData;
-            std::list<StatisticValue> PlayerStatistics;
+            AZStd::vector<StatisticValue> PlayerStatistics; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             PlayerProfileModel* PlayerProfile;
 
             GetPlayerCombinedInfoResultPayload() :
@@ -9491,7 +9491,7 @@ namespace PlayFabClientSdk
                 if (PlayerProfile != nullptr) delete PlayerProfile;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (AccountInfo != nullptr) {
@@ -9501,7 +9501,7 @@ namespace PlayFabClientSdk
                 if (!UserInventory.empty()) {
                     writer.String("UserInventory");
                     writer.StartArray();
-                    for (std::list<ItemInstance>::iterator iter = UserInventory.begin(); iter != UserInventory.end(); iter++) {
+                    for (auto iter = UserInventory.begin(); iter != UserInventory.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9549,7 +9549,7 @@ namespace PlayFabClientSdk
                 if (!CharacterList.empty()) {
                     writer.String("CharacterList");
                     writer.StartArray();
-                    for (std::list<CharacterResult>::iterator iter = CharacterList.begin(); iter != CharacterList.end(); iter++) {
+                    for (auto iter = CharacterList.begin(); iter != CharacterList.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9557,7 +9557,7 @@ namespace PlayFabClientSdk
                 if (!CharacterInventories.empty()) {
                     writer.String("CharacterInventories");
                     writer.StartArray();
-                    for (std::list<CharacterInventory>::iterator iter = CharacterInventories.begin(); iter != CharacterInventories.end(); iter++) {
+                    for (auto iter = CharacterInventories.begin(); iter != CharacterInventories.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9574,7 +9574,7 @@ namespace PlayFabClientSdk
                 if (!PlayerStatistics.empty()) {
                     writer.String("PlayerStatistics");
                     writer.StartArray();
-                    for (std::list<StatisticValue>::iterator iter = PlayerStatistics.begin(); iter != PlayerStatistics.end(); iter++) {
+                    for (auto iter = PlayerStatistics.begin(); iter != PlayerStatistics.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9686,7 +9686,7 @@ namespace PlayFabClientSdk
                 if (InfoResultPayload != nullptr) delete InfoResultPayload;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PlayFabId.length() > 0) {
@@ -9738,7 +9738,7 @@ namespace PlayFabClientSdk
                 if (ProfileConstraints != nullptr) delete ProfileConstraints;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("PlayFabId");
@@ -9785,7 +9785,7 @@ namespace PlayFabClientSdk
                 if (PlayerProfile != nullptr) delete PlayerProfile;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PlayerProfile != nullptr) {
@@ -9824,7 +9824,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -9866,7 +9866,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("Id");
@@ -9897,7 +9897,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayerSegmentsResult : public PlayFabBaseModel
         {
-            std::list<GetSegmentResult> Segments;
+            AZStd::vector<GetSegmentResult> Segments; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayerSegmentsResult() :
                 PlayFabBaseModel(),
@@ -9918,13 +9918,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Segments.empty()) {
                     writer.String("Segments");
                     writer.StartArray();
-                    for (std::list<GetSegmentResult>::iterator iter = Segments.begin(); iter != Segments.end(); iter++) {
+                    for (auto iter = Segments.begin(); iter != Segments.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -9972,7 +9972,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("StatisticName");
@@ -9995,8 +9995,8 @@ namespace PlayFabClientSdk
 
         struct GetPlayerStatisticsRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> StatisticNames;
-            std::list<StatisticNameVersion> StatisticNameVersions;
+            AZStd::vector<AZStd::string> StatisticNames; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<StatisticNameVersion> StatisticNameVersions; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayerStatisticsRequest() :
                 PlayFabBaseModel(),
@@ -10019,13 +10019,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!StatisticNames.empty()) {
                     writer.String("StatisticNames");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = StatisticNames.begin(); iter != StatisticNames.end(); iter++) {
+                    for (auto iter = StatisticNames.begin(); iter != StatisticNames.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -10033,7 +10033,7 @@ namespace PlayFabClientSdk
                 if (!StatisticNameVersions.empty()) {
                     writer.String("StatisticNameVersions");
                     writer.StartArray();
-                    for (std::list<StatisticNameVersion>::iterator iter = StatisticNameVersions.begin(); iter != StatisticNameVersions.end(); iter++) {
+                    for (auto iter = StatisticNameVersions.begin(); iter != StatisticNameVersions.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10064,7 +10064,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayerStatisticsResult : public PlayFabBaseModel
         {
-            std::list<StatisticValue> Statistics;
+            AZStd::vector<StatisticValue> Statistics; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayerStatisticsResult() :
                 PlayFabBaseModel(),
@@ -10085,13 +10085,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Statistics.empty()) {
                     writer.String("Statistics");
                     writer.StartArray();
-                    for (std::list<StatisticValue>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
+                    for (auto iter = Statistics.begin(); iter != Statistics.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10136,7 +10136,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (StatisticName.length() > 0) {
@@ -10193,7 +10193,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (StatisticName.length() > 0) {
@@ -10240,7 +10240,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayerStatisticVersionsResult : public PlayFabBaseModel
         {
-            std::list<PlayerStatisticVersion> StatisticVersions;
+            AZStd::vector<PlayerStatisticVersion> StatisticVersions; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayerStatisticVersionsResult() :
                 PlayFabBaseModel(),
@@ -10261,13 +10261,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!StatisticVersions.empty()) {
                     writer.String("StatisticVersions");
                     writer.StartArray();
-                    for (std::list<PlayerStatisticVersion>::iterator iter = StatisticVersions.begin(); iter != StatisticVersions.end(); iter++) {
+                    for (auto iter = StatisticVersions.begin(); iter != StatisticVersions.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10315,7 +10315,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("PlayFabId");
@@ -10341,7 +10341,7 @@ namespace PlayFabClientSdk
         struct GetPlayerTagsResult : public PlayFabBaseModel
         {
             AZStd::string PlayFabId;
-            std::list<AZStd::string> Tags;
+            AZStd::vector<AZStd::string> Tags; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayerTagsResult() :
                 PlayFabBaseModel(),
@@ -10364,14 +10364,14 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("PlayFabId");
                 writer.String(PlayFabId.c_str());
                 writer.String("Tags");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                for (auto iter = Tags.begin(); iter != Tags.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -10417,7 +10417,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (StatusFilter.notNull()) {
@@ -10438,8 +10438,8 @@ namespace PlayFabClientSdk
 
         struct GetPlayerTradesResponse : public PlayFabBaseModel
         {
-            std::list<TradeInfo> OpenedTrades;
-            std::list<TradeInfo> AcceptedTrades;
+            AZStd::vector<TradeInfo> OpenedTrades; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<TradeInfo> AcceptedTrades; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayerTradesResponse() :
                 PlayFabBaseModel(),
@@ -10462,13 +10462,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!OpenedTrades.empty()) {
                     writer.String("OpenedTrades");
                     writer.StartArray();
-                    for (std::list<TradeInfo>::iterator iter = OpenedTrades.begin(); iter != OpenedTrades.end(); iter++) {
+                    for (auto iter = OpenedTrades.begin(); iter != OpenedTrades.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10476,7 +10476,7 @@ namespace PlayFabClientSdk
                 if (!AcceptedTrades.empty()) {
                     writer.String("AcceptedTrades");
                     writer.StartArray();
-                    for (std::list<TradeInfo>::iterator iter = AcceptedTrades.begin(); iter != AcceptedTrades.end(); iter++) {
+                    for (auto iter = AcceptedTrades.begin(); iter != AcceptedTrades.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10507,7 +10507,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayFabIDsFromFacebookIDsRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> FacebookIDs;
+            AZStd::vector<AZStd::string> FacebookIDs; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromFacebookIDsRequest() :
                 PlayFabBaseModel(),
@@ -10528,12 +10528,12 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("FacebookIDs");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = FacebookIDs.begin(); iter != FacebookIDs.end(); iter++) {
+                for (auto iter = FacebookIDs.begin(); iter != FacebookIDs.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -10556,7 +10556,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayFabIDsFromFacebookIDsResult : public PlayFabBaseModel
         {
-            std::list<FacebookPlayFabIdPair> Data;
+            AZStd::vector<FacebookPlayFabIdPair> Data; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromFacebookIDsResult() :
                 PlayFabBaseModel(),
@@ -10577,13 +10577,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartArray();
-                    for (std::list<FacebookPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                    for (auto iter = Data.begin(); iter != Data.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10607,7 +10607,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayFabIDsFromGameCenterIDsRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> GameCenterIDs;
+            AZStd::vector<AZStd::string> GameCenterIDs; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromGameCenterIDsRequest() :
                 PlayFabBaseModel(),
@@ -10628,12 +10628,12 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("GameCenterIDs");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = GameCenterIDs.begin(); iter != GameCenterIDs.end(); iter++) {
+                for (auto iter = GameCenterIDs.begin(); iter != GameCenterIDs.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -10656,7 +10656,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayFabIDsFromGameCenterIDsResult : public PlayFabBaseModel
         {
-            std::list<GameCenterPlayFabIdPair> Data;
+            AZStd::vector<GameCenterPlayFabIdPair> Data; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromGameCenterIDsResult() :
                 PlayFabBaseModel(),
@@ -10677,13 +10677,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartArray();
-                    for (std::list<GameCenterPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                    for (auto iter = Data.begin(); iter != Data.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10707,7 +10707,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayFabIDsFromGenericIDsRequest : public PlayFabBaseModel
         {
-            std::list<GenericServiceId> GenericIDs;
+            AZStd::vector<GenericServiceId> GenericIDs; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromGenericIDsRequest() :
                 PlayFabBaseModel(),
@@ -10728,12 +10728,12 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("GenericIDs");
                 writer.StartArray();
-                for (std::list<GenericServiceId>::iterator iter = GenericIDs.begin(); iter != GenericIDs.end(); iter++) {
+                for (auto iter = GenericIDs.begin(); iter != GenericIDs.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     iter->writeJSON(writer);
                 }
                 writer.EndArray();
@@ -10756,7 +10756,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayFabIDsFromGenericIDsResult : public PlayFabBaseModel
         {
-            std::list<GenericPlayFabIdPair> Data;
+            AZStd::vector<GenericPlayFabIdPair> Data; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromGenericIDsResult() :
                 PlayFabBaseModel(),
@@ -10777,13 +10777,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartArray();
-                    for (std::list<GenericPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                    for (auto iter = Data.begin(); iter != Data.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10807,7 +10807,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayFabIDsFromGoogleIDsRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> GoogleIDs;
+            AZStd::vector<AZStd::string> GoogleIDs; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromGoogleIDsRequest() :
                 PlayFabBaseModel(),
@@ -10828,12 +10828,12 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("GoogleIDs");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = GoogleIDs.begin(); iter != GoogleIDs.end(); iter++) {
+                for (auto iter = GoogleIDs.begin(); iter != GoogleIDs.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -10880,7 +10880,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (GoogleId.length() > 0) {
@@ -10907,7 +10907,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayFabIDsFromGoogleIDsResult : public PlayFabBaseModel
         {
-            std::list<GooglePlayFabIdPair> Data;
+            AZStd::vector<GooglePlayFabIdPair> Data; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromGoogleIDsResult() :
                 PlayFabBaseModel(),
@@ -10928,13 +10928,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartArray();
-                    for (std::list<GooglePlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                    for (auto iter = Data.begin(); iter != Data.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -10958,7 +10958,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayFabIDsFromKongregateIDsRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> KongregateIDs;
+            AZStd::vector<AZStd::string> KongregateIDs; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromKongregateIDsRequest() :
                 PlayFabBaseModel(),
@@ -10979,12 +10979,12 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("KongregateIDs");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = KongregateIDs.begin(); iter != KongregateIDs.end(); iter++) {
+                for (auto iter = KongregateIDs.begin(); iter != KongregateIDs.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -11031,7 +11031,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (KongregateId.length() > 0) {
@@ -11058,7 +11058,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayFabIDsFromKongregateIDsResult : public PlayFabBaseModel
         {
-            std::list<KongregatePlayFabIdPair> Data;
+            AZStd::vector<KongregatePlayFabIdPair> Data; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromKongregateIDsResult() :
                 PlayFabBaseModel(),
@@ -11079,13 +11079,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartArray();
-                    for (std::list<KongregatePlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                    for (auto iter = Data.begin(); iter != Data.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -11109,7 +11109,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayFabIDsFromSteamIDsRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> SteamStringIDs;
+            AZStd::vector<AZStd::string> SteamStringIDs; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromSteamIDsRequest() :
                 PlayFabBaseModel(),
@@ -11130,13 +11130,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!SteamStringIDs.empty()) {
                     writer.String("SteamStringIDs");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = SteamStringIDs.begin(); iter != SteamStringIDs.end(); iter++) {
+                    for (auto iter = SteamStringIDs.begin(); iter != SteamStringIDs.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -11184,7 +11184,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (SteamStringId.length() > 0) {
@@ -11211,7 +11211,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayFabIDsFromSteamIDsResult : public PlayFabBaseModel
         {
-            std::list<SteamPlayFabIdPair> Data;
+            AZStd::vector<SteamPlayFabIdPair> Data; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromSteamIDsResult() :
                 PlayFabBaseModel(),
@@ -11232,13 +11232,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartArray();
-                    for (std::list<SteamPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                    for (auto iter = Data.begin(); iter != Data.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -11262,7 +11262,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayFabIDsFromTwitchIDsRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> TwitchIds;
+            AZStd::vector<AZStd::string> TwitchIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromTwitchIDsRequest() :
                 PlayFabBaseModel(),
@@ -11283,12 +11283,12 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("TwitchIds");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = TwitchIds.begin(); iter != TwitchIds.end(); iter++) {
+                for (auto iter = TwitchIds.begin(); iter != TwitchIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -11335,7 +11335,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (TwitchId.length() > 0) {
@@ -11362,7 +11362,7 @@ namespace PlayFabClientSdk
 
         struct GetPlayFabIDsFromTwitchIDsResult : public PlayFabBaseModel
         {
-            std::list<TwitchPlayFabIdPair> Data;
+            AZStd::vector<TwitchPlayFabIdPair> Data; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPlayFabIDsFromTwitchIDsResult() :
                 PlayFabBaseModel(),
@@ -11383,13 +11383,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartArray();
-                    for (std::list<TwitchPlayFabIdPair>::iterator iter = Data.begin(); iter != Data.end(); iter++) {
+                    for (auto iter = Data.begin(); iter != Data.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -11413,7 +11413,7 @@ namespace PlayFabClientSdk
 
         struct GetPublisherDataRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> Keys;
+            AZStd::vector<AZStd::string> Keys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetPublisherDataRequest() :
                 PlayFabBaseModel(),
@@ -11434,12 +11434,12 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("Keys");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                for (auto iter = Keys.begin(); iter != Keys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -11483,7 +11483,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Data.empty()) {
@@ -11534,7 +11534,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("OrderId");
@@ -11586,7 +11586,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (OrderId.length() > 0) {
@@ -11630,7 +11630,7 @@ namespace PlayFabClientSdk
         struct GetSharedGroupDataRequest : public PlayFabBaseModel
         {
             AZStd::string SharedGroupId;
-            std::list<AZStd::string> Keys;
+            AZStd::vector<AZStd::string> Keys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             OptionalBool GetMembers;
 
             GetSharedGroupDataRequest() :
@@ -11656,7 +11656,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("SharedGroupId");
@@ -11664,7 +11664,7 @@ namespace PlayFabClientSdk
                 if (!Keys.empty()) {
                     writer.String("Keys");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                    for (auto iter = Keys.begin(); iter != Keys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -11726,7 +11726,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Value.length() > 0) {
@@ -11764,7 +11764,7 @@ namespace PlayFabClientSdk
         struct GetSharedGroupDataResult : public PlayFabBaseModel
         {
             std::map<AZStd::string, SharedGroupDataRecord> Data;
-            std::list<AZStd::string> Members;
+            AZStd::vector<AZStd::string> Members; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetSharedGroupDataResult() :
                 PlayFabBaseModel(),
@@ -11787,7 +11787,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Data.empty()) {
@@ -11802,7 +11802,7 @@ namespace PlayFabClientSdk
                 if (!Members.empty()) {
                     writer.String("Members");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Members.begin(); iter != Members.end(); iter++) {
+                    for (auto iter = Members.begin(); iter != Members.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -11856,7 +11856,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (CatalogVersion.length() > 0) {
@@ -11914,7 +11914,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("ItemId");
@@ -12049,7 +12049,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (DisplayName.length() > 0) {
@@ -12082,7 +12082,7 @@ namespace PlayFabClientSdk
 
         struct GetStoreItemsResult : public PlayFabBaseModel
         {
-            std::list<StoreItem> Store;
+            AZStd::vector<StoreItem> Store; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             Boxed<SourceType> Source;
             AZStd::string CatalogVersion;
             AZStd::string StoreId;
@@ -12116,13 +12116,13 @@ namespace PlayFabClientSdk
                 if (MarketingData != nullptr) delete MarketingData;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Store.empty()) {
                     writer.String("Store");
                     writer.StartArray();
-                    for (std::list<StoreItem>::iterator iter = Store.begin(); iter != Store.end(); iter++) {
+                    for (auto iter = Store.begin(); iter != Store.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -12188,7 +12188,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -12224,7 +12224,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("Time");
@@ -12243,7 +12243,7 @@ namespace PlayFabClientSdk
 
         struct GetTitleDataRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> Keys;
+            AZStd::vector<AZStd::string> Keys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetTitleDataRequest() :
                 PlayFabBaseModel(),
@@ -12264,13 +12264,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Keys.empty()) {
                     writer.String("Keys");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                    for (auto iter = Keys.begin(); iter != Keys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -12315,7 +12315,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Data.empty()) {
@@ -12366,7 +12366,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Count.notNull()) {
@@ -12417,7 +12417,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("Timestamp");
@@ -12454,7 +12454,7 @@ namespace PlayFabClientSdk
 
         struct GetTitleNewsResult : public PlayFabBaseModel
         {
-            std::list<TitleNewsItem> News;
+            AZStd::vector<TitleNewsItem> News; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             GetTitleNewsResult() :
                 PlayFabBaseModel(),
@@ -12475,13 +12475,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!News.empty()) {
                     writer.String("News");
                     writer.StartArray();
-                    for (std::list<TitleNewsItem>::iterator iter = News.begin(); iter != News.end(); iter++) {
+                    for (auto iter = News.begin(); iter != News.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -12529,7 +12529,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("TitleId");
@@ -12573,7 +12573,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (RSAPublicKey.length() > 0) {
@@ -12618,7 +12618,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("OfferingPlayerId");
@@ -12663,7 +12663,7 @@ namespace PlayFabClientSdk
                 if (Trade != nullptr) delete Trade;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Trade != nullptr) {
@@ -12684,7 +12684,7 @@ namespace PlayFabClientSdk
 
         struct GetUserDataRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> Keys;
+            AZStd::vector<AZStd::string> Keys; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             AZStd::string PlayFabId;
             OptionalUint32 IfChangedFromDataVersion;
 
@@ -12711,13 +12711,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Keys.empty()) {
                     writer.String("Keys");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = Keys.begin(); iter != Keys.end(); iter++) {
+                    for (auto iter = Keys.begin(); iter != Keys.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -12777,7 +12777,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Data.empty()) {
@@ -12829,7 +12829,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -12844,7 +12844,7 @@ namespace PlayFabClientSdk
 
         struct GetUserInventoryResult : public PlayFabBaseModel
         {
-            std::list<ItemInstance> Inventory;
+            AZStd::vector<ItemInstance> Inventory; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             std::map<AZStd::string, Int32> VirtualCurrency;
             std::map<AZStd::string, VirtualCurrencyRechargeTime> VirtualCurrencyRechargeTimes;
 
@@ -12871,13 +12871,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Inventory.empty()) {
                     writer.String("Inventory");
                     writer.StartArray();
-                    for (std::list<ItemInstance>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++) {
+                    for (auto iter = Inventory.begin(); iter != Inventory.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -12955,7 +12955,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("TitleId");
@@ -12999,7 +12999,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Challenge.length() > 0) {
@@ -13047,7 +13047,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (CatalogVersion.length() > 0) {
@@ -13103,7 +13103,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (CharacterId.length() > 0) {
@@ -13137,7 +13137,7 @@ namespace PlayFabClientSdk
             AZStd::string ItemId;
             Uint32 Quantity;
             AZStd::string Annotation;
-            std::list<AZStd::string> UpgradeFromItems;
+            AZStd::vector<AZStd::string> UpgradeFromItems; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             ItemPurchaseRequest() :
                 PlayFabBaseModel(),
@@ -13164,7 +13164,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("ItemId");
@@ -13178,7 +13178,7 @@ namespace PlayFabClientSdk
                 if (!UpgradeFromItems.empty()) {
                     writer.String("UpgradeFromItems");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = UpgradeFromItems.begin(); iter != UpgradeFromItems.end(); iter++) {
+                    for (auto iter = UpgradeFromItems.begin(); iter != UpgradeFromItems.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -13238,7 +13238,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("AndroidDeviceId");
@@ -13293,7 +13293,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -13332,7 +13332,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("CustomId");
@@ -13375,7 +13375,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -13414,7 +13414,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("AccessToken");
@@ -13457,7 +13457,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -13496,7 +13496,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("GameCenterId");
@@ -13539,7 +13539,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -13578,7 +13578,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (ServerAuthCode.length() > 0) {
@@ -13623,7 +13623,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -13668,7 +13668,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("DeviceId");
@@ -13723,7 +13723,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -13765,7 +13765,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("KongregateId");
@@ -13812,7 +13812,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -13851,7 +13851,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("SteamTicket");
@@ -13894,7 +13894,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -13933,7 +13933,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("AccessToken");
@@ -13976,7 +13976,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -14021,7 +14021,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("UserName");
@@ -14074,7 +14074,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -14110,7 +14110,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PlayFabId.length() > 0) {
@@ -14131,7 +14131,7 @@ namespace PlayFabClientSdk
 
         struct ListUsersCharactersResult : public PlayFabBaseModel
         {
-            std::list<CharacterResult> Characters;
+            AZStd::vector<CharacterResult> Characters; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             ListUsersCharactersResult() :
                 PlayFabBaseModel(),
@@ -14152,13 +14152,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Characters.empty()) {
                     writer.String("Characters");
                     writer.StartArray();
-                    for (std::list<CharacterResult>::iterator iter = Characters.begin(); iter != Characters.end(); iter++) {
+                    for (auto iter = Characters.begin(); iter != Characters.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -14203,7 +14203,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("NeedsAttribution");
@@ -14260,7 +14260,7 @@ namespace PlayFabClientSdk
                 if (InfoResultPayload != nullptr) delete InfoResultPayload;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (SessionTicket.length() > 0) {
@@ -14352,7 +14352,7 @@ namespace PlayFabClientSdk
                 if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (AndroidDeviceId.length() > 0) {
@@ -14450,7 +14450,7 @@ namespace PlayFabClientSdk
                 if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (CustomId.length() > 0) {
@@ -14530,7 +14530,7 @@ namespace PlayFabClientSdk
                 if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("TitleId");
@@ -14600,7 +14600,7 @@ namespace PlayFabClientSdk
                 if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("AccessToken");
@@ -14684,7 +14684,7 @@ namespace PlayFabClientSdk
                 if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PlayerId.length() > 0) {
@@ -14770,7 +14770,7 @@ namespace PlayFabClientSdk
                 if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (ServerAuthCode.length() > 0) {
@@ -14862,7 +14862,7 @@ namespace PlayFabClientSdk
                 if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (DeviceId.length() > 0) {
@@ -14963,7 +14963,7 @@ namespace PlayFabClientSdk
                 if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (KongregateId.length() > 0) {
@@ -15049,7 +15049,7 @@ namespace PlayFabClientSdk
                 if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("TitleId");
@@ -15119,7 +15119,7 @@ namespace PlayFabClientSdk
                 if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (SteamTicket.length() > 0) {
@@ -15205,7 +15205,7 @@ namespace PlayFabClientSdk
                 if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (AccessToken.length() > 0) {
@@ -15285,7 +15285,7 @@ namespace PlayFabClientSdk
                 if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("TitleId");
@@ -15361,7 +15361,7 @@ namespace PlayFabClientSdk
                 if (TagFilter != nullptr) delete TagFilter;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (BuildVersion.length() > 0) {
@@ -15510,7 +15510,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (LobbyID.length() > 0) {
@@ -15597,7 +15597,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PlayFabId.length() > 0) {
@@ -15656,7 +15656,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Name.length() > 0) {
@@ -15683,9 +15683,9 @@ namespace PlayFabClientSdk
 
         struct OpenTradeRequest : public PlayFabBaseModel
         {
-            std::list<AZStd::string> OfferedInventoryInstanceIds;
-            std::list<AZStd::string> RequestedCatalogItemIds;
-            std::list<AZStd::string> AllowedPlayerIds;
+            AZStd::vector<AZStd::string> OfferedInventoryInstanceIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<AZStd::string> RequestedCatalogItemIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<AZStd::string> AllowedPlayerIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             OpenTradeRequest() :
                 PlayFabBaseModel(),
@@ -15710,13 +15710,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!OfferedInventoryInstanceIds.empty()) {
                     writer.String("OfferedInventoryInstanceIds");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = OfferedInventoryInstanceIds.begin(); iter != OfferedInventoryInstanceIds.end(); iter++) {
+                    for (auto iter = OfferedInventoryInstanceIds.begin(); iter != OfferedInventoryInstanceIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -15724,7 +15724,7 @@ namespace PlayFabClientSdk
                 if (!RequestedCatalogItemIds.empty()) {
                     writer.String("RequestedCatalogItemIds");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = RequestedCatalogItemIds.begin(); iter != RequestedCatalogItemIds.end(); iter++) {
+                    for (auto iter = RequestedCatalogItemIds.begin(); iter != RequestedCatalogItemIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -15732,7 +15732,7 @@ namespace PlayFabClientSdk
                 if (!AllowedPlayerIds.empty()) {
                     writer.String("AllowedPlayerIds");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = AllowedPlayerIds.begin(); iter != AllowedPlayerIds.end(); iter++) {
+                    for (auto iter = AllowedPlayerIds.begin(); iter != AllowedPlayerIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -15792,7 +15792,7 @@ namespace PlayFabClientSdk
                 if (Trade != nullptr) delete Trade;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Trade != nullptr) {
@@ -15843,7 +15843,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("OrderId");
@@ -16016,7 +16016,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (OrderId.length() > 0) {
@@ -16135,7 +16135,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Currency.length() > 0) {
@@ -16206,7 +16206,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("ItemId");
@@ -16251,7 +16251,7 @@ namespace PlayFabClientSdk
 
         struct PurchaseItemResult : public PlayFabBaseModel
         {
-            std::list<ItemInstance> Items;
+            AZStd::vector<ItemInstance> Items; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             PurchaseItemResult() :
                 PlayFabBaseModel(),
@@ -16272,13 +16272,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Items.empty()) {
                     writer.String("Items");
                     writer.StartArray();
-                    for (std::list<ItemInstance>::iterator iter = Items.begin(); iter != Items.end(); iter++) {
+                    for (auto iter = Items.begin(); iter != Items.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -16329,7 +16329,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("CouponCode");
@@ -16360,7 +16360,7 @@ namespace PlayFabClientSdk
 
         struct RedeemCouponResult : public PlayFabBaseModel
         {
-            std::list<ItemInstance> GrantedItems;
+            AZStd::vector<ItemInstance> GrantedItems; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             RedeemCouponResult() :
                 PlayFabBaseModel(),
@@ -16381,13 +16381,13 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!GrantedItems.empty()) {
                     writer.String("GrantedItems");
                     writer.StartArray();
-                    for (std::list<ItemInstance>::iterator iter = GrantedItems.begin(); iter != GrantedItems.end(); iter++) {
+                    for (auto iter = GrantedItems.begin(); iter != GrantedItems.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -16438,7 +16438,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("DeviceToken");
@@ -16487,7 +16487,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -16548,7 +16548,7 @@ namespace PlayFabClientSdk
                 if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (Username.length() > 0) {
@@ -16646,7 +16646,7 @@ namespace PlayFabClientSdk
                 if (SettingsForUser != nullptr) delete SettingsForUser;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PlayFabId.length() > 0) {
@@ -16725,7 +16725,7 @@ namespace PlayFabClientSdk
                 if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (UserName.length() > 0) {
@@ -16801,7 +16801,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("FriendPlayFabId");
@@ -16838,7 +16838,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -16874,7 +16874,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("GenericId");
@@ -16911,7 +16911,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -16927,7 +16927,7 @@ namespace PlayFabClientSdk
         struct RemoveSharedGroupMembersRequest : public PlayFabBaseModel
         {
             AZStd::string SharedGroupId;
-            std::list<AZStd::string> PlayFabIds;
+            AZStd::vector<AZStd::string> PlayFabIds; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             RemoveSharedGroupMembersRequest() :
                 PlayFabBaseModel(),
@@ -16950,14 +16950,14 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("SharedGroupId");
                 writer.String(SharedGroupId.c_str());
                 writer.String("PlayFabIds");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) {
+                for (auto iter = PlayFabIds.begin(); iter != PlayFabIds.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -17000,7 +17000,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -17039,7 +17039,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("ReporteeId");
@@ -17085,7 +17085,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("SubmissionsRemaining");
@@ -17125,7 +17125,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("ReceiptData");
@@ -17162,7 +17162,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -17201,7 +17201,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("Email");
@@ -17242,7 +17242,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -17258,7 +17258,7 @@ namespace PlayFabClientSdk
         struct SetFriendTagsRequest : public PlayFabBaseModel
         {
             AZStd::string FriendPlayFabId;
-            std::list<AZStd::string> Tags;
+            AZStd::vector<AZStd::string> Tags; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             SetFriendTagsRequest() :
                 PlayFabBaseModel(),
@@ -17281,14 +17281,14 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("FriendPlayFabId");
                 writer.String(FriendPlayFabId.c_str());
                 writer.String("Tags");
                 writer.StartArray();
-                for (std::list<AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); iter++) {
+                for (auto iter = Tags.begin(); iter != Tags.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     writer.String(iter->c_str());
                 }
                 writer.EndArray();
@@ -17331,7 +17331,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -17370,7 +17370,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (PlayerSecret.length() > 0) {
@@ -17415,7 +17415,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -17466,7 +17466,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("BuildVersion");
@@ -17547,7 +17547,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (LobbyID.length() > 0) {
@@ -17600,7 +17600,7 @@ namespace PlayFabClientSdk
         {
             AZStd::string CatalogVersion;
             AZStd::string StoreId;
-            std::list<ItemPurchaseRequest> Items;
+            AZStd::vector<ItemPurchaseRequest> Items; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             StartPurchaseRequest() :
                 PlayFabBaseModel(),
@@ -17625,7 +17625,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (CatalogVersion.length() > 0) {
@@ -17638,7 +17638,7 @@ namespace PlayFabClientSdk
                 }
                 writer.String("Items");
                 writer.StartArray();
-                for (std::list<ItemPurchaseRequest>::iterator iter = Items.begin(); iter != Items.end(); iter++) {
+                for (auto iter = Items.begin(); iter != Items.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     iter->writeJSON(writer);
                 }
                 writer.EndArray();
@@ -17666,8 +17666,8 @@ namespace PlayFabClientSdk
         struct StartPurchaseResult : public PlayFabBaseModel
         {
             AZStd::string OrderId;
-            std::list<CartItem> Contents;
-            std::list<PaymentOption> PaymentOptions;
+            AZStd::vector<CartItem> Contents; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+            AZStd::vector<PaymentOption> PaymentOptions; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             std::map<AZStd::string, Int32> VirtualCurrencyBalances;
 
             StartPurchaseResult() :
@@ -17695,7 +17695,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (OrderId.length() > 0) {
@@ -17705,7 +17705,7 @@ namespace PlayFabClientSdk
                 if (!Contents.empty()) {
                     writer.String("Contents");
                     writer.StartArray();
-                    for (std::list<CartItem>::iterator iter = Contents.begin(); iter != Contents.end(); iter++) {
+                    for (auto iter = Contents.begin(); iter != Contents.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -17713,7 +17713,7 @@ namespace PlayFabClientSdk
                 if (!PaymentOptions.empty()) {
                     writer.String("PaymentOptions");
                     writer.StartArray();
-                    for (std::list<PaymentOption>::iterator iter = PaymentOptions.begin(); iter != PaymentOptions.end(); iter++) {
+                    for (auto iter = PaymentOptions.begin(); iter != PaymentOptions.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -17788,7 +17788,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("StatisticName");
@@ -17841,7 +17841,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("VirtualCurrency");
@@ -17885,7 +17885,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (AndroidDeviceId.length() > 0) {
@@ -17924,7 +17924,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -17960,7 +17960,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (CustomId.length() > 0) {
@@ -17999,7 +17999,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18032,7 +18032,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18065,7 +18065,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18098,7 +18098,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18131,7 +18131,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18164,7 +18164,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18197,7 +18197,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18233,7 +18233,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (DeviceId.length() > 0) {
@@ -18272,7 +18272,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18305,7 +18305,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18338,7 +18338,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18371,7 +18371,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18404,7 +18404,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18437,7 +18437,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18470,7 +18470,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18506,7 +18506,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("PublicKeyHint");
@@ -18543,7 +18543,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -18588,7 +18588,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (CharacterId.length() > 0) {
@@ -18652,7 +18652,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("ContainerItemId");
@@ -18685,7 +18685,7 @@ namespace PlayFabClientSdk
         {
             AZStd::string UnlockedItemInstanceId;
             AZStd::string UnlockedWithItemInstanceId;
-            std::list<ItemInstance> GrantedItems;
+            AZStd::vector<ItemInstance> GrantedItems; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             std::map<AZStd::string, Uint32> VirtualCurrency;
 
             UnlockContainerItemResult() :
@@ -18713,7 +18713,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (UnlockedItemInstanceId.length() > 0) {
@@ -18727,7 +18727,7 @@ namespace PlayFabClientSdk
                 if (!GrantedItems.empty()) {
                     writer.String("GrantedItems");
                     writer.StartArray();
-                    for (std::list<ItemInstance>::iterator iter = GrantedItems.begin(); iter != GrantedItems.end(); iter++) {
+                    for (auto iter = GrantedItems.begin(); iter != GrantedItems.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         iter->writeJSON(writer);
                     }
                     writer.EndArray();
@@ -18791,7 +18791,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("ImageUrl");
@@ -18812,7 +18812,7 @@ namespace PlayFabClientSdk
         {
             AZStd::string CharacterId;
             std::map<AZStd::string, AZStd::string> Data;
-            std::list<AZStd::string> KeysToRemove;
+            AZStd::vector<AZStd::string> KeysToRemove; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             Boxed<UserDataPermission> Permission;
 
             UpdateCharacterDataRequest() :
@@ -18840,7 +18840,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("CharacterId");
@@ -18857,7 +18857,7 @@ namespace PlayFabClientSdk
                 if (!KeysToRemove.empty()) {
                     writer.String("KeysToRemove");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                    for (auto iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -18916,7 +18916,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("DataVersion");
@@ -18959,7 +18959,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("CharacterId");
@@ -19011,7 +19011,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -19026,7 +19026,7 @@ namespace PlayFabClientSdk
 
         struct UpdatePlayerStatisticsRequest : public PlayFabBaseModel
         {
-            std::list<StatisticUpdate> Statistics;
+            AZStd::vector<StatisticUpdate> Statistics; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             UpdatePlayerStatisticsRequest() :
                 PlayFabBaseModel(),
@@ -19047,12 +19047,12 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("Statistics");
                 writer.StartArray();
-                for (std::list<StatisticUpdate>::iterator iter = Statistics.begin(); iter != Statistics.end(); iter++) {
+                for (auto iter = Statistics.begin(); iter != Statistics.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                     iter->writeJSON(writer);
                 }
                 writer.EndArray();
@@ -19093,7 +19093,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -19110,7 +19110,7 @@ namespace PlayFabClientSdk
         {
             AZStd::string SharedGroupId;
             std::map<AZStd::string, AZStd::string> Data;
-            std::list<AZStd::string> KeysToRemove;
+            AZStd::vector<AZStd::string> KeysToRemove; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             Boxed<UserDataPermission> Permission;
 
             UpdateSharedGroupDataRequest() :
@@ -19138,7 +19138,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("SharedGroupId");
@@ -19155,7 +19155,7 @@ namespace PlayFabClientSdk
                 if (!KeysToRemove.empty()) {
                     writer.String("KeysToRemove");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                    for (auto iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -19211,7 +19211,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -19227,7 +19227,7 @@ namespace PlayFabClientSdk
         struct UpdateUserDataRequest : public PlayFabBaseModel
         {
             std::map<AZStd::string, AZStd::string> Data;
-            std::list<AZStd::string> KeysToRemove;
+            AZStd::vector<AZStd::string> KeysToRemove; 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             Boxed<UserDataPermission> Permission;
 
             UpdateUserDataRequest() :
@@ -19253,7 +19253,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (!Data.empty()) {
@@ -19268,7 +19268,7 @@ namespace PlayFabClientSdk
                 if (!KeysToRemove.empty()) {
                     writer.String("KeysToRemove");
                     writer.StartArray();
-                    for (std::list<AZStd::string>::iterator iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) {
+                    for (auto iter = KeysToRemove.begin(); iter != KeysToRemove.end(); iter++) { 	// #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
                         writer.String(iter->c_str());
                     }
                     writer.EndArray();
@@ -19325,7 +19325,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("DataVersion");
@@ -19365,7 +19365,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("DisplayName");
@@ -19405,7 +19405,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (DisplayName.length() > 0) {
@@ -19459,7 +19459,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("ReceiptId");
@@ -19514,7 +19514,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -19559,7 +19559,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("ReceiptJson");
@@ -19612,7 +19612,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -19654,7 +19654,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("ReceiptData");
@@ -19699,7 +19699,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -19744,7 +19744,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("Receipt");
@@ -19795,7 +19795,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.EndObject();
@@ -19840,7 +19840,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("CharacterId");
@@ -19911,7 +19911,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("EventName");
@@ -19972,7 +19972,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 if (EventId.length() > 0) {
@@ -20020,7 +20020,7 @@ namespace PlayFabClientSdk
             {
             }
 
-            void writeJSON(PFStringJsonWriter& writer) override
+            void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
                 writer.String("EventName");
