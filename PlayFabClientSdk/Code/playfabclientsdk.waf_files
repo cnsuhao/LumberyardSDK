@@ -14,7 +14,7 @@
         ],
         "Implementation": [
             "Source/PlayFabClientApi.h",
-            "Source/PlayFabClientAPI.cpp",
+            "Source/PlayFabClientApi.cpp",
             "Source/PlayFabClient_ClientSysComponent.h",
             "Source/PlayFabClient_ClientSysComponent.cpp",
             "Source/PlayFabClient_SettingsSysComponent.h",
