@@ -20,6 +20,8 @@
             "Source/PlayFabClient_SettingsSysComponent.h",
             "Source/PlayFabClient_SettingsSysComponent.cpp",
             "Source/PlayFabClientSdkModule.cpp",
+            "Source/PlayFabDataGatherer.h",
+            "Source/PlayFabDataGatherer.cpp",
             "Source/PlayFabHttp.cpp",
             "Source/PlayFabSettings.h",
             "Source/PlayFabSettings.cpp"

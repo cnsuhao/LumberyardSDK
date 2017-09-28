@@ -38,6 +38,8 @@
             "Source/PlayFabCombo_SettingsSysComponent.h",
             "Source/PlayFabCombo_SettingsSysComponent.cpp",
             "Source/PlayFabComboSdkModule.cpp",
+            "Source/PlayFabDataGatherer.h",
+            "Source/PlayFabDataGatherer.cpp",
             "Source/PlayFabHttp.cpp",
             "Source/PlayFabSettings.h",
             "Source/PlayFabSettings.cpp"
