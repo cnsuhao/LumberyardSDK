@@ -2664,7 +2664,7 @@ namespace PlayFabComboSdk
                 if (!BundledVirtualCurrencies.empty()) {
                     writer.String("BundledVirtualCurrencies");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = BundledVirtualCurrencies.begin(); iter != BundledVirtualCurrencies.end(); ++iter) {
+                    for (auto iter = BundledVirtualCurrencies.begin(); iter != BundledVirtualCurrencies.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -2818,7 +2818,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrencyContents.empty()) {
                     writer.String("VirtualCurrencyContents");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyContents.begin(); iter != VirtualCurrencyContents.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyContents.begin(); iter != VirtualCurrencyContents.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -2987,7 +2987,7 @@ namespace PlayFabComboSdk
                 if (!RealCurrencyPrices.empty()) {
                     writer.String("RealCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
+                    for (auto iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -3004,7 +3004,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrencyPrices.empty()) {
                     writer.String("VirtualCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -3160,7 +3160,7 @@ namespace PlayFabComboSdk
                 if (!CustomData.empty()) {
                     writer.String("CustomData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
+                    for (auto iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -7113,7 +7113,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -7314,7 +7314,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (auto iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -7323,7 +7323,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrencyRechargeTimes.empty()) {
                     writer.String("VirtualCurrencyRechargeTimes");
                     writer.StartObject();
-                    for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -7569,7 +7569,7 @@ namespace PlayFabComboSdk
                 if (!CharacterStatistics.empty()) {
                     writer.String("CharacterStatistics");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
+                    for (auto iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -9029,7 +9029,7 @@ namespace PlayFabComboSdk
                 if (!TitleData.empty()) {
                     writer.String("TitleData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = TitleData.begin(); iter != TitleData.end(); ++iter) {
+                    for (auto iter = TitleData.begin(); iter != TitleData.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -9038,7 +9038,7 @@ namespace PlayFabComboSdk
                 if (!UserData.empty()) {
                     writer.String("UserData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = UserData.begin(); iter != UserData.end(); ++iter) {
+                    for (auto iter = UserData.begin(); iter != UserData.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -9057,7 +9057,7 @@ namespace PlayFabComboSdk
                 if (!UserReadOnlyData.empty()) {
                     writer.String("UserReadOnlyData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = UserReadOnlyData.begin(); iter != UserReadOnlyData.end(); ++iter) {
+                    for (auto iter = UserReadOnlyData.begin(); iter != UserReadOnlyData.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -9068,7 +9068,7 @@ namespace PlayFabComboSdk
                 if (!UserVirtualCurrency.empty()) {
                     writer.String("UserVirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = UserVirtualCurrency.begin(); iter != UserVirtualCurrency.end(); ++iter) {
+                    for (auto iter = UserVirtualCurrency.begin(); iter != UserVirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -9077,7 +9077,7 @@ namespace PlayFabComboSdk
                 if (!UserVirtualCurrencyRechargeTimes.empty()) {
                     writer.String("UserVirtualCurrencyRechargeTimes");
                     writer.StartObject();
-                    for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = UserVirtualCurrencyRechargeTimes.begin(); iter != UserVirtualCurrencyRechargeTimes.end(); ++iter) {
+                    for (auto iter = UserVirtualCurrencyRechargeTimes.begin(); iter != UserVirtualCurrencyRechargeTimes.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -9811,7 +9811,7 @@ namespace PlayFabComboSdk
                 if (!Locations.empty()) {
                     writer.String("Locations");
                     writer.StartObject();
-                    for (std::map<AZStd::string, PlayerLocation>::iterator iter = Locations.begin(); iter != Locations.end(); ++iter) {
+                    for (auto iter = Locations.begin(); iter != Locations.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -9848,7 +9848,7 @@ namespace PlayFabComboSdk
                 if (!Statistics.empty()) {
                     writer.String("Statistics");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = Statistics.begin(); iter != Statistics.end(); ++iter) {
+                    for (auto iter = Statistics.begin(); iter != Statistics.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -9873,7 +9873,7 @@ namespace PlayFabComboSdk
                 if (!ValuesToDate.empty()) {
                     writer.String("ValuesToDate");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = ValuesToDate.begin(); iter != ValuesToDate.end(); ++iter) {
+                    for (auto iter = ValuesToDate.begin(); iter != ValuesToDate.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -9882,7 +9882,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrencyBalances.empty()) {
                     writer.String("VirtualCurrencyBalances");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -10886,7 +10886,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -11152,7 +11152,7 @@ namespace PlayFabComboSdk
                 if (!Tables.empty()) {
                     writer.String("Tables");
                     writer.StartObject();
-                    for (std::map<AZStd::string, RandomResultTableListing>::iterator iter = Tables.begin(); iter != Tables.end(); ++iter) {
+                    for (auto iter = Tables.begin(); iter != Tables.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -11340,7 +11340,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, SharedGroupDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -11530,7 +11530,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -11988,7 +11988,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -12110,7 +12110,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (auto iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -12119,7 +12119,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrencyRechargeTimes.empty()) {
                     writer.String("VirtualCurrencyRechargeTimes");
                     writer.StartObject();
-                    for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -12356,7 +12356,7 @@ namespace PlayFabComboSdk
                 if (!CustomData.empty()) {
                     writer.String("CustomData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
+                    for (auto iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -12772,7 +12772,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -14138,7 +14138,7 @@ namespace PlayFabComboSdk
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); ++iter) {
+                    for (auto iter = Tags.begin(); iter != Tags.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -15199,7 +15199,7 @@ namespace PlayFabComboSdk
                 writer.String(LobbyId.c_str());
                 writer.String("Tags");
                 writer.StartObject();
-                for (std::map<AZStd::string, AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); ++iter) {
+                for (auto iter = Tags.begin(); iter != Tags.end(); ++iter) {
                     writer.String(iter->first.c_str());
                     writer.String(iter->second.c_str());
                 }
@@ -15863,7 +15863,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (auto iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -16180,7 +16180,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -16306,7 +16306,7 @@ namespace PlayFabComboSdk
                 if (!CharacterStatistics.empty()) {
                     writer.String("CharacterStatistics");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
+                    for (auto iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -16503,7 +16503,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -16621,7 +16621,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -16743,7 +16743,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -16829,7 +16829,7 @@ namespace PlayFabComboSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -16959,7 +16959,7 @@ namespace PlayFabComboSdk
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
-                    for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                    for (auto iter = Body.begin(); iter != Body.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -17037,7 +17037,7 @@ namespace PlayFabComboSdk
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
-                    for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                    for (auto iter = Body.begin(); iter != Body.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -17108,7 +17108,7 @@ namespace PlayFabComboSdk
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
-                    for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                    for (auto iter = Body.begin(); iter != Body.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }

@@ -262,7 +262,7 @@ namespace PlayFabServerSdk
                 if (!CustomData.empty()) {
                     writer.String("CustomData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
+                    for (auto iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -629,7 +629,7 @@ namespace PlayFabServerSdk
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); ++iter) {
+                    for (auto iter = Tags.begin(); iter != Tags.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -1010,7 +1010,7 @@ namespace PlayFabServerSdk
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (auto iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -1019,7 +1019,7 @@ namespace PlayFabServerSdk
                 if (!VirtualCurrencyRechargeTimes.empty()) {
                     writer.String("VirtualCurrencyRechargeTimes");
                     writer.StartObject();
-                    for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
