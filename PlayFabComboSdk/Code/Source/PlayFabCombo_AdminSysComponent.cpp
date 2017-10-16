@@ -143,10 +143,6 @@ namespace PlayFabComboSdk
     {
         PlayFabAdminApi::GetActionsOnPlayersInSegmentTaskInstance(request, callback, errorCallback, customData);
     }
-    void PlayFabCombo_AdminSysComponent::GetAllActionGroups(ProcessApiCallback<AdminModels::GetAllActionGroupsResult> callback, ErrorCallback errorCallback, void* customData)
-    {
-        PlayFabAdminApi::GetAllActionGroups(callback, errorCallback, customData);
-    }
     void PlayFabCombo_AdminSysComponent::GetAllSegments(ProcessApiCallback<AdminModels::GetAllSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabAdminApi::GetAllSegments(callback, errorCallback, customData);

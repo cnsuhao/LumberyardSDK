@@ -4159,7 +4159,6 @@ namespace PlayFabClientSdk
             AZStd::string BuildVersion;
             AZStd::string GameMode;
             AZStd::string GameServerData;
-            OptionalInt32 GameServerState;
             Boxed<GameInstanceState> GameServerStateEnum;
             OptionalTime LastHeartbeat;
             AZStd::string LobbyID;
@@ -4177,7 +4176,6 @@ namespace PlayFabClientSdk
                 BuildVersion(),
                 GameMode(),
                 GameServerData(),
-                GameServerState(),
                 GameServerStateEnum(),
                 LastHeartbeat(),
                 LobbyID(),
@@ -4196,7 +4194,6 @@ namespace PlayFabClientSdk
                 BuildVersion(src.BuildVersion),
                 GameMode(src.GameMode),
                 GameServerData(src.GameServerData),
-                GameServerState(src.GameServerState),
                 GameServerStateEnum(src.GameServerStateEnum),
                 LastHeartbeat(src.LastHeartbeat),
                 LobbyID(src.LobbyID),
@@ -4233,10 +4230,6 @@ namespace PlayFabClientSdk
                 if (GameServerData.length() > 0) {
                     writer.String("GameServerData");
                     writer.String(GameServerData.c_str());
-                }
-                if (GameServerState.notNull()) {
-                    writer.String("GameServerState");
-                    writer.Int(GameServerState);
                 }
                 if (GameServerStateEnum.notNull()) {
                     writer.String("GameServerStateEnum");
@@ -4300,8 +4293,6 @@ namespace PlayFabClientSdk
                 if (GameMode_member != obj.MemberEnd() && !GameMode_member->value.IsNull()) GameMode = GameMode_member->value.GetString();
                 const Value::ConstMemberIterator GameServerData_member = obj.FindMember("GameServerData");
                 if (GameServerData_member != obj.MemberEnd() && !GameServerData_member->value.IsNull()) GameServerData = GameServerData_member->value.GetString();
-                const Value::ConstMemberIterator GameServerState_member = obj.FindMember("GameServerState");
-                if (GameServerState_member != obj.MemberEnd() && !GameServerState_member->value.IsNull()) GameServerState = GameServerState_member->value.GetInt();
                 const Value::ConstMemberIterator GameServerStateEnum_member = obj.FindMember("GameServerStateEnum");
                 if (GameServerStateEnum_member != obj.MemberEnd() && !GameServerStateEnum_member->value.IsNull()) GameServerStateEnum = readGameInstanceStateFromValue(GameServerStateEnum_member->value);
                 const Value::ConstMemberIterator LastHeartbeat_member = obj.FindMember("LastHeartbeat");

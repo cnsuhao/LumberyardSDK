@@ -487,36 +487,6 @@ void PlayFabServerApi::OnExecuteCloudScriptResult(PlayFabRequest* request)
     }
 }
 
-void PlayFabServerApi::GetAllActionGroups(
-
-    ProcessApiCallback<ServerModels::GetAllActionGroupsResult> callback,
-    ErrorCallback errorCallback,
-    void* customData
-)
-{
-
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Server/GetAllActionGroups"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnGetAllActionGroupsResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
-}
-
-void PlayFabServerApi::OnGetAllActionGroupsResult(PlayFabRequest* request)
-{
-    if (PlayFabBaseModel::DecodeRequest(request))
-    {
-        ServerModels::GetAllActionGroupsResult* outResult = new ServerModels::GetAllActionGroupsResult;
-        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
-
-
-        if (request->mResultCallback != nullptr)
-        {
-            ProcessApiCallback<ServerModels::GetAllActionGroupsResult> successCallback = reinterpret_cast<ProcessApiCallback<ServerModels::GetAllActionGroupsResult>>(request->mResultCallback);
-            successCallback(*outResult, request->mCustomData);
-        }
-        delete outResult;
-        delete request;
-    }
-}
-
 void PlayFabServerApi::GetAllSegments(
 
     ProcessApiCallback<ServerModels::GetAllSegmentsResult> callback,

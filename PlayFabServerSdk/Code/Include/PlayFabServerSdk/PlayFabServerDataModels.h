@@ -6666,137 +6666,6 @@ namespace PlayFabServerSdk
             return GameInstanceStateOpen; // Basically critical fail
         }
 
-        struct GetActionGroupResult : public PlayFabBaseModel
-        {
-            AZStd::string Id;
-            AZStd::string Name;
-
-            GetActionGroupResult() :
-                PlayFabBaseModel(),
-                Id(),
-                Name()
-            {}
-
-            GetActionGroupResult(const GetActionGroupResult& src) :
-                PlayFabBaseModel(),
-                Id(src.Id),
-                Name(src.Name)
-            {}
-
-            GetActionGroupResult(const rapidjson::Value& obj) : GetActionGroupResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~GetActionGroupResult()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) const override
-            {
-                writer.StartObject();
-                if (Id.length() > 0) {
-                    writer.String("Id");
-                    writer.String(Id.c_str());
-                }
-                writer.String("Name");
-                writer.String(Name.c_str());
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator Id_member = obj.FindMember("Id");
-                if (Id_member != obj.MemberEnd() && !Id_member->value.IsNull()) Id = Id_member->value.GetString();
-                const Value::ConstMemberIterator Name_member = obj.FindMember("Name");
-                if (Name_member != obj.MemberEnd() && !Name_member->value.IsNull()) Name = Name_member->value.GetString();
-
-                return true;
-            }
-        };
-
-        struct GetAllActionGroupsRequest : public PlayFabBaseModel
-        {
-
-            GetAllActionGroupsRequest() :
-                PlayFabBaseModel()
-            {}
-
-            GetAllActionGroupsRequest(const GetAllActionGroupsRequest& src) :
-                PlayFabBaseModel()
-            {}
-
-            GetAllActionGroupsRequest(const rapidjson::Value& obj) : GetAllActionGroupsRequest()
-            {
-                readFromValue(obj);
-            }
-
-            ~GetAllActionGroupsRequest()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) const override
-            {
-                writer.StartObject();
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-
-                return true;
-            }
-        };
-
-        struct GetAllActionGroupsResult : public PlayFabBaseModel
-        {
-            AZStd::vector<GetActionGroupResult> ActionGroups; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
-
-            GetAllActionGroupsResult() :
-                PlayFabBaseModel(),
-                ActionGroups()
-            {}
-
-            GetAllActionGroupsResult(const GetAllActionGroupsResult& src) :
-                PlayFabBaseModel(),
-                ActionGroups(src.ActionGroups)
-            {}
-
-            GetAllActionGroupsResult(const rapidjson::Value& obj) : GetAllActionGroupsResult()
-            {
-                readFromValue(obj);
-            }
-
-            ~GetAllActionGroupsResult()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) const override
-            {
-                writer.StartObject();
-                writer.String("ActionGroups");
-                writer.StartArray();
-                for (auto iter = ActionGroups.begin(); iter != ActionGroups.end(); iter++) {     // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
-                    iter->writeJSON(writer);
-                }
-                writer.EndArray();
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator ActionGroups_member = obj.FindMember("ActionGroups");
-                if (ActionGroups_member != obj.MemberEnd()) {
-                    const rapidjson::Value& memberList = ActionGroups_member->value;
-                    for (SizeType i = 0; i < memberList.Size(); i++) {
-                        ActionGroups.push_back(GetActionGroupResult(memberList[i]));
-                    }
-                }
-
-                return true;
-            }
-        };
-
         struct GetAllSegmentsRequest : public PlayFabBaseModel
         {
 
@@ -13772,6 +13641,7 @@ namespace PlayFabServerSdk
 
         struct PushNotificationPackage : public PlayFabBaseModel
         {
+            Int32 Badge;
             AZStd::string CustomData;
             AZStd::string Icon;
             AZStd::string Message;
@@ -13781,6 +13651,7 @@ namespace PlayFabServerSdk
 
             PushNotificationPackage() :
                 PlayFabBaseModel(),
+                Badge(0),
                 CustomData(),
                 Icon(),
                 Message(),
@@ -13791,6 +13662,7 @@ namespace PlayFabServerSdk
 
             PushNotificationPackage(const PushNotificationPackage& src) :
                 PlayFabBaseModel(),
+                Badge(src.Badge),
                 CustomData(src.CustomData),
                 Icon(src.Icon),
                 Message(src.Message),
@@ -13811,6 +13683,8 @@ namespace PlayFabServerSdk
             void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
+                writer.String("Badge");
+                writer.Int(Badge);
                 if (CustomData.length() > 0) {
                     writer.String("CustomData");
                     writer.String(CustomData.c_str());
@@ -13836,6 +13710,8 @@ namespace PlayFabServerSdk
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
+                const Value::ConstMemberIterator Badge_member = obj.FindMember("Badge");
+                if (Badge_member != obj.MemberEnd() && !Badge_member->value.IsNull()) Badge = Badge_member->value.GetInt();
                 const Value::ConstMemberIterator CustomData_member = obj.FindMember("CustomData");
                 if (CustomData_member != obj.MemberEnd() && !CustomData_member->value.IsNull()) CustomData = CustomData_member->value.GetString();
                 const Value::ConstMemberIterator Icon_member = obj.FindMember("Icon");

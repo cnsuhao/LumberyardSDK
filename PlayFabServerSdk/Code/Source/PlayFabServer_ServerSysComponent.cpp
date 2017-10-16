@@ -135,10 +135,6 @@ namespace PlayFabServerSdk
     {
         PlayFabServerApi::ExecuteCloudScript(request, callback, errorCallback, customData);
     }
-    void PlayFabServer_ServerSysComponent::GetAllActionGroups(ProcessApiCallback<ServerModels::GetAllActionGroupsResult> callback, ErrorCallback errorCallback, void* customData)
-    {
-        PlayFabServerApi::GetAllActionGroups(callback, errorCallback, customData);
-    }
     void PlayFabServer_ServerSysComponent::GetAllSegments(ProcessApiCallback<ServerModels::GetAllSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabServerApi::GetAllSegments(callback, errorCallback, customData);
