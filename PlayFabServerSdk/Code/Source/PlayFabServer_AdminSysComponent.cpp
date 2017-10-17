@@ -135,10 +135,6 @@ namespace PlayFabServerSdk
     {
         PlayFabAdminApi::DeleteTask(request, callback, errorCallback, customData);
     }
-    void PlayFabServer_AdminSysComponent::DeleteUsers(AdminModels::DeleteUsersRequest& request, ProcessApiCallback<AdminModels::DeleteUsersResult> callback, ErrorCallback errorCallback, void* customData)
-    {
-        PlayFabAdminApi::DeleteUsers(request, callback, errorCallback, customData);
-    }
     void PlayFabServer_AdminSysComponent::GetActionsOnPlayersInSegmentTaskInstance(AdminModels::GetTaskInstanceRequest& request, ProcessApiCallback<AdminModels::GetActionsOnPlayersInSegmentTaskInstanceResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabAdminApi::GetActionsOnPlayersInSegmentTaskInstance(request, callback, errorCallback, customData);
@@ -326,10 +322,6 @@ namespace PlayFabServerSdk
     void PlayFabServer_AdminSysComponent::ResetCharacterStatistics(AdminModels::ResetCharacterStatisticsRequest& request, ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabAdminApi::ResetCharacterStatistics(request, callback, errorCallback, customData);
-    }
-    void PlayFabServer_AdminSysComponent::ResetUsers(AdminModels::ResetUsersRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback, ErrorCallback errorCallback, void* customData)
-    {
-        PlayFabAdminApi::ResetUsers(request, callback, errorCallback, customData);
     }
     void PlayFabServer_AdminSysComponent::ResetUserStatistics(AdminModels::ResetUserStatisticsRequest& request, ProcessApiCallback<AdminModels::ResetUserStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
     {

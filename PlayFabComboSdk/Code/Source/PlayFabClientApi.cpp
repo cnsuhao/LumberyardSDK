@@ -44,7 +44,7 @@ struct DeviceInfoRequest : public PlayFabBaseModel
             writer.StartObject();
             for (auto iter = Info.begin(); iter != Info.end(); ++iter) {
                 writer.String(iter->first.c_str());
-                writer.Uint(iter->second);
+                iter->second.writeJSON(writer);
             }
             writer.EndObject();
         }
