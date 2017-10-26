@@ -487,29 +487,29 @@ void PlayFabAdminApi::OnDeleteTaskResult(PlayFabRequest* request)
     }
 }
 
-void PlayFabAdminApi::DeleteUsers(
-    AdminModels::DeleteUsersRequest& request,
-    ProcessApiCallback<AdminModels::DeleteUsersResult> callback,
+void PlayFabAdminApi::DeleteTitle(
+
+    ProcessApiCallback<AdminModels::DeleteTitleResult> callback,
     ErrorCallback errorCallback,
     void* customData
 )
 {
 
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeleteUsers"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeleteUsersResult);
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeleteTitle"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, "", customData, callback, errorCallback, OnDeleteTitleResult);
     PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
 }
 
-void PlayFabAdminApi::OnDeleteUsersResult(PlayFabRequest* request)
+void PlayFabAdminApi::OnDeleteTitleResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
-        AdminModels::DeleteUsersResult* outResult = new AdminModels::DeleteUsersResult;
+        AdminModels::DeleteTitleResult* outResult = new AdminModels::DeleteTitleResult;
         outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
 
 
         if (request->mResultCallback != nullptr)
         {
-            ProcessApiCallback<AdminModels::DeleteUsersResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::DeleteUsersResult>>(request->mResultCallback);
+            ProcessApiCallback<AdminModels::DeleteTitleResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::DeleteTitleResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -1920,36 +1920,6 @@ void PlayFabAdminApi::OnResetCharacterStatisticsResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult>>(request->mResultCallback);
-            successCallback(*outResult, request->mCustomData);
-        }
-        delete outResult;
-        delete request;
-    }
-}
-
-void PlayFabAdminApi::ResetUsers(
-    AdminModels::ResetUsersRequest& request,
-    ProcessApiCallback<AdminModels::BlankResult> callback,
-    ErrorCallback errorCallback,
-    void* customData
-)
-{
-
-    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ResetUsers"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnResetUsersResult);
-    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
-}
-
-void PlayFabAdminApi::OnResetUsersResult(PlayFabRequest* request)
-{
-    if (PlayFabBaseModel::DecodeRequest(request))
-    {
-        AdminModels::BlankResult* outResult = new AdminModels::BlankResult;
-        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
-
-
-        if (request->mResultCallback != nullptr)
-        {
-            ProcessApiCallback<AdminModels::BlankResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::BlankResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;

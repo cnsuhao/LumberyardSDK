@@ -3,7 +3,7 @@
     "Uuid": "abf1282cbb534d908e39e0684e34cb20",
     "Name": "PlayFabComboSdk",
     "DisplayName": "PlayFab Lumberyard Combo SDK",
-    "Version": "0.0.171016",
+    "Version": "0.0.171026",
     "LinkType": "Dynamic",
     "Summary": "PlayFab Lumberyard Combined SDK can be used for game servers, internal tools, special situations, and testing PlayFab services from a Lumberyard project",
     "Tags": ["PlayFab", "Account", "Authentication", "AWS", "BaaS", "Backend", "C++", "Chat", "ChatPlay", "Cloud", "Commerce", "Console", "Content", "Dedicated Server", "EC2", "Event", "Friends", "Games", "General", "Hosting", "IAP", "Leaderboard", "Lumberyard", "Matchmaking", "Messages", "Multiplayer", "Online", "Payments", "Platforms", "Players", "Plugins", "Samples", "Scale", "Scores", "Server", "Third Party", "Triggers"],

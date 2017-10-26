@@ -1212,7 +1212,7 @@ namespace PlayFabClientSdk
                 if (!RealCurrencyPrices.empty()) {
                     writer.String("RealCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
+                    for (auto iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -1221,7 +1221,7 @@ namespace PlayFabClientSdk
                 if (!VCAmount.empty()) {
                     writer.String("VCAmount");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = VCAmount.begin(); iter != VCAmount.end(); ++iter) {
+                    for (auto iter = VCAmount.begin(); iter != VCAmount.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -1230,7 +1230,7 @@ namespace PlayFabClientSdk
                 if (!VirtualCurrencyPrices.empty()) {
                     writer.String("VirtualCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -1325,7 +1325,7 @@ namespace PlayFabClientSdk
                 if (!BundledVirtualCurrencies.empty()) {
                     writer.String("BundledVirtualCurrencies");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = BundledVirtualCurrencies.begin(); iter != BundledVirtualCurrencies.end(); ++iter) {
+                    for (auto iter = BundledVirtualCurrencies.begin(); iter != BundledVirtualCurrencies.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -1479,7 +1479,7 @@ namespace PlayFabClientSdk
                 if (!VirtualCurrencyContents.empty()) {
                     writer.String("VirtualCurrencyContents");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyContents.begin(); iter != VirtualCurrencyContents.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyContents.begin(); iter != VirtualCurrencyContents.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -1648,7 +1648,7 @@ namespace PlayFabClientSdk
                 if (!RealCurrencyPrices.empty()) {
                     writer.String("RealCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
+                    for (auto iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -1665,7 +1665,7 @@ namespace PlayFabClientSdk
                 if (!VirtualCurrencyPrices.empty()) {
                     writer.String("VirtualCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -1821,7 +1821,7 @@ namespace PlayFabClientSdk
                 if (!CustomData.empty()) {
                     writer.String("CustomData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
+                    for (auto iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -2196,7 +2196,7 @@ namespace PlayFabClientSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -2499,21 +2499,65 @@ namespace PlayFabClientSdk
             }
         };
 
+        enum EmailVerificationStatus
+        {
+            EmailVerificationStatusUnverified,
+            EmailVerificationStatusPending,
+            EmailVerificationStatusConfirmed
+        };
+
+        inline void writeEmailVerificationStatusEnumJSON(EmailVerificationStatus enumVal, PFStringJsonWriter& writer)
+        {
+            switch (enumVal)
+            {
+            case EmailVerificationStatusUnverified: writer.String("Unverified"); break;
+            case EmailVerificationStatusPending: writer.String("Pending"); break;
+            case EmailVerificationStatusConfirmed: writer.String("Confirmed"); break;
+
+            }
+        }
+
+        inline EmailVerificationStatus readEmailVerificationStatusFromValue(const rapidjson::Value& obj)
+        {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<EmailVerificationStatus>(obj.GetInt());
+
+            static std::map<const char *, EmailVerificationStatus, PlayFabClientSdk::StringCompare> _EmailVerificationStatusMap;
+            if (_EmailVerificationStatusMap.size() == 0)
+            {
+                // Auto-generate the map on the first use
+                _EmailVerificationStatusMap["Unverified"] = EmailVerificationStatusUnverified;
+                _EmailVerificationStatusMap["Pending"] = EmailVerificationStatusPending;
+                _EmailVerificationStatusMap["Confirmed"] = EmailVerificationStatusConfirmed;
+
+            }
+
+            auto output = _EmailVerificationStatusMap.find(obj.GetString());
+            if (output != _EmailVerificationStatusMap.end())
+                return output->second;
+
+            return EmailVerificationStatusUnverified; // Basically critical fail
+        }
+
         struct ContactEmailInfoModel : public PlayFabBaseModel
         {
             AZStd::string EmailAddress;
             AZStd::string Name;
+            Boxed<EmailVerificationStatus> VerificationStatus;
 
             ContactEmailInfoModel() :
                 PlayFabBaseModel(),
                 EmailAddress(),
-                Name()
+                Name(),
+                VerificationStatus()
             {}
 
             ContactEmailInfoModel(const ContactEmailInfoModel& src) :
                 PlayFabBaseModel(),
                 EmailAddress(src.EmailAddress),
-                Name(src.Name)
+                Name(src.Name),
+                VerificationStatus(src.VerificationStatus)
             {}
 
             ContactEmailInfoModel(const rapidjson::Value& obj) : ContactEmailInfoModel()
@@ -2536,6 +2580,10 @@ namespace PlayFabClientSdk
                     writer.String("Name");
                     writer.String(Name.c_str());
                 }
+                if (VerificationStatus.notNull()) {
+                    writer.String("VerificationStatus");
+                    writeEmailVerificationStatusEnumJSON(VerificationStatus, writer);
+                }
                 writer.EndObject();
             }
 
@@ -2545,6 +2593,8 @@ namespace PlayFabClientSdk
                 if (EmailAddress_member != obj.MemberEnd() && !EmailAddress_member->value.IsNull()) EmailAddress = EmailAddress_member->value.GetString();
                 const Value::ConstMemberIterator Name_member = obj.FindMember("Name");
                 if (Name_member != obj.MemberEnd() && !Name_member->value.IsNull()) Name = Name_member->value.GetString();
+                const Value::ConstMemberIterator VerificationStatus_member = obj.FindMember("VerificationStatus");
+                if (VerificationStatus_member != obj.MemberEnd() && !VerificationStatus_member->value.IsNull()) VerificationStatus = readEmailVerificationStatusFromValue(VerificationStatus_member->value);
 
                 return true;
             }
@@ -4167,6 +4217,7 @@ namespace PlayFabClientSdk
             Boxed<Region> pfRegion;
             Uint32 RunTime;
             AZStd::string ServerHostname;
+            AZStd::string ServerIPV6Address;
             OptionalInt32 ServerPort;
             AZStd::string StatisticName;
             std::map<AZStd::string, AZStd::string> Tags;
@@ -4184,6 +4235,7 @@ namespace PlayFabClientSdk
                 pfRegion(),
                 RunTime(0),
                 ServerHostname(),
+                ServerIPV6Address(),
                 ServerPort(),
                 StatisticName(),
                 Tags()
@@ -4202,6 +4254,7 @@ namespace PlayFabClientSdk
                 pfRegion(src.pfRegion),
                 RunTime(src.RunTime),
                 ServerHostname(src.ServerHostname),
+                ServerIPV6Address(src.ServerIPV6Address),
                 ServerPort(src.ServerPort),
                 StatisticName(src.StatisticName),
                 Tags(src.Tags)
@@ -4265,6 +4318,10 @@ namespace PlayFabClientSdk
                     writer.String("ServerHostname");
                     writer.String(ServerHostname.c_str());
                 }
+                if (ServerIPV6Address.length() > 0) {
+                    writer.String("ServerIPV6Address");
+                    writer.String(ServerIPV6Address.c_str());
+                }
                 if (ServerPort.notNull()) {
                     writer.String("ServerPort");
                     writer.Int(ServerPort);
@@ -4276,7 +4333,7 @@ namespace PlayFabClientSdk
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); ++iter) {
+                    for (auto iter = Tags.begin(); iter != Tags.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -4314,6 +4371,8 @@ namespace PlayFabClientSdk
                 if (RunTime_member != obj.MemberEnd() && !RunTime_member->value.IsNull()) RunTime = RunTime_member->value.GetUint();
                 const Value::ConstMemberIterator ServerHostname_member = obj.FindMember("ServerHostname");
                 if (ServerHostname_member != obj.MemberEnd() && !ServerHostname_member->value.IsNull()) ServerHostname = ServerHostname_member->value.GetString();
+                const Value::ConstMemberIterator ServerIPV6Address_member = obj.FindMember("ServerIPV6Address");
+                if (ServerIPV6Address_member != obj.MemberEnd() && !ServerIPV6Address_member->value.IsNull()) ServerIPV6Address = ServerIPV6Address_member->value.GetString();
                 const Value::ConstMemberIterator ServerPort_member = obj.FindMember("ServerPort");
                 if (ServerPort_member != obj.MemberEnd() && !ServerPort_member->value.IsNull()) ServerPort = ServerPort_member->value.GetInt();
                 const Value::ConstMemberIterator StatisticName_member = obj.FindMember("StatisticName");
@@ -7682,7 +7741,7 @@ namespace PlayFabClientSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -7863,7 +7922,7 @@ namespace PlayFabClientSdk
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (auto iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -7872,7 +7931,7 @@ namespace PlayFabClientSdk
                 if (!VirtualCurrencyRechargeTimes.empty()) {
                     writer.String("VirtualCurrencyRechargeTimes");
                     writer.StartObject();
-                    for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -8094,7 +8153,7 @@ namespace PlayFabClientSdk
                 if (!CharacterStatistics.empty()) {
                     writer.String("CharacterStatistics");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
+                    for (auto iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -9774,7 +9833,7 @@ namespace PlayFabClientSdk
                 if (!TitleData.empty()) {
                     writer.String("TitleData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = TitleData.begin(); iter != TitleData.end(); ++iter) {
+                    for (auto iter = TitleData.begin(); iter != TitleData.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -9783,7 +9842,7 @@ namespace PlayFabClientSdk
                 if (!UserData.empty()) {
                     writer.String("UserData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = UserData.begin(); iter != UserData.end(); ++iter) {
+                    for (auto iter = UserData.begin(); iter != UserData.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -9802,7 +9861,7 @@ namespace PlayFabClientSdk
                 if (!UserReadOnlyData.empty()) {
                     writer.String("UserReadOnlyData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = UserReadOnlyData.begin(); iter != UserReadOnlyData.end(); ++iter) {
+                    for (auto iter = UserReadOnlyData.begin(); iter != UserReadOnlyData.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -9813,7 +9872,7 @@ namespace PlayFabClientSdk
                 if (!UserVirtualCurrency.empty()) {
                     writer.String("UserVirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = UserVirtualCurrency.begin(); iter != UserVirtualCurrency.end(); ++iter) {
+                    for (auto iter = UserVirtualCurrency.begin(); iter != UserVirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -9822,7 +9881,7 @@ namespace PlayFabClientSdk
                 if (!UserVirtualCurrencyRechargeTimes.empty()) {
                     writer.String("UserVirtualCurrencyRechargeTimes");
                     writer.StartObject();
-                    for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = UserVirtualCurrencyRechargeTimes.begin(); iter != UserVirtualCurrencyRechargeTimes.end(); ++iter) {
+                    for (auto iter = UserVirtualCurrencyRechargeTimes.begin(); iter != UserVirtualCurrencyRechargeTimes.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -11734,7 +11793,7 @@ namespace PlayFabClientSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -12038,7 +12097,7 @@ namespace PlayFabClientSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, SharedGroupDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -12282,7 +12341,7 @@ namespace PlayFabClientSdk
                 if (!RealCurrencyPrices.empty()) {
                     writer.String("RealCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
+                    for (auto iter = RealCurrencyPrices.begin(); iter != RealCurrencyPrices.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -12291,7 +12350,7 @@ namespace PlayFabClientSdk
                 if (!VirtualCurrencyPrices.empty()) {
                     writer.String("VirtualCurrencyPrices");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyPrices.begin(); iter != VirtualCurrencyPrices.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -12566,7 +12625,7 @@ namespace PlayFabClientSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -13028,7 +13087,7 @@ namespace PlayFabClientSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, UserDataRecord>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -13130,7 +13189,7 @@ namespace PlayFabClientSdk
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (auto iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -13139,7 +13198,7 @@ namespace PlayFabClientSdk
                 if (!VirtualCurrencyRechargeTimes.empty()) {
                     writer.String("VirtualCurrencyRechargeTimes");
                     writer.StartObject();
-                    for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -15727,6 +15786,7 @@ namespace PlayFabClientSdk
             AZStd::string LobbyID;
             OptionalInt32 PollWaitTimeMS;
             AZStd::string ServerHostname;
+            AZStd::string ServerIPV6Address;
             OptionalInt32 ServerPort;
             Boxed<MatchmakeStatus> Status;
             AZStd::string Ticket;
@@ -15737,6 +15797,7 @@ namespace PlayFabClientSdk
                 LobbyID(),
                 PollWaitTimeMS(),
                 ServerHostname(),
+                ServerIPV6Address(),
                 ServerPort(),
                 Status(),
                 Ticket()
@@ -15748,6 +15809,7 @@ namespace PlayFabClientSdk
                 LobbyID(src.LobbyID),
                 PollWaitTimeMS(src.PollWaitTimeMS),
                 ServerHostname(src.ServerHostname),
+                ServerIPV6Address(src.ServerIPV6Address),
                 ServerPort(src.ServerPort),
                 Status(src.Status),
                 Ticket(src.Ticket)
@@ -15781,6 +15843,10 @@ namespace PlayFabClientSdk
                     writer.String("ServerHostname");
                     writer.String(ServerHostname.c_str());
                 }
+                if (ServerIPV6Address.length() > 0) {
+                    writer.String("ServerIPV6Address");
+                    writer.String(ServerIPV6Address.c_str());
+                }
                 if (ServerPort.notNull()) {
                     writer.String("ServerPort");
                     writer.Int(ServerPort);
@@ -15806,6 +15872,8 @@ namespace PlayFabClientSdk
                 if (PollWaitTimeMS_member != obj.MemberEnd() && !PollWaitTimeMS_member->value.IsNull()) PollWaitTimeMS = PollWaitTimeMS_member->value.GetInt();
                 const Value::ConstMemberIterator ServerHostname_member = obj.FindMember("ServerHostname");
                 if (ServerHostname_member != obj.MemberEnd() && !ServerHostname_member->value.IsNull()) ServerHostname = ServerHostname_member->value.GetString();
+                const Value::ConstMemberIterator ServerIPV6Address_member = obj.FindMember("ServerIPV6Address");
+                if (ServerIPV6Address_member != obj.MemberEnd() && !ServerIPV6Address_member->value.IsNull()) ServerIPV6Address = ServerIPV6Address_member->value.GetString();
                 const Value::ConstMemberIterator ServerPort_member = obj.FindMember("ServerPort");
                 if (ServerPort_member != obj.MemberEnd() && !ServerPort_member->value.IsNull()) ServerPort = ServerPort_member->value.GetInt();
                 const Value::ConstMemberIterator Status_member = obj.FindMember("Status");
@@ -16302,7 +16370,7 @@ namespace PlayFabClientSdk
                 if (!VCAmount.empty()) {
                     writer.String("VCAmount");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = VCAmount.begin(); iter != VCAmount.end(); ++iter) {
+                    for (auto iter = VCAmount.begin(); iter != VCAmount.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -16311,7 +16379,7 @@ namespace PlayFabClientSdk
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (auto iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -17767,6 +17835,7 @@ namespace PlayFabClientSdk
             AZStd::string LobbyID;
             AZStd::string Password;
             AZStd::string ServerHostname;
+            AZStd::string ServerIPV6Address;
             OptionalInt32 ServerPort;
             AZStd::string Ticket;
 
@@ -17776,6 +17845,7 @@ namespace PlayFabClientSdk
                 LobbyID(),
                 Password(),
                 ServerHostname(),
+                ServerIPV6Address(),
                 ServerPort(),
                 Ticket()
             {}
@@ -17786,6 +17856,7 @@ namespace PlayFabClientSdk
                 LobbyID(src.LobbyID),
                 Password(src.Password),
                 ServerHostname(src.ServerHostname),
+                ServerIPV6Address(src.ServerIPV6Address),
                 ServerPort(src.ServerPort),
                 Ticket(src.Ticket)
             {}
@@ -17818,6 +17889,10 @@ namespace PlayFabClientSdk
                     writer.String("ServerHostname");
                     writer.String(ServerHostname.c_str());
                 }
+                if (ServerIPV6Address.length() > 0) {
+                    writer.String("ServerIPV6Address");
+                    writer.String(ServerIPV6Address.c_str());
+                }
                 if (ServerPort.notNull()) {
                     writer.String("ServerPort");
                     writer.Int(ServerPort);
@@ -17839,6 +17914,8 @@ namespace PlayFabClientSdk
                 if (Password_member != obj.MemberEnd() && !Password_member->value.IsNull()) Password = Password_member->value.GetString();
                 const Value::ConstMemberIterator ServerHostname_member = obj.FindMember("ServerHostname");
                 if (ServerHostname_member != obj.MemberEnd() && !ServerHostname_member->value.IsNull()) ServerHostname = ServerHostname_member->value.GetString();
+                const Value::ConstMemberIterator ServerIPV6Address_member = obj.FindMember("ServerIPV6Address");
+                if (ServerIPV6Address_member != obj.MemberEnd() && !ServerIPV6Address_member->value.IsNull()) ServerIPV6Address = ServerIPV6Address_member->value.GetString();
                 const Value::ConstMemberIterator ServerPort_member = obj.FindMember("ServerPort");
                 if (ServerPort_member != obj.MemberEnd() && !ServerPort_member->value.IsNull()) ServerPort = ServerPort_member->value.GetInt();
                 const Value::ConstMemberIterator Ticket_member = obj.FindMember("Ticket");
@@ -17973,7 +18050,7 @@ namespace PlayFabClientSdk
                 if (!VirtualCurrencyBalances.empty()) {
                     writer.String("VirtualCurrencyBalances");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -18987,7 +19064,7 @@ namespace PlayFabClientSdk
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Uint32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (auto iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Uint(iter->second);
                     }
@@ -19100,7 +19177,7 @@ namespace PlayFabClientSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -19219,7 +19296,7 @@ namespace PlayFabClientSdk
                 if (!CharacterStatistics.empty()) {
                     writer.String("CharacterStatistics");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
+                    for (auto iter = CharacterStatistics.begin(); iter != CharacterStatistics.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -19396,7 +19473,7 @@ namespace PlayFabClientSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -19511,7 +19588,7 @@ namespace PlayFabClientSdk
                 if (!Data.empty()) {
                     writer.String("Data");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Data.begin(); iter != Data.end(); ++iter) {
+                    for (auto iter = Data.begin(); iter != Data.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -20098,7 +20175,7 @@ namespace PlayFabClientSdk
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
-                    for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                    for (auto iter = Body.begin(); iter != Body.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -20169,7 +20246,7 @@ namespace PlayFabClientSdk
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
-                    for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                    for (auto iter = Body.begin(); iter != Body.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
@@ -20278,7 +20355,7 @@ namespace PlayFabClientSdk
                 if (!Body.empty()) {
                     writer.String("Body");
                     writer.StartObject();
-                    for (std::map<AZStd::string, MultitypeVar>::iterator iter = Body.begin(); iter != Body.end(); ++iter) {
+                    for (auto iter = Body.begin(); iter != Body.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }

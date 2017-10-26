@@ -27,7 +27,7 @@ namespace PlayFabServerSdk
         static void DeletePlayerSharedSecret(AdminModels::DeletePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::DeletePlayerSharedSecretResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void DeleteStore(AdminModels::DeleteStoreRequest& request, ProcessApiCallback<AdminModels::DeleteStoreResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void DeleteTask(AdminModels::DeleteTaskRequest& request, ProcessApiCallback<AdminModels::EmptyResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
-        static void DeleteUsers(AdminModels::DeleteUsersRequest& request, ProcessApiCallback<AdminModels::DeleteUsersResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void DeleteTitle(ProcessApiCallback<AdminModels::DeleteTitleResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetActionsOnPlayersInSegmentTaskInstance(AdminModels::GetTaskInstanceRequest& request, ProcessApiCallback<AdminModels::GetActionsOnPlayersInSegmentTaskInstanceResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetAllSegments(ProcessApiCallback<AdminModels::GetAllSegmentsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetCatalogItems(AdminModels::GetCatalogItemsRequest& request, ProcessApiCallback<AdminModels::GetCatalogItemsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -75,7 +75,6 @@ namespace PlayFabServerSdk
         static void RemoveServerBuild(AdminModels::RemoveServerBuildRequest& request, ProcessApiCallback<AdminModels::RemoveServerBuildResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void RemoveVirtualCurrencyTypes(AdminModels::RemoveVirtualCurrencyTypesRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void ResetCharacterStatistics(AdminModels::ResetCharacterStatisticsRequest& request, ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
-        static void ResetUsers(AdminModels::ResetUsersRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void ResetUserStatistics(AdminModels::ResetUserStatisticsRequest& request, ProcessApiCallback<AdminModels::ResetUserStatisticsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void ResolvePurchaseDispute(AdminModels::ResolvePurchaseDisputeRequest& request, ProcessApiCallback<AdminModels::ResolvePurchaseDisputeResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void RevokeAllBansForUser(AdminModels::RevokeAllBansForUserRequest& request, ProcessApiCallback<AdminModels::RevokeAllBansForUserResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -130,7 +129,7 @@ namespace PlayFabServerSdk
         static void OnDeletePlayerSharedSecretResult(PlayFabRequest* request);
         static void OnDeleteStoreResult(PlayFabRequest* request);
         static void OnDeleteTaskResult(PlayFabRequest* request);
-        static void OnDeleteUsersResult(PlayFabRequest* request);
+        static void OnDeleteTitleResult(PlayFabRequest* request);
         static void OnGetActionsOnPlayersInSegmentTaskInstanceResult(PlayFabRequest* request);
         static void OnGetAllSegmentsResult(PlayFabRequest* request);
         static void OnGetCatalogItemsResult(PlayFabRequest* request);
@@ -178,7 +177,6 @@ namespace PlayFabServerSdk
         static void OnRemoveServerBuildResult(PlayFabRequest* request);
         static void OnRemoveVirtualCurrencyTypesResult(PlayFabRequest* request);
         static void OnResetCharacterStatisticsResult(PlayFabRequest* request);
-        static void OnResetUsersResult(PlayFabRequest* request);
         static void OnResetUserStatisticsResult(PlayFabRequest* request);
         static void OnResolvePurchaseDisputeResult(PlayFabRequest* request);
         static void OnRevokeAllBansForUserResult(PlayFabRequest* request);

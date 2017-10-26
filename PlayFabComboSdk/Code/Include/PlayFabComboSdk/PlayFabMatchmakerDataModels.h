@@ -262,7 +262,7 @@ namespace PlayFabComboSdk
                 if (!CustomData.empty()) {
                     writer.String("CustomData");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
+                    for (auto iter = CustomData.begin(); iter != CustomData.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -575,6 +575,7 @@ namespace PlayFabComboSdk
             AZStd::string LobbyId;
             Region pfRegion;
             AZStd::string ServerHost;
+            AZStd::string ServerIPV6Address;
             AZStd::string ServerPort;
             std::map<AZStd::string, AZStd::string> Tags;
 
@@ -585,6 +586,7 @@ namespace PlayFabComboSdk
                 LobbyId(),
                 pfRegion(),
                 ServerHost(),
+                ServerIPV6Address(),
                 ServerPort(),
                 Tags()
             {}
@@ -596,6 +598,7 @@ namespace PlayFabComboSdk
                 LobbyId(src.LobbyId),
                 pfRegion(src.pfRegion),
                 ServerHost(src.ServerHost),
+                ServerIPV6Address(src.ServerIPV6Address),
                 ServerPort(src.ServerPort),
                 Tags(src.Tags)
             {}
@@ -624,12 +627,16 @@ namespace PlayFabComboSdk
                 writeRegionEnumJSON(pfRegion, writer);
                 writer.String("ServerHost");
                 writer.String(ServerHost.c_str());
+                if (ServerIPV6Address.length() > 0) {
+                    writer.String("ServerIPV6Address");
+                    writer.String(ServerIPV6Address.c_str());
+                }
                 writer.String("ServerPort");
                 writer.String(ServerPort.c_str());
                 if (!Tags.empty()) {
                     writer.String("Tags");
                     writer.StartObject();
-                    for (std::map<AZStd::string, AZStd::string>::iterator iter = Tags.begin(); iter != Tags.end(); ++iter) {
+                    for (auto iter = Tags.begin(); iter != Tags.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.String(iter->second.c_str());
                     }
@@ -650,6 +657,8 @@ namespace PlayFabComboSdk
                 if (Region_member != obj.MemberEnd() && !Region_member->value.IsNull()) pfRegion = readRegionFromValue(Region_member->value);
                 const Value::ConstMemberIterator ServerHost_member = obj.FindMember("ServerHost");
                 if (ServerHost_member != obj.MemberEnd() && !ServerHost_member->value.IsNull()) ServerHost = ServerHost_member->value.GetString();
+                const Value::ConstMemberIterator ServerIPV6Address_member = obj.FindMember("ServerIPV6Address");
+                if (ServerIPV6Address_member != obj.MemberEnd() && !ServerIPV6Address_member->value.IsNull()) ServerIPV6Address = ServerIPV6Address_member->value.GetString();
                 const Value::ConstMemberIterator ServerPort_member = obj.FindMember("ServerPort");
                 if (ServerPort_member != obj.MemberEnd() && !ServerPort_member->value.IsNull()) ServerPort = ServerPort_member->value.GetString();
                 const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
@@ -779,12 +788,14 @@ namespace PlayFabComboSdk
         {
             AZStd::string GameID;
             AZStd::string ServerHostname;
+            AZStd::string ServerIPV6Address;
             Uint32 ServerPort;
 
             StartGameResponse() :
                 PlayFabBaseModel(),
                 GameID(),
                 ServerHostname(),
+                ServerIPV6Address(),
                 ServerPort(0)
             {}
 
@@ -792,6 +803,7 @@ namespace PlayFabComboSdk
                 PlayFabBaseModel(),
                 GameID(src.GameID),
                 ServerHostname(src.ServerHostname),
+                ServerIPV6Address(src.ServerIPV6Address),
                 ServerPort(src.ServerPort)
             {}
 
@@ -815,6 +827,10 @@ namespace PlayFabComboSdk
                     writer.String("ServerHostname");
                     writer.String(ServerHostname.c_str());
                 }
+                if (ServerIPV6Address.length() > 0) {
+                    writer.String("ServerIPV6Address");
+                    writer.String(ServerIPV6Address.c_str());
+                }
                 writer.String("ServerPort");
                 writer.Uint(ServerPort);
                 writer.EndObject();
@@ -826,6 +842,8 @@ namespace PlayFabComboSdk
                 if (GameID_member != obj.MemberEnd() && !GameID_member->value.IsNull()) GameID = GameID_member->value.GetString();
                 const Value::ConstMemberIterator ServerHostname_member = obj.FindMember("ServerHostname");
                 if (ServerHostname_member != obj.MemberEnd() && !ServerHostname_member->value.IsNull()) ServerHostname = ServerHostname_member->value.GetString();
+                const Value::ConstMemberIterator ServerIPV6Address_member = obj.FindMember("ServerIPV6Address");
+                if (ServerIPV6Address_member != obj.MemberEnd() && !ServerIPV6Address_member->value.IsNull()) ServerIPV6Address = ServerIPV6Address_member->value.GetString();
                 const Value::ConstMemberIterator ServerPort_member = obj.FindMember("ServerPort");
                 if (ServerPort_member != obj.MemberEnd() && !ServerPort_member->value.IsNull()) ServerPort = ServerPort_member->value.GetUint();
 
@@ -1010,7 +1028,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrency.empty()) {
                     writer.String("VirtualCurrency");
                     writer.StartObject();
-                    for (std::map<AZStd::string, Int32>::iterator iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
+                    for (auto iter = VirtualCurrency.begin(); iter != VirtualCurrency.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         writer.Int(iter->second);
                     }
@@ -1019,7 +1037,7 @@ namespace PlayFabComboSdk
                 if (!VirtualCurrencyRechargeTimes.empty()) {
                     writer.String("VirtualCurrencyRechargeTimes");
                     writer.StartObject();
-                    for (std::map<AZStd::string, VirtualCurrencyRechargeTime>::iterator iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
+                    for (auto iter = VirtualCurrencyRechargeTimes.begin(); iter != VirtualCurrencyRechargeTimes.end(); ++iter) {
                         writer.String(iter->first.c_str());
                         iter->second.writeJSON(writer);
                     }
