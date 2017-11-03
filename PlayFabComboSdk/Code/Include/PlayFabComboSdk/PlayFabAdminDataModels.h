@@ -1218,6 +1218,41 @@ namespace PlayFabComboSdk
             }
         };
 
+        enum AuthTokenType
+        {
+            AuthTokenTypeEmail
+        };
+
+        inline void writeAuthTokenTypeEnumJSON(AuthTokenType enumVal, PFStringJsonWriter& writer)
+        {
+            switch (enumVal)
+            {
+            case AuthTokenTypeEmail: writer.String("Email"); break;
+
+            }
+        }
+
+        inline AuthTokenType readAuthTokenTypeFromValue(const rapidjson::Value& obj)
+        {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<AuthTokenType>(obj.GetInt());
+
+            static std::map<const char *, AuthTokenType, PlayFabComboSdk::StringCompare> _AuthTokenTypeMap;
+            if (_AuthTokenTypeMap.size() == 0)
+            {
+                // Auto-generate the map on the first use
+                _AuthTokenTypeMap["Email"] = AuthTokenTypeEmail;
+
+            }
+
+            auto output = _AuthTokenTypeMap.find(obj.GetString());
+            if (output != _AuthTokenTypeMap.end())
+                return output->second;
+
+            return AuthTokenTypeEmail; // Basically critical fail
+        }
+
         struct BanInfo : public PlayFabBaseModel
         {
             bool Active;
@@ -6319,6 +6354,95 @@ namespace PlayFabComboSdk
                         GameModes.push_back(GameModeInfo(memberList[i]));
                     }
                 }
+
+                return true;
+            }
+        };
+
+        struct GetPlayerIdFromAuthTokenRequest : public PlayFabBaseModel
+        {
+            AZStd::string Token;
+            AuthTokenType TokenType;
+
+            GetPlayerIdFromAuthTokenRequest() :
+                PlayFabBaseModel(),
+                Token(),
+                TokenType()
+            {}
+
+            GetPlayerIdFromAuthTokenRequest(const GetPlayerIdFromAuthTokenRequest& src) :
+                PlayFabBaseModel(),
+                Token(src.Token),
+                TokenType(src.TokenType)
+            {}
+
+            GetPlayerIdFromAuthTokenRequest(const rapidjson::Value& obj) : GetPlayerIdFromAuthTokenRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayerIdFromAuthTokenRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.String("Token");
+                writer.String(Token.c_str());
+                writer.String("TokenType");
+                writeAuthTokenTypeEnumJSON(TokenType, writer);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Token_member = obj.FindMember("Token");
+                if (Token_member != obj.MemberEnd() && !Token_member->value.IsNull()) Token = Token_member->value.GetString();
+                const Value::ConstMemberIterator TokenType_member = obj.FindMember("TokenType");
+                if (TokenType_member != obj.MemberEnd() && !TokenType_member->value.IsNull()) TokenType = readAuthTokenTypeFromValue(TokenType_member->value);
+
+                return true;
+            }
+        };
+
+        struct GetPlayerIdFromAuthTokenResult : public PlayFabBaseModel
+        {
+            AZStd::string PlayFabId;
+
+            GetPlayerIdFromAuthTokenResult() :
+                PlayFabBaseModel(),
+                PlayFabId()
+            {}
+
+            GetPlayerIdFromAuthTokenResult(const GetPlayerIdFromAuthTokenResult& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId)
+            {}
+
+            GetPlayerIdFromAuthTokenResult(const rapidjson::Value& obj) : GetPlayerIdFromAuthTokenResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayerIdFromAuthTokenResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
 
                 return true;
             }
@@ -14032,6 +14156,86 @@ namespace PlayFabComboSdk
             }
 
             ~ResetCharacterStatisticsResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
+        struct ResetPasswordRequest : public PlayFabBaseModel
+        {
+            AZStd::string Password;
+            AZStd::string Token;
+
+            ResetPasswordRequest() :
+                PlayFabBaseModel(),
+                Password(),
+                Token()
+            {}
+
+            ResetPasswordRequest(const ResetPasswordRequest& src) :
+                PlayFabBaseModel(),
+                Password(src.Password),
+                Token(src.Token)
+            {}
+
+            ResetPasswordRequest(const rapidjson::Value& obj) : ResetPasswordRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~ResetPasswordRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.String("Password");
+                writer.String(Password.c_str());
+                writer.String("Token");
+                writer.String(Token.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Password_member = obj.FindMember("Password");
+                if (Password_member != obj.MemberEnd() && !Password_member->value.IsNull()) Password = Password_member->value.GetString();
+                const Value::ConstMemberIterator Token_member = obj.FindMember("Token");
+                if (Token_member != obj.MemberEnd() && !Token_member->value.IsNull()) Token = Token_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct ResetPasswordResult : public PlayFabBaseModel
+        {
+
+            ResetPasswordResult() :
+                PlayFabBaseModel()
+            {}
+
+            ResetPasswordResult(const ResetPasswordResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            ResetPasswordResult(const rapidjson::Value& obj) : ResetPasswordResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~ResetPasswordResult()
             {
             }
 

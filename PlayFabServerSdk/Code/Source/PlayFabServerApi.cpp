@@ -2317,6 +2317,36 @@ void PlayFabServerApi::OnRevokeInventoryItemResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabServerApi::SendCustomAccountRecoveryEmail(
+    ServerModels::SendCustomAccountRecoveryEmailRequest& request,
+    ProcessApiCallback<ServerModels::SendCustomAccountRecoveryEmailResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Server/SendCustomAccountRecoveryEmail"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnSendCustomAccountRecoveryEmailResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnSendCustomAccountRecoveryEmailResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        ServerModels::SendCustomAccountRecoveryEmailResult* outResult = new ServerModels::SendCustomAccountRecoveryEmailResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<ServerModels::SendCustomAccountRecoveryEmailResult> successCallback = reinterpret_cast<ProcessApiCallback<ServerModels::SendCustomAccountRecoveryEmailResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabServerApi::SendPushNotification(
     ServerModels::SendPushNotificationRequest& request,
     ProcessApiCallback<ServerModels::SendPushNotificationResult> callback,

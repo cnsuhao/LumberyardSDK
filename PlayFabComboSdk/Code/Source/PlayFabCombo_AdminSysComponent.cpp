@@ -183,6 +183,10 @@ namespace PlayFabComboSdk
     {
         PlayFabAdminApi::GetMatchmakerGameModes(request, callback, errorCallback, customData);
     }
+    void PlayFabCombo_AdminSysComponent::GetPlayerIdFromAuthToken(AdminModels::GetPlayerIdFromAuthTokenRequest& request, ProcessApiCallback<AdminModels::GetPlayerIdFromAuthTokenResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabAdminApi::GetPlayerIdFromAuthToken(request, callback, errorCallback, customData);
+    }
     void PlayFabCombo_AdminSysComponent::GetPlayerSegments(AdminModels::GetPlayersSegmentsRequest& request, ProcessApiCallback<AdminModels::GetPlayerSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabAdminApi::GetPlayerSegments(request, callback, errorCallback, customData);
@@ -326,6 +330,10 @@ namespace PlayFabComboSdk
     void PlayFabCombo_AdminSysComponent::ResetCharacterStatistics(AdminModels::ResetCharacterStatisticsRequest& request, ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabAdminApi::ResetCharacterStatistics(request, callback, errorCallback, customData);
+    }
+    void PlayFabCombo_AdminSysComponent::ResetPassword(AdminModels::ResetPasswordRequest& request, ProcessApiCallback<AdminModels::ResetPasswordResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabAdminApi::ResetPassword(request, callback, errorCallback, customData);
     }
     void PlayFabCombo_AdminSysComponent::ResetUserStatistics(AdminModels::ResetUserStatisticsRequest& request, ProcessApiCallback<AdminModels::ResetUserStatisticsResult> callback, ErrorCallback errorCallback, void* customData)
     {

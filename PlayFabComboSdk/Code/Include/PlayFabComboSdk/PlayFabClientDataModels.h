@@ -652,6 +652,79 @@ namespace PlayFabComboSdk
             }
         };
 
+        struct AddOrUpdateContactEmailRequest : public PlayFabBaseModel
+        {
+            AZStd::string EmailAddress;
+
+            AddOrUpdateContactEmailRequest() :
+                PlayFabBaseModel(),
+                EmailAddress()
+            {}
+
+            AddOrUpdateContactEmailRequest(const AddOrUpdateContactEmailRequest& src) :
+                PlayFabBaseModel(),
+                EmailAddress(src.EmailAddress)
+            {}
+
+            AddOrUpdateContactEmailRequest(const rapidjson::Value& obj) : AddOrUpdateContactEmailRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~AddOrUpdateContactEmailRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.String("EmailAddress");
+                writer.String(EmailAddress.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator EmailAddress_member = obj.FindMember("EmailAddress");
+                if (EmailAddress_member != obj.MemberEnd() && !EmailAddress_member->value.IsNull()) EmailAddress = EmailAddress_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct AddOrUpdateContactEmailResult : public PlayFabBaseModel
+        {
+
+            AddOrUpdateContactEmailResult() :
+                PlayFabBaseModel()
+            {}
+
+            AddOrUpdateContactEmailResult(const AddOrUpdateContactEmailResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            AddOrUpdateContactEmailResult(const rapidjson::Value& obj) : AddOrUpdateContactEmailResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~AddOrUpdateContactEmailResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
         struct AddSharedGroupMembersRequest : public PlayFabBaseModel
         {
             AZStd::vector<AZStd::string> PlayFabIds; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
@@ -17093,6 +17166,72 @@ namespace PlayFabComboSdk
                 if (TitleId_member != obj.MemberEnd() && !TitleId_member->value.IsNull()) TitleId = TitleId_member->value.GetString();
                 const Value::ConstMemberIterator UserName_member = obj.FindMember("UserName");
                 if (UserName_member != obj.MemberEnd() && !UserName_member->value.IsNull()) UserName = UserName_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct RemoveContactEmailRequest : public PlayFabBaseModel
+        {
+
+            RemoveContactEmailRequest() :
+                PlayFabBaseModel()
+            {}
+
+            RemoveContactEmailRequest(const RemoveContactEmailRequest& src) :
+                PlayFabBaseModel()
+            {}
+
+            RemoveContactEmailRequest(const rapidjson::Value& obj) : RemoveContactEmailRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~RemoveContactEmailRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
+        struct RemoveContactEmailResult : public PlayFabBaseModel
+        {
+
+            RemoveContactEmailResult() :
+                PlayFabBaseModel()
+            {}
+
+            RemoveContactEmailResult(const RemoveContactEmailResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            RemoveContactEmailResult(const rapidjson::Value& obj) : RemoveContactEmailResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~RemoveContactEmailResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
 
                 return true;
             }

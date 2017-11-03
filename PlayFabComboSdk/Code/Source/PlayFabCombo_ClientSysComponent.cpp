@@ -89,6 +89,10 @@ namespace PlayFabComboSdk
     {
         PlayFabClientApi::AddGenericID(request, callback, errorCallback, customData);
     }
+    void PlayFabCombo_ClientSysComponent::AddOrUpdateContactEmail(ClientModels::AddOrUpdateContactEmailRequest& request, ProcessApiCallback<ClientModels::AddOrUpdateContactEmailResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabClientApi::AddOrUpdateContactEmail(request, callback, errorCallback, customData);
+    }
     void PlayFabCombo_ClientSysComponent::AddSharedGroupMembers(ClientModels::AddSharedGroupMembersRequest& request, ProcessApiCallback<ClientModels::AddSharedGroupMembersResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabClientApi::AddSharedGroupMembers(request, callback, errorCallback, customData);
@@ -444,6 +448,10 @@ namespace PlayFabComboSdk
     void PlayFabCombo_ClientSysComponent::RegisterWithWindowsHello(ClientModels::RegisterWithWindowsHelloRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabClientApi::RegisterWithWindowsHello(request, callback, errorCallback, customData);
+    }
+    void PlayFabCombo_ClientSysComponent::RemoveContactEmail(ProcessApiCallback<ClientModels::RemoveContactEmailResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabClientApi::RemoveContactEmail(callback, errorCallback, customData);
     }
     void PlayFabCombo_ClientSysComponent::RemoveFriend(ClientModels::RemoveFriendRequest& request, ProcessApiCallback<ClientModels::RemoveFriendResult> callback, ErrorCallback errorCallback, void* customData)
     {

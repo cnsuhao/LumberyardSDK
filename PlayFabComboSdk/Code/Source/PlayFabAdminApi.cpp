@@ -847,6 +847,36 @@ void PlayFabAdminApi::OnGetMatchmakerGameModesResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabAdminApi::GetPlayerIdFromAuthToken(
+    AdminModels::GetPlayerIdFromAuthTokenRequest& request,
+    ProcessApiCallback<AdminModels::GetPlayerIdFromAuthTokenResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayerIdFromAuthToken"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerIdFromAuthTokenResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabAdminApi::OnGetPlayerIdFromAuthTokenResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        AdminModels::GetPlayerIdFromAuthTokenResult* outResult = new AdminModels::GetPlayerIdFromAuthTokenResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<AdminModels::GetPlayerIdFromAuthTokenResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetPlayerIdFromAuthTokenResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabAdminApi::GetPlayerSegments(
     AdminModels::GetPlayersSegmentsRequest& request,
     ProcessApiCallback<AdminModels::GetPlayerSegmentsResult> callback,
@@ -1920,6 +1950,36 @@ void PlayFabAdminApi::OnResetCharacterStatisticsResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::ResetCharacterStatisticsResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabAdminApi::ResetPassword(
+    AdminModels::ResetPasswordRequest& request,
+    ProcessApiCallback<AdminModels::ResetPasswordResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ResetPassword"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnResetPasswordResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabAdminApi::OnResetPasswordResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        AdminModels::ResetPasswordResult* outResult = new AdminModels::ResetPasswordResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<AdminModels::ResetPasswordResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::ResetPasswordResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;

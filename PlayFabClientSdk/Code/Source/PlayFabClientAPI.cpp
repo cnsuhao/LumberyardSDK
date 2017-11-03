@@ -182,6 +182,36 @@ void PlayFabClientApi::OnAddGenericIDResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabClientApi::AddOrUpdateContactEmail(
+    ClientModels::AddOrUpdateContactEmailRequest& request,
+    ProcessApiCallback<ClientModels::AddOrUpdateContactEmailResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/AddOrUpdateContactEmail"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnAddOrUpdateContactEmailResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnAddOrUpdateContactEmailResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        ClientModels::AddOrUpdateContactEmailResult* outResult = new ClientModels::AddOrUpdateContactEmailResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<ClientModels::AddOrUpdateContactEmailResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::AddOrUpdateContactEmailResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabClientApi::AddSharedGroupMembers(
     ClientModels::AddSharedGroupMembersRequest& request,
     ProcessApiCallback<ClientModels::AddSharedGroupMembersResult> callback,
@@ -2945,6 +2975,36 @@ void PlayFabClientApi::OnRegisterWithWindowsHelloResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabClientApi::RemoveContactEmail(
+
+    ProcessApiCallback<ClientModels::RemoveContactEmailResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/RemoveContactEmail"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, "", customData, callback, errorCallback, OnRemoveContactEmailResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnRemoveContactEmailResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        ClientModels::RemoveContactEmailResult* outResult = new ClientModels::RemoveContactEmailResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<ClientModels::RemoveContactEmailResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RemoveContactEmailResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;

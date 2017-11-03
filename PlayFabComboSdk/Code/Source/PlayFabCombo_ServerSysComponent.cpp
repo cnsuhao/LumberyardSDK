@@ -379,6 +379,10 @@ namespace PlayFabComboSdk
     {
         PlayFabServerApi::RevokeInventoryItem(request, callback, errorCallback, customData);
     }
+    void PlayFabCombo_ServerSysComponent::SendCustomAccountRecoveryEmail(ServerModels::SendCustomAccountRecoveryEmailRequest& request, ProcessApiCallback<ServerModels::SendCustomAccountRecoveryEmailResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabServerApi::SendCustomAccountRecoveryEmail(request, callback, errorCallback, customData);
+    }
     void PlayFabCombo_ServerSysComponent::SendPushNotification(ServerModels::SendPushNotificationRequest& request, ProcessApiCallback<ServerModels::SendPushNotificationResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabServerApi::SendPushNotification(request, callback, errorCallback, customData);

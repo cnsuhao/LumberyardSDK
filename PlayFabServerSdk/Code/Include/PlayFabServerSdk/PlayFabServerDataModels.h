@@ -14824,6 +14824,97 @@ namespace PlayFabServerSdk
             }
         };
 
+        struct SendCustomAccountRecoveryEmailRequest : public PlayFabBaseModel
+        {
+            AZStd::string Email;
+            AZStd::string EmailTemplateId;
+            AZStd::string Username;
+
+            SendCustomAccountRecoveryEmailRequest() :
+                PlayFabBaseModel(),
+                Email(),
+                EmailTemplateId(),
+                Username()
+            {}
+
+            SendCustomAccountRecoveryEmailRequest(const SendCustomAccountRecoveryEmailRequest& src) :
+                PlayFabBaseModel(),
+                Email(src.Email),
+                EmailTemplateId(src.EmailTemplateId),
+                Username(src.Username)
+            {}
+
+            SendCustomAccountRecoveryEmailRequest(const rapidjson::Value& obj) : SendCustomAccountRecoveryEmailRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~SendCustomAccountRecoveryEmailRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (Email.length() > 0) {
+                    writer.String("Email");
+                    writer.String(Email.c_str());
+                }
+                writer.String("EmailTemplateId");
+                writer.String(EmailTemplateId.c_str());
+                if (Username.length() > 0) {
+                    writer.String("Username");
+                    writer.String(Username.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Email_member = obj.FindMember("Email");
+                if (Email_member != obj.MemberEnd() && !Email_member->value.IsNull()) Email = Email_member->value.GetString();
+                const Value::ConstMemberIterator EmailTemplateId_member = obj.FindMember("EmailTemplateId");
+                if (EmailTemplateId_member != obj.MemberEnd() && !EmailTemplateId_member->value.IsNull()) EmailTemplateId = EmailTemplateId_member->value.GetString();
+                const Value::ConstMemberIterator Username_member = obj.FindMember("Username");
+                if (Username_member != obj.MemberEnd() && !Username_member->value.IsNull()) Username = Username_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct SendCustomAccountRecoveryEmailResult : public PlayFabBaseModel
+        {
+
+            SendCustomAccountRecoveryEmailResult() :
+                PlayFabBaseModel()
+            {}
+
+            SendCustomAccountRecoveryEmailResult(const SendCustomAccountRecoveryEmailResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            SendCustomAccountRecoveryEmailResult(const rapidjson::Value& obj) : SendCustomAccountRecoveryEmailResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~SendCustomAccountRecoveryEmailResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
         struct SendPushNotificationRequest : public PlayFabBaseModel
         {
             AZStd::vector<AdvancedPushPlatformMsg> AdvancedPlatformDelivery; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
