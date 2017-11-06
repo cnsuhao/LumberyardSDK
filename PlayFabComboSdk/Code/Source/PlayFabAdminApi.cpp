@@ -877,6 +877,36 @@ void PlayFabAdminApi::OnGetPlayerIdFromAuthTokenResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabAdminApi::GetPlayerProfile(
+    AdminModels::GetPlayerProfileRequest& request,
+    ProcessApiCallback<AdminModels::GetPlayerProfileResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayerProfile"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayerProfileResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabAdminApi::OnGetPlayerProfileResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        AdminModels::GetPlayerProfileResult* outResult = new AdminModels::GetPlayerProfileResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<AdminModels::GetPlayerProfileResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetPlayerProfileResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabAdminApi::GetPlayerSegments(
     AdminModels::GetPlayersSegmentsRequest& request,
     ProcessApiCallback<AdminModels::GetPlayerSegmentsResult> callback,

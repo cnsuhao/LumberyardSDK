@@ -40,6 +40,7 @@ namespace PlayFabServerSdk
         static void GetMatchmakerGameInfo(AdminModels::GetMatchmakerGameInfoRequest& request, ProcessApiCallback<AdminModels::GetMatchmakerGameInfoResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetMatchmakerGameModes(AdminModels::GetMatchmakerGameModesRequest& request, ProcessApiCallback<AdminModels::GetMatchmakerGameModesResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPlayerIdFromAuthToken(AdminModels::GetPlayerIdFromAuthTokenRequest& request, ProcessApiCallback<AdminModels::GetPlayerIdFromAuthTokenResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void GetPlayerProfile(AdminModels::GetPlayerProfileRequest& request, ProcessApiCallback<AdminModels::GetPlayerProfileResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPlayerSegments(AdminModels::GetPlayersSegmentsRequest& request, ProcessApiCallback<AdminModels::GetPlayerSegmentsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPlayerSharedSecrets(ProcessApiCallback<AdminModels::GetPlayerSharedSecretsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetPlayersInSegment(AdminModels::GetPlayersInSegmentRequest& request, ProcessApiCallback<AdminModels::GetPlayersInSegmentResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -144,6 +145,7 @@ namespace PlayFabServerSdk
         static void OnGetMatchmakerGameInfoResult(PlayFabRequest* request);
         static void OnGetMatchmakerGameModesResult(PlayFabRequest* request);
         static void OnGetPlayerIdFromAuthTokenResult(PlayFabRequest* request);
+        static void OnGetPlayerProfileResult(PlayFabRequest* request);
         static void OnGetPlayerSegmentsResult(PlayFabRequest* request);
         static void OnGetPlayerSharedSecretsResult(PlayFabRequest* request);
         static void OnGetPlayersInSegmentResult(PlayFabRequest* request);

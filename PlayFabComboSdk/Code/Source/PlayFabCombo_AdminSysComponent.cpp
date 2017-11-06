@@ -187,6 +187,10 @@ namespace PlayFabComboSdk
     {
         PlayFabAdminApi::GetPlayerIdFromAuthToken(request, callback, errorCallback, customData);
     }
+    void PlayFabCombo_AdminSysComponent::GetPlayerProfile(AdminModels::GetPlayerProfileRequest& request, ProcessApiCallback<AdminModels::GetPlayerProfileResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabAdminApi::GetPlayerProfile(request, callback, errorCallback, customData);
+    }
     void PlayFabCombo_AdminSysComponent::GetPlayerSegments(AdminModels::GetPlayersSegmentsRequest& request, ProcessApiCallback<AdminModels::GetPlayerSegmentsResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabAdminApi::GetPlayerSegments(request, callback, errorCallback, customData);

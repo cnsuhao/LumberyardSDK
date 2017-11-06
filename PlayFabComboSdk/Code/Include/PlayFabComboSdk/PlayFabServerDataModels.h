@@ -14915,6 +14915,86 @@ namespace PlayFabComboSdk
             }
         };
 
+        struct SendEmailFromTemplateRequest : public PlayFabBaseModel
+        {
+            AZStd::string EmailTemplateId;
+            AZStd::string PlayFabId;
+
+            SendEmailFromTemplateRequest() :
+                PlayFabBaseModel(),
+                EmailTemplateId(),
+                PlayFabId()
+            {}
+
+            SendEmailFromTemplateRequest(const SendEmailFromTemplateRequest& src) :
+                PlayFabBaseModel(),
+                EmailTemplateId(src.EmailTemplateId),
+                PlayFabId(src.PlayFabId)
+            {}
+
+            SendEmailFromTemplateRequest(const rapidjson::Value& obj) : SendEmailFromTemplateRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~SendEmailFromTemplateRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.String("EmailTemplateId");
+                writer.String(EmailTemplateId.c_str());
+                writer.String("PlayFabId");
+                writer.String(PlayFabId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator EmailTemplateId_member = obj.FindMember("EmailTemplateId");
+                if (EmailTemplateId_member != obj.MemberEnd() && !EmailTemplateId_member->value.IsNull()) EmailTemplateId = EmailTemplateId_member->value.GetString();
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct SendEmailFromTemplateResult : public PlayFabBaseModel
+        {
+
+            SendEmailFromTemplateResult() :
+                PlayFabBaseModel()
+            {}
+
+            SendEmailFromTemplateResult(const SendEmailFromTemplateResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            SendEmailFromTemplateResult(const rapidjson::Value& obj) : SendEmailFromTemplateResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~SendEmailFromTemplateResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
         struct SendPushNotificationRequest : public PlayFabBaseModel
         {
             AZStd::vector<AdvancedPushPlatformMsg> AdvancedPlatformDelivery; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.

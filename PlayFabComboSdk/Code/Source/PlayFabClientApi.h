@@ -12,7 +12,7 @@ namespace PlayFabComboSdk
 
         // Public, Client-Specific
         static bool IsClientLoggedIn();
-        static void ForgetClientCredentials();  // #THIRD_KIND_PLAYFAB_SHUTDOWN_FIXES: - Added a logout function so that the statics can be destroyed before the system allocator.
+        static void ForgetAllCredentials();  // #THIRD_KIND_PLAYFAB_SHUTDOWN_FIXES: - Added a logout function so that the statics can be destroyed before the system allocator.
 
         // ------------ Generated Api calls
         static void AcceptTrade(ClientModels::AcceptTradeRequest& request, ProcessApiCallback<ClientModels::AcceptTradeResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);

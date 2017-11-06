@@ -105,7 +105,7 @@ namespace PlayFabComboSdk
                 // #THIRD_KIND_PLAYFAB_SHUTDOWN_FIXES: - Changed statics to pointers, so they can be deleted before the system allocator is destroyed.
 
                 // Log out and clear the auth token
-                PlayFabClientApi::ForgetClientCredentials();
+                PlayFabClientApi::ForgetAllCredentials();
 
                 // Shut down the http handler thread
                 SAFE_DELETE(PlayFabRequestManager::playFabHttp);

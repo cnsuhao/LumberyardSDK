@@ -383,6 +383,10 @@ namespace PlayFabComboSdk
     {
         PlayFabServerApi::SendCustomAccountRecoveryEmail(request, callback, errorCallback, customData);
     }
+    void PlayFabCombo_ServerSysComponent::SendEmailFromTemplate(ServerModels::SendEmailFromTemplateRequest& request, ProcessApiCallback<ServerModels::SendEmailFromTemplateResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabServerApi::SendEmailFromTemplate(request, callback, errorCallback, customData);
+    }
     void PlayFabCombo_ServerSysComponent::SendPushNotification(ServerModels::SendPushNotificationRequest& request, ProcessApiCallback<ServerModels::SendPushNotificationResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabServerApi::SendPushNotification(request, callback, errorCallback, customData);
