@@ -18,6 +18,7 @@ namespace PlayFabServerSdk
         static void AddUserVirtualCurrency(AdminModels::AddUserVirtualCurrencyRequest& request, ProcessApiCallback<AdminModels::ModifyUserVirtualCurrencyResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void AddVirtualCurrencyTypes(AdminModels::AddVirtualCurrencyTypesRequest& request, ProcessApiCallback<AdminModels::BlankResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void BanUsers(AdminModels::BanUsersRequest& request, ProcessApiCallback<AdminModels::BanUsersResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void CheckLimitedEditionItemAvailability(AdminModels::CheckLimitedEditionItemAvailabilityRequest& request, ProcessApiCallback<AdminModels::CheckLimitedEditionItemAvailabilityResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void CreateActionsOnPlayersInSegmentTask(AdminModels::CreateActionsOnPlayerSegmentTaskRequest& request, ProcessApiCallback<AdminModels::CreateTaskResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void CreateCloudScriptTask(AdminModels::CreateCloudScriptTaskRequest& request, ProcessApiCallback<AdminModels::CreateTaskResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void CreatePlayerSharedSecret(AdminModels::CreatePlayerSharedSecretRequest& request, ProcessApiCallback<AdminModels::CreatePlayerSharedSecretResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -67,6 +68,7 @@ namespace PlayFabServerSdk
         static void GetUserPublisherReadOnlyData(AdminModels::GetUserDataRequest& request, ProcessApiCallback<AdminModels::GetUserDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetUserReadOnlyData(AdminModels::GetUserDataRequest& request, ProcessApiCallback<AdminModels::GetUserDataResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GrantItemsToUsers(AdminModels::GrantItemsToUsersRequest& request, ProcessApiCallback<AdminModels::GrantItemsToUsersResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void IncrementLimitedEditionItemAvailability(AdminModels::IncrementLimitedEditionItemAvailabilityRequest& request, ProcessApiCallback<AdminModels::IncrementLimitedEditionItemAvailabilityResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void IncrementPlayerStatisticVersion(AdminModels::IncrementPlayerStatisticVersionRequest& request, ProcessApiCallback<AdminModels::IncrementPlayerStatisticVersionResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void ListServerBuilds(ProcessApiCallback<AdminModels::ListBuildsResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void ListVirtualCurrencyTypes(ProcessApiCallback<AdminModels::ListVirtualCurrencyTypesResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -123,6 +125,7 @@ namespace PlayFabServerSdk
         static void OnAddUserVirtualCurrencyResult(PlayFabRequest* request);
         static void OnAddVirtualCurrencyTypesResult(PlayFabRequest* request);
         static void OnBanUsersResult(PlayFabRequest* request);
+        static void OnCheckLimitedEditionItemAvailabilityResult(PlayFabRequest* request);
         static void OnCreateActionsOnPlayersInSegmentTaskResult(PlayFabRequest* request);
         static void OnCreateCloudScriptTaskResult(PlayFabRequest* request);
         static void OnCreatePlayerSharedSecretResult(PlayFabRequest* request);
@@ -172,6 +175,7 @@ namespace PlayFabServerSdk
         static void OnGetUserPublisherReadOnlyDataResult(PlayFabRequest* request);
         static void OnGetUserReadOnlyDataResult(PlayFabRequest* request);
         static void OnGrantItemsToUsersResult(PlayFabRequest* request);
+        static void OnIncrementLimitedEditionItemAvailabilityResult(PlayFabRequest* request);
         static void OnIncrementPlayerStatisticVersionResult(PlayFabRequest* request);
         static void OnListServerBuildsResult(PlayFabRequest* request);
         static void OnListVirtualCurrencyTypesResult(PlayFabRequest* request);

@@ -99,6 +99,10 @@ namespace PlayFabServerSdk
     {
         PlayFabAdminApi::BanUsers(request, callback, errorCallback, customData);
     }
+    void PlayFabServer_AdminSysComponent::CheckLimitedEditionItemAvailability(AdminModels::CheckLimitedEditionItemAvailabilityRequest& request, ProcessApiCallback<AdminModels::CheckLimitedEditionItemAvailabilityResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabAdminApi::CheckLimitedEditionItemAvailability(request, callback, errorCallback, customData);
+    }
     void PlayFabServer_AdminSysComponent::CreateActionsOnPlayersInSegmentTask(AdminModels::CreateActionsOnPlayerSegmentTaskRequest& request, ProcessApiCallback<AdminModels::CreateTaskResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabAdminApi::CreateActionsOnPlayersInSegmentTask(request, callback, errorCallback, customData);
@@ -294,6 +298,10 @@ namespace PlayFabServerSdk
     void PlayFabServer_AdminSysComponent::GrantItemsToUsers(AdminModels::GrantItemsToUsersRequest& request, ProcessApiCallback<AdminModels::GrantItemsToUsersResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabAdminApi::GrantItemsToUsers(request, callback, errorCallback, customData);
+    }
+    void PlayFabServer_AdminSysComponent::IncrementLimitedEditionItemAvailability(AdminModels::IncrementLimitedEditionItemAvailabilityRequest& request, ProcessApiCallback<AdminModels::IncrementLimitedEditionItemAvailabilityResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabAdminApi::IncrementLimitedEditionItemAvailability(request, callback, errorCallback, customData);
     }
     void PlayFabServer_AdminSysComponent::IncrementPlayerStatisticVersion(AdminModels::IncrementPlayerStatisticVersionRequest& request, ProcessApiCallback<AdminModels::IncrementPlayerStatisticVersionResult> callback, ErrorCallback errorCallback, void* customData)
     {

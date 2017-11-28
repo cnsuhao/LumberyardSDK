@@ -351,7 +351,9 @@ namespace PlayFabClientSdk
         PlayFabErrorTitleDeletionPlayerCleanupFailure = 1349,
         PlayFabErrorEntityFileOperationPending = 1350,
         PlayFabErrorNoEntityFileOperationPending = 1351,
-        PlayFabErrorEntityProfileVersionMismatch = 1352
+        PlayFabErrorEntityProfileVersionMismatch = 1352,
+        PlayFabErrorTemplateVersionTooOld = 1353,
+        PlayFabErrorMembershipDefinitionInUse = 1354
     };
 
     struct PlayFabError

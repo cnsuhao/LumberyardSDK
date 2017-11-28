@@ -217,6 +217,36 @@ void PlayFabAdminApi::OnBanUsersResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabAdminApi::CheckLimitedEditionItemAvailability(
+    AdminModels::CheckLimitedEditionItemAvailabilityRequest& request,
+    ProcessApiCallback<AdminModels::CheckLimitedEditionItemAvailabilityResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/CheckLimitedEditionItemAvailability"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnCheckLimitedEditionItemAvailabilityResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabAdminApi::OnCheckLimitedEditionItemAvailabilityResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        AdminModels::CheckLimitedEditionItemAvailabilityResult* outResult = new AdminModels::CheckLimitedEditionItemAvailabilityResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<AdminModels::CheckLimitedEditionItemAvailabilityResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::CheckLimitedEditionItemAvailabilityResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabAdminApi::CreateActionsOnPlayersInSegmentTask(
     AdminModels::CreateActionsOnPlayerSegmentTaskRequest& request,
     ProcessApiCallback<AdminModels::CreateTaskResult> callback,
@@ -1680,6 +1710,36 @@ void PlayFabAdminApi::OnGrantItemsToUsersResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<AdminModels::GrantItemsToUsersResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GrantItemsToUsersResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabAdminApi::IncrementLimitedEditionItemAvailability(
+    AdminModels::IncrementLimitedEditionItemAvailabilityRequest& request,
+    ProcessApiCallback<AdminModels::IncrementLimitedEditionItemAvailabilityResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/IncrementLimitedEditionItemAvailability"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnIncrementLimitedEditionItemAvailabilityResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabAdminApi::OnIncrementLimitedEditionItemAvailabilityResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        AdminModels::IncrementLimitedEditionItemAvailabilityResult* outResult = new AdminModels::IncrementLimitedEditionItemAvailabilityResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<AdminModels::IncrementLimitedEditionItemAvailabilityResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::IncrementLimitedEditionItemAvailabilityResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;

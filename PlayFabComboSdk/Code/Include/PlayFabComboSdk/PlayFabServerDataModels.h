@@ -6158,55 +6158,6 @@ namespace PlayFabComboSdk
             }
         };
 
-        struct VirtualCurrencyBalanceModel : public PlayFabBaseModel
-        {
-            AZStd::string Currency;
-            Int32 TotalValue;
-
-            VirtualCurrencyBalanceModel() :
-                PlayFabBaseModel(),
-                Currency(),
-                TotalValue(0)
-            {}
-
-            VirtualCurrencyBalanceModel(const VirtualCurrencyBalanceModel& src) :
-                PlayFabBaseModel(),
-                Currency(src.Currency),
-                TotalValue(src.TotalValue)
-            {}
-
-            VirtualCurrencyBalanceModel(const rapidjson::Value& obj) : VirtualCurrencyBalanceModel()
-            {
-                readFromValue(obj);
-            }
-
-            ~VirtualCurrencyBalanceModel()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) const override
-            {
-                writer.StartObject();
-                if (Currency.length() > 0) {
-                    writer.String("Currency");
-                    writer.String(Currency.c_str());
-                }
-                writer.String("TotalValue");
-                writer.Int(TotalValue);
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator Currency_member = obj.FindMember("Currency");
-                if (Currency_member != obj.MemberEnd() && !Currency_member->value.IsNull()) Currency = Currency_member->value.GetString();
-                const Value::ConstMemberIterator TotalValue_member = obj.FindMember("TotalValue");
-                if (TotalValue_member != obj.MemberEnd() && !TotalValue_member->value.IsNull()) TotalValue = TotalValue_member->value.GetInt();
-
-                return true;
-            }
-        };
-
         struct PlayerProfileModel : public PlayFabBaseModel
         {
             AZStd::vector<AdCampaignAttributionModel> AdCampaignAttributions; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
@@ -6228,7 +6179,6 @@ namespace PlayFabComboSdk
             AZStd::string TitleId;
             OptionalUint32 TotalValueToDateInUSD;
             AZStd::vector<ValueToDateModel> ValuesToDate; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
-            AZStd::vector<VirtualCurrencyBalanceModel> VirtualCurrencyBalances; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             PlayerProfileModel() :
                 PlayFabBaseModel(),
@@ -6250,8 +6200,7 @@ namespace PlayFabComboSdk
                 Tags(),
                 TitleId(),
                 TotalValueToDateInUSD(),
-                ValuesToDate(),
-                VirtualCurrencyBalances()
+                ValuesToDate()
             {}
 
             PlayerProfileModel(const PlayerProfileModel& src) :
@@ -6274,8 +6223,7 @@ namespace PlayFabComboSdk
                 Tags(src.Tags),
                 TitleId(src.TitleId),
                 TotalValueToDateInUSD(src.TotalValueToDateInUSD),
-                ValuesToDate(src.ValuesToDate),
-                VirtualCurrencyBalances(src.VirtualCurrencyBalances)
+                ValuesToDate(src.ValuesToDate)
             {}
 
             PlayerProfileModel(const rapidjson::Value& obj) : PlayerProfileModel()
@@ -6402,14 +6350,6 @@ namespace PlayFabComboSdk
                     }
                     writer.EndArray();
                 }
-                if (!VirtualCurrencyBalances.empty()) {
-                    writer.String("VirtualCurrencyBalances");
-                    writer.StartArray();
-                    for (auto iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); iter++) {     // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
-                        iter->writeJSON(writer);
-                    }
-                    writer.EndArray();
-                }
                 writer.EndObject();
             }
 
@@ -6496,13 +6436,6 @@ namespace PlayFabComboSdk
                     const rapidjson::Value& memberList = ValuesToDate_member->value;
                     for (SizeType i = 0; i < memberList.Size(); i++) {
                         ValuesToDate.push_back(ValueToDateModel(memberList[i]));
-                    }
-                }
-                const Value::ConstMemberIterator VirtualCurrencyBalances_member = obj.FindMember("VirtualCurrencyBalances");
-                if (VirtualCurrencyBalances_member != obj.MemberEnd()) {
-                    const rapidjson::Value& memberList = VirtualCurrencyBalances_member->value;
-                    for (SizeType i = 0; i < memberList.Size(); i++) {
-                        VirtualCurrencyBalances.push_back(VirtualCurrencyBalanceModel(memberList[i]));
                     }
                 }
 
@@ -13654,7 +13587,6 @@ namespace PlayFabComboSdk
             AZStd::string CustomData;
             AZStd::string Icon;
             AZStd::string Message;
-            AZStd::string ScheduleDate;
             AZStd::string Sound;
             AZStd::string Title;
 
@@ -13664,7 +13596,6 @@ namespace PlayFabComboSdk
                 CustomData(),
                 Icon(),
                 Message(),
-                ScheduleDate(),
                 Sound(),
                 Title()
             {}
@@ -13675,7 +13606,6 @@ namespace PlayFabComboSdk
                 CustomData(src.CustomData),
                 Icon(src.Icon),
                 Message(src.Message),
-                ScheduleDate(src.ScheduleDate),
                 Sound(src.Sound),
                 Title(src.Title)
             {}
@@ -13704,10 +13634,6 @@ namespace PlayFabComboSdk
                 }
                 writer.String("Message");
                 writer.String(Message.c_str());
-                if (ScheduleDate.length() > 0) {
-                    writer.String("ScheduleDate");
-                    writer.String(ScheduleDate.c_str());
-                }
                 if (Sound.length() > 0) {
                     writer.String("Sound");
                     writer.String(Sound.c_str());
@@ -13727,8 +13653,6 @@ namespace PlayFabComboSdk
                 if (Icon_member != obj.MemberEnd() && !Icon_member->value.IsNull()) Icon = Icon_member->value.GetString();
                 const Value::ConstMemberIterator Message_member = obj.FindMember("Message");
                 if (Message_member != obj.MemberEnd() && !Message_member->value.IsNull()) Message = Message_member->value.GetString();
-                const Value::ConstMemberIterator ScheduleDate_member = obj.FindMember("ScheduleDate");
-                if (ScheduleDate_member != obj.MemberEnd() && !ScheduleDate_member->value.IsNull()) ScheduleDate = ScheduleDate_member->value.GetString();
                 const Value::ConstMemberIterator Sound_member = obj.FindMember("Sound");
                 if (Sound_member != obj.MemberEnd() && !Sound_member->value.IsNull()) Sound = Sound_member->value.GetString();
                 const Value::ConstMemberIterator Title_member = obj.FindMember("Title");

@@ -205,6 +205,10 @@ namespace PlayFabComboSdk
     {
         PlayFabClientApi::GetLeaderboardForUserCharacters(request, callback, errorCallback, customData);
     }
+    void PlayFabCombo_ClientSysComponent::GetPaymentToken(ClientModels::GetPaymentTokenRequest& request, ProcessApiCallback<ClientModels::GetPaymentTokenResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabClientApi::GetPaymentToken(request, callback, errorCallback, customData);
+    }
     void PlayFabCombo_ClientSysComponent::GetPhotonAuthenticationToken(ClientModels::GetPhotonAuthenticationTokenRequest& request, ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabClientApi::GetPhotonAuthenticationToken(request, callback, errorCallback, customData);
@@ -464,6 +468,10 @@ namespace PlayFabComboSdk
     void PlayFabCombo_ClientSysComponent::RemoveSharedGroupMembers(ClientModels::RemoveSharedGroupMembersRequest& request, ProcessApiCallback<ClientModels::RemoveSharedGroupMembersResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabClientApi::RemoveSharedGroupMembers(request, callback, errorCallback, customData);
+    }
+    void PlayFabCombo_ClientSysComponent::ReportDeviceInfo(ClientModels::DeviceInfoRequest& request, ProcessApiCallback<ClientModels::EmptyResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabClientApi::ReportDeviceInfo(request, callback, errorCallback, customData);
     }
     void PlayFabCombo_ClientSysComponent::ReportPlayer(ClientModels::ReportPlayerClientRequest& request, ProcessApiCallback<ClientModels::ReportPlayerClientResult> callback, ErrorCallback errorCallback, void* customData)
     {

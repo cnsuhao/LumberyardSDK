@@ -1054,6 +1054,36 @@ void PlayFabClientApi::OnGetLeaderboardForUserCharactersResult(PlayFabRequest* r
     }
 }
 
+void PlayFabClientApi::GetPaymentToken(
+    ClientModels::GetPaymentTokenRequest& request,
+    ProcessApiCallback<ClientModels::GetPaymentTokenResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPaymentToken"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPaymentTokenResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnGetPaymentTokenResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        ClientModels::GetPaymentTokenResult* outResult = new ClientModels::GetPaymentTokenResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<ClientModels::GetPaymentTokenResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPaymentTokenResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabClientApi::GetPhotonAuthenticationToken(
     ClientModels::GetPhotonAuthenticationTokenRequest& request,
     ProcessApiCallback<ClientModels::GetPhotonAuthenticationTokenResult> callback,
@@ -3095,6 +3125,36 @@ void PlayFabClientApi::OnRemoveSharedGroupMembersResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<ClientModels::RemoveSharedGroupMembersResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::RemoveSharedGroupMembersResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabClientApi::ReportDeviceInfo(
+    ClientModels::DeviceInfoRequest& request,
+    ProcessApiCallback<ClientModels::EmptyResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/ReportDeviceInfo"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnReportDeviceInfoResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnReportDeviceInfoResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        ClientModels::EmptyResult* outResult = new ClientModels::EmptyResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<ClientModels::EmptyResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::EmptyResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;

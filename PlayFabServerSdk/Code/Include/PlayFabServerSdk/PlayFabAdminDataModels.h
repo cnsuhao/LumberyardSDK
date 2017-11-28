@@ -2021,6 +2021,95 @@ namespace PlayFabServerSdk
             }
         };
 
+        struct CheckLimitedEditionItemAvailabilityRequest : public PlayFabBaseModel
+        {
+            AZStd::string CatalogVersion;
+            AZStd::string ItemId;
+
+            CheckLimitedEditionItemAvailabilityRequest() :
+                PlayFabBaseModel(),
+                CatalogVersion(),
+                ItemId()
+            {}
+
+            CheckLimitedEditionItemAvailabilityRequest(const CheckLimitedEditionItemAvailabilityRequest& src) :
+                PlayFabBaseModel(),
+                CatalogVersion(src.CatalogVersion),
+                ItemId(src.ItemId)
+            {}
+
+            CheckLimitedEditionItemAvailabilityRequest(const rapidjson::Value& obj) : CheckLimitedEditionItemAvailabilityRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~CheckLimitedEditionItemAvailabilityRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
+                writer.String("ItemId");
+                writer.String(ItemId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator CatalogVersion_member = obj.FindMember("CatalogVersion");
+                if (CatalogVersion_member != obj.MemberEnd() && !CatalogVersion_member->value.IsNull()) CatalogVersion = CatalogVersion_member->value.GetString();
+                const Value::ConstMemberIterator ItemId_member = obj.FindMember("ItemId");
+                if (ItemId_member != obj.MemberEnd() && !ItemId_member->value.IsNull()) ItemId = ItemId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct CheckLimitedEditionItemAvailabilityResult : public PlayFabBaseModel
+        {
+            Int32 Amount;
+
+            CheckLimitedEditionItemAvailabilityResult() :
+                PlayFabBaseModel(),
+                Amount(0)
+            {}
+
+            CheckLimitedEditionItemAvailabilityResult(const CheckLimitedEditionItemAvailabilityResult& src) :
+                PlayFabBaseModel(),
+                Amount(src.Amount)
+            {}
+
+            CheckLimitedEditionItemAvailabilityResult(const rapidjson::Value& obj) : CheckLimitedEditionItemAvailabilityResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~CheckLimitedEditionItemAvailabilityResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.String("Amount");
+                writer.Int(Amount);
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Amount_member = obj.FindMember("Amount");
+                if (Amount_member != obj.MemberEnd() && !Amount_member->value.IsNull()) Amount = Amount_member->value.GetInt();
+
+                return true;
+            }
+        };
+
         struct CloudScriptFile : public PlayFabBaseModel
         {
             AZStd::string FileContents;
@@ -7338,55 +7427,6 @@ namespace PlayFabServerSdk
             }
         };
 
-        struct VirtualCurrencyBalanceModel : public PlayFabBaseModel
-        {
-            AZStd::string Currency;
-            Int32 TotalValue;
-
-            VirtualCurrencyBalanceModel() :
-                PlayFabBaseModel(),
-                Currency(),
-                TotalValue(0)
-            {}
-
-            VirtualCurrencyBalanceModel(const VirtualCurrencyBalanceModel& src) :
-                PlayFabBaseModel(),
-                Currency(src.Currency),
-                TotalValue(src.TotalValue)
-            {}
-
-            VirtualCurrencyBalanceModel(const rapidjson::Value& obj) : VirtualCurrencyBalanceModel()
-            {
-                readFromValue(obj);
-            }
-
-            ~VirtualCurrencyBalanceModel()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) const override
-            {
-                writer.StartObject();
-                if (Currency.length() > 0) {
-                    writer.String("Currency");
-                    writer.String(Currency.c_str());
-                }
-                writer.String("TotalValue");
-                writer.Int(TotalValue);
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator Currency_member = obj.FindMember("Currency");
-                if (Currency_member != obj.MemberEnd() && !Currency_member->value.IsNull()) Currency = Currency_member->value.GetString();
-                const Value::ConstMemberIterator TotalValue_member = obj.FindMember("TotalValue");
-                if (TotalValue_member != obj.MemberEnd() && !TotalValue_member->value.IsNull()) TotalValue = TotalValue_member->value.GetInt();
-
-                return true;
-            }
-        };
-
         struct PlayerProfileModel : public PlayFabBaseModel
         {
             AZStd::vector<AdCampaignAttributionModel> AdCampaignAttributions; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
@@ -7408,7 +7448,6 @@ namespace PlayFabServerSdk
             AZStd::string TitleId;
             OptionalUint32 TotalValueToDateInUSD;
             AZStd::vector<ValueToDateModel> ValuesToDate; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
-            AZStd::vector<VirtualCurrencyBalanceModel> VirtualCurrencyBalances; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             PlayerProfileModel() :
                 PlayFabBaseModel(),
@@ -7430,8 +7469,7 @@ namespace PlayFabServerSdk
                 Tags(),
                 TitleId(),
                 TotalValueToDateInUSD(),
-                ValuesToDate(),
-                VirtualCurrencyBalances()
+                ValuesToDate()
             {}
 
             PlayerProfileModel(const PlayerProfileModel& src) :
@@ -7454,8 +7492,7 @@ namespace PlayFabServerSdk
                 Tags(src.Tags),
                 TitleId(src.TitleId),
                 TotalValueToDateInUSD(src.TotalValueToDateInUSD),
-                ValuesToDate(src.ValuesToDate),
-                VirtualCurrencyBalances(src.VirtualCurrencyBalances)
+                ValuesToDate(src.ValuesToDate)
             {}
 
             PlayerProfileModel(const rapidjson::Value& obj) : PlayerProfileModel()
@@ -7582,14 +7619,6 @@ namespace PlayFabServerSdk
                     }
                     writer.EndArray();
                 }
-                if (!VirtualCurrencyBalances.empty()) {
-                    writer.String("VirtualCurrencyBalances");
-                    writer.StartArray();
-                    for (auto iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); iter++) {     // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
-                        iter->writeJSON(writer);
-                    }
-                    writer.EndArray();
-                }
                 writer.EndObject();
             }
 
@@ -7676,13 +7705,6 @@ namespace PlayFabServerSdk
                     const rapidjson::Value& memberList = ValuesToDate_member->value;
                     for (SizeType i = 0; i < memberList.Size(); i++) {
                         ValuesToDate.push_back(ValueToDateModel(memberList[i]));
-                    }
-                }
-                const Value::ConstMemberIterator VirtualCurrencyBalances_member = obj.FindMember("VirtualCurrencyBalances");
-                if (VirtualCurrencyBalances_member != obj.MemberEnd()) {
-                    const rapidjson::Value& memberList = VirtualCurrencyBalances_member->value;
-                    for (SizeType i = 0; i < memberList.Size(); i++) {
-                        VirtualCurrencyBalances.push_back(VirtualCurrencyBalanceModel(memberList[i]));
                     }
                 }
 
@@ -11928,6 +11950,95 @@ namespace PlayFabServerSdk
                         ItemGrantResults.push_back(GrantedItemInstance(memberList[i]));
                     }
                 }
+
+                return true;
+            }
+        };
+
+        struct IncrementLimitedEditionItemAvailabilityRequest : public PlayFabBaseModel
+        {
+            Int32 Amount;
+            AZStd::string CatalogVersion;
+            AZStd::string ItemId;
+
+            IncrementLimitedEditionItemAvailabilityRequest() :
+                PlayFabBaseModel(),
+                Amount(0),
+                CatalogVersion(),
+                ItemId()
+            {}
+
+            IncrementLimitedEditionItemAvailabilityRequest(const IncrementLimitedEditionItemAvailabilityRequest& src) :
+                PlayFabBaseModel(),
+                Amount(src.Amount),
+                CatalogVersion(src.CatalogVersion),
+                ItemId(src.ItemId)
+            {}
+
+            IncrementLimitedEditionItemAvailabilityRequest(const rapidjson::Value& obj) : IncrementLimitedEditionItemAvailabilityRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~IncrementLimitedEditionItemAvailabilityRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.String("Amount");
+                writer.Int(Amount);
+                if (CatalogVersion.length() > 0) {
+                    writer.String("CatalogVersion");
+                    writer.String(CatalogVersion.c_str());
+                }
+                writer.String("ItemId");
+                writer.String(ItemId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Amount_member = obj.FindMember("Amount");
+                if (Amount_member != obj.MemberEnd() && !Amount_member->value.IsNull()) Amount = Amount_member->value.GetInt();
+                const Value::ConstMemberIterator CatalogVersion_member = obj.FindMember("CatalogVersion");
+                if (CatalogVersion_member != obj.MemberEnd() && !CatalogVersion_member->value.IsNull()) CatalogVersion = CatalogVersion_member->value.GetString();
+                const Value::ConstMemberIterator ItemId_member = obj.FindMember("ItemId");
+                if (ItemId_member != obj.MemberEnd() && !ItemId_member->value.IsNull()) ItemId = ItemId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct IncrementLimitedEditionItemAvailabilityResult : public PlayFabBaseModel
+        {
+
+            IncrementLimitedEditionItemAvailabilityResult() :
+                PlayFabBaseModel()
+            {}
+
+            IncrementLimitedEditionItemAvailabilityResult(const IncrementLimitedEditionItemAvailabilityResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            IncrementLimitedEditionItemAvailabilityResult(const rapidjson::Value& obj) : IncrementLimitedEditionItemAvailabilityResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~IncrementLimitedEditionItemAvailabilityResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
 
                 return true;
             }

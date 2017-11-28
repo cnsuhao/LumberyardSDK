@@ -4526,6 +4526,57 @@ namespace PlayFabClientSdk
             }
         };
 
+        struct DeviceInfoRequest : public PlayFabBaseModel
+        {
+            std::map<AZStd::string, MultitypeVar> Info;
+
+            DeviceInfoRequest() :
+                PlayFabBaseModel(),
+                Info()
+            {}
+
+            DeviceInfoRequest(const DeviceInfoRequest& src) :
+                PlayFabBaseModel(),
+                Info(src.Info)
+            {}
+
+            DeviceInfoRequest(const rapidjson::Value& obj) : DeviceInfoRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~DeviceInfoRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (!Info.empty()) {
+                    writer.String("Info");
+                    writer.StartObject();
+                    for (auto iter = Info.begin(); iter != Info.end(); ++iter) {
+                        writer.String(iter->first.c_str());
+                        iter->second.writeJSON(writer);
+                    }
+                    writer.EndObject();
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Info_member = obj.FindMember("Info");
+                if (Info_member != obj.MemberEnd()) {
+                    for (Value::ConstMemberIterator iter = Info_member->value.MemberBegin(); iter != Info_member->value.MemberEnd(); ++iter) {
+                        Info[iter->name.GetString()] = MultitypeVar(iter->value);
+                    }
+                }
+
+                return true;
+            }
+        };
+
         struct EmptyResult : public PlayFabBaseModel
         {
 
@@ -5733,55 +5784,6 @@ namespace PlayFabClientSdk
             }
         };
 
-        struct VirtualCurrencyBalanceModel : public PlayFabBaseModel
-        {
-            AZStd::string Currency;
-            Int32 TotalValue;
-
-            VirtualCurrencyBalanceModel() :
-                PlayFabBaseModel(),
-                Currency(),
-                TotalValue(0)
-            {}
-
-            VirtualCurrencyBalanceModel(const VirtualCurrencyBalanceModel& src) :
-                PlayFabBaseModel(),
-                Currency(src.Currency),
-                TotalValue(src.TotalValue)
-            {}
-
-            VirtualCurrencyBalanceModel(const rapidjson::Value& obj) : VirtualCurrencyBalanceModel()
-            {
-                readFromValue(obj);
-            }
-
-            ~VirtualCurrencyBalanceModel()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) const override
-            {
-                writer.StartObject();
-                if (Currency.length() > 0) {
-                    writer.String("Currency");
-                    writer.String(Currency.c_str());
-                }
-                writer.String("TotalValue");
-                writer.Int(TotalValue);
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator Currency_member = obj.FindMember("Currency");
-                if (Currency_member != obj.MemberEnd() && !Currency_member->value.IsNull()) Currency = Currency_member->value.GetString();
-                const Value::ConstMemberIterator TotalValue_member = obj.FindMember("TotalValue");
-                if (TotalValue_member != obj.MemberEnd() && !TotalValue_member->value.IsNull()) TotalValue = TotalValue_member->value.GetInt();
-
-                return true;
-            }
-        };
-
         struct PlayerProfileModel : public PlayFabBaseModel
         {
             AZStd::vector<AdCampaignAttributionModel> AdCampaignAttributions; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
@@ -5803,7 +5805,6 @@ namespace PlayFabClientSdk
             AZStd::string TitleId;
             OptionalUint32 TotalValueToDateInUSD;
             AZStd::vector<ValueToDateModel> ValuesToDate; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
-            AZStd::vector<VirtualCurrencyBalanceModel> VirtualCurrencyBalances; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
 
             PlayerProfileModel() :
                 PlayFabBaseModel(),
@@ -5825,8 +5826,7 @@ namespace PlayFabClientSdk
                 Tags(),
                 TitleId(),
                 TotalValueToDateInUSD(),
-                ValuesToDate(),
-                VirtualCurrencyBalances()
+                ValuesToDate()
             {}
 
             PlayerProfileModel(const PlayerProfileModel& src) :
@@ -5849,8 +5849,7 @@ namespace PlayFabClientSdk
                 Tags(src.Tags),
                 TitleId(src.TitleId),
                 TotalValueToDateInUSD(src.TotalValueToDateInUSD),
-                ValuesToDate(src.ValuesToDate),
-                VirtualCurrencyBalances(src.VirtualCurrencyBalances)
+                ValuesToDate(src.ValuesToDate)
             {}
 
             PlayerProfileModel(const rapidjson::Value& obj) : PlayerProfileModel()
@@ -5977,14 +5976,6 @@ namespace PlayFabClientSdk
                     }
                     writer.EndArray();
                 }
-                if (!VirtualCurrencyBalances.empty()) {
-                    writer.String("VirtualCurrencyBalances");
-                    writer.StartArray();
-                    for (auto iter = VirtualCurrencyBalances.begin(); iter != VirtualCurrencyBalances.end(); iter++) {     // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
-                        iter->writeJSON(writer);
-                    }
-                    writer.EndArray();
-                }
                 writer.EndObject();
             }
 
@@ -6071,13 +6062,6 @@ namespace PlayFabClientSdk
                     const rapidjson::Value& memberList = ValuesToDate_member->value;
                     for (SizeType i = 0; i < memberList.Size(); i++) {
                         ValuesToDate.push_back(ValueToDateModel(memberList[i]));
-                    }
-                }
-                const Value::ConstMemberIterator VirtualCurrencyBalances_member = obj.FindMember("VirtualCurrencyBalances");
-                if (VirtualCurrencyBalances_member != obj.MemberEnd()) {
-                    const rapidjson::Value& memberList = VirtualCurrencyBalances_member->value;
-                    for (SizeType i = 0; i < memberList.Size(); i++) {
-                        VirtualCurrencyBalances.push_back(VirtualCurrencyBalanceModel(memberList[i]));
                     }
                 }
 
@@ -9430,6 +9414,97 @@ namespace PlayFabClientSdk
                 if (NextReset_member != obj.MemberEnd() && !NextReset_member->value.IsNull()) NextReset = readDatetime(NextReset_member->value);
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
+
+                return true;
+            }
+        };
+
+        struct GetPaymentTokenRequest : public PlayFabBaseModel
+        {
+            AZStd::string TokenProvider;
+
+            GetPaymentTokenRequest() :
+                PlayFabBaseModel(),
+                TokenProvider()
+            {}
+
+            GetPaymentTokenRequest(const GetPaymentTokenRequest& src) :
+                PlayFabBaseModel(),
+                TokenProvider(src.TokenProvider)
+            {}
+
+            GetPaymentTokenRequest(const rapidjson::Value& obj) : GetPaymentTokenRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPaymentTokenRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.String("TokenProvider");
+                writer.String(TokenProvider.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator TokenProvider_member = obj.FindMember("TokenProvider");
+                if (TokenProvider_member != obj.MemberEnd() && !TokenProvider_member->value.IsNull()) TokenProvider = TokenProvider_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct GetPaymentTokenResult : public PlayFabBaseModel
+        {
+            AZStd::string OrderId;
+            AZStd::string ProviderToken;
+
+            GetPaymentTokenResult() :
+                PlayFabBaseModel(),
+                OrderId(),
+                ProviderToken()
+            {}
+
+            GetPaymentTokenResult(const GetPaymentTokenResult& src) :
+                PlayFabBaseModel(),
+                OrderId(src.OrderId),
+                ProviderToken(src.ProviderToken)
+            {}
+
+            GetPaymentTokenResult(const rapidjson::Value& obj) : GetPaymentTokenResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPaymentTokenResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (OrderId.length() > 0) {
+                    writer.String("OrderId");
+                    writer.String(OrderId.c_str());
+                }
+                if (ProviderToken.length() > 0) {
+                    writer.String("ProviderToken");
+                    writer.String(ProviderToken.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator OrderId_member = obj.FindMember("OrderId");
+                if (OrderId_member != obj.MemberEnd() && !OrderId_member->value.IsNull()) OrderId = OrderId_member->value.GetString();
+                const Value::ConstMemberIterator ProviderToken_member = obj.FindMember("ProviderToken");
+                if (ProviderToken_member != obj.MemberEnd() && !ProviderToken_member->value.IsNull()) ProviderToken = ProviderToken_member->value.GetString();
 
                 return true;
             }
