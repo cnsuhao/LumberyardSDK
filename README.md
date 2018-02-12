@@ -1,13 +1,10 @@
 # PlayFab Amazon Lumberyard SDK README
 
-Welcome to the PlayFab Amazon Lumberyard SDK.
+Welcome to the PlayFab Amazon Lumberyard SDK, for Lumberyard version 1.9.
 
-* Best Build: https://github.com/PlayFab/LumberyardSDK/releases/tag/0.0.160712
-  * Works for the original launch, Lumberyard 1.0
-* This Build: Built for Amazon Lumberyard 1.3 Beta
-  * Lumberyard is still in beta, and we have experienced some build issues with version 1.3.  As such, this repo is provided as-is, and may include errors.  If you experience issues with Lumberyard, please contact Lumberyard support.  If you find specific errors in our SDK, feel free to submit a pull request which resolves the issue.
-
-None of this will work for the latest Lumberyard, 1.9. The best option today, for Lumberyard 1.9 is to use: http://docs.aws.amazon.com/lumberyard/latest/userguide/gems-system-gem-aws.html plus our LuaSdk: https://github.com/PlayFab/LuaSdk.  This combination will eventually be an official SDK, but for now you'll need to put the combination together yourself.
+Builds for older versions:
+https://github.com/PlayFab/LumberyardSDK/releases
+We have periodically synced to the latest version of Lumberyard, but as you can see in the release schedule, we skip versions. We only support specific versions of Lumberyard, and do not support un-specified versions.  Experienced customers should be able to update the SDK to support later versions. If you wish to help keep us up to date, send us a pull request!
 
 Please post any PlayFab related questions on our [Forums](https://community.playfab.com/index.html).
 
