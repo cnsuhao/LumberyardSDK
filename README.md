@@ -4,6 +4,7 @@ Welcome to the PlayFab Amazon Lumberyard SDK, for Lumberyard version 1.9.
 
 Builds for older versions:
 https://github.com/PlayFab/LumberyardSDK/releases
+
 We have periodically synced to the latest version of Lumberyard, but as you can see in the release schedule, we skip versions. We only support specific versions of Lumberyard, and do not support un-specified versions.  Experienced customers should be able to update the SDK to support later versions. If you wish to help keep us up to date, send us a pull request!
 
 Please post any PlayFab related questions on our [Forums](https://community.playfab.com/index.html).
