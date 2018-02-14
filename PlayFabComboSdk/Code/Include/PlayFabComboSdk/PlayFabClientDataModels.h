@@ -4610,6 +4610,75 @@ namespace PlayFabComboSdk
             }
         };
 
+        struct EntityTokenResponse : public PlayFabBaseModel
+        {
+            AZStd::string EntityId;
+            AZStd::string EntityToken;
+            AZStd::string EntityType;
+            OptionalTime TokenExpiration;
+
+            EntityTokenResponse() :
+                PlayFabBaseModel(),
+                EntityId(),
+                EntityToken(),
+                EntityType(),
+                TokenExpiration()
+            {}
+
+            EntityTokenResponse(const EntityTokenResponse& src) :
+                PlayFabBaseModel(),
+                EntityId(src.EntityId),
+                EntityToken(src.EntityToken),
+                EntityType(src.EntityType),
+                TokenExpiration(src.TokenExpiration)
+            {}
+
+            EntityTokenResponse(const rapidjson::Value& obj) : EntityTokenResponse()
+            {
+                readFromValue(obj);
+            }
+
+            ~EntityTokenResponse()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (EntityId.length() > 0) {
+                    writer.String("EntityId");
+                    writer.String(EntityId.c_str());
+                }
+                if (EntityToken.length() > 0) {
+                    writer.String("EntityToken");
+                    writer.String(EntityToken.c_str());
+                }
+                if (EntityType.length() > 0) {
+                    writer.String("EntityType");
+                    writer.String(EntityType.c_str());
+                }
+                if (TokenExpiration.notNull()) {
+                    writer.String("TokenExpiration");
+                    writeDatetime(TokenExpiration, writer);
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator EntityId_member = obj.FindMember("EntityId");
+                if (EntityId_member != obj.MemberEnd() && !EntityId_member->value.IsNull()) EntityId = EntityId_member->value.GetString();
+                const Value::ConstMemberIterator EntityToken_member = obj.FindMember("EntityToken");
+                if (EntityToken_member != obj.MemberEnd() && !EntityToken_member->value.IsNull()) EntityToken = EntityToken_member->value.GetString();
+                const Value::ConstMemberIterator EntityType_member = obj.FindMember("EntityType");
+                if (EntityType_member != obj.MemberEnd() && !EntityType_member->value.IsNull()) EntityType = EntityType_member->value.GetString();
+                const Value::ConstMemberIterator TokenExpiration_member = obj.FindMember("TokenExpiration");
+                if (TokenExpiration_member != obj.MemberEnd() && !TokenExpiration_member->value.IsNull()) TokenExpiration = readDatetime(TokenExpiration_member->value);
+
+                return true;
+            }
+        };
+
         struct ExecuteCloudScriptRequest : public PlayFabBaseModel
         {
             AZStd::string FunctionName;
@@ -14681,6 +14750,7 @@ namespace PlayFabComboSdk
 
         struct LoginResult : public PlayFabBaseModel
         {
+            EntityTokenResponse* EntityToken;
             GetPlayerCombinedInfoResultPayload* InfoResultPayload;
             OptionalTime LastLoginTime;
             bool NewlyCreated;
@@ -14690,6 +14760,7 @@ namespace PlayFabComboSdk
 
             LoginResult() :
                 PlayFabBaseModel(),
+                EntityToken(nullptr),
                 InfoResultPayload(nullptr),
                 LastLoginTime(),
                 NewlyCreated(false),
@@ -14700,6 +14771,7 @@ namespace PlayFabComboSdk
 
             LoginResult(const LoginResult& src) :
                 PlayFabBaseModel(),
+                EntityToken(src.EntityToken ? new EntityTokenResponse(*src.EntityToken) : nullptr),
                 InfoResultPayload(src.InfoResultPayload ? new GetPlayerCombinedInfoResultPayload(*src.InfoResultPayload) : nullptr),
                 LastLoginTime(src.LastLoginTime),
                 NewlyCreated(src.NewlyCreated),
@@ -14715,6 +14787,7 @@ namespace PlayFabComboSdk
 
             ~LoginResult()
             {
+                if (EntityToken != nullptr) delete EntityToken;
                 if (InfoResultPayload != nullptr) delete InfoResultPayload;
                 if (SettingsForUser != nullptr) delete SettingsForUser;
             }
@@ -14722,6 +14795,10 @@ namespace PlayFabComboSdk
             void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
+                if (EntityToken != nullptr) {
+                    writer.String("EntityToken");
+                    EntityToken->writeJSON(writer);
+                }
                 if (InfoResultPayload != nullptr) {
                     writer.String("InfoResultPayload");
                     InfoResultPayload->writeJSON(writer);
@@ -14749,6 +14826,8 @@ namespace PlayFabComboSdk
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
+                const Value::ConstMemberIterator EntityToken_member = obj.FindMember("EntityToken");
+                if (EntityToken_member != obj.MemberEnd() && !EntityToken_member->value.IsNull()) EntityToken = new EntityTokenResponse(EntityToken_member->value);
                 const Value::ConstMemberIterator InfoResultPayload_member = obj.FindMember("InfoResultPayload");
                 if (InfoResultPayload_member != obj.MemberEnd() && !InfoResultPayload_member->value.IsNull()) InfoResultPayload = new GetPlayerCombinedInfoResultPayload(InfoResultPayload_member->value);
                 const Value::ConstMemberIterator LastLoginTime_member = obj.FindMember("LastLoginTime");
@@ -14773,6 +14852,7 @@ namespace PlayFabComboSdk
             OptionalBool CreateAccount;
             AZStd::string EncryptedRequest;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            OptionalBool LoginTitlePlayerAccountEntity;
             AZStd::string OS;
             AZStd::string PlayerSecret;
             AZStd::string TitleId;
@@ -14784,6 +14864,7 @@ namespace PlayFabComboSdk
                 CreateAccount(),
                 EncryptedRequest(),
                 InfoRequestParameters(nullptr),
+                LoginTitlePlayerAccountEntity(),
                 OS(),
                 PlayerSecret(),
                 TitleId()
@@ -14796,6 +14877,7 @@ namespace PlayFabComboSdk
                 CreateAccount(src.CreateAccount),
                 EncryptedRequest(src.EncryptedRequest),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
                 OS(src.OS),
                 PlayerSecret(src.PlayerSecret),
                 TitleId(src.TitleId)
@@ -14834,6 +14916,10 @@ namespace PlayFabComboSdk
                     writer.String("InfoRequestParameters");
                     InfoRequestParameters->writeJSON(writer);
                 }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
                 if (OS.length() > 0) {
                     writer.String("OS");
                     writer.String(OS.c_str());
@@ -14859,6 +14945,8 @@ namespace PlayFabComboSdk
                 if (EncryptedRequest_member != obj.MemberEnd() && !EncryptedRequest_member->value.IsNull()) EncryptedRequest = EncryptedRequest_member->value.GetString();
                 const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
                 if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
                 const Value::ConstMemberIterator OS_member = obj.FindMember("OS");
                 if (OS_member != obj.MemberEnd() && !OS_member->value.IsNull()) OS = OS_member->value.GetString();
                 const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
@@ -14876,6 +14964,7 @@ namespace PlayFabComboSdk
             AZStd::string CustomId;
             AZStd::string EncryptedRequest;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            OptionalBool LoginTitlePlayerAccountEntity;
             AZStd::string PlayerSecret;
             AZStd::string TitleId;
 
@@ -14885,6 +14974,7 @@ namespace PlayFabComboSdk
                 CustomId(),
                 EncryptedRequest(),
                 InfoRequestParameters(nullptr),
+                LoginTitlePlayerAccountEntity(),
                 PlayerSecret(),
                 TitleId()
             {}
@@ -14895,6 +14985,7 @@ namespace PlayFabComboSdk
                 CustomId(src.CustomId),
                 EncryptedRequest(src.EncryptedRequest),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
                 PlayerSecret(src.PlayerSecret),
                 TitleId(src.TitleId)
             {}
@@ -14928,6 +15019,10 @@ namespace PlayFabComboSdk
                     writer.String("InfoRequestParameters");
                     InfoRequestParameters->writeJSON(writer);
                 }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
                 if (PlayerSecret.length() > 0) {
                     writer.String("PlayerSecret");
                     writer.String(PlayerSecret.c_str());
@@ -14947,6 +15042,8 @@ namespace PlayFabComboSdk
                 if (EncryptedRequest_member != obj.MemberEnd() && !EncryptedRequest_member->value.IsNull()) EncryptedRequest = EncryptedRequest_member->value.GetString();
                 const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
                 if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
                 const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
                 if (PlayerSecret_member != obj.MemberEnd() && !PlayerSecret_member->value.IsNull()) PlayerSecret = PlayerSecret_member->value.GetString();
                 const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
@@ -14960,6 +15057,7 @@ namespace PlayFabComboSdk
         {
             AZStd::string Email;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            OptionalBool LoginTitlePlayerAccountEntity;
             AZStd::string Password;
             AZStd::string TitleId;
 
@@ -14967,6 +15065,7 @@ namespace PlayFabComboSdk
                 PlayFabBaseModel(),
                 Email(),
                 InfoRequestParameters(nullptr),
+                LoginTitlePlayerAccountEntity(),
                 Password(),
                 TitleId()
             {}
@@ -14975,6 +15074,7 @@ namespace PlayFabComboSdk
                 PlayFabBaseModel(),
                 Email(src.Email),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
                 Password(src.Password),
                 TitleId(src.TitleId)
             {}
@@ -14998,6 +15098,10 @@ namespace PlayFabComboSdk
                     writer.String("InfoRequestParameters");
                     InfoRequestParameters->writeJSON(writer);
                 }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
                 writer.String("Password");
                 writer.String(Password.c_str());
                 writer.String("TitleId");
@@ -15011,6 +15115,8 @@ namespace PlayFabComboSdk
                 if (Email_member != obj.MemberEnd() && !Email_member->value.IsNull()) Email = Email_member->value.GetString();
                 const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
                 if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
                 const Value::ConstMemberIterator Password_member = obj.FindMember("Password");
                 if (Password_member != obj.MemberEnd() && !Password_member->value.IsNull()) Password = Password_member->value.GetString();
                 const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
@@ -15026,6 +15132,7 @@ namespace PlayFabComboSdk
             OptionalBool CreateAccount;
             AZStd::string EncryptedRequest;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            OptionalBool LoginTitlePlayerAccountEntity;
             AZStd::string PlayerSecret;
             AZStd::string TitleId;
 
@@ -15035,6 +15142,7 @@ namespace PlayFabComboSdk
                 CreateAccount(),
                 EncryptedRequest(),
                 InfoRequestParameters(nullptr),
+                LoginTitlePlayerAccountEntity(),
                 PlayerSecret(),
                 TitleId()
             {}
@@ -15045,6 +15153,7 @@ namespace PlayFabComboSdk
                 CreateAccount(src.CreateAccount),
                 EncryptedRequest(src.EncryptedRequest),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
                 PlayerSecret(src.PlayerSecret),
                 TitleId(src.TitleId)
             {}
@@ -15076,6 +15185,10 @@ namespace PlayFabComboSdk
                     writer.String("InfoRequestParameters");
                     InfoRequestParameters->writeJSON(writer);
                 }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
                 if (PlayerSecret.length() > 0) {
                     writer.String("PlayerSecret");
                     writer.String(PlayerSecret.c_str());
@@ -15095,6 +15208,8 @@ namespace PlayFabComboSdk
                 if (EncryptedRequest_member != obj.MemberEnd() && !EncryptedRequest_member->value.IsNull()) EncryptedRequest = EncryptedRequest_member->value.GetString();
                 const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
                 if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
                 const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
                 if (PlayerSecret_member != obj.MemberEnd() && !PlayerSecret_member->value.IsNull()) PlayerSecret = PlayerSecret_member->value.GetString();
                 const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
@@ -15109,6 +15224,7 @@ namespace PlayFabComboSdk
             OptionalBool CreateAccount;
             AZStd::string EncryptedRequest;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            OptionalBool LoginTitlePlayerAccountEntity;
             AZStd::string PlayerId;
             AZStd::string PlayerSecret;
             AZStd::string TitleId;
@@ -15118,6 +15234,7 @@ namespace PlayFabComboSdk
                 CreateAccount(),
                 EncryptedRequest(),
                 InfoRequestParameters(nullptr),
+                LoginTitlePlayerAccountEntity(),
                 PlayerId(),
                 PlayerSecret(),
                 TitleId()
@@ -15128,6 +15245,7 @@ namespace PlayFabComboSdk
                 CreateAccount(src.CreateAccount),
                 EncryptedRequest(src.EncryptedRequest),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
                 PlayerId(src.PlayerId),
                 PlayerSecret(src.PlayerSecret),
                 TitleId(src.TitleId)
@@ -15158,6 +15276,10 @@ namespace PlayFabComboSdk
                     writer.String("InfoRequestParameters");
                     InfoRequestParameters->writeJSON(writer);
                 }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
                 if (PlayerId.length() > 0) {
                     writer.String("PlayerId");
                     writer.String(PlayerId.c_str());
@@ -15179,6 +15301,8 @@ namespace PlayFabComboSdk
                 if (EncryptedRequest_member != obj.MemberEnd() && !EncryptedRequest_member->value.IsNull()) EncryptedRequest = EncryptedRequest_member->value.GetString();
                 const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
                 if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
                 const Value::ConstMemberIterator PlayerId_member = obj.FindMember("PlayerId");
                 if (PlayerId_member != obj.MemberEnd() && !PlayerId_member->value.IsNull()) PlayerId = PlayerId_member->value.GetString();
                 const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
@@ -15195,6 +15319,7 @@ namespace PlayFabComboSdk
             OptionalBool CreateAccount;
             AZStd::string EncryptedRequest;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            OptionalBool LoginTitlePlayerAccountEntity;
             AZStd::string PlayerSecret;
             AZStd::string ServerAuthCode;
             AZStd::string TitleId;
@@ -15204,6 +15329,7 @@ namespace PlayFabComboSdk
                 CreateAccount(),
                 EncryptedRequest(),
                 InfoRequestParameters(nullptr),
+                LoginTitlePlayerAccountEntity(),
                 PlayerSecret(),
                 ServerAuthCode(),
                 TitleId()
@@ -15214,6 +15340,7 @@ namespace PlayFabComboSdk
                 CreateAccount(src.CreateAccount),
                 EncryptedRequest(src.EncryptedRequest),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
                 PlayerSecret(src.PlayerSecret),
                 ServerAuthCode(src.ServerAuthCode),
                 TitleId(src.TitleId)
@@ -15244,6 +15371,10 @@ namespace PlayFabComboSdk
                     writer.String("InfoRequestParameters");
                     InfoRequestParameters->writeJSON(writer);
                 }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
                 if (PlayerSecret.length() > 0) {
                     writer.String("PlayerSecret");
                     writer.String(PlayerSecret.c_str());
@@ -15265,6 +15396,8 @@ namespace PlayFabComboSdk
                 if (EncryptedRequest_member != obj.MemberEnd() && !EncryptedRequest_member->value.IsNull()) EncryptedRequest = EncryptedRequest_member->value.GetString();
                 const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
                 if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
                 const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
                 if (PlayerSecret_member != obj.MemberEnd() && !PlayerSecret_member->value.IsNull()) PlayerSecret = PlayerSecret_member->value.GetString();
                 const Value::ConstMemberIterator ServerAuthCode_member = obj.FindMember("ServerAuthCode");
@@ -15283,6 +15416,7 @@ namespace PlayFabComboSdk
             AZStd::string DeviceModel;
             AZStd::string EncryptedRequest;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            OptionalBool LoginTitlePlayerAccountEntity;
             AZStd::string OS;
             AZStd::string PlayerSecret;
             AZStd::string TitleId;
@@ -15294,6 +15428,7 @@ namespace PlayFabComboSdk
                 DeviceModel(),
                 EncryptedRequest(),
                 InfoRequestParameters(nullptr),
+                LoginTitlePlayerAccountEntity(),
                 OS(),
                 PlayerSecret(),
                 TitleId()
@@ -15306,6 +15441,7 @@ namespace PlayFabComboSdk
                 DeviceModel(src.DeviceModel),
                 EncryptedRequest(src.EncryptedRequest),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
                 OS(src.OS),
                 PlayerSecret(src.PlayerSecret),
                 TitleId(src.TitleId)
@@ -15344,6 +15480,10 @@ namespace PlayFabComboSdk
                     writer.String("InfoRequestParameters");
                     InfoRequestParameters->writeJSON(writer);
                 }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
                 if (OS.length() > 0) {
                     writer.String("OS");
                     writer.String(OS.c_str());
@@ -15369,6 +15509,8 @@ namespace PlayFabComboSdk
                 if (EncryptedRequest_member != obj.MemberEnd() && !EncryptedRequest_member->value.IsNull()) EncryptedRequest = EncryptedRequest_member->value.GetString();
                 const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
                 if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
                 const Value::ConstMemberIterator OS_member = obj.FindMember("OS");
                 if (OS_member != obj.MemberEnd() && !OS_member->value.IsNull()) OS = OS_member->value.GetString();
                 const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
@@ -15387,6 +15529,7 @@ namespace PlayFabComboSdk
             AZStd::string EncryptedRequest;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
             AZStd::string KongregateId;
+            OptionalBool LoginTitlePlayerAccountEntity;
             AZStd::string PlayerSecret;
             AZStd::string TitleId;
 
@@ -15397,6 +15540,7 @@ namespace PlayFabComboSdk
                 EncryptedRequest(),
                 InfoRequestParameters(nullptr),
                 KongregateId(),
+                LoginTitlePlayerAccountEntity(),
                 PlayerSecret(),
                 TitleId()
             {}
@@ -15408,6 +15552,7 @@ namespace PlayFabComboSdk
                 EncryptedRequest(src.EncryptedRequest),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
                 KongregateId(src.KongregateId),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
                 PlayerSecret(src.PlayerSecret),
                 TitleId(src.TitleId)
             {}
@@ -15445,6 +15590,10 @@ namespace PlayFabComboSdk
                     writer.String("KongregateId");
                     writer.String(KongregateId.c_str());
                 }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
                 if (PlayerSecret.length() > 0) {
                     writer.String("PlayerSecret");
                     writer.String(PlayerSecret.c_str());
@@ -15466,6 +15615,8 @@ namespace PlayFabComboSdk
                 if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
                 const Value::ConstMemberIterator KongregateId_member = obj.FindMember("KongregateId");
                 if (KongregateId_member != obj.MemberEnd() && !KongregateId_member->value.IsNull()) KongregateId = KongregateId_member->value.GetString();
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
                 const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
                 if (PlayerSecret_member != obj.MemberEnd() && !PlayerSecret_member->value.IsNull()) PlayerSecret = PlayerSecret_member->value.GetString();
                 const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
@@ -15478,6 +15629,7 @@ namespace PlayFabComboSdk
         struct LoginWithPlayFabRequest : public PlayFabBaseModel
         {
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            OptionalBool LoginTitlePlayerAccountEntity;
             AZStd::string Password;
             AZStd::string TitleId;
             AZStd::string Username;
@@ -15485,6 +15637,7 @@ namespace PlayFabComboSdk
             LoginWithPlayFabRequest() :
                 PlayFabBaseModel(),
                 InfoRequestParameters(nullptr),
+                LoginTitlePlayerAccountEntity(),
                 Password(),
                 TitleId(),
                 Username()
@@ -15493,6 +15646,7 @@ namespace PlayFabComboSdk
             LoginWithPlayFabRequest(const LoginWithPlayFabRequest& src) :
                 PlayFabBaseModel(),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
                 Password(src.Password),
                 TitleId(src.TitleId),
                 Username(src.Username)
@@ -15515,6 +15669,10 @@ namespace PlayFabComboSdk
                     writer.String("InfoRequestParameters");
                     InfoRequestParameters->writeJSON(writer);
                 }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
                 writer.String("Password");
                 writer.String(Password.c_str());
                 writer.String("TitleId");
@@ -15528,6 +15686,8 @@ namespace PlayFabComboSdk
             {
                 const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
                 if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
                 const Value::ConstMemberIterator Password_member = obj.FindMember("Password");
                 if (Password_member != obj.MemberEnd() && !Password_member->value.IsNull()) Password = Password_member->value.GetString();
                 const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
@@ -15544,6 +15704,7 @@ namespace PlayFabComboSdk
             OptionalBool CreateAccount;
             AZStd::string EncryptedRequest;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            OptionalBool LoginTitlePlayerAccountEntity;
             AZStd::string PlayerSecret;
             AZStd::string SteamTicket;
             AZStd::string TitleId;
@@ -15553,6 +15714,7 @@ namespace PlayFabComboSdk
                 CreateAccount(),
                 EncryptedRequest(),
                 InfoRequestParameters(nullptr),
+                LoginTitlePlayerAccountEntity(),
                 PlayerSecret(),
                 SteamTicket(),
                 TitleId()
@@ -15563,6 +15725,7 @@ namespace PlayFabComboSdk
                 CreateAccount(src.CreateAccount),
                 EncryptedRequest(src.EncryptedRequest),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
                 PlayerSecret(src.PlayerSecret),
                 SteamTicket(src.SteamTicket),
                 TitleId(src.TitleId)
@@ -15593,6 +15756,10 @@ namespace PlayFabComboSdk
                     writer.String("InfoRequestParameters");
                     InfoRequestParameters->writeJSON(writer);
                 }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
                 if (PlayerSecret.length() > 0) {
                     writer.String("PlayerSecret");
                     writer.String(PlayerSecret.c_str());
@@ -15614,6 +15781,8 @@ namespace PlayFabComboSdk
                 if (EncryptedRequest_member != obj.MemberEnd() && !EncryptedRequest_member->value.IsNull()) EncryptedRequest = EncryptedRequest_member->value.GetString();
                 const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
                 if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
                 const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
                 if (PlayerSecret_member != obj.MemberEnd() && !PlayerSecret_member->value.IsNull()) PlayerSecret = PlayerSecret_member->value.GetString();
                 const Value::ConstMemberIterator SteamTicket_member = obj.FindMember("SteamTicket");
@@ -15631,6 +15800,7 @@ namespace PlayFabComboSdk
             OptionalBool CreateAccount;
             AZStd::string EncryptedRequest;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            OptionalBool LoginTitlePlayerAccountEntity;
             AZStd::string PlayerSecret;
             AZStd::string TitleId;
 
@@ -15640,6 +15810,7 @@ namespace PlayFabComboSdk
                 CreateAccount(),
                 EncryptedRequest(),
                 InfoRequestParameters(nullptr),
+                LoginTitlePlayerAccountEntity(),
                 PlayerSecret(),
                 TitleId()
             {}
@@ -15650,6 +15821,7 @@ namespace PlayFabComboSdk
                 CreateAccount(src.CreateAccount),
                 EncryptedRequest(src.EncryptedRequest),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
                 PlayerSecret(src.PlayerSecret),
                 TitleId(src.TitleId)
             {}
@@ -15683,6 +15855,10 @@ namespace PlayFabComboSdk
                     writer.String("InfoRequestParameters");
                     InfoRequestParameters->writeJSON(writer);
                 }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
                 if (PlayerSecret.length() > 0) {
                     writer.String("PlayerSecret");
                     writer.String(PlayerSecret.c_str());
@@ -15702,6 +15878,8 @@ namespace PlayFabComboSdk
                 if (EncryptedRequest_member != obj.MemberEnd() && !EncryptedRequest_member->value.IsNull()) EncryptedRequest = EncryptedRequest_member->value.GetString();
                 const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
                 if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
                 const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
                 if (PlayerSecret_member != obj.MemberEnd() && !PlayerSecret_member->value.IsNull()) PlayerSecret = PlayerSecret_member->value.GetString();
                 const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
@@ -15715,6 +15893,7 @@ namespace PlayFabComboSdk
         {
             AZStd::string ChallengeSignature;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            OptionalBool LoginTitlePlayerAccountEntity;
             AZStd::string PublicKeyHint;
             AZStd::string TitleId;
 
@@ -15722,6 +15901,7 @@ namespace PlayFabComboSdk
                 PlayFabBaseModel(),
                 ChallengeSignature(),
                 InfoRequestParameters(nullptr),
+                LoginTitlePlayerAccountEntity(),
                 PublicKeyHint(),
                 TitleId()
             {}
@@ -15730,6 +15910,7 @@ namespace PlayFabComboSdk
                 PlayFabBaseModel(),
                 ChallengeSignature(src.ChallengeSignature),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
                 PublicKeyHint(src.PublicKeyHint),
                 TitleId(src.TitleId)
             {}
@@ -15753,6 +15934,10 @@ namespace PlayFabComboSdk
                     writer.String("InfoRequestParameters");
                     InfoRequestParameters->writeJSON(writer);
                 }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
                 writer.String("PublicKeyHint");
                 writer.String(PublicKeyHint.c_str());
                 writer.String("TitleId");
@@ -15766,6 +15951,8 @@ namespace PlayFabComboSdk
                 if (ChallengeSignature_member != obj.MemberEnd() && !ChallengeSignature_member->value.IsNull()) ChallengeSignature = ChallengeSignature_member->value.GetString();
                 const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
                 if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
                 const Value::ConstMemberIterator PublicKeyHint_member = obj.FindMember("PublicKeyHint");
                 if (PublicKeyHint_member != obj.MemberEnd() && !PublicKeyHint_member->value.IsNull()) PublicKeyHint = PublicKeyHint_member->value.GetString();
                 const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
@@ -16974,6 +17161,7 @@ namespace PlayFabComboSdk
             AZStd::string Email;
             AZStd::string EncryptedRequest;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            OptionalBool LoginTitlePlayerAccountEntity;
             AZStd::string Password;
             AZStd::string PlayerSecret;
             OptionalBool RequireBothUsernameAndEmail;
@@ -16986,6 +17174,7 @@ namespace PlayFabComboSdk
                 Email(),
                 EncryptedRequest(),
                 InfoRequestParameters(nullptr),
+                LoginTitlePlayerAccountEntity(),
                 Password(),
                 PlayerSecret(),
                 RequireBothUsernameAndEmail(),
@@ -16999,6 +17188,7 @@ namespace PlayFabComboSdk
                 Email(src.Email),
                 EncryptedRequest(src.EncryptedRequest),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
                 Password(src.Password),
                 PlayerSecret(src.PlayerSecret),
                 RequireBothUsernameAndEmail(src.RequireBothUsernameAndEmail),
@@ -17035,6 +17225,10 @@ namespace PlayFabComboSdk
                     writer.String("InfoRequestParameters");
                     InfoRequestParameters->writeJSON(writer);
                 }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
                 if (Password.length() > 0) {
                     writer.String("Password");
                     writer.String(Password.c_str());
@@ -17066,6 +17260,8 @@ namespace PlayFabComboSdk
                 if (EncryptedRequest_member != obj.MemberEnd() && !EncryptedRequest_member->value.IsNull()) EncryptedRequest = EncryptedRequest_member->value.GetString();
                 const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
                 if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
                 const Value::ConstMemberIterator Password_member = obj.FindMember("Password");
                 if (Password_member != obj.MemberEnd() && !Password_member->value.IsNull()) Password = Password_member->value.GetString();
                 const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
@@ -17156,6 +17352,7 @@ namespace PlayFabComboSdk
             AZStd::string DeviceName;
             AZStd::string EncryptedRequest;
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            OptionalBool LoginTitlePlayerAccountEntity;
             AZStd::string PlayerSecret;
             AZStd::string PublicKey;
             AZStd::string TitleId;
@@ -17166,6 +17363,7 @@ namespace PlayFabComboSdk
                 DeviceName(),
                 EncryptedRequest(),
                 InfoRequestParameters(nullptr),
+                LoginTitlePlayerAccountEntity(),
                 PlayerSecret(),
                 PublicKey(),
                 TitleId(),
@@ -17177,6 +17375,7 @@ namespace PlayFabComboSdk
                 DeviceName(src.DeviceName),
                 EncryptedRequest(src.EncryptedRequest),
                 InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
                 PlayerSecret(src.PlayerSecret),
                 PublicKey(src.PublicKey),
                 TitleId(src.TitleId),
@@ -17208,6 +17407,10 @@ namespace PlayFabComboSdk
                     writer.String("InfoRequestParameters");
                     InfoRequestParameters->writeJSON(writer);
                 }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
                 if (PlayerSecret.length() > 0) {
                     writer.String("PlayerSecret");
                     writer.String(PlayerSecret.c_str());
@@ -17233,6 +17436,8 @@ namespace PlayFabComboSdk
                 if (EncryptedRequest_member != obj.MemberEnd() && !EncryptedRequest_member->value.IsNull()) EncryptedRequest = EncryptedRequest_member->value.GetString();
                 const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
                 if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
                 const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
                 if (PlayerSecret_member != obj.MemberEnd() && !PlayerSecret_member->value.IsNull()) PlayerSecret = PlayerSecret_member->value.GetString();
                 const Value::ConstMemberIterator PublicKey_member = obj.FindMember("PublicKey");
@@ -17712,17 +17917,20 @@ namespace PlayFabComboSdk
         struct SendAccountRecoveryEmailRequest : public PlayFabBaseModel
         {
             AZStd::string Email;
+            AZStd::string EmailTemplateId;
             AZStd::string TitleId;
 
             SendAccountRecoveryEmailRequest() :
                 PlayFabBaseModel(),
                 Email(),
+                EmailTemplateId(),
                 TitleId()
             {}
 
             SendAccountRecoveryEmailRequest(const SendAccountRecoveryEmailRequest& src) :
                 PlayFabBaseModel(),
                 Email(src.Email),
+                EmailTemplateId(src.EmailTemplateId),
                 TitleId(src.TitleId)
             {}
 
@@ -17740,6 +17948,10 @@ namespace PlayFabComboSdk
                 writer.StartObject();
                 writer.String("Email");
                 writer.String(Email.c_str());
+                if (EmailTemplateId.length() > 0) {
+                    writer.String("EmailTemplateId");
+                    writer.String(EmailTemplateId.c_str());
+                }
                 writer.String("TitleId");
                 writer.String(TitleId.c_str());
                 writer.EndObject();
@@ -17749,6 +17961,8 @@ namespace PlayFabComboSdk
             {
                 const Value::ConstMemberIterator Email_member = obj.FindMember("Email");
                 if (Email_member != obj.MemberEnd() && !Email_member->value.IsNull()) Email = Email_member->value.GetString();
+                const Value::ConstMemberIterator EmailTemplateId_member = obj.FindMember("EmailTemplateId");
+                if (EmailTemplateId_member != obj.MemberEnd() && !EmailTemplateId_member->value.IsNull()) EmailTemplateId = EmailTemplateId_member->value.GetString();
                 const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
                 if (TitleId_member != obj.MemberEnd() && !TitleId_member->value.IsNull()) TitleId = TitleId_member->value.GetString();
 

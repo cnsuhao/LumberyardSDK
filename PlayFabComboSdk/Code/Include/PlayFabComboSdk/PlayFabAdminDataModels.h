@@ -14950,15 +14950,18 @@ namespace PlayFabComboSdk
         struct SendAccountRecoveryEmailRequest : public PlayFabBaseModel
         {
             AZStd::string Email;
+            AZStd::string EmailTemplateId;
 
             SendAccountRecoveryEmailRequest() :
                 PlayFabBaseModel(),
-                Email()
+                Email(),
+                EmailTemplateId()
             {}
 
             SendAccountRecoveryEmailRequest(const SendAccountRecoveryEmailRequest& src) :
                 PlayFabBaseModel(),
-                Email(src.Email)
+                Email(src.Email),
+                EmailTemplateId(src.EmailTemplateId)
             {}
 
             SendAccountRecoveryEmailRequest(const rapidjson::Value& obj) : SendAccountRecoveryEmailRequest()
@@ -14975,6 +14978,10 @@ namespace PlayFabComboSdk
                 writer.StartObject();
                 writer.String("Email");
                 writer.String(Email.c_str());
+                if (EmailTemplateId.length() > 0) {
+                    writer.String("EmailTemplateId");
+                    writer.String(EmailTemplateId.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -14982,6 +14989,8 @@ namespace PlayFabComboSdk
             {
                 const Value::ConstMemberIterator Email_member = obj.FindMember("Email");
                 if (Email_member != obj.MemberEnd() && !Email_member->value.IsNull()) Email = Email_member->value.GetString();
+                const Value::ConstMemberIterator EmailTemplateId_member = obj.FindMember("EmailTemplateId");
+                if (EmailTemplateId_member != obj.MemberEnd() && !EmailTemplateId_member->value.IsNull()) EmailTemplateId = EmailTemplateId_member->value.GetString();
 
                 return true;
             }
