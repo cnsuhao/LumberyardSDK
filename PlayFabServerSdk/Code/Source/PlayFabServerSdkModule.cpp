@@ -6,6 +6,7 @@
 #include "PlayFabServer_AdminSysComponent.h"
 #include "PlayFabServer_MatchmakerSysComponent.h"
 #include "PlayFabServer_ServerSysComponent.h"
+#include "PlayFabServer_EntitySysComponent.h"
 
 #include "PlayFabSettings.h"
 #include <PlayFabServerSdk/PlayFabError.h>
@@ -48,6 +49,7 @@ namespace PlayFabServerSdk
                 PlayFabServer_AdminSysComponent::CreateDescriptor(),
                 PlayFabServer_MatchmakerSysComponent::CreateDescriptor(),
                 PlayFabServer_ServerSysComponent::CreateDescriptor(),
+                PlayFabServer_EntitySysComponent::CreateDescriptor(),
 
             });
         }
@@ -62,6 +64,7 @@ namespace PlayFabServerSdk
                 azrtti_typeid<PlayFabServer_AdminSysComponent>(),
                 azrtti_typeid<PlayFabServer_MatchmakerSysComponent>(),
                 azrtti_typeid<PlayFabServer_ServerSysComponent>(),
+                azrtti_typeid<PlayFabServer_EntitySysComponent>(),
 
             };
         }

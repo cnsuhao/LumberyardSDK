@@ -2227,6 +2227,36 @@ void PlayFabAdminApi::OnRevokeInventoryItemResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabAdminApi::RevokeInventoryItems(
+    AdminModels::RevokeInventoryItemsRequest& request,
+    ProcessApiCallback<AdminModels::RevokeInventoryItemsResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/RevokeInventoryItems"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnRevokeInventoryItemsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabAdminApi::OnRevokeInventoryItemsResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        AdminModels::RevokeInventoryItemsResult* outResult = new AdminModels::RevokeInventoryItemsResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<AdminModels::RevokeInventoryItemsResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::RevokeInventoryItemsResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabAdminApi::RunTask(
     AdminModels::RunTaskRequest& request,
     ProcessApiCallback<AdminModels::RunTaskResult> callback,

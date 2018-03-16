@@ -81,4 +81,14 @@ namespace PlayFabClientSdk
         return PlayFabSettings::playFabSettings->titleId;
     }
 
+    void PlayFabClient_SettingsSysComponent::SetDevSecretKey(AZStd::string newSecretKey)
+    {
+        PlayFabSettings::playFabSettings->developerSecretKey = newSecretKey;
+    }
+
+    AZStd::string PlayFabClient_SettingsSysComponent::GetDevSecretKey()
+    {
+        return PlayFabSettings::playFabSettings->developerSecretKey;
+    }
+
 }

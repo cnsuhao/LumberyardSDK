@@ -17,6 +17,7 @@ namespace PlayFabClientSdk
         AZStd::string productionEnvironmentURL;
         AZStd::string titleId; // You must set this value for PlayFab to work properly (Found in the Game Manager for your title, at the PlayFab Website)
         ErrorCallback globalErrorHandler;
+        AZStd::string developerSecretKey; // You must set this value for PlayFab to work properly (Found in the Game Manager for your title, at the PlayFab Website)
         AZStd::string advertisingIdType; // Set this to the appropriate AD_TYPE_X constant below
         AZStd::string advertisingIdValue; // Set this to corresponding device value
 

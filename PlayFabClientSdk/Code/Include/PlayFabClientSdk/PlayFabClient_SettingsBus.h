@@ -20,6 +20,9 @@ namespace PlayFabClientSdk
         virtual void SetTitleId(AZStd::string newTitleId) = 0;
         virtual AZStd::string GetTitleId() = 0;
 
+        virtual void SetDevSecretKey(AZStd::string newSecretKey) = 0;
+        virtual AZStd::string GetDevSecretKey() = 0;
+
     };
 
     using PlayFabClient_SettingsRequestBus = AZ::EBus<PlayFabClient_SettingsRequests>;

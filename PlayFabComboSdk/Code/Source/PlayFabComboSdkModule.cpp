@@ -7,6 +7,7 @@
 #include "PlayFabCombo_MatchmakerSysComponent.h"
 #include "PlayFabCombo_ServerSysComponent.h"
 #include "PlayFabCombo_ClientSysComponent.h"
+#include "PlayFabCombo_EntitySysComponent.h"
 
 #include "PlayFabSettings.h"
 #include <PlayFabComboSdk/PlayFabError.h>
@@ -52,6 +53,7 @@ namespace PlayFabComboSdk
                 PlayFabCombo_MatchmakerSysComponent::CreateDescriptor(),
                 PlayFabCombo_ServerSysComponent::CreateDescriptor(),
                 PlayFabCombo_ClientSysComponent::CreateDescriptor(),
+                PlayFabCombo_EntitySysComponent::CreateDescriptor(),
 
             });
         }
@@ -67,6 +69,7 @@ namespace PlayFabComboSdk
                 azrtti_typeid<PlayFabCombo_MatchmakerSysComponent>(),
                 azrtti_typeid<PlayFabCombo_ServerSysComponent>(),
                 azrtti_typeid<PlayFabCombo_ClientSysComponent>(),
+                azrtti_typeid<PlayFabCombo_EntitySysComponent>(),
 
             };
         }

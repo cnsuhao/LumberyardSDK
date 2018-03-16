@@ -6,13 +6,14 @@ using namespace PlayFabClientSdk;
 PlayFabSettings * PlayFabSettings::playFabSettings = nullptr; // Global settings for all Apis
 
 PlayFabSettings::PlayFabSettings() :
-    playFabVersionString("LumberyardSDK-0.0.180213"),
-    buildIdentifier("jbuild_lumberyardsdk_0"),
+    playFabVersionString("LumberyardSDK-0.0.180316"),
+    buildIdentifier("jbuild_lumberyardsdk_1"),
     useDevelopmentEnvironment(false),
     developmentEnvironmentURL(".playfabsandbox.com"),
     productionEnvironmentURL(".playfabapi.com"),
     titleId(), // You must set this value for PlayFab to work properly (Found in the Game Manager for your title, at the PlayFab Website)
     globalErrorHandler(nullptr),
+    developerSecretKey(), // You must set this value for PlayFab to work properly (Found in the Game Manager for your title, at the PlayFab Website)
     advertisingIdType(), // Set this to the appropriate AD_TYPE_X constant below
     advertisingIdValue(), // Set this to corresponding device value
     // DisableAdvertising is provided for completeness, but changing it is not suggested

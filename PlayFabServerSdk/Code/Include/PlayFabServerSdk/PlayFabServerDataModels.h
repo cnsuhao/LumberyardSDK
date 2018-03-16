@@ -6608,6 +6608,1118 @@ namespace PlayFabServerSdk
             return GameInstanceStateOpen; // Basically critical fail
         }
 
+        enum GenericErrorCodes
+        {
+            GenericErrorCodesSuccess,
+            GenericErrorCodesInvalidParams,
+            GenericErrorCodesAccountNotFound,
+            GenericErrorCodesAccountBanned,
+            GenericErrorCodesInvalidUsernameOrPassword,
+            GenericErrorCodesInvalidTitleId,
+            GenericErrorCodesInvalidEmailAddress,
+            GenericErrorCodesEmailAddressNotAvailable,
+            GenericErrorCodesInvalidUsername,
+            GenericErrorCodesInvalidPassword,
+            GenericErrorCodesUsernameNotAvailable,
+            GenericErrorCodesInvalidSteamTicket,
+            GenericErrorCodesAccountAlreadyLinked,
+            GenericErrorCodesLinkedAccountAlreadyClaimed,
+            GenericErrorCodesInvalidFacebookToken,
+            GenericErrorCodesAccountNotLinked,
+            GenericErrorCodesFailedByPaymentProvider,
+            GenericErrorCodesCouponCodeNotFound,
+            GenericErrorCodesInvalidContainerItem,
+            GenericErrorCodesContainerNotOwned,
+            GenericErrorCodesKeyNotOwned,
+            GenericErrorCodesInvalidItemIdInTable,
+            GenericErrorCodesInvalidReceipt,
+            GenericErrorCodesReceiptAlreadyUsed,
+            GenericErrorCodesReceiptCancelled,
+            GenericErrorCodesGameNotFound,
+            GenericErrorCodesGameModeNotFound,
+            GenericErrorCodesInvalidGoogleToken,
+            GenericErrorCodesUserIsNotPartOfDeveloper,
+            GenericErrorCodesInvalidTitleForDeveloper,
+            GenericErrorCodesTitleNameConflicts,
+            GenericErrorCodesUserisNotValid,
+            GenericErrorCodesValueAlreadyExists,
+            GenericErrorCodesBuildNotFound,
+            GenericErrorCodesPlayerNotInGame,
+            GenericErrorCodesInvalidTicket,
+            GenericErrorCodesInvalidDeveloper,
+            GenericErrorCodesInvalidOrderInfo,
+            GenericErrorCodesRegistrationIncomplete,
+            GenericErrorCodesInvalidPlatform,
+            GenericErrorCodesUnknownError,
+            GenericErrorCodesSteamApplicationNotOwned,
+            GenericErrorCodesWrongSteamAccount,
+            GenericErrorCodesTitleNotActivated,
+            GenericErrorCodesRegistrationSessionNotFound,
+            GenericErrorCodesNoSuchMod,
+            GenericErrorCodesFileNotFound,
+            GenericErrorCodesDuplicateEmail,
+            GenericErrorCodesItemNotFound,
+            GenericErrorCodesItemNotOwned,
+            GenericErrorCodesItemNotRecycleable,
+            GenericErrorCodesItemNotAffordable,
+            GenericErrorCodesInvalidVirtualCurrency,
+            GenericErrorCodesWrongVirtualCurrency,
+            GenericErrorCodesWrongPrice,
+            GenericErrorCodesNonPositiveValue,
+            GenericErrorCodesInvalidRegion,
+            GenericErrorCodesRegionAtCapacity,
+            GenericErrorCodesServerFailedToStart,
+            GenericErrorCodesNameNotAvailable,
+            GenericErrorCodesInsufficientFunds,
+            GenericErrorCodesInvalidDeviceID,
+            GenericErrorCodesInvalidPushNotificationToken,
+            GenericErrorCodesNoRemainingUses,
+            GenericErrorCodesInvalidPaymentProvider,
+            GenericErrorCodesPurchaseInitializationFailure,
+            GenericErrorCodesDuplicateUsername,
+            GenericErrorCodesInvalidBuyerInfo,
+            GenericErrorCodesNoGameModeParamsSet,
+            GenericErrorCodesBodyTooLarge,
+            GenericErrorCodesReservedWordInBody,
+            GenericErrorCodesInvalidTypeInBody,
+            GenericErrorCodesInvalidRequest,
+            GenericErrorCodesReservedEventName,
+            GenericErrorCodesInvalidUserStatistics,
+            GenericErrorCodesNotAuthenticated,
+            GenericErrorCodesStreamAlreadyExists,
+            GenericErrorCodesErrorCreatingStream,
+            GenericErrorCodesStreamNotFound,
+            GenericErrorCodesInvalidAccount,
+            GenericErrorCodesPurchaseDoesNotExist,
+            GenericErrorCodesInvalidPurchaseTransactionStatus,
+            GenericErrorCodesAPINotEnabledForGameClientAccess,
+            GenericErrorCodesNoPushNotificationARNForTitle,
+            GenericErrorCodesBuildAlreadyExists,
+            GenericErrorCodesBuildPackageDoesNotExist,
+            GenericErrorCodesCustomAnalyticsEventsNotEnabledForTitle,
+            GenericErrorCodesInvalidSharedGroupId,
+            GenericErrorCodesNotAuthorized,
+            GenericErrorCodesMissingTitleGoogleProperties,
+            GenericErrorCodesInvalidItemProperties,
+            GenericErrorCodesInvalidPSNAuthCode,
+            GenericErrorCodesInvalidItemId,
+            GenericErrorCodesPushNotEnabledForAccount,
+            GenericErrorCodesPushServiceError,
+            GenericErrorCodesReceiptDoesNotContainInAppItems,
+            GenericErrorCodesReceiptContainsMultipleInAppItems,
+            GenericErrorCodesInvalidBundleID,
+            GenericErrorCodesJavascriptException,
+            GenericErrorCodesInvalidSessionTicket,
+            GenericErrorCodesUnableToConnectToDatabase,
+            GenericErrorCodesInternalServerError,
+            GenericErrorCodesInvalidReportDate,
+            GenericErrorCodesReportNotAvailable,
+            GenericErrorCodesDatabaseThroughputExceeded,
+            GenericErrorCodesInvalidGameTicket,
+            GenericErrorCodesExpiredGameTicket,
+            GenericErrorCodesGameTicketDoesNotMatchLobby,
+            GenericErrorCodesLinkedDeviceAlreadyClaimed,
+            GenericErrorCodesDeviceAlreadyLinked,
+            GenericErrorCodesDeviceNotLinked,
+            GenericErrorCodesPartialFailure,
+            GenericErrorCodesPublisherNotSet,
+            GenericErrorCodesServiceUnavailable,
+            GenericErrorCodesVersionNotFound,
+            GenericErrorCodesRevisionNotFound,
+            GenericErrorCodesInvalidPublisherId,
+            GenericErrorCodesDownstreamServiceUnavailable,
+            GenericErrorCodesAPINotIncludedInTitleUsageTier,
+            GenericErrorCodesDAULimitExceeded,
+            GenericErrorCodesAPIRequestLimitExceeded,
+            GenericErrorCodesInvalidAPIEndpoint,
+            GenericErrorCodesBuildNotAvailable,
+            GenericErrorCodesConcurrentEditError,
+            GenericErrorCodesContentNotFound,
+            GenericErrorCodesCharacterNotFound,
+            GenericErrorCodesCloudScriptNotFound,
+            GenericErrorCodesContentQuotaExceeded,
+            GenericErrorCodesInvalidCharacterStatistics,
+            GenericErrorCodesPhotonNotEnabledForTitle,
+            GenericErrorCodesPhotonApplicationNotFound,
+            GenericErrorCodesPhotonApplicationNotAssociatedWithTitle,
+            GenericErrorCodesInvalidEmailOrPassword,
+            GenericErrorCodesFacebookAPIError,
+            GenericErrorCodesInvalidContentType,
+            GenericErrorCodesKeyLengthExceeded,
+            GenericErrorCodesDataLengthExceeded,
+            GenericErrorCodesTooManyKeys,
+            GenericErrorCodesFreeTierCannotHaveVirtualCurrency,
+            GenericErrorCodesMissingAmazonSharedKey,
+            GenericErrorCodesAmazonValidationError,
+            GenericErrorCodesInvalidPSNIssuerId,
+            GenericErrorCodesPSNInaccessible,
+            GenericErrorCodesExpiredAuthToken,
+            GenericErrorCodesFailedToGetEntitlements,
+            GenericErrorCodesFailedToConsumeEntitlement,
+            GenericErrorCodesTradeAcceptingUserNotAllowed,
+            GenericErrorCodesTradeInventoryItemIsAssignedToCharacter,
+            GenericErrorCodesTradeInventoryItemIsBundle,
+            GenericErrorCodesTradeStatusNotValidForCancelling,
+            GenericErrorCodesTradeStatusNotValidForAccepting,
+            GenericErrorCodesTradeDoesNotExist,
+            GenericErrorCodesTradeCancelled,
+            GenericErrorCodesTradeAlreadyFilled,
+            GenericErrorCodesTradeWaitForStatusTimeout,
+            GenericErrorCodesTradeInventoryItemExpired,
+            GenericErrorCodesTradeMissingOfferedAndAcceptedItems,
+            GenericErrorCodesTradeAcceptedItemIsBundle,
+            GenericErrorCodesTradeAcceptedItemIsStackable,
+            GenericErrorCodesTradeInventoryItemInvalidStatus,
+            GenericErrorCodesTradeAcceptedCatalogItemInvalid,
+            GenericErrorCodesTradeAllowedUsersInvalid,
+            GenericErrorCodesTradeInventoryItemDoesNotExist,
+            GenericErrorCodesTradeInventoryItemIsConsumed,
+            GenericErrorCodesTradeInventoryItemIsStackable,
+            GenericErrorCodesTradeAcceptedItemsMismatch,
+            GenericErrorCodesInvalidKongregateToken,
+            GenericErrorCodesFeatureNotConfiguredForTitle,
+            GenericErrorCodesNoMatchingCatalogItemForReceipt,
+            GenericErrorCodesInvalidCurrencyCode,
+            GenericErrorCodesNoRealMoneyPriceForCatalogItem,
+            GenericErrorCodesTradeInventoryItemIsNotTradable,
+            GenericErrorCodesTradeAcceptedCatalogItemIsNotTradable,
+            GenericErrorCodesUsersAlreadyFriends,
+            GenericErrorCodesLinkedIdentifierAlreadyClaimed,
+            GenericErrorCodesCustomIdNotLinked,
+            GenericErrorCodesTotalDataSizeExceeded,
+            GenericErrorCodesDeleteKeyConflict,
+            GenericErrorCodesInvalidXboxLiveToken,
+            GenericErrorCodesExpiredXboxLiveToken,
+            GenericErrorCodesResettableStatisticVersionRequired,
+            GenericErrorCodesNotAuthorizedByTitle,
+            GenericErrorCodesNoPartnerEnabled,
+            GenericErrorCodesInvalidPartnerResponse,
+            GenericErrorCodesAPINotEnabledForGameServerAccess,
+            GenericErrorCodesStatisticNotFound,
+            GenericErrorCodesStatisticNameConflict,
+            GenericErrorCodesStatisticVersionClosedForWrites,
+            GenericErrorCodesStatisticVersionInvalid,
+            GenericErrorCodesAPIClientRequestRateLimitExceeded,
+            GenericErrorCodesInvalidJSONContent,
+            GenericErrorCodesInvalidDropTable,
+            GenericErrorCodesStatisticVersionAlreadyIncrementedForScheduledInterval,
+            GenericErrorCodesStatisticCountLimitExceeded,
+            GenericErrorCodesStatisticVersionIncrementRateExceeded,
+            GenericErrorCodesContainerKeyInvalid,
+            GenericErrorCodesCloudScriptExecutionTimeLimitExceeded,
+            GenericErrorCodesNoWritePermissionsForEvent,
+            GenericErrorCodesCloudScriptFunctionArgumentSizeExceeded,
+            GenericErrorCodesCloudScriptAPIRequestCountExceeded,
+            GenericErrorCodesCloudScriptAPIRequestError,
+            GenericErrorCodesCloudScriptHTTPRequestError,
+            GenericErrorCodesInsufficientGuildRole,
+            GenericErrorCodesGuildNotFound,
+            GenericErrorCodesOverLimit,
+            GenericErrorCodesEventNotFound,
+            GenericErrorCodesInvalidEventField,
+            GenericErrorCodesInvalidEventName,
+            GenericErrorCodesCatalogNotConfigured,
+            GenericErrorCodesOperationNotSupportedForPlatform,
+            GenericErrorCodesSegmentNotFound,
+            GenericErrorCodesStoreNotFound,
+            GenericErrorCodesInvalidStatisticName,
+            GenericErrorCodesTitleNotQualifiedForLimit,
+            GenericErrorCodesInvalidServiceLimitLevel,
+            GenericErrorCodesServiceLimitLevelInTransition,
+            GenericErrorCodesCouponAlreadyRedeemed,
+            GenericErrorCodesGameServerBuildSizeLimitExceeded,
+            GenericErrorCodesGameServerBuildCountLimitExceeded,
+            GenericErrorCodesVirtualCurrencyCountLimitExceeded,
+            GenericErrorCodesVirtualCurrencyCodeExists,
+            GenericErrorCodesTitleNewsItemCountLimitExceeded,
+            GenericErrorCodesInvalidTwitchToken,
+            GenericErrorCodesTwitchResponseError,
+            GenericErrorCodesProfaneDisplayName,
+            GenericErrorCodesUserAlreadyAdded,
+            GenericErrorCodesInvalidVirtualCurrencyCode,
+            GenericErrorCodesVirtualCurrencyCannotBeDeleted,
+            GenericErrorCodesIdentifierAlreadyClaimed,
+            GenericErrorCodesIdentifierNotLinked,
+            GenericErrorCodesInvalidContinuationToken,
+            GenericErrorCodesExpiredContinuationToken,
+            GenericErrorCodesInvalidSegment,
+            GenericErrorCodesInvalidSessionId,
+            GenericErrorCodesSessionLogNotFound,
+            GenericErrorCodesInvalidSearchTerm,
+            GenericErrorCodesTwoFactorAuthenticationTokenRequired,
+            GenericErrorCodesGameServerHostCountLimitExceeded,
+            GenericErrorCodesPlayerTagCountLimitExceeded,
+            GenericErrorCodesRequestAlreadyRunning,
+            GenericErrorCodesActionGroupNotFound,
+            GenericErrorCodesMaximumSegmentBulkActionJobsRunning,
+            GenericErrorCodesNoActionsOnPlayersInSegmentJob,
+            GenericErrorCodesDuplicateStatisticName,
+            GenericErrorCodesScheduledTaskNameConflict,
+            GenericErrorCodesScheduledTaskCreateConflict,
+            GenericErrorCodesInvalidScheduledTaskName,
+            GenericErrorCodesInvalidTaskSchedule,
+            GenericErrorCodesSteamNotEnabledForTitle,
+            GenericErrorCodesLimitNotAnUpgradeOption,
+            GenericErrorCodesNoSecretKeyEnabledForCloudScript,
+            GenericErrorCodesTaskNotFound,
+            GenericErrorCodesTaskInstanceNotFound,
+            GenericErrorCodesInvalidIdentityProviderId,
+            GenericErrorCodesMisconfiguredIdentityProvider,
+            GenericErrorCodesInvalidScheduledTaskType,
+            GenericErrorCodesBillingInformationRequired,
+            GenericErrorCodesLimitedEditionItemUnavailable,
+            GenericErrorCodesInvalidAdPlacementAndReward,
+            GenericErrorCodesAllAdPlacementViewsAlreadyConsumed,
+            GenericErrorCodesGoogleOAuthNotConfiguredForTitle,
+            GenericErrorCodesGoogleOAuthError,
+            GenericErrorCodesUserNotFriend,
+            GenericErrorCodesInvalidSignature,
+            GenericErrorCodesInvalidPublicKey,
+            GenericErrorCodesGoogleOAuthNoIdTokenIncludedInResponse,
+            GenericErrorCodesStatisticUpdateInProgress,
+            GenericErrorCodesLeaderboardVersionNotAvailable,
+            GenericErrorCodesStatisticAlreadyHasPrizeTable,
+            GenericErrorCodesPrizeTableHasOverlappingRanks,
+            GenericErrorCodesPrizeTableHasMissingRanks,
+            GenericErrorCodesPrizeTableRankStartsAtZero,
+            GenericErrorCodesInvalidStatistic,
+            GenericErrorCodesExpressionParseFailure,
+            GenericErrorCodesExpressionInvokeFailure,
+            GenericErrorCodesExpressionTooLong,
+            GenericErrorCodesDataUpdateRateExceeded,
+            GenericErrorCodesRestrictedEmailDomain,
+            GenericErrorCodesEncryptionKeyDisabled,
+            GenericErrorCodesEncryptionKeyMissing,
+            GenericErrorCodesEncryptionKeyBroken,
+            GenericErrorCodesNoSharedSecretKeyConfigured,
+            GenericErrorCodesSecretKeyNotFound,
+            GenericErrorCodesPlayerSecretAlreadyConfigured,
+            GenericErrorCodesAPIRequestsDisabledForTitle,
+            GenericErrorCodesInvalidSharedSecretKey,
+            GenericErrorCodesPrizeTableHasNoRanks,
+            GenericErrorCodesProfileDoesNotExist,
+            GenericErrorCodesContentS3OriginBucketNotConfigured,
+            GenericErrorCodesInvalidEnvironmentForReceipt,
+            GenericErrorCodesEncryptedRequestNotAllowed,
+            GenericErrorCodesSignedRequestNotAllowed,
+            GenericErrorCodesRequestViewConstraintParamsNotAllowed,
+            GenericErrorCodesBadPartnerConfiguration,
+            GenericErrorCodesXboxBPCertificateFailure,
+            GenericErrorCodesXboxXASSExchangeFailure,
+            GenericErrorCodesInvalidEntityId,
+            GenericErrorCodesStatisticValueAggregationOverflow,
+            GenericErrorCodesEmailMessageFromAddressIsMissing,
+            GenericErrorCodesEmailMessageToAddressIsMissing,
+            GenericErrorCodesSmtpServerAuthenticationError,
+            GenericErrorCodesSmtpServerLimitExceeded,
+            GenericErrorCodesSmtpServerInsufficientStorage,
+            GenericErrorCodesSmtpServerCommunicationError,
+            GenericErrorCodesSmtpServerGeneralFailure,
+            GenericErrorCodesEmailClientTimeout,
+            GenericErrorCodesEmailClientCanceledTask,
+            GenericErrorCodesEmailTemplateMissing,
+            GenericErrorCodesInvalidHostForTitleId,
+            GenericErrorCodesEmailConfirmationTokenDoesNotExist,
+            GenericErrorCodesEmailConfirmationTokenExpired,
+            GenericErrorCodesAccountDeleted,
+            GenericErrorCodesPlayerSecretNotConfigured,
+            GenericErrorCodesInvalidSignatureTime,
+            GenericErrorCodesNoContactEmailAddressFound,
+            GenericErrorCodesInvalidAuthToken,
+            GenericErrorCodesAuthTokenDoesNotExist,
+            GenericErrorCodesAuthTokenExpired,
+            GenericErrorCodesAuthTokenAlreadyUsedToResetPassword,
+            GenericErrorCodesMembershipNameTooLong,
+            GenericErrorCodesMembershipNotFound,
+            GenericErrorCodesGoogleServiceAccountInvalid,
+            GenericErrorCodesGoogleServiceAccountParseFailure,
+            GenericErrorCodesEntityTokenMissing,
+            GenericErrorCodesEntityTokenInvalid,
+            GenericErrorCodesEntityTokenExpired,
+            GenericErrorCodesEntityTokenRevoked,
+            GenericErrorCodesInvalidProductForSubscription,
+            GenericErrorCodesXboxInaccessible,
+            GenericErrorCodesSubscriptionAlreadyTaken,
+            GenericErrorCodesSmtpAddonNotEnabled,
+            GenericErrorCodesAPIConcurrentRequestLimitExceeded,
+            GenericErrorCodesXboxRejectedXSTSExchangeRequest,
+            GenericErrorCodesVariableNotDefined,
+            GenericErrorCodesTemplateVersionNotDefined,
+            GenericErrorCodesFileTooLarge,
+            GenericErrorCodesTitleDeleted,
+            GenericErrorCodesTitleContainsUserAccounts,
+            GenericErrorCodesTitleDeletionPlayerCleanupFailure,
+            GenericErrorCodesEntityFileOperationPending,
+            GenericErrorCodesNoEntityFileOperationPending,
+            GenericErrorCodesEntityProfileVersionMismatch,
+            GenericErrorCodesTemplateVersionTooOld,
+            GenericErrorCodesMembershipDefinitionInUse,
+            GenericErrorCodesPaymentPageNotConfigured,
+            GenericErrorCodesFailedLoginAttemptRateLimitExceeded,
+            GenericErrorCodesEntityBlockedByGroup,
+            GenericErrorCodesRoleDoesNotExist,
+            GenericErrorCodesEntityIsAlreadyMember,
+            GenericErrorCodesDuplicateRoleId,
+            GenericErrorCodesGroupInvitationNotFound,
+            GenericErrorCodesGroupApplicationNotFound,
+            GenericErrorCodesOutstandingInvitationAcceptedInstead,
+            GenericErrorCodesOutstandingApplicationAcceptedInstead,
+            GenericErrorCodesRoleIsGroupDefaultMember,
+            GenericErrorCodesRoleIsGroupAdmin,
+            GenericErrorCodesRoleNameNotAvailable,
+            GenericErrorCodesGroupNameNotAvailable,
+            GenericErrorCodesEmailReportAlreadySent,
+            GenericErrorCodesEmailReportRecipientBlacklisted
+        };
+
+        inline void writeGenericErrorCodesEnumJSON(GenericErrorCodes enumVal, PFStringJsonWriter& writer)
+        {
+            switch (enumVal)
+            {
+            case GenericErrorCodesSuccess: writer.String("Success"); break;
+            case GenericErrorCodesInvalidParams: writer.String("InvalidParams"); break;
+            case GenericErrorCodesAccountNotFound: writer.String("AccountNotFound"); break;
+            case GenericErrorCodesAccountBanned: writer.String("AccountBanned"); break;
+            case GenericErrorCodesInvalidUsernameOrPassword: writer.String("InvalidUsernameOrPassword"); break;
+            case GenericErrorCodesInvalidTitleId: writer.String("InvalidTitleId"); break;
+            case GenericErrorCodesInvalidEmailAddress: writer.String("InvalidEmailAddress"); break;
+            case GenericErrorCodesEmailAddressNotAvailable: writer.String("EmailAddressNotAvailable"); break;
+            case GenericErrorCodesInvalidUsername: writer.String("InvalidUsername"); break;
+            case GenericErrorCodesInvalidPassword: writer.String("InvalidPassword"); break;
+            case GenericErrorCodesUsernameNotAvailable: writer.String("UsernameNotAvailable"); break;
+            case GenericErrorCodesInvalidSteamTicket: writer.String("InvalidSteamTicket"); break;
+            case GenericErrorCodesAccountAlreadyLinked: writer.String("AccountAlreadyLinked"); break;
+            case GenericErrorCodesLinkedAccountAlreadyClaimed: writer.String("LinkedAccountAlreadyClaimed"); break;
+            case GenericErrorCodesInvalidFacebookToken: writer.String("InvalidFacebookToken"); break;
+            case GenericErrorCodesAccountNotLinked: writer.String("AccountNotLinked"); break;
+            case GenericErrorCodesFailedByPaymentProvider: writer.String("FailedByPaymentProvider"); break;
+            case GenericErrorCodesCouponCodeNotFound: writer.String("CouponCodeNotFound"); break;
+            case GenericErrorCodesInvalidContainerItem: writer.String("InvalidContainerItem"); break;
+            case GenericErrorCodesContainerNotOwned: writer.String("ContainerNotOwned"); break;
+            case GenericErrorCodesKeyNotOwned: writer.String("KeyNotOwned"); break;
+            case GenericErrorCodesInvalidItemIdInTable: writer.String("InvalidItemIdInTable"); break;
+            case GenericErrorCodesInvalidReceipt: writer.String("InvalidReceipt"); break;
+            case GenericErrorCodesReceiptAlreadyUsed: writer.String("ReceiptAlreadyUsed"); break;
+            case GenericErrorCodesReceiptCancelled: writer.String("ReceiptCancelled"); break;
+            case GenericErrorCodesGameNotFound: writer.String("GameNotFound"); break;
+            case GenericErrorCodesGameModeNotFound: writer.String("GameModeNotFound"); break;
+            case GenericErrorCodesInvalidGoogleToken: writer.String("InvalidGoogleToken"); break;
+            case GenericErrorCodesUserIsNotPartOfDeveloper: writer.String("UserIsNotPartOfDeveloper"); break;
+            case GenericErrorCodesInvalidTitleForDeveloper: writer.String("InvalidTitleForDeveloper"); break;
+            case GenericErrorCodesTitleNameConflicts: writer.String("TitleNameConflicts"); break;
+            case GenericErrorCodesUserisNotValid: writer.String("UserisNotValid"); break;
+            case GenericErrorCodesValueAlreadyExists: writer.String("ValueAlreadyExists"); break;
+            case GenericErrorCodesBuildNotFound: writer.String("BuildNotFound"); break;
+            case GenericErrorCodesPlayerNotInGame: writer.String("PlayerNotInGame"); break;
+            case GenericErrorCodesInvalidTicket: writer.String("InvalidTicket"); break;
+            case GenericErrorCodesInvalidDeveloper: writer.String("InvalidDeveloper"); break;
+            case GenericErrorCodesInvalidOrderInfo: writer.String("InvalidOrderInfo"); break;
+            case GenericErrorCodesRegistrationIncomplete: writer.String("RegistrationIncomplete"); break;
+            case GenericErrorCodesInvalidPlatform: writer.String("InvalidPlatform"); break;
+            case GenericErrorCodesUnknownError: writer.String("UnknownError"); break;
+            case GenericErrorCodesSteamApplicationNotOwned: writer.String("SteamApplicationNotOwned"); break;
+            case GenericErrorCodesWrongSteamAccount: writer.String("WrongSteamAccount"); break;
+            case GenericErrorCodesTitleNotActivated: writer.String("TitleNotActivated"); break;
+            case GenericErrorCodesRegistrationSessionNotFound: writer.String("RegistrationSessionNotFound"); break;
+            case GenericErrorCodesNoSuchMod: writer.String("NoSuchMod"); break;
+            case GenericErrorCodesFileNotFound: writer.String("FileNotFound"); break;
+            case GenericErrorCodesDuplicateEmail: writer.String("DuplicateEmail"); break;
+            case GenericErrorCodesItemNotFound: writer.String("ItemNotFound"); break;
+            case GenericErrorCodesItemNotOwned: writer.String("ItemNotOwned"); break;
+            case GenericErrorCodesItemNotRecycleable: writer.String("ItemNotRecycleable"); break;
+            case GenericErrorCodesItemNotAffordable: writer.String("ItemNotAffordable"); break;
+            case GenericErrorCodesInvalidVirtualCurrency: writer.String("InvalidVirtualCurrency"); break;
+            case GenericErrorCodesWrongVirtualCurrency: writer.String("WrongVirtualCurrency"); break;
+            case GenericErrorCodesWrongPrice: writer.String("WrongPrice"); break;
+            case GenericErrorCodesNonPositiveValue: writer.String("NonPositiveValue"); break;
+            case GenericErrorCodesInvalidRegion: writer.String("InvalidRegion"); break;
+            case GenericErrorCodesRegionAtCapacity: writer.String("RegionAtCapacity"); break;
+            case GenericErrorCodesServerFailedToStart: writer.String("ServerFailedToStart"); break;
+            case GenericErrorCodesNameNotAvailable: writer.String("NameNotAvailable"); break;
+            case GenericErrorCodesInsufficientFunds: writer.String("InsufficientFunds"); break;
+            case GenericErrorCodesInvalidDeviceID: writer.String("InvalidDeviceID"); break;
+            case GenericErrorCodesInvalidPushNotificationToken: writer.String("InvalidPushNotificationToken"); break;
+            case GenericErrorCodesNoRemainingUses: writer.String("NoRemainingUses"); break;
+            case GenericErrorCodesInvalidPaymentProvider: writer.String("InvalidPaymentProvider"); break;
+            case GenericErrorCodesPurchaseInitializationFailure: writer.String("PurchaseInitializationFailure"); break;
+            case GenericErrorCodesDuplicateUsername: writer.String("DuplicateUsername"); break;
+            case GenericErrorCodesInvalidBuyerInfo: writer.String("InvalidBuyerInfo"); break;
+            case GenericErrorCodesNoGameModeParamsSet: writer.String("NoGameModeParamsSet"); break;
+            case GenericErrorCodesBodyTooLarge: writer.String("BodyTooLarge"); break;
+            case GenericErrorCodesReservedWordInBody: writer.String("ReservedWordInBody"); break;
+            case GenericErrorCodesInvalidTypeInBody: writer.String("InvalidTypeInBody"); break;
+            case GenericErrorCodesInvalidRequest: writer.String("InvalidRequest"); break;
+            case GenericErrorCodesReservedEventName: writer.String("ReservedEventName"); break;
+            case GenericErrorCodesInvalidUserStatistics: writer.String("InvalidUserStatistics"); break;
+            case GenericErrorCodesNotAuthenticated: writer.String("NotAuthenticated"); break;
+            case GenericErrorCodesStreamAlreadyExists: writer.String("StreamAlreadyExists"); break;
+            case GenericErrorCodesErrorCreatingStream: writer.String("ErrorCreatingStream"); break;
+            case GenericErrorCodesStreamNotFound: writer.String("StreamNotFound"); break;
+            case GenericErrorCodesInvalidAccount: writer.String("InvalidAccount"); break;
+            case GenericErrorCodesPurchaseDoesNotExist: writer.String("PurchaseDoesNotExist"); break;
+            case GenericErrorCodesInvalidPurchaseTransactionStatus: writer.String("InvalidPurchaseTransactionStatus"); break;
+            case GenericErrorCodesAPINotEnabledForGameClientAccess: writer.String("APINotEnabledForGameClientAccess"); break;
+            case GenericErrorCodesNoPushNotificationARNForTitle: writer.String("NoPushNotificationARNForTitle"); break;
+            case GenericErrorCodesBuildAlreadyExists: writer.String("BuildAlreadyExists"); break;
+            case GenericErrorCodesBuildPackageDoesNotExist: writer.String("BuildPackageDoesNotExist"); break;
+            case GenericErrorCodesCustomAnalyticsEventsNotEnabledForTitle: writer.String("CustomAnalyticsEventsNotEnabledForTitle"); break;
+            case GenericErrorCodesInvalidSharedGroupId: writer.String("InvalidSharedGroupId"); break;
+            case GenericErrorCodesNotAuthorized: writer.String("NotAuthorized"); break;
+            case GenericErrorCodesMissingTitleGoogleProperties: writer.String("MissingTitleGoogleProperties"); break;
+            case GenericErrorCodesInvalidItemProperties: writer.String("InvalidItemProperties"); break;
+            case GenericErrorCodesInvalidPSNAuthCode: writer.String("InvalidPSNAuthCode"); break;
+            case GenericErrorCodesInvalidItemId: writer.String("InvalidItemId"); break;
+            case GenericErrorCodesPushNotEnabledForAccount: writer.String("PushNotEnabledForAccount"); break;
+            case GenericErrorCodesPushServiceError: writer.String("PushServiceError"); break;
+            case GenericErrorCodesReceiptDoesNotContainInAppItems: writer.String("ReceiptDoesNotContainInAppItems"); break;
+            case GenericErrorCodesReceiptContainsMultipleInAppItems: writer.String("ReceiptContainsMultipleInAppItems"); break;
+            case GenericErrorCodesInvalidBundleID: writer.String("InvalidBundleID"); break;
+            case GenericErrorCodesJavascriptException: writer.String("JavascriptException"); break;
+            case GenericErrorCodesInvalidSessionTicket: writer.String("InvalidSessionTicket"); break;
+            case GenericErrorCodesUnableToConnectToDatabase: writer.String("UnableToConnectToDatabase"); break;
+            case GenericErrorCodesInternalServerError: writer.String("InternalServerError"); break;
+            case GenericErrorCodesInvalidReportDate: writer.String("InvalidReportDate"); break;
+            case GenericErrorCodesReportNotAvailable: writer.String("ReportNotAvailable"); break;
+            case GenericErrorCodesDatabaseThroughputExceeded: writer.String("DatabaseThroughputExceeded"); break;
+            case GenericErrorCodesInvalidGameTicket: writer.String("InvalidGameTicket"); break;
+            case GenericErrorCodesExpiredGameTicket: writer.String("ExpiredGameTicket"); break;
+            case GenericErrorCodesGameTicketDoesNotMatchLobby: writer.String("GameTicketDoesNotMatchLobby"); break;
+            case GenericErrorCodesLinkedDeviceAlreadyClaimed: writer.String("LinkedDeviceAlreadyClaimed"); break;
+            case GenericErrorCodesDeviceAlreadyLinked: writer.String("DeviceAlreadyLinked"); break;
+            case GenericErrorCodesDeviceNotLinked: writer.String("DeviceNotLinked"); break;
+            case GenericErrorCodesPartialFailure: writer.String("PartialFailure"); break;
+            case GenericErrorCodesPublisherNotSet: writer.String("PublisherNotSet"); break;
+            case GenericErrorCodesServiceUnavailable: writer.String("ServiceUnavailable"); break;
+            case GenericErrorCodesVersionNotFound: writer.String("VersionNotFound"); break;
+            case GenericErrorCodesRevisionNotFound: writer.String("RevisionNotFound"); break;
+            case GenericErrorCodesInvalidPublisherId: writer.String("InvalidPublisherId"); break;
+            case GenericErrorCodesDownstreamServiceUnavailable: writer.String("DownstreamServiceUnavailable"); break;
+            case GenericErrorCodesAPINotIncludedInTitleUsageTier: writer.String("APINotIncludedInTitleUsageTier"); break;
+            case GenericErrorCodesDAULimitExceeded: writer.String("DAULimitExceeded"); break;
+            case GenericErrorCodesAPIRequestLimitExceeded: writer.String("APIRequestLimitExceeded"); break;
+            case GenericErrorCodesInvalidAPIEndpoint: writer.String("InvalidAPIEndpoint"); break;
+            case GenericErrorCodesBuildNotAvailable: writer.String("BuildNotAvailable"); break;
+            case GenericErrorCodesConcurrentEditError: writer.String("ConcurrentEditError"); break;
+            case GenericErrorCodesContentNotFound: writer.String("ContentNotFound"); break;
+            case GenericErrorCodesCharacterNotFound: writer.String("CharacterNotFound"); break;
+            case GenericErrorCodesCloudScriptNotFound: writer.String("CloudScriptNotFound"); break;
+            case GenericErrorCodesContentQuotaExceeded: writer.String("ContentQuotaExceeded"); break;
+            case GenericErrorCodesInvalidCharacterStatistics: writer.String("InvalidCharacterStatistics"); break;
+            case GenericErrorCodesPhotonNotEnabledForTitle: writer.String("PhotonNotEnabledForTitle"); break;
+            case GenericErrorCodesPhotonApplicationNotFound: writer.String("PhotonApplicationNotFound"); break;
+            case GenericErrorCodesPhotonApplicationNotAssociatedWithTitle: writer.String("PhotonApplicationNotAssociatedWithTitle"); break;
+            case GenericErrorCodesInvalidEmailOrPassword: writer.String("InvalidEmailOrPassword"); break;
+            case GenericErrorCodesFacebookAPIError: writer.String("FacebookAPIError"); break;
+            case GenericErrorCodesInvalidContentType: writer.String("InvalidContentType"); break;
+            case GenericErrorCodesKeyLengthExceeded: writer.String("KeyLengthExceeded"); break;
+            case GenericErrorCodesDataLengthExceeded: writer.String("DataLengthExceeded"); break;
+            case GenericErrorCodesTooManyKeys: writer.String("TooManyKeys"); break;
+            case GenericErrorCodesFreeTierCannotHaveVirtualCurrency: writer.String("FreeTierCannotHaveVirtualCurrency"); break;
+            case GenericErrorCodesMissingAmazonSharedKey: writer.String("MissingAmazonSharedKey"); break;
+            case GenericErrorCodesAmazonValidationError: writer.String("AmazonValidationError"); break;
+            case GenericErrorCodesInvalidPSNIssuerId: writer.String("InvalidPSNIssuerId"); break;
+            case GenericErrorCodesPSNInaccessible: writer.String("PSNInaccessible"); break;
+            case GenericErrorCodesExpiredAuthToken: writer.String("ExpiredAuthToken"); break;
+            case GenericErrorCodesFailedToGetEntitlements: writer.String("FailedToGetEntitlements"); break;
+            case GenericErrorCodesFailedToConsumeEntitlement: writer.String("FailedToConsumeEntitlement"); break;
+            case GenericErrorCodesTradeAcceptingUserNotAllowed: writer.String("TradeAcceptingUserNotAllowed"); break;
+            case GenericErrorCodesTradeInventoryItemIsAssignedToCharacter: writer.String("TradeInventoryItemIsAssignedToCharacter"); break;
+            case GenericErrorCodesTradeInventoryItemIsBundle: writer.String("TradeInventoryItemIsBundle"); break;
+            case GenericErrorCodesTradeStatusNotValidForCancelling: writer.String("TradeStatusNotValidForCancelling"); break;
+            case GenericErrorCodesTradeStatusNotValidForAccepting: writer.String("TradeStatusNotValidForAccepting"); break;
+            case GenericErrorCodesTradeDoesNotExist: writer.String("TradeDoesNotExist"); break;
+            case GenericErrorCodesTradeCancelled: writer.String("TradeCancelled"); break;
+            case GenericErrorCodesTradeAlreadyFilled: writer.String("TradeAlreadyFilled"); break;
+            case GenericErrorCodesTradeWaitForStatusTimeout: writer.String("TradeWaitForStatusTimeout"); break;
+            case GenericErrorCodesTradeInventoryItemExpired: writer.String("TradeInventoryItemExpired"); break;
+            case GenericErrorCodesTradeMissingOfferedAndAcceptedItems: writer.String("TradeMissingOfferedAndAcceptedItems"); break;
+            case GenericErrorCodesTradeAcceptedItemIsBundle: writer.String("TradeAcceptedItemIsBundle"); break;
+            case GenericErrorCodesTradeAcceptedItemIsStackable: writer.String("TradeAcceptedItemIsStackable"); break;
+            case GenericErrorCodesTradeInventoryItemInvalidStatus: writer.String("TradeInventoryItemInvalidStatus"); break;
+            case GenericErrorCodesTradeAcceptedCatalogItemInvalid: writer.String("TradeAcceptedCatalogItemInvalid"); break;
+            case GenericErrorCodesTradeAllowedUsersInvalid: writer.String("TradeAllowedUsersInvalid"); break;
+            case GenericErrorCodesTradeInventoryItemDoesNotExist: writer.String("TradeInventoryItemDoesNotExist"); break;
+            case GenericErrorCodesTradeInventoryItemIsConsumed: writer.String("TradeInventoryItemIsConsumed"); break;
+            case GenericErrorCodesTradeInventoryItemIsStackable: writer.String("TradeInventoryItemIsStackable"); break;
+            case GenericErrorCodesTradeAcceptedItemsMismatch: writer.String("TradeAcceptedItemsMismatch"); break;
+            case GenericErrorCodesInvalidKongregateToken: writer.String("InvalidKongregateToken"); break;
+            case GenericErrorCodesFeatureNotConfiguredForTitle: writer.String("FeatureNotConfiguredForTitle"); break;
+            case GenericErrorCodesNoMatchingCatalogItemForReceipt: writer.String("NoMatchingCatalogItemForReceipt"); break;
+            case GenericErrorCodesInvalidCurrencyCode: writer.String("InvalidCurrencyCode"); break;
+            case GenericErrorCodesNoRealMoneyPriceForCatalogItem: writer.String("NoRealMoneyPriceForCatalogItem"); break;
+            case GenericErrorCodesTradeInventoryItemIsNotTradable: writer.String("TradeInventoryItemIsNotTradable"); break;
+            case GenericErrorCodesTradeAcceptedCatalogItemIsNotTradable: writer.String("TradeAcceptedCatalogItemIsNotTradable"); break;
+            case GenericErrorCodesUsersAlreadyFriends: writer.String("UsersAlreadyFriends"); break;
+            case GenericErrorCodesLinkedIdentifierAlreadyClaimed: writer.String("LinkedIdentifierAlreadyClaimed"); break;
+            case GenericErrorCodesCustomIdNotLinked: writer.String("CustomIdNotLinked"); break;
+            case GenericErrorCodesTotalDataSizeExceeded: writer.String("TotalDataSizeExceeded"); break;
+            case GenericErrorCodesDeleteKeyConflict: writer.String("DeleteKeyConflict"); break;
+            case GenericErrorCodesInvalidXboxLiveToken: writer.String("InvalidXboxLiveToken"); break;
+            case GenericErrorCodesExpiredXboxLiveToken: writer.String("ExpiredXboxLiveToken"); break;
+            case GenericErrorCodesResettableStatisticVersionRequired: writer.String("ResettableStatisticVersionRequired"); break;
+            case GenericErrorCodesNotAuthorizedByTitle: writer.String("NotAuthorizedByTitle"); break;
+            case GenericErrorCodesNoPartnerEnabled: writer.String("NoPartnerEnabled"); break;
+            case GenericErrorCodesInvalidPartnerResponse: writer.String("InvalidPartnerResponse"); break;
+            case GenericErrorCodesAPINotEnabledForGameServerAccess: writer.String("APINotEnabledForGameServerAccess"); break;
+            case GenericErrorCodesStatisticNotFound: writer.String("StatisticNotFound"); break;
+            case GenericErrorCodesStatisticNameConflict: writer.String("StatisticNameConflict"); break;
+            case GenericErrorCodesStatisticVersionClosedForWrites: writer.String("StatisticVersionClosedForWrites"); break;
+            case GenericErrorCodesStatisticVersionInvalid: writer.String("StatisticVersionInvalid"); break;
+            case GenericErrorCodesAPIClientRequestRateLimitExceeded: writer.String("APIClientRequestRateLimitExceeded"); break;
+            case GenericErrorCodesInvalidJSONContent: writer.String("InvalidJSONContent"); break;
+            case GenericErrorCodesInvalidDropTable: writer.String("InvalidDropTable"); break;
+            case GenericErrorCodesStatisticVersionAlreadyIncrementedForScheduledInterval: writer.String("StatisticVersionAlreadyIncrementedForScheduledInterval"); break;
+            case GenericErrorCodesStatisticCountLimitExceeded: writer.String("StatisticCountLimitExceeded"); break;
+            case GenericErrorCodesStatisticVersionIncrementRateExceeded: writer.String("StatisticVersionIncrementRateExceeded"); break;
+            case GenericErrorCodesContainerKeyInvalid: writer.String("ContainerKeyInvalid"); break;
+            case GenericErrorCodesCloudScriptExecutionTimeLimitExceeded: writer.String("CloudScriptExecutionTimeLimitExceeded"); break;
+            case GenericErrorCodesNoWritePermissionsForEvent: writer.String("NoWritePermissionsForEvent"); break;
+            case GenericErrorCodesCloudScriptFunctionArgumentSizeExceeded: writer.String("CloudScriptFunctionArgumentSizeExceeded"); break;
+            case GenericErrorCodesCloudScriptAPIRequestCountExceeded: writer.String("CloudScriptAPIRequestCountExceeded"); break;
+            case GenericErrorCodesCloudScriptAPIRequestError: writer.String("CloudScriptAPIRequestError"); break;
+            case GenericErrorCodesCloudScriptHTTPRequestError: writer.String("CloudScriptHTTPRequestError"); break;
+            case GenericErrorCodesInsufficientGuildRole: writer.String("InsufficientGuildRole"); break;
+            case GenericErrorCodesGuildNotFound: writer.String("GuildNotFound"); break;
+            case GenericErrorCodesOverLimit: writer.String("OverLimit"); break;
+            case GenericErrorCodesEventNotFound: writer.String("EventNotFound"); break;
+            case GenericErrorCodesInvalidEventField: writer.String("InvalidEventField"); break;
+            case GenericErrorCodesInvalidEventName: writer.String("InvalidEventName"); break;
+            case GenericErrorCodesCatalogNotConfigured: writer.String("CatalogNotConfigured"); break;
+            case GenericErrorCodesOperationNotSupportedForPlatform: writer.String("OperationNotSupportedForPlatform"); break;
+            case GenericErrorCodesSegmentNotFound: writer.String("SegmentNotFound"); break;
+            case GenericErrorCodesStoreNotFound: writer.String("StoreNotFound"); break;
+            case GenericErrorCodesInvalidStatisticName: writer.String("InvalidStatisticName"); break;
+            case GenericErrorCodesTitleNotQualifiedForLimit: writer.String("TitleNotQualifiedForLimit"); break;
+            case GenericErrorCodesInvalidServiceLimitLevel: writer.String("InvalidServiceLimitLevel"); break;
+            case GenericErrorCodesServiceLimitLevelInTransition: writer.String("ServiceLimitLevelInTransition"); break;
+            case GenericErrorCodesCouponAlreadyRedeemed: writer.String("CouponAlreadyRedeemed"); break;
+            case GenericErrorCodesGameServerBuildSizeLimitExceeded: writer.String("GameServerBuildSizeLimitExceeded"); break;
+            case GenericErrorCodesGameServerBuildCountLimitExceeded: writer.String("GameServerBuildCountLimitExceeded"); break;
+            case GenericErrorCodesVirtualCurrencyCountLimitExceeded: writer.String("VirtualCurrencyCountLimitExceeded"); break;
+            case GenericErrorCodesVirtualCurrencyCodeExists: writer.String("VirtualCurrencyCodeExists"); break;
+            case GenericErrorCodesTitleNewsItemCountLimitExceeded: writer.String("TitleNewsItemCountLimitExceeded"); break;
+            case GenericErrorCodesInvalidTwitchToken: writer.String("InvalidTwitchToken"); break;
+            case GenericErrorCodesTwitchResponseError: writer.String("TwitchResponseError"); break;
+            case GenericErrorCodesProfaneDisplayName: writer.String("ProfaneDisplayName"); break;
+            case GenericErrorCodesUserAlreadyAdded: writer.String("UserAlreadyAdded"); break;
+            case GenericErrorCodesInvalidVirtualCurrencyCode: writer.String("InvalidVirtualCurrencyCode"); break;
+            case GenericErrorCodesVirtualCurrencyCannotBeDeleted: writer.String("VirtualCurrencyCannotBeDeleted"); break;
+            case GenericErrorCodesIdentifierAlreadyClaimed: writer.String("IdentifierAlreadyClaimed"); break;
+            case GenericErrorCodesIdentifierNotLinked: writer.String("IdentifierNotLinked"); break;
+            case GenericErrorCodesInvalidContinuationToken: writer.String("InvalidContinuationToken"); break;
+            case GenericErrorCodesExpiredContinuationToken: writer.String("ExpiredContinuationToken"); break;
+            case GenericErrorCodesInvalidSegment: writer.String("InvalidSegment"); break;
+            case GenericErrorCodesInvalidSessionId: writer.String("InvalidSessionId"); break;
+            case GenericErrorCodesSessionLogNotFound: writer.String("SessionLogNotFound"); break;
+            case GenericErrorCodesInvalidSearchTerm: writer.String("InvalidSearchTerm"); break;
+            case GenericErrorCodesTwoFactorAuthenticationTokenRequired: writer.String("TwoFactorAuthenticationTokenRequired"); break;
+            case GenericErrorCodesGameServerHostCountLimitExceeded: writer.String("GameServerHostCountLimitExceeded"); break;
+            case GenericErrorCodesPlayerTagCountLimitExceeded: writer.String("PlayerTagCountLimitExceeded"); break;
+            case GenericErrorCodesRequestAlreadyRunning: writer.String("RequestAlreadyRunning"); break;
+            case GenericErrorCodesActionGroupNotFound: writer.String("ActionGroupNotFound"); break;
+            case GenericErrorCodesMaximumSegmentBulkActionJobsRunning: writer.String("MaximumSegmentBulkActionJobsRunning"); break;
+            case GenericErrorCodesNoActionsOnPlayersInSegmentJob: writer.String("NoActionsOnPlayersInSegmentJob"); break;
+            case GenericErrorCodesDuplicateStatisticName: writer.String("DuplicateStatisticName"); break;
+            case GenericErrorCodesScheduledTaskNameConflict: writer.String("ScheduledTaskNameConflict"); break;
+            case GenericErrorCodesScheduledTaskCreateConflict: writer.String("ScheduledTaskCreateConflict"); break;
+            case GenericErrorCodesInvalidScheduledTaskName: writer.String("InvalidScheduledTaskName"); break;
+            case GenericErrorCodesInvalidTaskSchedule: writer.String("InvalidTaskSchedule"); break;
+            case GenericErrorCodesSteamNotEnabledForTitle: writer.String("SteamNotEnabledForTitle"); break;
+            case GenericErrorCodesLimitNotAnUpgradeOption: writer.String("LimitNotAnUpgradeOption"); break;
+            case GenericErrorCodesNoSecretKeyEnabledForCloudScript: writer.String("NoSecretKeyEnabledForCloudScript"); break;
+            case GenericErrorCodesTaskNotFound: writer.String("TaskNotFound"); break;
+            case GenericErrorCodesTaskInstanceNotFound: writer.String("TaskInstanceNotFound"); break;
+            case GenericErrorCodesInvalidIdentityProviderId: writer.String("InvalidIdentityProviderId"); break;
+            case GenericErrorCodesMisconfiguredIdentityProvider: writer.String("MisconfiguredIdentityProvider"); break;
+            case GenericErrorCodesInvalidScheduledTaskType: writer.String("InvalidScheduledTaskType"); break;
+            case GenericErrorCodesBillingInformationRequired: writer.String("BillingInformationRequired"); break;
+            case GenericErrorCodesLimitedEditionItemUnavailable: writer.String("LimitedEditionItemUnavailable"); break;
+            case GenericErrorCodesInvalidAdPlacementAndReward: writer.String("InvalidAdPlacementAndReward"); break;
+            case GenericErrorCodesAllAdPlacementViewsAlreadyConsumed: writer.String("AllAdPlacementViewsAlreadyConsumed"); break;
+            case GenericErrorCodesGoogleOAuthNotConfiguredForTitle: writer.String("GoogleOAuthNotConfiguredForTitle"); break;
+            case GenericErrorCodesGoogleOAuthError: writer.String("GoogleOAuthError"); break;
+            case GenericErrorCodesUserNotFriend: writer.String("UserNotFriend"); break;
+            case GenericErrorCodesInvalidSignature: writer.String("InvalidSignature"); break;
+            case GenericErrorCodesInvalidPublicKey: writer.String("InvalidPublicKey"); break;
+            case GenericErrorCodesGoogleOAuthNoIdTokenIncludedInResponse: writer.String("GoogleOAuthNoIdTokenIncludedInResponse"); break;
+            case GenericErrorCodesStatisticUpdateInProgress: writer.String("StatisticUpdateInProgress"); break;
+            case GenericErrorCodesLeaderboardVersionNotAvailable: writer.String("LeaderboardVersionNotAvailable"); break;
+            case GenericErrorCodesStatisticAlreadyHasPrizeTable: writer.String("StatisticAlreadyHasPrizeTable"); break;
+            case GenericErrorCodesPrizeTableHasOverlappingRanks: writer.String("PrizeTableHasOverlappingRanks"); break;
+            case GenericErrorCodesPrizeTableHasMissingRanks: writer.String("PrizeTableHasMissingRanks"); break;
+            case GenericErrorCodesPrizeTableRankStartsAtZero: writer.String("PrizeTableRankStartsAtZero"); break;
+            case GenericErrorCodesInvalidStatistic: writer.String("InvalidStatistic"); break;
+            case GenericErrorCodesExpressionParseFailure: writer.String("ExpressionParseFailure"); break;
+            case GenericErrorCodesExpressionInvokeFailure: writer.String("ExpressionInvokeFailure"); break;
+            case GenericErrorCodesExpressionTooLong: writer.String("ExpressionTooLong"); break;
+            case GenericErrorCodesDataUpdateRateExceeded: writer.String("DataUpdateRateExceeded"); break;
+            case GenericErrorCodesRestrictedEmailDomain: writer.String("RestrictedEmailDomain"); break;
+            case GenericErrorCodesEncryptionKeyDisabled: writer.String("EncryptionKeyDisabled"); break;
+            case GenericErrorCodesEncryptionKeyMissing: writer.String("EncryptionKeyMissing"); break;
+            case GenericErrorCodesEncryptionKeyBroken: writer.String("EncryptionKeyBroken"); break;
+            case GenericErrorCodesNoSharedSecretKeyConfigured: writer.String("NoSharedSecretKeyConfigured"); break;
+            case GenericErrorCodesSecretKeyNotFound: writer.String("SecretKeyNotFound"); break;
+            case GenericErrorCodesPlayerSecretAlreadyConfigured: writer.String("PlayerSecretAlreadyConfigured"); break;
+            case GenericErrorCodesAPIRequestsDisabledForTitle: writer.String("APIRequestsDisabledForTitle"); break;
+            case GenericErrorCodesInvalidSharedSecretKey: writer.String("InvalidSharedSecretKey"); break;
+            case GenericErrorCodesPrizeTableHasNoRanks: writer.String("PrizeTableHasNoRanks"); break;
+            case GenericErrorCodesProfileDoesNotExist: writer.String("ProfileDoesNotExist"); break;
+            case GenericErrorCodesContentS3OriginBucketNotConfigured: writer.String("ContentS3OriginBucketNotConfigured"); break;
+            case GenericErrorCodesInvalidEnvironmentForReceipt: writer.String("InvalidEnvironmentForReceipt"); break;
+            case GenericErrorCodesEncryptedRequestNotAllowed: writer.String("EncryptedRequestNotAllowed"); break;
+            case GenericErrorCodesSignedRequestNotAllowed: writer.String("SignedRequestNotAllowed"); break;
+            case GenericErrorCodesRequestViewConstraintParamsNotAllowed: writer.String("RequestViewConstraintParamsNotAllowed"); break;
+            case GenericErrorCodesBadPartnerConfiguration: writer.String("BadPartnerConfiguration"); break;
+            case GenericErrorCodesXboxBPCertificateFailure: writer.String("XboxBPCertificateFailure"); break;
+            case GenericErrorCodesXboxXASSExchangeFailure: writer.String("XboxXASSExchangeFailure"); break;
+            case GenericErrorCodesInvalidEntityId: writer.String("InvalidEntityId"); break;
+            case GenericErrorCodesStatisticValueAggregationOverflow: writer.String("StatisticValueAggregationOverflow"); break;
+            case GenericErrorCodesEmailMessageFromAddressIsMissing: writer.String("EmailMessageFromAddressIsMissing"); break;
+            case GenericErrorCodesEmailMessageToAddressIsMissing: writer.String("EmailMessageToAddressIsMissing"); break;
+            case GenericErrorCodesSmtpServerAuthenticationError: writer.String("SmtpServerAuthenticationError"); break;
+            case GenericErrorCodesSmtpServerLimitExceeded: writer.String("SmtpServerLimitExceeded"); break;
+            case GenericErrorCodesSmtpServerInsufficientStorage: writer.String("SmtpServerInsufficientStorage"); break;
+            case GenericErrorCodesSmtpServerCommunicationError: writer.String("SmtpServerCommunicationError"); break;
+            case GenericErrorCodesSmtpServerGeneralFailure: writer.String("SmtpServerGeneralFailure"); break;
+            case GenericErrorCodesEmailClientTimeout: writer.String("EmailClientTimeout"); break;
+            case GenericErrorCodesEmailClientCanceledTask: writer.String("EmailClientCanceledTask"); break;
+            case GenericErrorCodesEmailTemplateMissing: writer.String("EmailTemplateMissing"); break;
+            case GenericErrorCodesInvalidHostForTitleId: writer.String("InvalidHostForTitleId"); break;
+            case GenericErrorCodesEmailConfirmationTokenDoesNotExist: writer.String("EmailConfirmationTokenDoesNotExist"); break;
+            case GenericErrorCodesEmailConfirmationTokenExpired: writer.String("EmailConfirmationTokenExpired"); break;
+            case GenericErrorCodesAccountDeleted: writer.String("AccountDeleted"); break;
+            case GenericErrorCodesPlayerSecretNotConfigured: writer.String("PlayerSecretNotConfigured"); break;
+            case GenericErrorCodesInvalidSignatureTime: writer.String("InvalidSignatureTime"); break;
+            case GenericErrorCodesNoContactEmailAddressFound: writer.String("NoContactEmailAddressFound"); break;
+            case GenericErrorCodesInvalidAuthToken: writer.String("InvalidAuthToken"); break;
+            case GenericErrorCodesAuthTokenDoesNotExist: writer.String("AuthTokenDoesNotExist"); break;
+            case GenericErrorCodesAuthTokenExpired: writer.String("AuthTokenExpired"); break;
+            case GenericErrorCodesAuthTokenAlreadyUsedToResetPassword: writer.String("AuthTokenAlreadyUsedToResetPassword"); break;
+            case GenericErrorCodesMembershipNameTooLong: writer.String("MembershipNameTooLong"); break;
+            case GenericErrorCodesMembershipNotFound: writer.String("MembershipNotFound"); break;
+            case GenericErrorCodesGoogleServiceAccountInvalid: writer.String("GoogleServiceAccountInvalid"); break;
+            case GenericErrorCodesGoogleServiceAccountParseFailure: writer.String("GoogleServiceAccountParseFailure"); break;
+            case GenericErrorCodesEntityTokenMissing: writer.String("EntityTokenMissing"); break;
+            case GenericErrorCodesEntityTokenInvalid: writer.String("EntityTokenInvalid"); break;
+            case GenericErrorCodesEntityTokenExpired: writer.String("EntityTokenExpired"); break;
+            case GenericErrorCodesEntityTokenRevoked: writer.String("EntityTokenRevoked"); break;
+            case GenericErrorCodesInvalidProductForSubscription: writer.String("InvalidProductForSubscription"); break;
+            case GenericErrorCodesXboxInaccessible: writer.String("XboxInaccessible"); break;
+            case GenericErrorCodesSubscriptionAlreadyTaken: writer.String("SubscriptionAlreadyTaken"); break;
+            case GenericErrorCodesSmtpAddonNotEnabled: writer.String("SmtpAddonNotEnabled"); break;
+            case GenericErrorCodesAPIConcurrentRequestLimitExceeded: writer.String("APIConcurrentRequestLimitExceeded"); break;
+            case GenericErrorCodesXboxRejectedXSTSExchangeRequest: writer.String("XboxRejectedXSTSExchangeRequest"); break;
+            case GenericErrorCodesVariableNotDefined: writer.String("VariableNotDefined"); break;
+            case GenericErrorCodesTemplateVersionNotDefined: writer.String("TemplateVersionNotDefined"); break;
+            case GenericErrorCodesFileTooLarge: writer.String("FileTooLarge"); break;
+            case GenericErrorCodesTitleDeleted: writer.String("TitleDeleted"); break;
+            case GenericErrorCodesTitleContainsUserAccounts: writer.String("TitleContainsUserAccounts"); break;
+            case GenericErrorCodesTitleDeletionPlayerCleanupFailure: writer.String("TitleDeletionPlayerCleanupFailure"); break;
+            case GenericErrorCodesEntityFileOperationPending: writer.String("EntityFileOperationPending"); break;
+            case GenericErrorCodesNoEntityFileOperationPending: writer.String("NoEntityFileOperationPending"); break;
+            case GenericErrorCodesEntityProfileVersionMismatch: writer.String("EntityProfileVersionMismatch"); break;
+            case GenericErrorCodesTemplateVersionTooOld: writer.String("TemplateVersionTooOld"); break;
+            case GenericErrorCodesMembershipDefinitionInUse: writer.String("MembershipDefinitionInUse"); break;
+            case GenericErrorCodesPaymentPageNotConfigured: writer.String("PaymentPageNotConfigured"); break;
+            case GenericErrorCodesFailedLoginAttemptRateLimitExceeded: writer.String("FailedLoginAttemptRateLimitExceeded"); break;
+            case GenericErrorCodesEntityBlockedByGroup: writer.String("EntityBlockedByGroup"); break;
+            case GenericErrorCodesRoleDoesNotExist: writer.String("RoleDoesNotExist"); break;
+            case GenericErrorCodesEntityIsAlreadyMember: writer.String("EntityIsAlreadyMember"); break;
+            case GenericErrorCodesDuplicateRoleId: writer.String("DuplicateRoleId"); break;
+            case GenericErrorCodesGroupInvitationNotFound: writer.String("GroupInvitationNotFound"); break;
+            case GenericErrorCodesGroupApplicationNotFound: writer.String("GroupApplicationNotFound"); break;
+            case GenericErrorCodesOutstandingInvitationAcceptedInstead: writer.String("OutstandingInvitationAcceptedInstead"); break;
+            case GenericErrorCodesOutstandingApplicationAcceptedInstead: writer.String("OutstandingApplicationAcceptedInstead"); break;
+            case GenericErrorCodesRoleIsGroupDefaultMember: writer.String("RoleIsGroupDefaultMember"); break;
+            case GenericErrorCodesRoleIsGroupAdmin: writer.String("RoleIsGroupAdmin"); break;
+            case GenericErrorCodesRoleNameNotAvailable: writer.String("RoleNameNotAvailable"); break;
+            case GenericErrorCodesGroupNameNotAvailable: writer.String("GroupNameNotAvailable"); break;
+            case GenericErrorCodesEmailReportAlreadySent: writer.String("EmailReportAlreadySent"); break;
+            case GenericErrorCodesEmailReportRecipientBlacklisted: writer.String("EmailReportRecipientBlacklisted"); break;
+
+            }
+        }
+
+        inline GenericErrorCodes readGenericErrorCodesFromValue(const rapidjson::Value& obj)
+        {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<GenericErrorCodes>(obj.GetInt());
+
+            static std::map<const char *, GenericErrorCodes, PlayFabServerSdk::StringCompare> _GenericErrorCodesMap;
+            if (_GenericErrorCodesMap.size() == 0)
+            {
+                // Auto-generate the map on the first use
+                _GenericErrorCodesMap["Success"] = GenericErrorCodesSuccess;
+                _GenericErrorCodesMap["InvalidParams"] = GenericErrorCodesInvalidParams;
+                _GenericErrorCodesMap["AccountNotFound"] = GenericErrorCodesAccountNotFound;
+                _GenericErrorCodesMap["AccountBanned"] = GenericErrorCodesAccountBanned;
+                _GenericErrorCodesMap["InvalidUsernameOrPassword"] = GenericErrorCodesInvalidUsernameOrPassword;
+                _GenericErrorCodesMap["InvalidTitleId"] = GenericErrorCodesInvalidTitleId;
+                _GenericErrorCodesMap["InvalidEmailAddress"] = GenericErrorCodesInvalidEmailAddress;
+                _GenericErrorCodesMap["EmailAddressNotAvailable"] = GenericErrorCodesEmailAddressNotAvailable;
+                _GenericErrorCodesMap["InvalidUsername"] = GenericErrorCodesInvalidUsername;
+                _GenericErrorCodesMap["InvalidPassword"] = GenericErrorCodesInvalidPassword;
+                _GenericErrorCodesMap["UsernameNotAvailable"] = GenericErrorCodesUsernameNotAvailable;
+                _GenericErrorCodesMap["InvalidSteamTicket"] = GenericErrorCodesInvalidSteamTicket;
+                _GenericErrorCodesMap["AccountAlreadyLinked"] = GenericErrorCodesAccountAlreadyLinked;
+                _GenericErrorCodesMap["LinkedAccountAlreadyClaimed"] = GenericErrorCodesLinkedAccountAlreadyClaimed;
+                _GenericErrorCodesMap["InvalidFacebookToken"] = GenericErrorCodesInvalidFacebookToken;
+                _GenericErrorCodesMap["AccountNotLinked"] = GenericErrorCodesAccountNotLinked;
+                _GenericErrorCodesMap["FailedByPaymentProvider"] = GenericErrorCodesFailedByPaymentProvider;
+                _GenericErrorCodesMap["CouponCodeNotFound"] = GenericErrorCodesCouponCodeNotFound;
+                _GenericErrorCodesMap["InvalidContainerItem"] = GenericErrorCodesInvalidContainerItem;
+                _GenericErrorCodesMap["ContainerNotOwned"] = GenericErrorCodesContainerNotOwned;
+                _GenericErrorCodesMap["KeyNotOwned"] = GenericErrorCodesKeyNotOwned;
+                _GenericErrorCodesMap["InvalidItemIdInTable"] = GenericErrorCodesInvalidItemIdInTable;
+                _GenericErrorCodesMap["InvalidReceipt"] = GenericErrorCodesInvalidReceipt;
+                _GenericErrorCodesMap["ReceiptAlreadyUsed"] = GenericErrorCodesReceiptAlreadyUsed;
+                _GenericErrorCodesMap["ReceiptCancelled"] = GenericErrorCodesReceiptCancelled;
+                _GenericErrorCodesMap["GameNotFound"] = GenericErrorCodesGameNotFound;
+                _GenericErrorCodesMap["GameModeNotFound"] = GenericErrorCodesGameModeNotFound;
+                _GenericErrorCodesMap["InvalidGoogleToken"] = GenericErrorCodesInvalidGoogleToken;
+                _GenericErrorCodesMap["UserIsNotPartOfDeveloper"] = GenericErrorCodesUserIsNotPartOfDeveloper;
+                _GenericErrorCodesMap["InvalidTitleForDeveloper"] = GenericErrorCodesInvalidTitleForDeveloper;
+                _GenericErrorCodesMap["TitleNameConflicts"] = GenericErrorCodesTitleNameConflicts;
+                _GenericErrorCodesMap["UserisNotValid"] = GenericErrorCodesUserisNotValid;
+                _GenericErrorCodesMap["ValueAlreadyExists"] = GenericErrorCodesValueAlreadyExists;
+                _GenericErrorCodesMap["BuildNotFound"] = GenericErrorCodesBuildNotFound;
+                _GenericErrorCodesMap["PlayerNotInGame"] = GenericErrorCodesPlayerNotInGame;
+                _GenericErrorCodesMap["InvalidTicket"] = GenericErrorCodesInvalidTicket;
+                _GenericErrorCodesMap["InvalidDeveloper"] = GenericErrorCodesInvalidDeveloper;
+                _GenericErrorCodesMap["InvalidOrderInfo"] = GenericErrorCodesInvalidOrderInfo;
+                _GenericErrorCodesMap["RegistrationIncomplete"] = GenericErrorCodesRegistrationIncomplete;
+                _GenericErrorCodesMap["InvalidPlatform"] = GenericErrorCodesInvalidPlatform;
+                _GenericErrorCodesMap["UnknownError"] = GenericErrorCodesUnknownError;
+                _GenericErrorCodesMap["SteamApplicationNotOwned"] = GenericErrorCodesSteamApplicationNotOwned;
+                _GenericErrorCodesMap["WrongSteamAccount"] = GenericErrorCodesWrongSteamAccount;
+                _GenericErrorCodesMap["TitleNotActivated"] = GenericErrorCodesTitleNotActivated;
+                _GenericErrorCodesMap["RegistrationSessionNotFound"] = GenericErrorCodesRegistrationSessionNotFound;
+                _GenericErrorCodesMap["NoSuchMod"] = GenericErrorCodesNoSuchMod;
+                _GenericErrorCodesMap["FileNotFound"] = GenericErrorCodesFileNotFound;
+                _GenericErrorCodesMap["DuplicateEmail"] = GenericErrorCodesDuplicateEmail;
+                _GenericErrorCodesMap["ItemNotFound"] = GenericErrorCodesItemNotFound;
+                _GenericErrorCodesMap["ItemNotOwned"] = GenericErrorCodesItemNotOwned;
+                _GenericErrorCodesMap["ItemNotRecycleable"] = GenericErrorCodesItemNotRecycleable;
+                _GenericErrorCodesMap["ItemNotAffordable"] = GenericErrorCodesItemNotAffordable;
+                _GenericErrorCodesMap["InvalidVirtualCurrency"] = GenericErrorCodesInvalidVirtualCurrency;
+                _GenericErrorCodesMap["WrongVirtualCurrency"] = GenericErrorCodesWrongVirtualCurrency;
+                _GenericErrorCodesMap["WrongPrice"] = GenericErrorCodesWrongPrice;
+                _GenericErrorCodesMap["NonPositiveValue"] = GenericErrorCodesNonPositiveValue;
+                _GenericErrorCodesMap["InvalidRegion"] = GenericErrorCodesInvalidRegion;
+                _GenericErrorCodesMap["RegionAtCapacity"] = GenericErrorCodesRegionAtCapacity;
+                _GenericErrorCodesMap["ServerFailedToStart"] = GenericErrorCodesServerFailedToStart;
+                _GenericErrorCodesMap["NameNotAvailable"] = GenericErrorCodesNameNotAvailable;
+                _GenericErrorCodesMap["InsufficientFunds"] = GenericErrorCodesInsufficientFunds;
+                _GenericErrorCodesMap["InvalidDeviceID"] = GenericErrorCodesInvalidDeviceID;
+                _GenericErrorCodesMap["InvalidPushNotificationToken"] = GenericErrorCodesInvalidPushNotificationToken;
+                _GenericErrorCodesMap["NoRemainingUses"] = GenericErrorCodesNoRemainingUses;
+                _GenericErrorCodesMap["InvalidPaymentProvider"] = GenericErrorCodesInvalidPaymentProvider;
+                _GenericErrorCodesMap["PurchaseInitializationFailure"] = GenericErrorCodesPurchaseInitializationFailure;
+                _GenericErrorCodesMap["DuplicateUsername"] = GenericErrorCodesDuplicateUsername;
+                _GenericErrorCodesMap["InvalidBuyerInfo"] = GenericErrorCodesInvalidBuyerInfo;
+                _GenericErrorCodesMap["NoGameModeParamsSet"] = GenericErrorCodesNoGameModeParamsSet;
+                _GenericErrorCodesMap["BodyTooLarge"] = GenericErrorCodesBodyTooLarge;
+                _GenericErrorCodesMap["ReservedWordInBody"] = GenericErrorCodesReservedWordInBody;
+                _GenericErrorCodesMap["InvalidTypeInBody"] = GenericErrorCodesInvalidTypeInBody;
+                _GenericErrorCodesMap["InvalidRequest"] = GenericErrorCodesInvalidRequest;
+                _GenericErrorCodesMap["ReservedEventName"] = GenericErrorCodesReservedEventName;
+                _GenericErrorCodesMap["InvalidUserStatistics"] = GenericErrorCodesInvalidUserStatistics;
+                _GenericErrorCodesMap["NotAuthenticated"] = GenericErrorCodesNotAuthenticated;
+                _GenericErrorCodesMap["StreamAlreadyExists"] = GenericErrorCodesStreamAlreadyExists;
+                _GenericErrorCodesMap["ErrorCreatingStream"] = GenericErrorCodesErrorCreatingStream;
+                _GenericErrorCodesMap["StreamNotFound"] = GenericErrorCodesStreamNotFound;
+                _GenericErrorCodesMap["InvalidAccount"] = GenericErrorCodesInvalidAccount;
+                _GenericErrorCodesMap["PurchaseDoesNotExist"] = GenericErrorCodesPurchaseDoesNotExist;
+                _GenericErrorCodesMap["InvalidPurchaseTransactionStatus"] = GenericErrorCodesInvalidPurchaseTransactionStatus;
+                _GenericErrorCodesMap["APINotEnabledForGameClientAccess"] = GenericErrorCodesAPINotEnabledForGameClientAccess;
+                _GenericErrorCodesMap["NoPushNotificationARNForTitle"] = GenericErrorCodesNoPushNotificationARNForTitle;
+                _GenericErrorCodesMap["BuildAlreadyExists"] = GenericErrorCodesBuildAlreadyExists;
+                _GenericErrorCodesMap["BuildPackageDoesNotExist"] = GenericErrorCodesBuildPackageDoesNotExist;
+                _GenericErrorCodesMap["CustomAnalyticsEventsNotEnabledForTitle"] = GenericErrorCodesCustomAnalyticsEventsNotEnabledForTitle;
+                _GenericErrorCodesMap["InvalidSharedGroupId"] = GenericErrorCodesInvalidSharedGroupId;
+                _GenericErrorCodesMap["NotAuthorized"] = GenericErrorCodesNotAuthorized;
+                _GenericErrorCodesMap["MissingTitleGoogleProperties"] = GenericErrorCodesMissingTitleGoogleProperties;
+                _GenericErrorCodesMap["InvalidItemProperties"] = GenericErrorCodesInvalidItemProperties;
+                _GenericErrorCodesMap["InvalidPSNAuthCode"] = GenericErrorCodesInvalidPSNAuthCode;
+                _GenericErrorCodesMap["InvalidItemId"] = GenericErrorCodesInvalidItemId;
+                _GenericErrorCodesMap["PushNotEnabledForAccount"] = GenericErrorCodesPushNotEnabledForAccount;
+                _GenericErrorCodesMap["PushServiceError"] = GenericErrorCodesPushServiceError;
+                _GenericErrorCodesMap["ReceiptDoesNotContainInAppItems"] = GenericErrorCodesReceiptDoesNotContainInAppItems;
+                _GenericErrorCodesMap["ReceiptContainsMultipleInAppItems"] = GenericErrorCodesReceiptContainsMultipleInAppItems;
+                _GenericErrorCodesMap["InvalidBundleID"] = GenericErrorCodesInvalidBundleID;
+                _GenericErrorCodesMap["JavascriptException"] = GenericErrorCodesJavascriptException;
+                _GenericErrorCodesMap["InvalidSessionTicket"] = GenericErrorCodesInvalidSessionTicket;
+                _GenericErrorCodesMap["UnableToConnectToDatabase"] = GenericErrorCodesUnableToConnectToDatabase;
+                _GenericErrorCodesMap["InternalServerError"] = GenericErrorCodesInternalServerError;
+                _GenericErrorCodesMap["InvalidReportDate"] = GenericErrorCodesInvalidReportDate;
+                _GenericErrorCodesMap["ReportNotAvailable"] = GenericErrorCodesReportNotAvailable;
+                _GenericErrorCodesMap["DatabaseThroughputExceeded"] = GenericErrorCodesDatabaseThroughputExceeded;
+                _GenericErrorCodesMap["InvalidGameTicket"] = GenericErrorCodesInvalidGameTicket;
+                _GenericErrorCodesMap["ExpiredGameTicket"] = GenericErrorCodesExpiredGameTicket;
+                _GenericErrorCodesMap["GameTicketDoesNotMatchLobby"] = GenericErrorCodesGameTicketDoesNotMatchLobby;
+                _GenericErrorCodesMap["LinkedDeviceAlreadyClaimed"] = GenericErrorCodesLinkedDeviceAlreadyClaimed;
+                _GenericErrorCodesMap["DeviceAlreadyLinked"] = GenericErrorCodesDeviceAlreadyLinked;
+                _GenericErrorCodesMap["DeviceNotLinked"] = GenericErrorCodesDeviceNotLinked;
+                _GenericErrorCodesMap["PartialFailure"] = GenericErrorCodesPartialFailure;
+                _GenericErrorCodesMap["PublisherNotSet"] = GenericErrorCodesPublisherNotSet;
+                _GenericErrorCodesMap["ServiceUnavailable"] = GenericErrorCodesServiceUnavailable;
+                _GenericErrorCodesMap["VersionNotFound"] = GenericErrorCodesVersionNotFound;
+                _GenericErrorCodesMap["RevisionNotFound"] = GenericErrorCodesRevisionNotFound;
+                _GenericErrorCodesMap["InvalidPublisherId"] = GenericErrorCodesInvalidPublisherId;
+                _GenericErrorCodesMap["DownstreamServiceUnavailable"] = GenericErrorCodesDownstreamServiceUnavailable;
+                _GenericErrorCodesMap["APINotIncludedInTitleUsageTier"] = GenericErrorCodesAPINotIncludedInTitleUsageTier;
+                _GenericErrorCodesMap["DAULimitExceeded"] = GenericErrorCodesDAULimitExceeded;
+                _GenericErrorCodesMap["APIRequestLimitExceeded"] = GenericErrorCodesAPIRequestLimitExceeded;
+                _GenericErrorCodesMap["InvalidAPIEndpoint"] = GenericErrorCodesInvalidAPIEndpoint;
+                _GenericErrorCodesMap["BuildNotAvailable"] = GenericErrorCodesBuildNotAvailable;
+                _GenericErrorCodesMap["ConcurrentEditError"] = GenericErrorCodesConcurrentEditError;
+                _GenericErrorCodesMap["ContentNotFound"] = GenericErrorCodesContentNotFound;
+                _GenericErrorCodesMap["CharacterNotFound"] = GenericErrorCodesCharacterNotFound;
+                _GenericErrorCodesMap["CloudScriptNotFound"] = GenericErrorCodesCloudScriptNotFound;
+                _GenericErrorCodesMap["ContentQuotaExceeded"] = GenericErrorCodesContentQuotaExceeded;
+                _GenericErrorCodesMap["InvalidCharacterStatistics"] = GenericErrorCodesInvalidCharacterStatistics;
+                _GenericErrorCodesMap["PhotonNotEnabledForTitle"] = GenericErrorCodesPhotonNotEnabledForTitle;
+                _GenericErrorCodesMap["PhotonApplicationNotFound"] = GenericErrorCodesPhotonApplicationNotFound;
+                _GenericErrorCodesMap["PhotonApplicationNotAssociatedWithTitle"] = GenericErrorCodesPhotonApplicationNotAssociatedWithTitle;
+                _GenericErrorCodesMap["InvalidEmailOrPassword"] = GenericErrorCodesInvalidEmailOrPassword;
+                _GenericErrorCodesMap["FacebookAPIError"] = GenericErrorCodesFacebookAPIError;
+                _GenericErrorCodesMap["InvalidContentType"] = GenericErrorCodesInvalidContentType;
+                _GenericErrorCodesMap["KeyLengthExceeded"] = GenericErrorCodesKeyLengthExceeded;
+                _GenericErrorCodesMap["DataLengthExceeded"] = GenericErrorCodesDataLengthExceeded;
+                _GenericErrorCodesMap["TooManyKeys"] = GenericErrorCodesTooManyKeys;
+                _GenericErrorCodesMap["FreeTierCannotHaveVirtualCurrency"] = GenericErrorCodesFreeTierCannotHaveVirtualCurrency;
+                _GenericErrorCodesMap["MissingAmazonSharedKey"] = GenericErrorCodesMissingAmazonSharedKey;
+                _GenericErrorCodesMap["AmazonValidationError"] = GenericErrorCodesAmazonValidationError;
+                _GenericErrorCodesMap["InvalidPSNIssuerId"] = GenericErrorCodesInvalidPSNIssuerId;
+                _GenericErrorCodesMap["PSNInaccessible"] = GenericErrorCodesPSNInaccessible;
+                _GenericErrorCodesMap["ExpiredAuthToken"] = GenericErrorCodesExpiredAuthToken;
+                _GenericErrorCodesMap["FailedToGetEntitlements"] = GenericErrorCodesFailedToGetEntitlements;
+                _GenericErrorCodesMap["FailedToConsumeEntitlement"] = GenericErrorCodesFailedToConsumeEntitlement;
+                _GenericErrorCodesMap["TradeAcceptingUserNotAllowed"] = GenericErrorCodesTradeAcceptingUserNotAllowed;
+                _GenericErrorCodesMap["TradeInventoryItemIsAssignedToCharacter"] = GenericErrorCodesTradeInventoryItemIsAssignedToCharacter;
+                _GenericErrorCodesMap["TradeInventoryItemIsBundle"] = GenericErrorCodesTradeInventoryItemIsBundle;
+                _GenericErrorCodesMap["TradeStatusNotValidForCancelling"] = GenericErrorCodesTradeStatusNotValidForCancelling;
+                _GenericErrorCodesMap["TradeStatusNotValidForAccepting"] = GenericErrorCodesTradeStatusNotValidForAccepting;
+                _GenericErrorCodesMap["TradeDoesNotExist"] = GenericErrorCodesTradeDoesNotExist;
+                _GenericErrorCodesMap["TradeCancelled"] = GenericErrorCodesTradeCancelled;
+                _GenericErrorCodesMap["TradeAlreadyFilled"] = GenericErrorCodesTradeAlreadyFilled;
+                _GenericErrorCodesMap["TradeWaitForStatusTimeout"] = GenericErrorCodesTradeWaitForStatusTimeout;
+                _GenericErrorCodesMap["TradeInventoryItemExpired"] = GenericErrorCodesTradeInventoryItemExpired;
+                _GenericErrorCodesMap["TradeMissingOfferedAndAcceptedItems"] = GenericErrorCodesTradeMissingOfferedAndAcceptedItems;
+                _GenericErrorCodesMap["TradeAcceptedItemIsBundle"] = GenericErrorCodesTradeAcceptedItemIsBundle;
+                _GenericErrorCodesMap["TradeAcceptedItemIsStackable"] = GenericErrorCodesTradeAcceptedItemIsStackable;
+                _GenericErrorCodesMap["TradeInventoryItemInvalidStatus"] = GenericErrorCodesTradeInventoryItemInvalidStatus;
+                _GenericErrorCodesMap["TradeAcceptedCatalogItemInvalid"] = GenericErrorCodesTradeAcceptedCatalogItemInvalid;
+                _GenericErrorCodesMap["TradeAllowedUsersInvalid"] = GenericErrorCodesTradeAllowedUsersInvalid;
+                _GenericErrorCodesMap["TradeInventoryItemDoesNotExist"] = GenericErrorCodesTradeInventoryItemDoesNotExist;
+                _GenericErrorCodesMap["TradeInventoryItemIsConsumed"] = GenericErrorCodesTradeInventoryItemIsConsumed;
+                _GenericErrorCodesMap["TradeInventoryItemIsStackable"] = GenericErrorCodesTradeInventoryItemIsStackable;
+                _GenericErrorCodesMap["TradeAcceptedItemsMismatch"] = GenericErrorCodesTradeAcceptedItemsMismatch;
+                _GenericErrorCodesMap["InvalidKongregateToken"] = GenericErrorCodesInvalidKongregateToken;
+                _GenericErrorCodesMap["FeatureNotConfiguredForTitle"] = GenericErrorCodesFeatureNotConfiguredForTitle;
+                _GenericErrorCodesMap["NoMatchingCatalogItemForReceipt"] = GenericErrorCodesNoMatchingCatalogItemForReceipt;
+                _GenericErrorCodesMap["InvalidCurrencyCode"] = GenericErrorCodesInvalidCurrencyCode;
+                _GenericErrorCodesMap["NoRealMoneyPriceForCatalogItem"] = GenericErrorCodesNoRealMoneyPriceForCatalogItem;
+                _GenericErrorCodesMap["TradeInventoryItemIsNotTradable"] = GenericErrorCodesTradeInventoryItemIsNotTradable;
+                _GenericErrorCodesMap["TradeAcceptedCatalogItemIsNotTradable"] = GenericErrorCodesTradeAcceptedCatalogItemIsNotTradable;
+                _GenericErrorCodesMap["UsersAlreadyFriends"] = GenericErrorCodesUsersAlreadyFriends;
+                _GenericErrorCodesMap["LinkedIdentifierAlreadyClaimed"] = GenericErrorCodesLinkedIdentifierAlreadyClaimed;
+                _GenericErrorCodesMap["CustomIdNotLinked"] = GenericErrorCodesCustomIdNotLinked;
+                _GenericErrorCodesMap["TotalDataSizeExceeded"] = GenericErrorCodesTotalDataSizeExceeded;
+                _GenericErrorCodesMap["DeleteKeyConflict"] = GenericErrorCodesDeleteKeyConflict;
+                _GenericErrorCodesMap["InvalidXboxLiveToken"] = GenericErrorCodesInvalidXboxLiveToken;
+                _GenericErrorCodesMap["ExpiredXboxLiveToken"] = GenericErrorCodesExpiredXboxLiveToken;
+                _GenericErrorCodesMap["ResettableStatisticVersionRequired"] = GenericErrorCodesResettableStatisticVersionRequired;
+                _GenericErrorCodesMap["NotAuthorizedByTitle"] = GenericErrorCodesNotAuthorizedByTitle;
+                _GenericErrorCodesMap["NoPartnerEnabled"] = GenericErrorCodesNoPartnerEnabled;
+                _GenericErrorCodesMap["InvalidPartnerResponse"] = GenericErrorCodesInvalidPartnerResponse;
+                _GenericErrorCodesMap["APINotEnabledForGameServerAccess"] = GenericErrorCodesAPINotEnabledForGameServerAccess;
+                _GenericErrorCodesMap["StatisticNotFound"] = GenericErrorCodesStatisticNotFound;
+                _GenericErrorCodesMap["StatisticNameConflict"] = GenericErrorCodesStatisticNameConflict;
+                _GenericErrorCodesMap["StatisticVersionClosedForWrites"] = GenericErrorCodesStatisticVersionClosedForWrites;
+                _GenericErrorCodesMap["StatisticVersionInvalid"] = GenericErrorCodesStatisticVersionInvalid;
+                _GenericErrorCodesMap["APIClientRequestRateLimitExceeded"] = GenericErrorCodesAPIClientRequestRateLimitExceeded;
+                _GenericErrorCodesMap["InvalidJSONContent"] = GenericErrorCodesInvalidJSONContent;
+                _GenericErrorCodesMap["InvalidDropTable"] = GenericErrorCodesInvalidDropTable;
+                _GenericErrorCodesMap["StatisticVersionAlreadyIncrementedForScheduledInterval"] = GenericErrorCodesStatisticVersionAlreadyIncrementedForScheduledInterval;
+                _GenericErrorCodesMap["StatisticCountLimitExceeded"] = GenericErrorCodesStatisticCountLimitExceeded;
+                _GenericErrorCodesMap["StatisticVersionIncrementRateExceeded"] = GenericErrorCodesStatisticVersionIncrementRateExceeded;
+                _GenericErrorCodesMap["ContainerKeyInvalid"] = GenericErrorCodesContainerKeyInvalid;
+                _GenericErrorCodesMap["CloudScriptExecutionTimeLimitExceeded"] = GenericErrorCodesCloudScriptExecutionTimeLimitExceeded;
+                _GenericErrorCodesMap["NoWritePermissionsForEvent"] = GenericErrorCodesNoWritePermissionsForEvent;
+                _GenericErrorCodesMap["CloudScriptFunctionArgumentSizeExceeded"] = GenericErrorCodesCloudScriptFunctionArgumentSizeExceeded;
+                _GenericErrorCodesMap["CloudScriptAPIRequestCountExceeded"] = GenericErrorCodesCloudScriptAPIRequestCountExceeded;
+                _GenericErrorCodesMap["CloudScriptAPIRequestError"] = GenericErrorCodesCloudScriptAPIRequestError;
+                _GenericErrorCodesMap["CloudScriptHTTPRequestError"] = GenericErrorCodesCloudScriptHTTPRequestError;
+                _GenericErrorCodesMap["InsufficientGuildRole"] = GenericErrorCodesInsufficientGuildRole;
+                _GenericErrorCodesMap["GuildNotFound"] = GenericErrorCodesGuildNotFound;
+                _GenericErrorCodesMap["OverLimit"] = GenericErrorCodesOverLimit;
+                _GenericErrorCodesMap["EventNotFound"] = GenericErrorCodesEventNotFound;
+                _GenericErrorCodesMap["InvalidEventField"] = GenericErrorCodesInvalidEventField;
+                _GenericErrorCodesMap["InvalidEventName"] = GenericErrorCodesInvalidEventName;
+                _GenericErrorCodesMap["CatalogNotConfigured"] = GenericErrorCodesCatalogNotConfigured;
+                _GenericErrorCodesMap["OperationNotSupportedForPlatform"] = GenericErrorCodesOperationNotSupportedForPlatform;
+                _GenericErrorCodesMap["SegmentNotFound"] = GenericErrorCodesSegmentNotFound;
+                _GenericErrorCodesMap["StoreNotFound"] = GenericErrorCodesStoreNotFound;
+                _GenericErrorCodesMap["InvalidStatisticName"] = GenericErrorCodesInvalidStatisticName;
+                _GenericErrorCodesMap["TitleNotQualifiedForLimit"] = GenericErrorCodesTitleNotQualifiedForLimit;
+                _GenericErrorCodesMap["InvalidServiceLimitLevel"] = GenericErrorCodesInvalidServiceLimitLevel;
+                _GenericErrorCodesMap["ServiceLimitLevelInTransition"] = GenericErrorCodesServiceLimitLevelInTransition;
+                _GenericErrorCodesMap["CouponAlreadyRedeemed"] = GenericErrorCodesCouponAlreadyRedeemed;
+                _GenericErrorCodesMap["GameServerBuildSizeLimitExceeded"] = GenericErrorCodesGameServerBuildSizeLimitExceeded;
+                _GenericErrorCodesMap["GameServerBuildCountLimitExceeded"] = GenericErrorCodesGameServerBuildCountLimitExceeded;
+                _GenericErrorCodesMap["VirtualCurrencyCountLimitExceeded"] = GenericErrorCodesVirtualCurrencyCountLimitExceeded;
+                _GenericErrorCodesMap["VirtualCurrencyCodeExists"] = GenericErrorCodesVirtualCurrencyCodeExists;
+                _GenericErrorCodesMap["TitleNewsItemCountLimitExceeded"] = GenericErrorCodesTitleNewsItemCountLimitExceeded;
+                _GenericErrorCodesMap["InvalidTwitchToken"] = GenericErrorCodesInvalidTwitchToken;
+                _GenericErrorCodesMap["TwitchResponseError"] = GenericErrorCodesTwitchResponseError;
+                _GenericErrorCodesMap["ProfaneDisplayName"] = GenericErrorCodesProfaneDisplayName;
+                _GenericErrorCodesMap["UserAlreadyAdded"] = GenericErrorCodesUserAlreadyAdded;
+                _GenericErrorCodesMap["InvalidVirtualCurrencyCode"] = GenericErrorCodesInvalidVirtualCurrencyCode;
+                _GenericErrorCodesMap["VirtualCurrencyCannotBeDeleted"] = GenericErrorCodesVirtualCurrencyCannotBeDeleted;
+                _GenericErrorCodesMap["IdentifierAlreadyClaimed"] = GenericErrorCodesIdentifierAlreadyClaimed;
+                _GenericErrorCodesMap["IdentifierNotLinked"] = GenericErrorCodesIdentifierNotLinked;
+                _GenericErrorCodesMap["InvalidContinuationToken"] = GenericErrorCodesInvalidContinuationToken;
+                _GenericErrorCodesMap["ExpiredContinuationToken"] = GenericErrorCodesExpiredContinuationToken;
+                _GenericErrorCodesMap["InvalidSegment"] = GenericErrorCodesInvalidSegment;
+                _GenericErrorCodesMap["InvalidSessionId"] = GenericErrorCodesInvalidSessionId;
+                _GenericErrorCodesMap["SessionLogNotFound"] = GenericErrorCodesSessionLogNotFound;
+                _GenericErrorCodesMap["InvalidSearchTerm"] = GenericErrorCodesInvalidSearchTerm;
+                _GenericErrorCodesMap["TwoFactorAuthenticationTokenRequired"] = GenericErrorCodesTwoFactorAuthenticationTokenRequired;
+                _GenericErrorCodesMap["GameServerHostCountLimitExceeded"] = GenericErrorCodesGameServerHostCountLimitExceeded;
+                _GenericErrorCodesMap["PlayerTagCountLimitExceeded"] = GenericErrorCodesPlayerTagCountLimitExceeded;
+                _GenericErrorCodesMap["RequestAlreadyRunning"] = GenericErrorCodesRequestAlreadyRunning;
+                _GenericErrorCodesMap["ActionGroupNotFound"] = GenericErrorCodesActionGroupNotFound;
+                _GenericErrorCodesMap["MaximumSegmentBulkActionJobsRunning"] = GenericErrorCodesMaximumSegmentBulkActionJobsRunning;
+                _GenericErrorCodesMap["NoActionsOnPlayersInSegmentJob"] = GenericErrorCodesNoActionsOnPlayersInSegmentJob;
+                _GenericErrorCodesMap["DuplicateStatisticName"] = GenericErrorCodesDuplicateStatisticName;
+                _GenericErrorCodesMap["ScheduledTaskNameConflict"] = GenericErrorCodesScheduledTaskNameConflict;
+                _GenericErrorCodesMap["ScheduledTaskCreateConflict"] = GenericErrorCodesScheduledTaskCreateConflict;
+                _GenericErrorCodesMap["InvalidScheduledTaskName"] = GenericErrorCodesInvalidScheduledTaskName;
+                _GenericErrorCodesMap["InvalidTaskSchedule"] = GenericErrorCodesInvalidTaskSchedule;
+                _GenericErrorCodesMap["SteamNotEnabledForTitle"] = GenericErrorCodesSteamNotEnabledForTitle;
+                _GenericErrorCodesMap["LimitNotAnUpgradeOption"] = GenericErrorCodesLimitNotAnUpgradeOption;
+                _GenericErrorCodesMap["NoSecretKeyEnabledForCloudScript"] = GenericErrorCodesNoSecretKeyEnabledForCloudScript;
+                _GenericErrorCodesMap["TaskNotFound"] = GenericErrorCodesTaskNotFound;
+                _GenericErrorCodesMap["TaskInstanceNotFound"] = GenericErrorCodesTaskInstanceNotFound;
+                _GenericErrorCodesMap["InvalidIdentityProviderId"] = GenericErrorCodesInvalidIdentityProviderId;
+                _GenericErrorCodesMap["MisconfiguredIdentityProvider"] = GenericErrorCodesMisconfiguredIdentityProvider;
+                _GenericErrorCodesMap["InvalidScheduledTaskType"] = GenericErrorCodesInvalidScheduledTaskType;
+                _GenericErrorCodesMap["BillingInformationRequired"] = GenericErrorCodesBillingInformationRequired;
+                _GenericErrorCodesMap["LimitedEditionItemUnavailable"] = GenericErrorCodesLimitedEditionItemUnavailable;
+                _GenericErrorCodesMap["InvalidAdPlacementAndReward"] = GenericErrorCodesInvalidAdPlacementAndReward;
+                _GenericErrorCodesMap["AllAdPlacementViewsAlreadyConsumed"] = GenericErrorCodesAllAdPlacementViewsAlreadyConsumed;
+                _GenericErrorCodesMap["GoogleOAuthNotConfiguredForTitle"] = GenericErrorCodesGoogleOAuthNotConfiguredForTitle;
+                _GenericErrorCodesMap["GoogleOAuthError"] = GenericErrorCodesGoogleOAuthError;
+                _GenericErrorCodesMap["UserNotFriend"] = GenericErrorCodesUserNotFriend;
+                _GenericErrorCodesMap["InvalidSignature"] = GenericErrorCodesInvalidSignature;
+                _GenericErrorCodesMap["InvalidPublicKey"] = GenericErrorCodesInvalidPublicKey;
+                _GenericErrorCodesMap["GoogleOAuthNoIdTokenIncludedInResponse"] = GenericErrorCodesGoogleOAuthNoIdTokenIncludedInResponse;
+                _GenericErrorCodesMap["StatisticUpdateInProgress"] = GenericErrorCodesStatisticUpdateInProgress;
+                _GenericErrorCodesMap["LeaderboardVersionNotAvailable"] = GenericErrorCodesLeaderboardVersionNotAvailable;
+                _GenericErrorCodesMap["StatisticAlreadyHasPrizeTable"] = GenericErrorCodesStatisticAlreadyHasPrizeTable;
+                _GenericErrorCodesMap["PrizeTableHasOverlappingRanks"] = GenericErrorCodesPrizeTableHasOverlappingRanks;
+                _GenericErrorCodesMap["PrizeTableHasMissingRanks"] = GenericErrorCodesPrizeTableHasMissingRanks;
+                _GenericErrorCodesMap["PrizeTableRankStartsAtZero"] = GenericErrorCodesPrizeTableRankStartsAtZero;
+                _GenericErrorCodesMap["InvalidStatistic"] = GenericErrorCodesInvalidStatistic;
+                _GenericErrorCodesMap["ExpressionParseFailure"] = GenericErrorCodesExpressionParseFailure;
+                _GenericErrorCodesMap["ExpressionInvokeFailure"] = GenericErrorCodesExpressionInvokeFailure;
+                _GenericErrorCodesMap["ExpressionTooLong"] = GenericErrorCodesExpressionTooLong;
+                _GenericErrorCodesMap["DataUpdateRateExceeded"] = GenericErrorCodesDataUpdateRateExceeded;
+                _GenericErrorCodesMap["RestrictedEmailDomain"] = GenericErrorCodesRestrictedEmailDomain;
+                _GenericErrorCodesMap["EncryptionKeyDisabled"] = GenericErrorCodesEncryptionKeyDisabled;
+                _GenericErrorCodesMap["EncryptionKeyMissing"] = GenericErrorCodesEncryptionKeyMissing;
+                _GenericErrorCodesMap["EncryptionKeyBroken"] = GenericErrorCodesEncryptionKeyBroken;
+                _GenericErrorCodesMap["NoSharedSecretKeyConfigured"] = GenericErrorCodesNoSharedSecretKeyConfigured;
+                _GenericErrorCodesMap["SecretKeyNotFound"] = GenericErrorCodesSecretKeyNotFound;
+                _GenericErrorCodesMap["PlayerSecretAlreadyConfigured"] = GenericErrorCodesPlayerSecretAlreadyConfigured;
+                _GenericErrorCodesMap["APIRequestsDisabledForTitle"] = GenericErrorCodesAPIRequestsDisabledForTitle;
+                _GenericErrorCodesMap["InvalidSharedSecretKey"] = GenericErrorCodesInvalidSharedSecretKey;
+                _GenericErrorCodesMap["PrizeTableHasNoRanks"] = GenericErrorCodesPrizeTableHasNoRanks;
+                _GenericErrorCodesMap["ProfileDoesNotExist"] = GenericErrorCodesProfileDoesNotExist;
+                _GenericErrorCodesMap["ContentS3OriginBucketNotConfigured"] = GenericErrorCodesContentS3OriginBucketNotConfigured;
+                _GenericErrorCodesMap["InvalidEnvironmentForReceipt"] = GenericErrorCodesInvalidEnvironmentForReceipt;
+                _GenericErrorCodesMap["EncryptedRequestNotAllowed"] = GenericErrorCodesEncryptedRequestNotAllowed;
+                _GenericErrorCodesMap["SignedRequestNotAllowed"] = GenericErrorCodesSignedRequestNotAllowed;
+                _GenericErrorCodesMap["RequestViewConstraintParamsNotAllowed"] = GenericErrorCodesRequestViewConstraintParamsNotAllowed;
+                _GenericErrorCodesMap["BadPartnerConfiguration"] = GenericErrorCodesBadPartnerConfiguration;
+                _GenericErrorCodesMap["XboxBPCertificateFailure"] = GenericErrorCodesXboxBPCertificateFailure;
+                _GenericErrorCodesMap["XboxXASSExchangeFailure"] = GenericErrorCodesXboxXASSExchangeFailure;
+                _GenericErrorCodesMap["InvalidEntityId"] = GenericErrorCodesInvalidEntityId;
+                _GenericErrorCodesMap["StatisticValueAggregationOverflow"] = GenericErrorCodesStatisticValueAggregationOverflow;
+                _GenericErrorCodesMap["EmailMessageFromAddressIsMissing"] = GenericErrorCodesEmailMessageFromAddressIsMissing;
+                _GenericErrorCodesMap["EmailMessageToAddressIsMissing"] = GenericErrorCodesEmailMessageToAddressIsMissing;
+                _GenericErrorCodesMap["SmtpServerAuthenticationError"] = GenericErrorCodesSmtpServerAuthenticationError;
+                _GenericErrorCodesMap["SmtpServerLimitExceeded"] = GenericErrorCodesSmtpServerLimitExceeded;
+                _GenericErrorCodesMap["SmtpServerInsufficientStorage"] = GenericErrorCodesSmtpServerInsufficientStorage;
+                _GenericErrorCodesMap["SmtpServerCommunicationError"] = GenericErrorCodesSmtpServerCommunicationError;
+                _GenericErrorCodesMap["SmtpServerGeneralFailure"] = GenericErrorCodesSmtpServerGeneralFailure;
+                _GenericErrorCodesMap["EmailClientTimeout"] = GenericErrorCodesEmailClientTimeout;
+                _GenericErrorCodesMap["EmailClientCanceledTask"] = GenericErrorCodesEmailClientCanceledTask;
+                _GenericErrorCodesMap["EmailTemplateMissing"] = GenericErrorCodesEmailTemplateMissing;
+                _GenericErrorCodesMap["InvalidHostForTitleId"] = GenericErrorCodesInvalidHostForTitleId;
+                _GenericErrorCodesMap["EmailConfirmationTokenDoesNotExist"] = GenericErrorCodesEmailConfirmationTokenDoesNotExist;
+                _GenericErrorCodesMap["EmailConfirmationTokenExpired"] = GenericErrorCodesEmailConfirmationTokenExpired;
+                _GenericErrorCodesMap["AccountDeleted"] = GenericErrorCodesAccountDeleted;
+                _GenericErrorCodesMap["PlayerSecretNotConfigured"] = GenericErrorCodesPlayerSecretNotConfigured;
+                _GenericErrorCodesMap["InvalidSignatureTime"] = GenericErrorCodesInvalidSignatureTime;
+                _GenericErrorCodesMap["NoContactEmailAddressFound"] = GenericErrorCodesNoContactEmailAddressFound;
+                _GenericErrorCodesMap["InvalidAuthToken"] = GenericErrorCodesInvalidAuthToken;
+                _GenericErrorCodesMap["AuthTokenDoesNotExist"] = GenericErrorCodesAuthTokenDoesNotExist;
+                _GenericErrorCodesMap["AuthTokenExpired"] = GenericErrorCodesAuthTokenExpired;
+                _GenericErrorCodesMap["AuthTokenAlreadyUsedToResetPassword"] = GenericErrorCodesAuthTokenAlreadyUsedToResetPassword;
+                _GenericErrorCodesMap["MembershipNameTooLong"] = GenericErrorCodesMembershipNameTooLong;
+                _GenericErrorCodesMap["MembershipNotFound"] = GenericErrorCodesMembershipNotFound;
+                _GenericErrorCodesMap["GoogleServiceAccountInvalid"] = GenericErrorCodesGoogleServiceAccountInvalid;
+                _GenericErrorCodesMap["GoogleServiceAccountParseFailure"] = GenericErrorCodesGoogleServiceAccountParseFailure;
+                _GenericErrorCodesMap["EntityTokenMissing"] = GenericErrorCodesEntityTokenMissing;
+                _GenericErrorCodesMap["EntityTokenInvalid"] = GenericErrorCodesEntityTokenInvalid;
+                _GenericErrorCodesMap["EntityTokenExpired"] = GenericErrorCodesEntityTokenExpired;
+                _GenericErrorCodesMap["EntityTokenRevoked"] = GenericErrorCodesEntityTokenRevoked;
+                _GenericErrorCodesMap["InvalidProductForSubscription"] = GenericErrorCodesInvalidProductForSubscription;
+                _GenericErrorCodesMap["XboxInaccessible"] = GenericErrorCodesXboxInaccessible;
+                _GenericErrorCodesMap["SubscriptionAlreadyTaken"] = GenericErrorCodesSubscriptionAlreadyTaken;
+                _GenericErrorCodesMap["SmtpAddonNotEnabled"] = GenericErrorCodesSmtpAddonNotEnabled;
+                _GenericErrorCodesMap["APIConcurrentRequestLimitExceeded"] = GenericErrorCodesAPIConcurrentRequestLimitExceeded;
+                _GenericErrorCodesMap["XboxRejectedXSTSExchangeRequest"] = GenericErrorCodesXboxRejectedXSTSExchangeRequest;
+                _GenericErrorCodesMap["VariableNotDefined"] = GenericErrorCodesVariableNotDefined;
+                _GenericErrorCodesMap["TemplateVersionNotDefined"] = GenericErrorCodesTemplateVersionNotDefined;
+                _GenericErrorCodesMap["FileTooLarge"] = GenericErrorCodesFileTooLarge;
+                _GenericErrorCodesMap["TitleDeleted"] = GenericErrorCodesTitleDeleted;
+                _GenericErrorCodesMap["TitleContainsUserAccounts"] = GenericErrorCodesTitleContainsUserAccounts;
+                _GenericErrorCodesMap["TitleDeletionPlayerCleanupFailure"] = GenericErrorCodesTitleDeletionPlayerCleanupFailure;
+                _GenericErrorCodesMap["EntityFileOperationPending"] = GenericErrorCodesEntityFileOperationPending;
+                _GenericErrorCodesMap["NoEntityFileOperationPending"] = GenericErrorCodesNoEntityFileOperationPending;
+                _GenericErrorCodesMap["EntityProfileVersionMismatch"] = GenericErrorCodesEntityProfileVersionMismatch;
+                _GenericErrorCodesMap["TemplateVersionTooOld"] = GenericErrorCodesTemplateVersionTooOld;
+                _GenericErrorCodesMap["MembershipDefinitionInUse"] = GenericErrorCodesMembershipDefinitionInUse;
+                _GenericErrorCodesMap["PaymentPageNotConfigured"] = GenericErrorCodesPaymentPageNotConfigured;
+                _GenericErrorCodesMap["FailedLoginAttemptRateLimitExceeded"] = GenericErrorCodesFailedLoginAttemptRateLimitExceeded;
+                _GenericErrorCodesMap["EntityBlockedByGroup"] = GenericErrorCodesEntityBlockedByGroup;
+                _GenericErrorCodesMap["RoleDoesNotExist"] = GenericErrorCodesRoleDoesNotExist;
+                _GenericErrorCodesMap["EntityIsAlreadyMember"] = GenericErrorCodesEntityIsAlreadyMember;
+                _GenericErrorCodesMap["DuplicateRoleId"] = GenericErrorCodesDuplicateRoleId;
+                _GenericErrorCodesMap["GroupInvitationNotFound"] = GenericErrorCodesGroupInvitationNotFound;
+                _GenericErrorCodesMap["GroupApplicationNotFound"] = GenericErrorCodesGroupApplicationNotFound;
+                _GenericErrorCodesMap["OutstandingInvitationAcceptedInstead"] = GenericErrorCodesOutstandingInvitationAcceptedInstead;
+                _GenericErrorCodesMap["OutstandingApplicationAcceptedInstead"] = GenericErrorCodesOutstandingApplicationAcceptedInstead;
+                _GenericErrorCodesMap["RoleIsGroupDefaultMember"] = GenericErrorCodesRoleIsGroupDefaultMember;
+                _GenericErrorCodesMap["RoleIsGroupAdmin"] = GenericErrorCodesRoleIsGroupAdmin;
+                _GenericErrorCodesMap["RoleNameNotAvailable"] = GenericErrorCodesRoleNameNotAvailable;
+                _GenericErrorCodesMap["GroupNameNotAvailable"] = GenericErrorCodesGroupNameNotAvailable;
+                _GenericErrorCodesMap["EmailReportAlreadySent"] = GenericErrorCodesEmailReportAlreadySent;
+                _GenericErrorCodesMap["EmailReportRecipientBlacklisted"] = GenericErrorCodesEmailReportRecipientBlacklisted;
+
+            }
+
+            auto output = _GenericErrorCodesMap.find(obj.GetString());
+            if (output != _GenericErrorCodesMap.end())
+                return output->second;
+
+            return GenericErrorCodesSuccess; // Basically critical fail
+        }
+
         struct GetAllSegmentsRequest : public PlayFabBaseModel
         {
 
@@ -14659,6 +15771,62 @@ namespace PlayFabServerSdk
             }
         };
 
+        struct RevokeInventoryItem : public PlayFabBaseModel
+        {
+            AZStd::string CharacterId;
+            AZStd::string ItemInstanceId;
+            AZStd::string PlayFabId;
+
+            RevokeInventoryItem() :
+                PlayFabBaseModel(),
+                CharacterId(),
+                ItemInstanceId(),
+                PlayFabId()
+            {}
+
+            RevokeInventoryItem(const RevokeInventoryItem& src) :
+                PlayFabBaseModel(),
+                CharacterId(src.CharacterId),
+                ItemInstanceId(src.ItemInstanceId),
+                PlayFabId(src.PlayFabId)
+            {}
+
+            RevokeInventoryItem(const rapidjson::Value& obj) : RevokeInventoryItem()
+            {
+                readFromValue(obj);
+            }
+
+            ~RevokeInventoryItem()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (CharacterId.length() > 0) {
+                    writer.String("CharacterId");
+                    writer.String(CharacterId.c_str());
+                }
+                writer.String("ItemInstanceId");
+                writer.String(ItemInstanceId.c_str());
+                writer.String("PlayFabId");
+                writer.String(PlayFabId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator CharacterId_member = obj.FindMember("CharacterId");
+                if (CharacterId_member != obj.MemberEnd() && !CharacterId_member->value.IsNull()) CharacterId = CharacterId_member->value.GetString();
+                const Value::ConstMemberIterator ItemInstanceId_member = obj.FindMember("ItemInstanceId");
+                if (ItemInstanceId_member != obj.MemberEnd() && !ItemInstanceId_member->value.IsNull()) ItemInstanceId = ItemInstanceId_member->value.GetString();
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+
+                return true;
+            }
+        };
+
         struct RevokeInventoryItemRequest : public PlayFabBaseModel
         {
             AZStd::string CharacterId;
@@ -14710,6 +15878,158 @@ namespace PlayFabServerSdk
                 if (ItemInstanceId_member != obj.MemberEnd() && !ItemInstanceId_member->value.IsNull()) ItemInstanceId = ItemInstanceId_member->value.GetString();
                 const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
                 if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct RevokeInventoryItemsRequest : public PlayFabBaseModel
+        {
+            AZStd::vector<RevokeInventoryItem> Items; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+
+            RevokeInventoryItemsRequest() :
+                PlayFabBaseModel(),
+                Items()
+            {}
+
+            RevokeInventoryItemsRequest(const RevokeInventoryItemsRequest& src) :
+                PlayFabBaseModel(),
+                Items(src.Items)
+            {}
+
+            RevokeInventoryItemsRequest(const rapidjson::Value& obj) : RevokeInventoryItemsRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~RevokeInventoryItemsRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.String("Items");
+                writer.StartArray();
+                for (auto iter = Items.begin(); iter != Items.end(); iter++) {     // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
+                    iter->writeJSON(writer);
+                }
+                writer.EndArray();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Items_member = obj.FindMember("Items");
+                if (Items_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Items_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Items.push_back(RevokeInventoryItem(memberList[i]));
+                    }
+                }
+
+                return true;
+            }
+        };
+
+        struct RevokeItemError : public PlayFabBaseModel
+        {
+            Boxed<GenericErrorCodes> Error;
+            RevokeInventoryItem* Item;
+
+            RevokeItemError() :
+                PlayFabBaseModel(),
+                Error(),
+                Item(nullptr)
+            {}
+
+            RevokeItemError(const RevokeItemError& src) :
+                PlayFabBaseModel(),
+                Error(src.Error),
+                Item(src.Item ? new RevokeInventoryItem(*src.Item) : nullptr)
+            {}
+
+            RevokeItemError(const rapidjson::Value& obj) : RevokeItemError()
+            {
+                readFromValue(obj);
+            }
+
+            ~RevokeItemError()
+            {
+                if (Item != nullptr) delete Item;
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (Error.notNull()) {
+                    writer.String("Error");
+                    writeGenericErrorCodesEnumJSON(Error, writer);
+                }
+                if (Item != nullptr) {
+                    writer.String("Item");
+                    Item->writeJSON(writer);
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Error_member = obj.FindMember("Error");
+                if (Error_member != obj.MemberEnd() && !Error_member->value.IsNull()) Error = readGenericErrorCodesFromValue(Error_member->value);
+                const Value::ConstMemberIterator Item_member = obj.FindMember("Item");
+                if (Item_member != obj.MemberEnd() && !Item_member->value.IsNull()) Item = new RevokeInventoryItem(Item_member->value);
+
+                return true;
+            }
+        };
+
+        struct RevokeInventoryItemsResult : public PlayFabBaseModel
+        {
+            AZStd::vector<RevokeItemError> Errors; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+
+            RevokeInventoryItemsResult() :
+                PlayFabBaseModel(),
+                Errors()
+            {}
+
+            RevokeInventoryItemsResult(const RevokeInventoryItemsResult& src) :
+                PlayFabBaseModel(),
+                Errors(src.Errors)
+            {}
+
+            RevokeInventoryItemsResult(const rapidjson::Value& obj) : RevokeInventoryItemsResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~RevokeInventoryItemsResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (!Errors.empty()) {
+                    writer.String("Errors");
+                    writer.StartArray();
+                    for (auto iter = Errors.begin(); iter != Errors.end(); iter++) {     // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Errors_member = obj.FindMember("Errors");
+                if (Errors_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Errors_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Errors.push_back(RevokeItemError(memberList[i]));
+                    }
+                }
 
                 return true;
             }

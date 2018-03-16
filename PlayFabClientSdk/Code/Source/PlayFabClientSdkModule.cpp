@@ -4,6 +4,7 @@
 #include <platform_impl.h> // Resharper says this is unused, but it's still required in some less direct way
 #include "PlayFabClient_SettingsSysComponent.h"
 #include "PlayFabClient_ClientSysComponent.h"
+#include "PlayFabClient_EntitySysComponent.h"
 
 #include "PlayFabSettings.h"
 #include <PlayFabClientSdk/PlayFabError.h>
@@ -46,6 +47,7 @@ namespace PlayFabClientSdk
             m_descriptors.insert(m_descriptors.end(), {
                 PlayFabClient_SettingsSysComponent::CreateDescriptor(),
                 PlayFabClient_ClientSysComponent::CreateDescriptor(),
+                PlayFabClient_EntitySysComponent::CreateDescriptor(),
 
             });
         }
@@ -58,6 +60,7 @@ namespace PlayFabClientSdk
             return AZ::ComponentTypeList{
                 azrtti_typeid<PlayFabClient_SettingsSysComponent>(),
                 azrtti_typeid<PlayFabClient_ClientSysComponent>(),
+                azrtti_typeid<PlayFabClient_EntitySysComponent>(),
 
             };
         }
@@ -80,6 +83,11 @@ namespace PlayFabClientSdk
                 auto titleIdCvar = gEnv->pConsole->GetCVar("playfab_title_id");
                 if (titleIdCvar)
                     PlayFabSettings::playFabSettings->titleId = titleIdCvar->GetString();
+
+                // Set the server API secret key
+                auto secretKeyCvar = gEnv->pConsole->GetCVar("playfab_secret_key");
+                if (secretKeyCvar)
+                    PlayFabSettings::playFabSettings->developerSecretKey = secretKeyCvar->GetString();
 
                 // Set a default error handler
                 PlayFabSettings::playFabSettings->globalErrorHandler = &ExampleGlobalErrorHandler;

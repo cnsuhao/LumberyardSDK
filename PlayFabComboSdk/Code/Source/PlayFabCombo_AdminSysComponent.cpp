@@ -367,6 +367,10 @@ namespace PlayFabComboSdk
     {
         PlayFabAdminApi::RevokeInventoryItem(request, callback, errorCallback, customData);
     }
+    void PlayFabCombo_AdminSysComponent::RevokeInventoryItems(AdminModels::RevokeInventoryItemsRequest& request, ProcessApiCallback<AdminModels::RevokeInventoryItemsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabAdminApi::RevokeInventoryItems(request, callback, errorCallback, customData);
+    }
     void PlayFabCombo_AdminSysComponent::RunTask(AdminModels::RunTaskRequest& request, ProcessApiCallback<AdminModels::RunTaskResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabAdminApi::RunTask(request, callback, errorCallback, customData);

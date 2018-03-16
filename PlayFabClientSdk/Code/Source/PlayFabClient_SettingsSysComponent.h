@@ -28,6 +28,9 @@ namespace PlayFabClientSdk
         void SetTitleId(AZStd::string newTitleId) override;
         AZStd::string GetTitleId() override;
 
+        void SetDevSecretKey(AZStd::string newSecretKey) override;
+        AZStd::string GetDevSecretKey() override;
+
     protected:
         ////////////////////////////////////////////////////////////////////////
         // AZ::Component interface implementation
