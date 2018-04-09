@@ -3,7 +3,7 @@
     "Uuid": "59aceeb4fcdc4556859a00fdef51702b",
     "Name": "PlayFabClientSdk",
     "DisplayName": "PlayFab Lumberyard Client SDK",
-    "Version": "0.0.180316",
+    "Version": "0.0.180409",
     "LinkType": "Dynamic",
     "Summary": "PlayFab Lumberyard Client SDK can be used in your game client to connect to PlayFab services from a Lumberyard project",
     "Tags": ["PlayFab", "Account", "Authentication", "AWS", "BaaS", "Backend", "C++", "Chat", "ChatPlay", "Cloud", "Commerce", "Console", "Content", "Dedicated Server", "EC2", "Event", "Friends", "Games", "General", "Hosting", "IAP", "Leaderboard", "Lumberyard", "Matchmaking", "Messages", "Multiplayer", "Online", "Payments", "Platforms", "Players", "Plugins", "Samples", "Scale", "Scores", "Server", "Third Party", "Triggers"],

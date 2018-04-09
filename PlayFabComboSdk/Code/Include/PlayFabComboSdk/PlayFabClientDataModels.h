@@ -7251,6 +7251,7 @@ namespace PlayFabComboSdk
             OptionalBool isBanned;
             OptionalTime LastLogin;
             Boxed<UserOrigination> Origination;
+            EntityKey* TitlePlayerAccount;
 
             UserTitleInfo() :
                 PlayFabBaseModel(),
@@ -7260,7 +7261,8 @@ namespace PlayFabComboSdk
                 FirstLogin(),
                 isBanned(),
                 LastLogin(),
-                Origination()
+                Origination(),
+                TitlePlayerAccount(nullptr)
             {}
 
             UserTitleInfo(const UserTitleInfo& src) :
@@ -7271,7 +7273,8 @@ namespace PlayFabComboSdk
                 FirstLogin(src.FirstLogin),
                 isBanned(src.isBanned),
                 LastLogin(src.LastLogin),
-                Origination(src.Origination)
+                Origination(src.Origination),
+                TitlePlayerAccount(src.TitlePlayerAccount ? new EntityKey(*src.TitlePlayerAccount) : nullptr)
             {}
 
             UserTitleInfo(const rapidjson::Value& obj) : UserTitleInfo()
@@ -7281,6 +7284,7 @@ namespace PlayFabComboSdk
 
             ~UserTitleInfo()
             {
+                if (TitlePlayerAccount != nullptr) delete TitlePlayerAccount;
             }
 
             void writeJSON(PFStringJsonWriter& writer) const override
@@ -7312,6 +7316,10 @@ namespace PlayFabComboSdk
                     writer.String("Origination");
                     writeUserOriginationEnumJSON(Origination, writer);
                 }
+                if (TitlePlayerAccount != nullptr) {
+                    writer.String("TitlePlayerAccount");
+                    TitlePlayerAccount->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -7331,6 +7339,8 @@ namespace PlayFabComboSdk
                 if (LastLogin_member != obj.MemberEnd() && !LastLogin_member->value.IsNull()) LastLogin = readDatetime(LastLogin_member->value);
                 const Value::ConstMemberIterator Origination_member = obj.FindMember("Origination");
                 if (Origination_member != obj.MemberEnd() && !Origination_member->value.IsNull()) Origination = readUserOriginationFromValue(Origination_member->value);
+                const Value::ConstMemberIterator TitlePlayerAccount_member = obj.FindMember("TitlePlayerAccount");
+                if (TitlePlayerAccount_member != obj.MemberEnd() && !TitlePlayerAccount_member->value.IsNull()) TitlePlayerAccount = new EntityKey(TitlePlayerAccount_member->value);
 
                 return true;
             }

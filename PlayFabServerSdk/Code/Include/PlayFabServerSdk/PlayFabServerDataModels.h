@@ -1762,6 +1762,111 @@ namespace PlayFabServerSdk
             return UserOriginationOrganic; // Basically critical fail
         }
 
+        enum EntityTypes
+        {
+            EntityTypestitle,
+            EntityTypesmaster_player_account,
+            EntityTypestitle_player_account,
+            EntityTypescharacter,
+            EntityTypesgroup
+        };
+
+        inline void writeEntityTypesEnumJSON(EntityTypes enumVal, PFStringJsonWriter& writer)
+        {
+            switch (enumVal)
+            {
+            case EntityTypestitle: writer.String("title"); break;
+            case EntityTypesmaster_player_account: writer.String("master_player_account"); break;
+            case EntityTypestitle_player_account: writer.String("title_player_account"); break;
+            case EntityTypescharacter: writer.String("character"); break;
+            case EntityTypesgroup: writer.String("group"); break;
+
+            }
+        }
+
+        inline EntityTypes readEntityTypesFromValue(const rapidjson::Value& obj)
+        {
+            // #THIRD_KIND_PLAYFAB_GAME_STATE_DESERIALISATION_FIX: - The json response from the server for some enums may still be numeric
+            if (obj.IsNumber())
+                return static_cast<EntityTypes>(obj.GetInt());
+
+            static std::map<const char *, EntityTypes, PlayFabServerSdk::StringCompare> _EntityTypesMap;
+            if (_EntityTypesMap.size() == 0)
+            {
+                // Auto-generate the map on the first use
+                _EntityTypesMap["title"] = EntityTypestitle;
+                _EntityTypesMap["master_player_account"] = EntityTypesmaster_player_account;
+                _EntityTypesMap["title_player_account"] = EntityTypestitle_player_account;
+                _EntityTypesMap["character"] = EntityTypescharacter;
+                _EntityTypesMap["group"] = EntityTypesgroup;
+
+            }
+
+            auto output = _EntityTypesMap.find(obj.GetString());
+            if (output != _EntityTypesMap.end())
+                return output->second;
+
+            return EntityTypestitle; // Basically critical fail
+        }
+
+        struct EntityKey : public PlayFabBaseModel
+        {
+            AZStd::string Id;
+            Boxed<EntityTypes> Type;
+            AZStd::string TypeString;
+
+            EntityKey() :
+                PlayFabBaseModel(),
+                Id(),
+                Type(),
+                TypeString()
+            {}
+
+            EntityKey(const EntityKey& src) :
+                PlayFabBaseModel(),
+                Id(src.Id),
+                Type(src.Type),
+                TypeString(src.TypeString)
+            {}
+
+            EntityKey(const rapidjson::Value& obj) : EntityKey()
+            {
+                readFromValue(obj);
+            }
+
+            ~EntityKey()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.String("Id");
+                writer.String(Id.c_str());
+                if (Type.notNull()) {
+                    writer.String("Type");
+                    writeEntityTypesEnumJSON(Type, writer);
+                }
+                if (TypeString.length() > 0) {
+                    writer.String("TypeString");
+                    writer.String(TypeString.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Id_member = obj.FindMember("Id");
+                if (Id_member != obj.MemberEnd() && !Id_member->value.IsNull()) Id = Id_member->value.GetString();
+                const Value::ConstMemberIterator Type_member = obj.FindMember("Type");
+                if (Type_member != obj.MemberEnd() && !Type_member->value.IsNull()) Type = readEntityTypesFromValue(Type_member->value);
+                const Value::ConstMemberIterator TypeString_member = obj.FindMember("TypeString");
+                if (TypeString_member != obj.MemberEnd() && !TypeString_member->value.IsNull()) TypeString = TypeString_member->value.GetString();
+
+                return true;
+            }
+        };
+
         struct UserTitleInfo : public PlayFabBaseModel
         {
             AZStd::string AvatarUrl;
@@ -1771,6 +1876,7 @@ namespace PlayFabServerSdk
             OptionalBool isBanned;
             OptionalTime LastLogin;
             Boxed<UserOrigination> Origination;
+            EntityKey* TitlePlayerAccount;
 
             UserTitleInfo() :
                 PlayFabBaseModel(),
@@ -1780,7 +1886,8 @@ namespace PlayFabServerSdk
                 FirstLogin(),
                 isBanned(),
                 LastLogin(),
-                Origination()
+                Origination(),
+                TitlePlayerAccount(nullptr)
             {}
 
             UserTitleInfo(const UserTitleInfo& src) :
@@ -1791,7 +1898,8 @@ namespace PlayFabServerSdk
                 FirstLogin(src.FirstLogin),
                 isBanned(src.isBanned),
                 LastLogin(src.LastLogin),
-                Origination(src.Origination)
+                Origination(src.Origination),
+                TitlePlayerAccount(src.TitlePlayerAccount ? new EntityKey(*src.TitlePlayerAccount) : nullptr)
             {}
 
             UserTitleInfo(const rapidjson::Value& obj) : UserTitleInfo()
@@ -1801,6 +1909,7 @@ namespace PlayFabServerSdk
 
             ~UserTitleInfo()
             {
+                if (TitlePlayerAccount != nullptr) delete TitlePlayerAccount;
             }
 
             void writeJSON(PFStringJsonWriter& writer) const override
@@ -1832,6 +1941,10 @@ namespace PlayFabServerSdk
                     writer.String("Origination");
                     writeUserOriginationEnumJSON(Origination, writer);
                 }
+                if (TitlePlayerAccount != nullptr) {
+                    writer.String("TitlePlayerAccount");
+                    TitlePlayerAccount->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -1851,6 +1964,8 @@ namespace PlayFabServerSdk
                 if (LastLogin_member != obj.MemberEnd() && !LastLogin_member->value.IsNull()) LastLogin = readDatetime(LastLogin_member->value);
                 const Value::ConstMemberIterator Origination_member = obj.FindMember("Origination");
                 if (Origination_member != obj.MemberEnd() && !Origination_member->value.IsNull()) Origination = readUserOriginationFromValue(Origination_member->value);
+                const Value::ConstMemberIterator TitlePlayerAccount_member = obj.FindMember("TitlePlayerAccount");
+                if (TitlePlayerAccount_member != obj.MemberEnd() && !TitlePlayerAccount_member->value.IsNull()) TitlePlayerAccount = new EntityKey(TitlePlayerAccount_member->value);
 
                 return true;
             }
@@ -6969,7 +7084,9 @@ namespace PlayFabServerSdk
             GenericErrorCodesRoleNameNotAvailable,
             GenericErrorCodesGroupNameNotAvailable,
             GenericErrorCodesEmailReportAlreadySent,
-            GenericErrorCodesEmailReportRecipientBlacklisted
+            GenericErrorCodesEmailReportRecipientBlacklisted,
+            GenericErrorCodesEventNamespaceNotAllowed,
+            GenericErrorCodesEventEntityNotAllowed
         };
 
         inline void writeGenericErrorCodesEnumJSON(GenericErrorCodes enumVal, PFStringJsonWriter& writer)
@@ -7336,6 +7453,8 @@ namespace PlayFabServerSdk
             case GenericErrorCodesGroupNameNotAvailable: writer.String("GroupNameNotAvailable"); break;
             case GenericErrorCodesEmailReportAlreadySent: writer.String("EmailReportAlreadySent"); break;
             case GenericErrorCodesEmailReportRecipientBlacklisted: writer.String("EmailReportRecipientBlacklisted"); break;
+            case GenericErrorCodesEventNamespaceNotAllowed: writer.String("EventNamespaceNotAllowed"); break;
+            case GenericErrorCodesEventEntityNotAllowed: writer.String("EventEntityNotAllowed"); break;
 
             }
         }
@@ -7710,6 +7829,8 @@ namespace PlayFabServerSdk
                 _GenericErrorCodesMap["GroupNameNotAvailable"] = GenericErrorCodesGroupNameNotAvailable;
                 _GenericErrorCodesMap["EmailReportAlreadySent"] = GenericErrorCodesEmailReportAlreadySent;
                 _GenericErrorCodesMap["EmailReportRecipientBlacklisted"] = GenericErrorCodesEmailReportRecipientBlacklisted;
+                _GenericErrorCodesMap["EventNamespaceNotAllowed"] = GenericErrorCodesEventNamespaceNotAllowed;
+                _GenericErrorCodesMap["EventEntityNotAllowed"] = GenericErrorCodesEventEntityNotAllowed;
 
             }
 
