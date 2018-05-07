@@ -1902,6 +1902,115 @@ namespace PlayFabServerSdk
             }
         };
 
+        struct GetEntityProfilesRequest : public PlayFabBaseModel
+        {
+            OptionalBool DataAsObject;
+            AZStd::vector<EntityKey> Entities; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+
+            GetEntityProfilesRequest() :
+                PlayFabBaseModel(),
+                DataAsObject(),
+                Entities()
+            {}
+
+            GetEntityProfilesRequest(const GetEntityProfilesRequest& src) :
+                PlayFabBaseModel(),
+                DataAsObject(src.DataAsObject),
+                Entities(src.Entities)
+            {}
+
+            GetEntityProfilesRequest(const rapidjson::Value& obj) : GetEntityProfilesRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetEntityProfilesRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (DataAsObject.notNull()) {
+                    writer.String("DataAsObject");
+                    writer.Bool(DataAsObject);
+                }
+                writer.String("Entities");
+                writer.StartArray();
+                for (auto iter = Entities.begin(); iter != Entities.end(); iter++) {     // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
+                    iter->writeJSON(writer);
+                }
+                writer.EndArray();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator DataAsObject_member = obj.FindMember("DataAsObject");
+                if (DataAsObject_member != obj.MemberEnd() && !DataAsObject_member->value.IsNull()) DataAsObject = DataAsObject_member->value.GetBool();
+                const Value::ConstMemberIterator Entities_member = obj.FindMember("Entities");
+                if (Entities_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Entities_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Entities.push_back(EntityKey(memberList[i]));
+                    }
+                }
+
+                return true;
+            }
+        };
+
+        struct GetEntityProfilesResponse : public PlayFabBaseModel
+        {
+            AZStd::vector<EntityProfileBody> Profiles; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+
+            GetEntityProfilesResponse() :
+                PlayFabBaseModel(),
+                Profiles()
+            {}
+
+            GetEntityProfilesResponse(const GetEntityProfilesResponse& src) :
+                PlayFabBaseModel(),
+                Profiles(src.Profiles)
+            {}
+
+            GetEntityProfilesResponse(const rapidjson::Value& obj) : GetEntityProfilesResponse()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetEntityProfilesResponse()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (!Profiles.empty()) {
+                    writer.String("Profiles");
+                    writer.StartArray();
+                    for (auto iter = Profiles.begin(); iter != Profiles.end(); iter++) {     // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Profiles_member = obj.FindMember("Profiles");
+                if (Profiles_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Profiles_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Profiles.push_back(EntityProfileBody(memberList[i]));
+                    }
+                }
+
+                return true;
+            }
+        };
+
         struct GetEntityTokenRequest : public PlayFabBaseModel
         {
             EntityKey* Entity;

@@ -17386,6 +17386,7 @@ namespace PlayFabComboSdk
 
         struct RegisterPlayFabUserResult : public PlayFabBaseModel
         {
+            EntityTokenResponse* EntityToken;
             AZStd::string PlayFabId;
             AZStd::string SessionTicket;
             UserSettings* SettingsForUser;
@@ -17393,6 +17394,7 @@ namespace PlayFabComboSdk
 
             RegisterPlayFabUserResult() :
                 PlayFabBaseModel(),
+                EntityToken(nullptr),
                 PlayFabId(),
                 SessionTicket(),
                 SettingsForUser(nullptr),
@@ -17401,6 +17403,7 @@ namespace PlayFabComboSdk
 
             RegisterPlayFabUserResult(const RegisterPlayFabUserResult& src) :
                 PlayFabBaseModel(),
+                EntityToken(src.EntityToken ? new EntityTokenResponse(*src.EntityToken) : nullptr),
                 PlayFabId(src.PlayFabId),
                 SessionTicket(src.SessionTicket),
                 SettingsForUser(src.SettingsForUser ? new UserSettings(*src.SettingsForUser) : nullptr),
@@ -17414,12 +17417,17 @@ namespace PlayFabComboSdk
 
             ~RegisterPlayFabUserResult()
             {
+                if (EntityToken != nullptr) delete EntityToken;
                 if (SettingsForUser != nullptr) delete SettingsForUser;
             }
 
             void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
+                if (EntityToken != nullptr) {
+                    writer.String("EntityToken");
+                    EntityToken->writeJSON(writer);
+                }
                 if (PlayFabId.length() > 0) {
                     writer.String("PlayFabId");
                     writer.String(PlayFabId.c_str());
@@ -17441,6 +17449,8 @@ namespace PlayFabComboSdk
 
             bool readFromValue(const rapidjson::Value& obj) override
             {
+                const Value::ConstMemberIterator EntityToken_member = obj.FindMember("EntityToken");
+                if (EntityToken_member != obj.MemberEnd() && !EntityToken_member->value.IsNull()) EntityToken = new EntityTokenResponse(EntityToken_member->value);
                 const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
                 if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
                 const Value::ConstMemberIterator SessionTicket_member = obj.FindMember("SessionTicket");

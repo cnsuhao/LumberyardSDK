@@ -147,6 +147,10 @@ namespace PlayFabComboSdk
     {
         PlayFabEntityApi::GetProfile(request, callback, errorCallback, customData);
     }
+    void PlayFabCombo_EntitySysComponent::GetProfiles(EntityModels::GetEntityProfilesRequest& request, ProcessApiCallback<EntityModels::GetEntityProfilesResponse> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabEntityApi::GetProfiles(request, callback, errorCallback, customData);
+    }
     void PlayFabCombo_EntitySysComponent::InitiateFileUploads(EntityModels::InitiateFileUploadsRequest& request, ProcessApiCallback<EntityModels::InitiateFileUploadsResponse> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabEntityApi::InitiateFileUploads(request, callback, errorCallback, customData);

@@ -577,6 +577,36 @@ void PlayFabEntityApi::OnGetProfileResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabEntityApi::GetProfiles(
+    EntityModels::GetEntityProfilesRequest& request,
+    ProcessApiCallback<EntityModels::GetEntityProfilesResponse> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Profile/GetProfiles"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnGetProfilesResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabEntityApi::OnGetProfilesResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        EntityModels::GetEntityProfilesResponse* outResult = new EntityModels::GetEntityProfilesResponse;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<EntityModels::GetEntityProfilesResponse> successCallback = reinterpret_cast<ProcessApiCallback<EntityModels::GetEntityProfilesResponse>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabEntityApi::InitiateFileUploads(
     EntityModels::InitiateFileUploadsRequest& request,
     ProcessApiCallback<EntityModels::InitiateFileUploadsResponse> callback,
