@@ -4771,6 +4771,106 @@ namespace PlayFabServerSdk
             }
         };
 
+        struct DeleteMasterPlayerAccountRequest : public PlayFabBaseModel
+        {
+            AZStd::string PlayFabId;
+
+            DeleteMasterPlayerAccountRequest() :
+                PlayFabBaseModel(),
+                PlayFabId()
+            {}
+
+            DeleteMasterPlayerAccountRequest(const DeleteMasterPlayerAccountRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId)
+            {}
+
+            DeleteMasterPlayerAccountRequest(const rapidjson::Value& obj) : DeleteMasterPlayerAccountRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~DeleteMasterPlayerAccountRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.String("PlayFabId");
+                writer.String(PlayFabId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct DeleteMasterPlayerAccountResult : public PlayFabBaseModel
+        {
+            AZStd::string JobReceiptId;
+            AZStd::vector<AZStd::string> TitleIds; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+
+            DeleteMasterPlayerAccountResult() :
+                PlayFabBaseModel(),
+                JobReceiptId(),
+                TitleIds()
+            {}
+
+            DeleteMasterPlayerAccountResult(const DeleteMasterPlayerAccountResult& src) :
+                PlayFabBaseModel(),
+                JobReceiptId(src.JobReceiptId),
+                TitleIds(src.TitleIds)
+            {}
+
+            DeleteMasterPlayerAccountResult(const rapidjson::Value& obj) : DeleteMasterPlayerAccountResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~DeleteMasterPlayerAccountResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (JobReceiptId.length() > 0) {
+                    writer.String("JobReceiptId");
+                    writer.String(JobReceiptId.c_str());
+                }
+                if (!TitleIds.empty()) {
+                    writer.String("TitleIds");
+                    writer.StartArray();
+                    for (auto iter = TitleIds.begin(); iter != TitleIds.end(); iter++) {     // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator JobReceiptId_member = obj.FindMember("JobReceiptId");
+                if (JobReceiptId_member != obj.MemberEnd() && !JobReceiptId_member->value.IsNull()) JobReceiptId = JobReceiptId_member->value.GetString();
+                const Value::ConstMemberIterator TitleIds_member = obj.FindMember("TitleIds");
+                if (TitleIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = TitleIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        TitleIds.push_back(memberList[i].GetString());
+                    }
+                }
+
+                return true;
+            }
+        };
+
         struct DeletePlayerRequest : public PlayFabBaseModel
         {
             AZStd::string PlayFabId;
@@ -5276,7 +5376,8 @@ namespace PlayFabServerSdk
             EntityTypesmaster_player_account,
             EntityTypestitle_player_account,
             EntityTypescharacter,
-            EntityTypesgroup
+            EntityTypesgroup,
+            EntityTypesservice
         };
 
         inline void writeEntityTypesEnumJSON(EntityTypes enumVal, PFStringJsonWriter& writer)
@@ -5288,6 +5389,7 @@ namespace PlayFabServerSdk
             case EntityTypestitle_player_account: writer.String("title_player_account"); break;
             case EntityTypescharacter: writer.String("character"); break;
             case EntityTypesgroup: writer.String("group"); break;
+            case EntityTypesservice: writer.String("service"); break;
 
             }
         }
@@ -5307,6 +5409,7 @@ namespace PlayFabServerSdk
                 _EntityTypesMap["title_player_account"] = EntityTypestitle_player_account;
                 _EntityTypesMap["character"] = EntityTypescharacter;
                 _EntityTypesMap["group"] = EntityTypesgroup;
+                _EntityTypesMap["service"] = EntityTypesservice;
 
             }
 
@@ -5370,6 +5473,88 @@ namespace PlayFabServerSdk
                 if (Type_member != obj.MemberEnd() && !Type_member->value.IsNull()) Type = readEntityTypesFromValue(Type_member->value);
                 const Value::ConstMemberIterator TypeString_member = obj.FindMember("TypeString");
                 if (TypeString_member != obj.MemberEnd() && !TypeString_member->value.IsNull()) TypeString = TypeString_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct ExportMasterPlayerDataRequest : public PlayFabBaseModel
+        {
+            AZStd::string PlayFabId;
+
+            ExportMasterPlayerDataRequest() :
+                PlayFabBaseModel(),
+                PlayFabId()
+            {}
+
+            ExportMasterPlayerDataRequest(const ExportMasterPlayerDataRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId)
+            {}
+
+            ExportMasterPlayerDataRequest(const rapidjson::Value& obj) : ExportMasterPlayerDataRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~ExportMasterPlayerDataRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.String("PlayFabId");
+                writer.String(PlayFabId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct ExportMasterPlayerDataResult : public PlayFabBaseModel
+        {
+            AZStd::string JobReceiptId;
+
+            ExportMasterPlayerDataResult() :
+                PlayFabBaseModel(),
+                JobReceiptId()
+            {}
+
+            ExportMasterPlayerDataResult(const ExportMasterPlayerDataResult& src) :
+                PlayFabBaseModel(),
+                JobReceiptId(src.JobReceiptId)
+            {}
+
+            ExportMasterPlayerDataResult(const rapidjson::Value& obj) : ExportMasterPlayerDataResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~ExportMasterPlayerDataResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (JobReceiptId.length() > 0) {
+                    writer.String("JobReceiptId");
+                    writer.String(JobReceiptId.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator JobReceiptId_member = obj.FindMember("JobReceiptId");
+                if (JobReceiptId_member != obj.MemberEnd() && !JobReceiptId_member->value.IsNull()) JobReceiptId = JobReceiptId_member->value.GetString();
 
                 return true;
             }
@@ -5808,7 +5993,17 @@ namespace PlayFabServerSdk
             GenericErrorCodesInvalidTokenResultFromAad,
             GenericErrorCodesNoValidCertificateForAad,
             GenericErrorCodesInvalidCertificateForAad,
-            GenericErrorCodesDuplicateDropTableId
+            GenericErrorCodesDuplicateDropTableId,
+            GenericErrorCodesComputeOK,
+            GenericErrorCodesComputeAccepted,
+            GenericErrorCodesComputeNoContent,
+            GenericErrorCodesComputeBadRequest,
+            GenericErrorCodesComputeUnauthorized,
+            GenericErrorCodesComputeForbidden,
+            GenericErrorCodesComputeNotFound,
+            GenericErrorCodesComputeConflict,
+            GenericErrorCodesComputeInternalServerError,
+            GenericErrorCodesComputeServiceUnavailable
         };
 
         inline void writeGenericErrorCodesEnumJSON(GenericErrorCodes enumVal, PFStringJsonWriter& writer)
@@ -6184,6 +6379,16 @@ namespace PlayFabServerSdk
             case GenericErrorCodesNoValidCertificateForAad: writer.String("NoValidCertificateForAad"); break;
             case GenericErrorCodesInvalidCertificateForAad: writer.String("InvalidCertificateForAad"); break;
             case GenericErrorCodesDuplicateDropTableId: writer.String("DuplicateDropTableId"); break;
+            case GenericErrorCodesComputeOK: writer.String("ComputeOK"); break;
+            case GenericErrorCodesComputeAccepted: writer.String("ComputeAccepted"); break;
+            case GenericErrorCodesComputeNoContent: writer.String("ComputeNoContent"); break;
+            case GenericErrorCodesComputeBadRequest: writer.String("ComputeBadRequest"); break;
+            case GenericErrorCodesComputeUnauthorized: writer.String("ComputeUnauthorized"); break;
+            case GenericErrorCodesComputeForbidden: writer.String("ComputeForbidden"); break;
+            case GenericErrorCodesComputeNotFound: writer.String("ComputeNotFound"); break;
+            case GenericErrorCodesComputeConflict: writer.String("ComputeConflict"); break;
+            case GenericErrorCodesComputeInternalServerError: writer.String("ComputeInternalServerError"); break;
+            case GenericErrorCodesComputeServiceUnavailable: writer.String("ComputeServiceUnavailable"); break;
 
             }
         }
@@ -6567,6 +6772,16 @@ namespace PlayFabServerSdk
                 _GenericErrorCodesMap["NoValidCertificateForAad"] = GenericErrorCodesNoValidCertificateForAad;
                 _GenericErrorCodesMap["InvalidCertificateForAad"] = GenericErrorCodesInvalidCertificateForAad;
                 _GenericErrorCodesMap["DuplicateDropTableId"] = GenericErrorCodesDuplicateDropTableId;
+                _GenericErrorCodesMap["ComputeOK"] = GenericErrorCodesComputeOK;
+                _GenericErrorCodesMap["ComputeAccepted"] = GenericErrorCodesComputeAccepted;
+                _GenericErrorCodesMap["ComputeNoContent"] = GenericErrorCodesComputeNoContent;
+                _GenericErrorCodesMap["ComputeBadRequest"] = GenericErrorCodesComputeBadRequest;
+                _GenericErrorCodesMap["ComputeUnauthorized"] = GenericErrorCodesComputeUnauthorized;
+                _GenericErrorCodesMap["ComputeForbidden"] = GenericErrorCodesComputeForbidden;
+                _GenericErrorCodesMap["ComputeNotFound"] = GenericErrorCodesComputeNotFound;
+                _GenericErrorCodesMap["ComputeConflict"] = GenericErrorCodesComputeConflict;
+                _GenericErrorCodesMap["ComputeInternalServerError"] = GenericErrorCodesComputeInternalServerError;
+                _GenericErrorCodesMap["ComputeServiceUnavailable"] = GenericErrorCodesComputeServiceUnavailable;
 
             }
 
@@ -7685,6 +7900,97 @@ namespace PlayFabServerSdk
                     const rapidjson::Value& memberList = GameModes_member->value;
                     for (SizeType i = 0; i < memberList.Size(); i++) {
                         GameModes.push_back(GameModeInfo(memberList[i]));
+                    }
+                }
+
+                return true;
+            }
+        };
+
+        struct GetPlayedTitleListRequest : public PlayFabBaseModel
+        {
+            AZStd::string PlayFabId;
+
+            GetPlayedTitleListRequest() :
+                PlayFabBaseModel(),
+                PlayFabId()
+            {}
+
+            GetPlayedTitleListRequest(const GetPlayedTitleListRequest& src) :
+                PlayFabBaseModel(),
+                PlayFabId(src.PlayFabId)
+            {}
+
+            GetPlayedTitleListRequest(const rapidjson::Value& obj) : GetPlayedTitleListRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayedTitleListRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.String("PlayFabId");
+                writer.String(PlayFabId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct GetPlayedTitleListResult : public PlayFabBaseModel
+        {
+            AZStd::vector<AZStd::string> TitleIds; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+
+            GetPlayedTitleListResult() :
+                PlayFabBaseModel(),
+                TitleIds()
+            {}
+
+            GetPlayedTitleListResult(const GetPlayedTitleListResult& src) :
+                PlayFabBaseModel(),
+                TitleIds(src.TitleIds)
+            {}
+
+            GetPlayedTitleListResult(const rapidjson::Value& obj) : GetPlayedTitleListResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayedTitleListResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (!TitleIds.empty()) {
+                    writer.String("TitleIds");
+                    writer.StartArray();
+                    for (auto iter = TitleIds.begin(); iter != TitleIds.end(); iter++) {     // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
+                        writer.String(iter->c_str());
+                    }
+                    writer.EndArray();
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator TitleIds_member = obj.FindMember("TitleIds");
+                if (TitleIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = TitleIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        TitleIds.push_back(memberList[i].GetString());
                     }
                 }
 

@@ -6,8 +6,8 @@ using namespace PlayFabClientSdk;
 PlayFabSettings * PlayFabSettings::playFabSettings = nullptr; // Global settings for all Apis
 
 PlayFabSettings::PlayFabSettings() :
-    playFabVersionString("LumberyardSDK-0.0.180507"),
-    buildIdentifier("jbuild_lumberyardsdk_0"),
+    playFabVersionString("LumberyardSDK-0.0.180529"),
+    buildIdentifier("jbuild_lumberyardsdk_1"),
     useDevelopmentEnvironment(false),
     developmentEnvironmentURL(".playfabsandbox.com"),
     productionEnvironmentURL(".playfabapi.com"),

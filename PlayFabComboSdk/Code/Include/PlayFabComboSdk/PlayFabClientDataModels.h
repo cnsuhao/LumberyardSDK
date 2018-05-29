@@ -4616,7 +4616,8 @@ namespace PlayFabComboSdk
             EntityTypesmaster_player_account,
             EntityTypestitle_player_account,
             EntityTypescharacter,
-            EntityTypesgroup
+            EntityTypesgroup,
+            EntityTypesservice
         };
 
         inline void writeEntityTypesEnumJSON(EntityTypes enumVal, PFStringJsonWriter& writer)
@@ -4628,6 +4629,7 @@ namespace PlayFabComboSdk
             case EntityTypestitle_player_account: writer.String("title_player_account"); break;
             case EntityTypescharacter: writer.String("character"); break;
             case EntityTypesgroup: writer.String("group"); break;
+            case EntityTypesservice: writer.String("service"); break;
 
             }
         }
@@ -4647,6 +4649,7 @@ namespace PlayFabComboSdk
                 _EntityTypesMap["title_player_account"] = EntityTypestitle_player_account;
                 _EntityTypesMap["character"] = EntityTypescharacter;
                 _EntityTypesMap["group"] = EntityTypesgroup;
+                _EntityTypesMap["service"] = EntityTypesservice;
 
             }
 
@@ -6235,6 +6238,57 @@ namespace PlayFabComboSdk
             }
         };
 
+        struct UserPsnInfo : public PlayFabBaseModel
+        {
+            AZStd::string PsnAccountId;
+            AZStd::string PsnOnlineId;
+
+            UserPsnInfo() :
+                PlayFabBaseModel(),
+                PsnAccountId(),
+                PsnOnlineId()
+            {}
+
+            UserPsnInfo(const UserPsnInfo& src) :
+                PlayFabBaseModel(),
+                PsnAccountId(src.PsnAccountId),
+                PsnOnlineId(src.PsnOnlineId)
+            {}
+
+            UserPsnInfo(const rapidjson::Value& obj) : UserPsnInfo()
+            {
+                readFromValue(obj);
+            }
+
+            ~UserPsnInfo()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (PsnAccountId.length() > 0) {
+                    writer.String("PsnAccountId");
+                    writer.String(PsnAccountId.c_str());
+                }
+                if (PsnOnlineId.length() > 0) {
+                    writer.String("PsnOnlineId");
+                    writer.String(PsnOnlineId.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator PsnAccountId_member = obj.FindMember("PsnAccountId");
+                if (PsnAccountId_member != obj.MemberEnd() && !PsnAccountId_member->value.IsNull()) PsnAccountId = PsnAccountId_member->value.GetString();
+                const Value::ConstMemberIterator PsnOnlineId_member = obj.FindMember("PsnOnlineId");
+                if (PsnOnlineId_member != obj.MemberEnd() && !PsnOnlineId_member->value.IsNull()) PsnOnlineId = PsnOnlineId_member->value.GetString();
+
+                return true;
+            }
+        };
+
         enum TitleActivationStatus
         {
             TitleActivationStatusNone,
@@ -6351,6 +6405,48 @@ namespace PlayFabComboSdk
             }
         };
 
+        struct UserXboxInfo : public PlayFabBaseModel
+        {
+            AZStd::string XboxUserId;
+
+            UserXboxInfo() :
+                PlayFabBaseModel(),
+                XboxUserId()
+            {}
+
+            UserXboxInfo(const UserXboxInfo& src) :
+                PlayFabBaseModel(),
+                XboxUserId(src.XboxUserId)
+            {}
+
+            UserXboxInfo(const rapidjson::Value& obj) : UserXboxInfo()
+            {
+                readFromValue(obj);
+            }
+
+            ~UserXboxInfo()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (XboxUserId.length() > 0) {
+                    writer.String("XboxUserId");
+                    writer.String(XboxUserId.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator XboxUserId_member = obj.FindMember("XboxUserId");
+                if (XboxUserId_member != obj.MemberEnd() && !XboxUserId_member->value.IsNull()) XboxUserId = XboxUserId_member->value.GetString();
+
+                return true;
+            }
+        };
+
         struct FriendInfo : public PlayFabBaseModel
         {
             AZStd::string CurrentMatchmakerLobbyId;
@@ -6358,10 +6454,12 @@ namespace PlayFabComboSdk
             AZStd::string FriendPlayFabId;
             UserGameCenterInfo* GameCenterInfo;
             PlayerProfileModel* Profile;
+            UserPsnInfo* PSNInfo;
             UserSteamInfo* SteamInfo;
             AZStd::vector<AZStd::string> Tags; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             AZStd::string TitleDisplayName;
             AZStd::string Username;
+            UserXboxInfo* XboxInfo;
 
             FriendInfo() :
                 PlayFabBaseModel(),
@@ -6370,10 +6468,12 @@ namespace PlayFabComboSdk
                 FriendPlayFabId(),
                 GameCenterInfo(nullptr),
                 Profile(nullptr),
+                PSNInfo(nullptr),
                 SteamInfo(nullptr),
                 Tags(),
                 TitleDisplayName(),
-                Username()
+                Username(),
+                XboxInfo(nullptr)
             {}
 
             FriendInfo(const FriendInfo& src) :
@@ -6383,10 +6483,12 @@ namespace PlayFabComboSdk
                 FriendPlayFabId(src.FriendPlayFabId),
                 GameCenterInfo(src.GameCenterInfo ? new UserGameCenterInfo(*src.GameCenterInfo) : nullptr),
                 Profile(src.Profile ? new PlayerProfileModel(*src.Profile) : nullptr),
+                PSNInfo(src.PSNInfo ? new UserPsnInfo(*src.PSNInfo) : nullptr),
                 SteamInfo(src.SteamInfo ? new UserSteamInfo(*src.SteamInfo) : nullptr),
                 Tags(src.Tags),
                 TitleDisplayName(src.TitleDisplayName),
-                Username(src.Username)
+                Username(src.Username),
+                XboxInfo(src.XboxInfo ? new UserXboxInfo(*src.XboxInfo) : nullptr)
             {}
 
             FriendInfo(const rapidjson::Value& obj) : FriendInfo()
@@ -6399,7 +6501,9 @@ namespace PlayFabComboSdk
                 if (FacebookInfo != nullptr) delete FacebookInfo;
                 if (GameCenterInfo != nullptr) delete GameCenterInfo;
                 if (Profile != nullptr) delete Profile;
+                if (PSNInfo != nullptr) delete PSNInfo;
                 if (SteamInfo != nullptr) delete SteamInfo;
+                if (XboxInfo != nullptr) delete XboxInfo;
             }
 
             void writeJSON(PFStringJsonWriter& writer) const override
@@ -6425,6 +6529,10 @@ namespace PlayFabComboSdk
                     writer.String("Profile");
                     Profile->writeJSON(writer);
                 }
+                if (PSNInfo != nullptr) {
+                    writer.String("PSNInfo");
+                    PSNInfo->writeJSON(writer);
+                }
                 if (SteamInfo != nullptr) {
                     writer.String("SteamInfo");
                     SteamInfo->writeJSON(writer);
@@ -6445,6 +6553,10 @@ namespace PlayFabComboSdk
                     writer.String("Username");
                     writer.String(Username.c_str());
                 }
+                if (XboxInfo != nullptr) {
+                    writer.String("XboxInfo");
+                    XboxInfo->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -6460,6 +6572,8 @@ namespace PlayFabComboSdk
                 if (GameCenterInfo_member != obj.MemberEnd() && !GameCenterInfo_member->value.IsNull()) GameCenterInfo = new UserGameCenterInfo(GameCenterInfo_member->value);
                 const Value::ConstMemberIterator Profile_member = obj.FindMember("Profile");
                 if (Profile_member != obj.MemberEnd() && !Profile_member->value.IsNull()) Profile = new PlayerProfileModel(Profile_member->value);
+                const Value::ConstMemberIterator PSNInfo_member = obj.FindMember("PSNInfo");
+                if (PSNInfo_member != obj.MemberEnd() && !PSNInfo_member->value.IsNull()) PSNInfo = new UserPsnInfo(PSNInfo_member->value);
                 const Value::ConstMemberIterator SteamInfo_member = obj.FindMember("SteamInfo");
                 if (SteamInfo_member != obj.MemberEnd() && !SteamInfo_member->value.IsNull()) SteamInfo = new UserSteamInfo(SteamInfo_member->value);
                 const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
@@ -6473,6 +6587,8 @@ namespace PlayFabComboSdk
                 if (TitleDisplayName_member != obj.MemberEnd() && !TitleDisplayName_member->value.IsNull()) TitleDisplayName = TitleDisplayName_member->value.GetString();
                 const Value::ConstMemberIterator Username_member = obj.FindMember("Username");
                 if (Username_member != obj.MemberEnd() && !Username_member->value.IsNull()) Username = Username_member->value.GetString();
+                const Value::ConstMemberIterator XboxInfo_member = obj.FindMember("XboxInfo");
+                if (XboxInfo_member != obj.MemberEnd() && !XboxInfo_member->value.IsNull()) XboxInfo = new UserXboxInfo(XboxInfo_member->value);
 
                 return true;
             }
@@ -7105,57 +7221,6 @@ namespace PlayFabComboSdk
             }
         };
 
-        struct UserPsnInfo : public PlayFabBaseModel
-        {
-            AZStd::string PsnAccountId;
-            AZStd::string PsnOnlineId;
-
-            UserPsnInfo() :
-                PlayFabBaseModel(),
-                PsnAccountId(),
-                PsnOnlineId()
-            {}
-
-            UserPsnInfo(const UserPsnInfo& src) :
-                PlayFabBaseModel(),
-                PsnAccountId(src.PsnAccountId),
-                PsnOnlineId(src.PsnOnlineId)
-            {}
-
-            UserPsnInfo(const rapidjson::Value& obj) : UserPsnInfo()
-            {
-                readFromValue(obj);
-            }
-
-            ~UserPsnInfo()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) const override
-            {
-                writer.StartObject();
-                if (PsnAccountId.length() > 0) {
-                    writer.String("PsnAccountId");
-                    writer.String(PsnAccountId.c_str());
-                }
-                if (PsnOnlineId.length() > 0) {
-                    writer.String("PsnOnlineId");
-                    writer.String(PsnOnlineId.c_str());
-                }
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator PsnAccountId_member = obj.FindMember("PsnAccountId");
-                if (PsnAccountId_member != obj.MemberEnd() && !PsnAccountId_member->value.IsNull()) PsnAccountId = PsnAccountId_member->value.GetString();
-                const Value::ConstMemberIterator PsnOnlineId_member = obj.FindMember("PsnOnlineId");
-                if (PsnOnlineId_member != obj.MemberEnd() && !PsnOnlineId_member->value.IsNull()) PsnOnlineId = PsnOnlineId_member->value.GetString();
-
-                return true;
-            }
-        };
-
         enum UserOrigination
         {
             UserOriginationOrganic,
@@ -7392,48 +7457,6 @@ namespace PlayFabComboSdk
                 if (TwitchId_member != obj.MemberEnd() && !TwitchId_member->value.IsNull()) TwitchId = TwitchId_member->value.GetString();
                 const Value::ConstMemberIterator TwitchUserName_member = obj.FindMember("TwitchUserName");
                 if (TwitchUserName_member != obj.MemberEnd() && !TwitchUserName_member->value.IsNull()) TwitchUserName = TwitchUserName_member->value.GetString();
-
-                return true;
-            }
-        };
-
-        struct UserXboxInfo : public PlayFabBaseModel
-        {
-            AZStd::string XboxUserId;
-
-            UserXboxInfo() :
-                PlayFabBaseModel(),
-                XboxUserId()
-            {}
-
-            UserXboxInfo(const UserXboxInfo& src) :
-                PlayFabBaseModel(),
-                XboxUserId(src.XboxUserId)
-            {}
-
-            UserXboxInfo(const rapidjson::Value& obj) : UserXboxInfo()
-            {
-                readFromValue(obj);
-            }
-
-            ~UserXboxInfo()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) const override
-            {
-                writer.StartObject();
-                if (XboxUserId.length() > 0) {
-                    writer.String("XboxUserId");
-                    writer.String(XboxUserId.c_str());
-                }
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator XboxUserId_member = obj.FindMember("XboxUserId");
-                if (XboxUserId_member != obj.MemberEnd() && !XboxUserId_member->value.IsNull()) XboxUserId = XboxUserId_member->value.GetString();
 
                 return true;
             }
@@ -8662,6 +8685,7 @@ namespace PlayFabComboSdk
             PlayerProfileViewConstraints* ProfileConstraints;
             AZStd::string StatisticName;
             OptionalInt32 Version;
+            AZStd::string XboxToken;
 
             GetFriendLeaderboardAroundPlayerRequest() :
                 PlayFabBaseModel(),
@@ -8671,7 +8695,8 @@ namespace PlayFabComboSdk
                 PlayFabId(),
                 ProfileConstraints(nullptr),
                 StatisticName(),
-                Version()
+                Version(),
+                XboxToken()
             {}
 
             GetFriendLeaderboardAroundPlayerRequest(const GetFriendLeaderboardAroundPlayerRequest& src) :
@@ -8682,7 +8707,8 @@ namespace PlayFabComboSdk
                 PlayFabId(src.PlayFabId),
                 ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr),
                 StatisticName(src.StatisticName),
-                Version(src.Version)
+                Version(src.Version),
+                XboxToken(src.XboxToken)
             {}
 
             GetFriendLeaderboardAroundPlayerRequest(const rapidjson::Value& obj) : GetFriendLeaderboardAroundPlayerRequest()
@@ -8724,6 +8750,10 @@ namespace PlayFabComboSdk
                     writer.String("Version");
                     writer.Int(Version);
                 }
+                if (XboxToken.length() > 0) {
+                    writer.String("XboxToken");
+                    writer.String(XboxToken.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -8743,6 +8773,8 @@ namespace PlayFabComboSdk
                 if (StatisticName_member != obj.MemberEnd() && !StatisticName_member->value.IsNull()) StatisticName = StatisticName_member->value.GetString();
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
+                const Value::ConstMemberIterator XboxToken_member = obj.FindMember("XboxToken");
+                if (XboxToken_member != obj.MemberEnd() && !XboxToken_member->value.IsNull()) XboxToken = XboxToken_member->value.GetString();
 
                 return true;
             }
@@ -8899,6 +8931,7 @@ namespace PlayFabComboSdk
             Int32 StartPosition;
             AZStd::string StatisticName;
             OptionalInt32 Version;
+            AZStd::string XboxToken;
 
             GetFriendLeaderboardRequest() :
                 PlayFabBaseModel(),
@@ -8908,7 +8941,8 @@ namespace PlayFabComboSdk
                 ProfileConstraints(nullptr),
                 StartPosition(0),
                 StatisticName(),
-                Version()
+                Version(),
+                XboxToken()
             {}
 
             GetFriendLeaderboardRequest(const GetFriendLeaderboardRequest& src) :
@@ -8919,7 +8953,8 @@ namespace PlayFabComboSdk
                 ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr),
                 StartPosition(src.StartPosition),
                 StatisticName(src.StatisticName),
-                Version(src.Version)
+                Version(src.Version),
+                XboxToken(src.XboxToken)
             {}
 
             GetFriendLeaderboardRequest(const rapidjson::Value& obj) : GetFriendLeaderboardRequest()
@@ -8959,6 +8994,10 @@ namespace PlayFabComboSdk
                     writer.String("Version");
                     writer.Int(Version);
                 }
+                if (XboxToken.length() > 0) {
+                    writer.String("XboxToken");
+                    writer.String(XboxToken.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -8978,6 +9017,8 @@ namespace PlayFabComboSdk
                 if (StatisticName_member != obj.MemberEnd() && !StatisticName_member->value.IsNull()) StatisticName = StatisticName_member->value.GetString();
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
+                const Value::ConstMemberIterator XboxToken_member = obj.FindMember("XboxToken");
+                if (XboxToken_member != obj.MemberEnd() && !XboxToken_member->value.IsNull()) XboxToken = XboxToken_member->value.GetString();
 
                 return true;
             }
@@ -8988,19 +9029,22 @@ namespace PlayFabComboSdk
             OptionalBool IncludeFacebookFriends;
             OptionalBool IncludeSteamFriends;
             PlayerProfileViewConstraints* ProfileConstraints;
+            AZStd::string XboxToken;
 
             GetFriendsListRequest() :
                 PlayFabBaseModel(),
                 IncludeFacebookFriends(),
                 IncludeSteamFriends(),
-                ProfileConstraints(nullptr)
+                ProfileConstraints(nullptr),
+                XboxToken()
             {}
 
             GetFriendsListRequest(const GetFriendsListRequest& src) :
                 PlayFabBaseModel(),
                 IncludeFacebookFriends(src.IncludeFacebookFriends),
                 IncludeSteamFriends(src.IncludeSteamFriends),
-                ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
+                ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr),
+                XboxToken(src.XboxToken)
             {}
 
             GetFriendsListRequest(const rapidjson::Value& obj) : GetFriendsListRequest()
@@ -9028,6 +9072,10 @@ namespace PlayFabComboSdk
                     writer.String("ProfileConstraints");
                     ProfileConstraints->writeJSON(writer);
                 }
+                if (XboxToken.length() > 0) {
+                    writer.String("XboxToken");
+                    writer.String(XboxToken.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -9039,6 +9087,8 @@ namespace PlayFabComboSdk
                 if (IncludeSteamFriends_member != obj.MemberEnd() && !IncludeSteamFriends_member->value.IsNull()) IncludeSteamFriends = IncludeSteamFriends_member->value.GetBool();
                 const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
                 if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
+                const Value::ConstMemberIterator XboxToken_member = obj.FindMember("XboxToken");
+                if (XboxToken_member != obj.MemberEnd() && !XboxToken_member->value.IsNull()) XboxToken = XboxToken_member->value.GetString();
 
                 return true;
             }

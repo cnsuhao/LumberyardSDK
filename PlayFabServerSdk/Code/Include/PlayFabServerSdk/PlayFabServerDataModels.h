@@ -1768,7 +1768,8 @@ namespace PlayFabServerSdk
             EntityTypesmaster_player_account,
             EntityTypestitle_player_account,
             EntityTypescharacter,
-            EntityTypesgroup
+            EntityTypesgroup,
+            EntityTypesservice
         };
 
         inline void writeEntityTypesEnumJSON(EntityTypes enumVal, PFStringJsonWriter& writer)
@@ -1780,6 +1781,7 @@ namespace PlayFabServerSdk
             case EntityTypestitle_player_account: writer.String("title_player_account"); break;
             case EntityTypescharacter: writer.String("character"); break;
             case EntityTypesgroup: writer.String("group"); break;
+            case EntityTypesservice: writer.String("service"); break;
 
             }
         }
@@ -1799,6 +1801,7 @@ namespace PlayFabServerSdk
                 _EntityTypesMap["title_player_account"] = EntityTypestitle_player_account;
                 _EntityTypesMap["character"] = EntityTypescharacter;
                 _EntityTypesMap["group"] = EntityTypesgroup;
+                _EntityTypesMap["service"] = EntityTypesservice;
 
             }
 
@@ -6565,10 +6568,12 @@ namespace PlayFabServerSdk
             AZStd::string FriendPlayFabId;
             UserGameCenterInfo* GameCenterInfo;
             PlayerProfileModel* Profile;
+            UserPsnInfo* PSNInfo;
             UserSteamInfo* SteamInfo;
             AZStd::vector<AZStd::string> Tags; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
             AZStd::string TitleDisplayName;
             AZStd::string Username;
+            UserXboxInfo* XboxInfo;
 
             FriendInfo() :
                 PlayFabBaseModel(),
@@ -6577,10 +6582,12 @@ namespace PlayFabServerSdk
                 FriendPlayFabId(),
                 GameCenterInfo(nullptr),
                 Profile(nullptr),
+                PSNInfo(nullptr),
                 SteamInfo(nullptr),
                 Tags(),
                 TitleDisplayName(),
-                Username()
+                Username(),
+                XboxInfo(nullptr)
             {}
 
             FriendInfo(const FriendInfo& src) :
@@ -6590,10 +6597,12 @@ namespace PlayFabServerSdk
                 FriendPlayFabId(src.FriendPlayFabId),
                 GameCenterInfo(src.GameCenterInfo ? new UserGameCenterInfo(*src.GameCenterInfo) : nullptr),
                 Profile(src.Profile ? new PlayerProfileModel(*src.Profile) : nullptr),
+                PSNInfo(src.PSNInfo ? new UserPsnInfo(*src.PSNInfo) : nullptr),
                 SteamInfo(src.SteamInfo ? new UserSteamInfo(*src.SteamInfo) : nullptr),
                 Tags(src.Tags),
                 TitleDisplayName(src.TitleDisplayName),
-                Username(src.Username)
+                Username(src.Username),
+                XboxInfo(src.XboxInfo ? new UserXboxInfo(*src.XboxInfo) : nullptr)
             {}
 
             FriendInfo(const rapidjson::Value& obj) : FriendInfo()
@@ -6606,7 +6615,9 @@ namespace PlayFabServerSdk
                 if (FacebookInfo != nullptr) delete FacebookInfo;
                 if (GameCenterInfo != nullptr) delete GameCenterInfo;
                 if (Profile != nullptr) delete Profile;
+                if (PSNInfo != nullptr) delete PSNInfo;
                 if (SteamInfo != nullptr) delete SteamInfo;
+                if (XboxInfo != nullptr) delete XboxInfo;
             }
 
             void writeJSON(PFStringJsonWriter& writer) const override
@@ -6632,6 +6643,10 @@ namespace PlayFabServerSdk
                     writer.String("Profile");
                     Profile->writeJSON(writer);
                 }
+                if (PSNInfo != nullptr) {
+                    writer.String("PSNInfo");
+                    PSNInfo->writeJSON(writer);
+                }
                 if (SteamInfo != nullptr) {
                     writer.String("SteamInfo");
                     SteamInfo->writeJSON(writer);
@@ -6652,6 +6667,10 @@ namespace PlayFabServerSdk
                     writer.String("Username");
                     writer.String(Username.c_str());
                 }
+                if (XboxInfo != nullptr) {
+                    writer.String("XboxInfo");
+                    XboxInfo->writeJSON(writer);
+                }
                 writer.EndObject();
             }
 
@@ -6667,6 +6686,8 @@ namespace PlayFabServerSdk
                 if (GameCenterInfo_member != obj.MemberEnd() && !GameCenterInfo_member->value.IsNull()) GameCenterInfo = new UserGameCenterInfo(GameCenterInfo_member->value);
                 const Value::ConstMemberIterator Profile_member = obj.FindMember("Profile");
                 if (Profile_member != obj.MemberEnd() && !Profile_member->value.IsNull()) Profile = new PlayerProfileModel(Profile_member->value);
+                const Value::ConstMemberIterator PSNInfo_member = obj.FindMember("PSNInfo");
+                if (PSNInfo_member != obj.MemberEnd() && !PSNInfo_member->value.IsNull()) PSNInfo = new UserPsnInfo(PSNInfo_member->value);
                 const Value::ConstMemberIterator SteamInfo_member = obj.FindMember("SteamInfo");
                 if (SteamInfo_member != obj.MemberEnd() && !SteamInfo_member->value.IsNull()) SteamInfo = new UserSteamInfo(SteamInfo_member->value);
                 const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
@@ -6680,6 +6701,8 @@ namespace PlayFabServerSdk
                 if (TitleDisplayName_member != obj.MemberEnd() && !TitleDisplayName_member->value.IsNull()) TitleDisplayName = TitleDisplayName_member->value.GetString();
                 const Value::ConstMemberIterator Username_member = obj.FindMember("Username");
                 if (Username_member != obj.MemberEnd() && !Username_member->value.IsNull()) Username = Username_member->value.GetString();
+                const Value::ConstMemberIterator XboxInfo_member = obj.FindMember("XboxInfo");
+                if (XboxInfo_member != obj.MemberEnd() && !XboxInfo_member->value.IsNull()) XboxInfo = new UserXboxInfo(XboxInfo_member->value);
 
                 return true;
             }
@@ -7093,7 +7116,17 @@ namespace PlayFabServerSdk
             GenericErrorCodesInvalidTokenResultFromAad,
             GenericErrorCodesNoValidCertificateForAad,
             GenericErrorCodesInvalidCertificateForAad,
-            GenericErrorCodesDuplicateDropTableId
+            GenericErrorCodesDuplicateDropTableId,
+            GenericErrorCodesComputeOK,
+            GenericErrorCodesComputeAccepted,
+            GenericErrorCodesComputeNoContent,
+            GenericErrorCodesComputeBadRequest,
+            GenericErrorCodesComputeUnauthorized,
+            GenericErrorCodesComputeForbidden,
+            GenericErrorCodesComputeNotFound,
+            GenericErrorCodesComputeConflict,
+            GenericErrorCodesComputeInternalServerError,
+            GenericErrorCodesComputeServiceUnavailable
         };
 
         inline void writeGenericErrorCodesEnumJSON(GenericErrorCodes enumVal, PFStringJsonWriter& writer)
@@ -7469,6 +7502,16 @@ namespace PlayFabServerSdk
             case GenericErrorCodesNoValidCertificateForAad: writer.String("NoValidCertificateForAad"); break;
             case GenericErrorCodesInvalidCertificateForAad: writer.String("InvalidCertificateForAad"); break;
             case GenericErrorCodesDuplicateDropTableId: writer.String("DuplicateDropTableId"); break;
+            case GenericErrorCodesComputeOK: writer.String("ComputeOK"); break;
+            case GenericErrorCodesComputeAccepted: writer.String("ComputeAccepted"); break;
+            case GenericErrorCodesComputeNoContent: writer.String("ComputeNoContent"); break;
+            case GenericErrorCodesComputeBadRequest: writer.String("ComputeBadRequest"); break;
+            case GenericErrorCodesComputeUnauthorized: writer.String("ComputeUnauthorized"); break;
+            case GenericErrorCodesComputeForbidden: writer.String("ComputeForbidden"); break;
+            case GenericErrorCodesComputeNotFound: writer.String("ComputeNotFound"); break;
+            case GenericErrorCodesComputeConflict: writer.String("ComputeConflict"); break;
+            case GenericErrorCodesComputeInternalServerError: writer.String("ComputeInternalServerError"); break;
+            case GenericErrorCodesComputeServiceUnavailable: writer.String("ComputeServiceUnavailable"); break;
 
             }
         }
@@ -7852,6 +7895,16 @@ namespace PlayFabServerSdk
                 _GenericErrorCodesMap["NoValidCertificateForAad"] = GenericErrorCodesNoValidCertificateForAad;
                 _GenericErrorCodesMap["InvalidCertificateForAad"] = GenericErrorCodesInvalidCertificateForAad;
                 _GenericErrorCodesMap["DuplicateDropTableId"] = GenericErrorCodesDuplicateDropTableId;
+                _GenericErrorCodesMap["ComputeOK"] = GenericErrorCodesComputeOK;
+                _GenericErrorCodesMap["ComputeAccepted"] = GenericErrorCodesComputeAccepted;
+                _GenericErrorCodesMap["ComputeNoContent"] = GenericErrorCodesComputeNoContent;
+                _GenericErrorCodesMap["ComputeBadRequest"] = GenericErrorCodesComputeBadRequest;
+                _GenericErrorCodesMap["ComputeUnauthorized"] = GenericErrorCodesComputeUnauthorized;
+                _GenericErrorCodesMap["ComputeForbidden"] = GenericErrorCodesComputeForbidden;
+                _GenericErrorCodesMap["ComputeNotFound"] = GenericErrorCodesComputeNotFound;
+                _GenericErrorCodesMap["ComputeConflict"] = GenericErrorCodesComputeConflict;
+                _GenericErrorCodesMap["ComputeInternalServerError"] = GenericErrorCodesComputeInternalServerError;
+                _GenericErrorCodesMap["ComputeServiceUnavailable"] = GenericErrorCodesComputeServiceUnavailable;
 
             }
 
@@ -9050,6 +9103,7 @@ namespace PlayFabServerSdk
             Int32 StartPosition;
             AZStd::string StatisticName;
             OptionalInt32 Version;
+            AZStd::string XboxToken;
 
             GetFriendLeaderboardRequest() :
                 PlayFabBaseModel(),
@@ -9060,7 +9114,8 @@ namespace PlayFabServerSdk
                 ProfileConstraints(nullptr),
                 StartPosition(0),
                 StatisticName(),
-                Version()
+                Version(),
+                XboxToken()
             {}
 
             GetFriendLeaderboardRequest(const GetFriendLeaderboardRequest& src) :
@@ -9072,7 +9127,8 @@ namespace PlayFabServerSdk
                 ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr),
                 StartPosition(src.StartPosition),
                 StatisticName(src.StatisticName),
-                Version(src.Version)
+                Version(src.Version),
+                XboxToken(src.XboxToken)
             {}
 
             GetFriendLeaderboardRequest(const rapidjson::Value& obj) : GetFriendLeaderboardRequest()
@@ -9112,6 +9168,10 @@ namespace PlayFabServerSdk
                     writer.String("Version");
                     writer.Int(Version);
                 }
+                if (XboxToken.length() > 0) {
+                    writer.String("XboxToken");
+                    writer.String(XboxToken.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -9133,6 +9193,8 @@ namespace PlayFabServerSdk
                 if (StatisticName_member != obj.MemberEnd() && !StatisticName_member->value.IsNull()) StatisticName = StatisticName_member->value.GetString();
                 const Value::ConstMemberIterator Version_member = obj.FindMember("Version");
                 if (Version_member != obj.MemberEnd() && !Version_member->value.IsNull()) Version = Version_member->value.GetInt();
+                const Value::ConstMemberIterator XboxToken_member = obj.FindMember("XboxToken");
+                if (XboxToken_member != obj.MemberEnd() && !XboxToken_member->value.IsNull()) XboxToken = XboxToken_member->value.GetString();
 
                 return true;
             }
@@ -9144,13 +9206,15 @@ namespace PlayFabServerSdk
             OptionalBool IncludeSteamFriends;
             AZStd::string PlayFabId;
             PlayerProfileViewConstraints* ProfileConstraints;
+            AZStd::string XboxToken;
 
             GetFriendsListRequest() :
                 PlayFabBaseModel(),
                 IncludeFacebookFriends(),
                 IncludeSteamFriends(),
                 PlayFabId(),
-                ProfileConstraints(nullptr)
+                ProfileConstraints(nullptr),
+                XboxToken()
             {}
 
             GetFriendsListRequest(const GetFriendsListRequest& src) :
@@ -9158,7 +9222,8 @@ namespace PlayFabServerSdk
                 IncludeFacebookFriends(src.IncludeFacebookFriends),
                 IncludeSteamFriends(src.IncludeSteamFriends),
                 PlayFabId(src.PlayFabId),
-                ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr)
+                ProfileConstraints(src.ProfileConstraints ? new PlayerProfileViewConstraints(*src.ProfileConstraints) : nullptr),
+                XboxToken(src.XboxToken)
             {}
 
             GetFriendsListRequest(const rapidjson::Value& obj) : GetFriendsListRequest()
@@ -9188,6 +9253,10 @@ namespace PlayFabServerSdk
                     writer.String("ProfileConstraints");
                     ProfileConstraints->writeJSON(writer);
                 }
+                if (XboxToken.length() > 0) {
+                    writer.String("XboxToken");
+                    writer.String(XboxToken.c_str());
+                }
                 writer.EndObject();
             }
 
@@ -9201,6 +9270,8 @@ namespace PlayFabServerSdk
                 if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
                 const Value::ConstMemberIterator ProfileConstraints_member = obj.FindMember("ProfileConstraints");
                 if (ProfileConstraints_member != obj.MemberEnd() && !ProfileConstraints_member->value.IsNull()) ProfileConstraints = new PlayerProfileViewConstraints(ProfileConstraints_member->value);
+                const Value::ConstMemberIterator XboxToken_member = obj.FindMember("XboxToken");
+                if (XboxToken_member != obj.MemberEnd() && !XboxToken_member->value.IsNull()) XboxToken = XboxToken_member->value.GetString();
 
                 return true;
             }

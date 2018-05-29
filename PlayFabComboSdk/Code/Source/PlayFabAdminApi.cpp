@@ -397,6 +397,36 @@ void PlayFabAdminApi::OnDeleteContentResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabAdminApi::DeleteMasterPlayerAccount(
+    AdminModels::DeleteMasterPlayerAccountRequest& request,
+    ProcessApiCallback<AdminModels::DeleteMasterPlayerAccountResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/DeleteMasterPlayerAccount"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnDeleteMasterPlayerAccountResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabAdminApi::OnDeleteMasterPlayerAccountResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        AdminModels::DeleteMasterPlayerAccountResult* outResult = new AdminModels::DeleteMasterPlayerAccountResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<AdminModels::DeleteMasterPlayerAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::DeleteMasterPlayerAccountResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabAdminApi::DeletePlayer(
     AdminModels::DeletePlayerRequest& request,
     ProcessApiCallback<AdminModels::DeletePlayerResult> callback,
@@ -540,6 +570,36 @@ void PlayFabAdminApi::OnDeleteTitleResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<AdminModels::DeleteTitleResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::DeleteTitleResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabAdminApi::ExportMasterPlayerData(
+    AdminModels::ExportMasterPlayerDataRequest& request,
+    ProcessApiCallback<AdminModels::ExportMasterPlayerDataResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/ExportMasterPlayerData"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnExportMasterPlayerDataResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabAdminApi::OnExportMasterPlayerDataResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        AdminModels::ExportMasterPlayerDataResult* outResult = new AdminModels::ExportMasterPlayerDataResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<AdminModels::ExportMasterPlayerDataResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::ExportMasterPlayerDataResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
@@ -870,6 +930,36 @@ void PlayFabAdminApi::OnGetMatchmakerGameModesResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<AdminModels::GetMatchmakerGameModesResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetMatchmakerGameModesResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabAdminApi::GetPlayedTitleList(
+    AdminModels::GetPlayedTitleListRequest& request,
+    ProcessApiCallback<AdminModels::GetPlayedTitleListResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Admin/GetPlayedTitleList"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayedTitleListResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabAdminApi::OnGetPlayedTitleListResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        AdminModels::GetPlayedTitleListResult* outResult = new AdminModels::GetPlayedTitleListResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<AdminModels::GetPlayedTitleListResult> successCallback = reinterpret_cast<ProcessApiCallback<AdminModels::GetPlayedTitleListResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;

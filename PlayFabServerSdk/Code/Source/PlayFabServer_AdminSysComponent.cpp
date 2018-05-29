@@ -123,6 +123,10 @@ namespace PlayFabServerSdk
     {
         PlayFabAdminApi::DeleteContent(request, callback, errorCallback, customData);
     }
+    void PlayFabServer_AdminSysComponent::DeleteMasterPlayerAccount(AdminModels::DeleteMasterPlayerAccountRequest& request, ProcessApiCallback<AdminModels::DeleteMasterPlayerAccountResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabAdminApi::DeleteMasterPlayerAccount(request, callback, errorCallback, customData);
+    }
     void PlayFabServer_AdminSysComponent::DeletePlayer(AdminModels::DeletePlayerRequest& request, ProcessApiCallback<AdminModels::DeletePlayerResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabAdminApi::DeletePlayer(request, callback, errorCallback, customData);
@@ -142,6 +146,10 @@ namespace PlayFabServerSdk
     void PlayFabServer_AdminSysComponent::DeleteTitle(ProcessApiCallback<AdminModels::DeleteTitleResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabAdminApi::DeleteTitle(callback, errorCallback, customData);
+    }
+    void PlayFabServer_AdminSysComponent::ExportMasterPlayerData(AdminModels::ExportMasterPlayerDataRequest& request, ProcessApiCallback<AdminModels::ExportMasterPlayerDataResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabAdminApi::ExportMasterPlayerData(request, callback, errorCallback, customData);
     }
     void PlayFabServer_AdminSysComponent::GetActionsOnPlayersInSegmentTaskInstance(AdminModels::GetTaskInstanceRequest& request, ProcessApiCallback<AdminModels::GetActionsOnPlayersInSegmentTaskInstanceResult> callback, ErrorCallback errorCallback, void* customData)
     {
@@ -186,6 +194,10 @@ namespace PlayFabServerSdk
     void PlayFabServer_AdminSysComponent::GetMatchmakerGameModes(AdminModels::GetMatchmakerGameModesRequest& request, ProcessApiCallback<AdminModels::GetMatchmakerGameModesResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabAdminApi::GetMatchmakerGameModes(request, callback, errorCallback, customData);
+    }
+    void PlayFabServer_AdminSysComponent::GetPlayedTitleList(AdminModels::GetPlayedTitleListRequest& request, ProcessApiCallback<AdminModels::GetPlayedTitleListResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabAdminApi::GetPlayedTitleList(request, callback, errorCallback, customData);
     }
     void PlayFabServer_AdminSysComponent::GetPlayerIdFromAuthToken(AdminModels::GetPlayerIdFromAuthTokenRequest& request, ProcessApiCallback<AdminModels::GetPlayerIdFromAuthTokenResult> callback, ErrorCallback errorCallback, void* customData)
     {

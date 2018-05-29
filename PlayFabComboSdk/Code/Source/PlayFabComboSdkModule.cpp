@@ -4,10 +4,10 @@
 #include <platform_impl.h> // Resharper says this is unused, but it's still required in some less direct way
 #include "PlayFabCombo_SettingsSysComponent.h"
 #include "PlayFabCombo_AdminSysComponent.h"
-#include "PlayFabCombo_MatchmakerSysComponent.h"
-#include "PlayFabCombo_ServerSysComponent.h"
 #include "PlayFabCombo_ClientSysComponent.h"
 #include "PlayFabCombo_EntitySysComponent.h"
+#include "PlayFabCombo_MatchmakerSysComponent.h"
+#include "PlayFabCombo_ServerSysComponent.h"
 
 #include "PlayFabSettings.h"
 #include <PlayFabComboSdk/PlayFabError.h>
@@ -50,10 +50,10 @@ namespace PlayFabComboSdk
             m_descriptors.insert(m_descriptors.end(), {
                 PlayFabCombo_SettingsSysComponent::CreateDescriptor(),
                 PlayFabCombo_AdminSysComponent::CreateDescriptor(),
-                PlayFabCombo_MatchmakerSysComponent::CreateDescriptor(),
-                PlayFabCombo_ServerSysComponent::CreateDescriptor(),
                 PlayFabCombo_ClientSysComponent::CreateDescriptor(),
                 PlayFabCombo_EntitySysComponent::CreateDescriptor(),
+                PlayFabCombo_MatchmakerSysComponent::CreateDescriptor(),
+                PlayFabCombo_ServerSysComponent::CreateDescriptor(),
 
             });
         }
@@ -66,10 +66,10 @@ namespace PlayFabComboSdk
             return AZ::ComponentTypeList{
                 azrtti_typeid<PlayFabCombo_SettingsSysComponent>(),
                 azrtti_typeid<PlayFabCombo_AdminSysComponent>(),
-                azrtti_typeid<PlayFabCombo_MatchmakerSysComponent>(),
-                azrtti_typeid<PlayFabCombo_ServerSysComponent>(),
                 azrtti_typeid<PlayFabCombo_ClientSysComponent>(),
                 azrtti_typeid<PlayFabCombo_EntitySysComponent>(),
+                azrtti_typeid<PlayFabCombo_MatchmakerSysComponent>(),
+                azrtti_typeid<PlayFabCombo_ServerSysComponent>(),
 
             };
         }
