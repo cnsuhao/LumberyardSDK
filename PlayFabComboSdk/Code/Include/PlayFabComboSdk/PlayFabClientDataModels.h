@@ -16442,57 +16442,6 @@ namespace PlayFabComboSdk
             }
         };
 
-        struct NameIdentifier : public PlayFabBaseModel
-        {
-            AZStd::string Id;
-            AZStd::string Name;
-
-            NameIdentifier() :
-                PlayFabBaseModel(),
-                Id(),
-                Name()
-            {}
-
-            NameIdentifier(const NameIdentifier& src) :
-                PlayFabBaseModel(),
-                Id(src.Id),
-                Name(src.Name)
-            {}
-
-            NameIdentifier(const rapidjson::Value& obj) : NameIdentifier()
-            {
-                readFromValue(obj);
-            }
-
-            ~NameIdentifier()
-            {
-            }
-
-            void writeJSON(PFStringJsonWriter& writer) const override
-            {
-                writer.StartObject();
-                if (Id.length() > 0) {
-                    writer.String("Id");
-                    writer.String(Id.c_str());
-                }
-                if (Name.length() > 0) {
-                    writer.String("Name");
-                    writer.String(Name.c_str());
-                }
-                writer.EndObject();
-            }
-
-            bool readFromValue(const rapidjson::Value& obj) override
-            {
-                const Value::ConstMemberIterator Id_member = obj.FindMember("Id");
-                if (Id_member != obj.MemberEnd() && !Id_member->value.IsNull()) Id = Id_member->value.GetString();
-                const Value::ConstMemberIterator Name_member = obj.FindMember("Name");
-                if (Name_member != obj.MemberEnd() && !Name_member->value.IsNull()) Name = Name_member->value.GetString();
-
-                return true;
-            }
-        };
-
         struct OpenTradeRequest : public PlayFabBaseModel
         {
             AZStd::vector<AZStd::string> AllowedPlayerIds; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
