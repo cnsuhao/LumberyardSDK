@@ -3,7 +3,7 @@
     "Uuid": "a7bd94263453450a8cff6c8d047a82ee",
     "Name": "PlayFabServerSdk",
     "DisplayName": "PlayFab Lumberyard Server SDK",
-    "Version": "0.0.180618",
+    "Version": "0.0.180705",
     "LinkType": "Dynamic",
     "Summary": "PlayFab Lumberyard Server SDK can be used for matchmaking and game servers, and connects to PlayFab services from a Lumberyard project",
     "Tags": ["PlayFab", "Account", "Authentication", "AWS", "BaaS", "Backend", "C++", "Chat", "ChatPlay", "Cloud", "Commerce", "Console", "Content", "Dedicated Server", "EC2", "Event", "Friends", "Games", "General", "Hosting", "IAP", "Leaderboard", "Lumberyard", "Matchmaking", "Messages", "Multiplayer", "Online", "Payments", "Platforms", "Players", "Plugins", "Samples", "Scale", "Scores", "Server", "Third Party", "Triggers"],
