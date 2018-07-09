@@ -11,7 +11,6 @@ namespace PlayFabComboSdk
         PlayFabErrorConnectionRefused,
         PlayFabErrorSocketError,
         PlayFabErrorSuccess = 0,
-        PlayFabErrorMatchmakingHopperIdInvalid = 230,
         PlayFabErrorUnkownError = 500,
         PlayFabErrorInvalidParams = 1000,
         PlayFabErrorAccountNotFound = 1001,
@@ -390,9 +389,11 @@ namespace PlayFabComboSdk
         PlayFabErrorGameServerConflict = 1386,
         PlayFabErrorGameServerInternalServerError = 1387,
         PlayFabErrorGameServerServiceUnavailable = 1388,
-        PlayFabErrorMatchmakingInvalidEntityKeyList = 2000,
-        PlayFabErrorMatchmakingInvalidTicketCreatorProfile = 2001,
-        PlayFabErrorMatchmakingInvalidUserAttributes = 2002,
+        PlayFabErrorExplicitContentDetected = 1389,
+        PlayFabErrorPIIContentDetected = 1390,
+        PlayFabErrorInvalidScheduledTaskParameter = 1391,
+        PlayFabErrorMatchmakingEntityInvalid = 2001,
+        PlayFabErrorMatchmakingPlayerAttributesInvalid = 2002,
         PlayFabErrorMatchmakingCreateRequestMissing = 2003,
         PlayFabErrorMatchmakingCreateRequestCreatorMissing = 2004,
         PlayFabErrorMatchmakingCreateRequestCreatorIdMissing = 2005,
@@ -404,7 +405,7 @@ namespace PlayFabComboSdk
         PlayFabErrorMatchmakingHopperIdMissing = 2011,
         PlayFabErrorMatchmakingTitleIdMissing = 2012,
         PlayFabErrorMatchmakingTicketIdIdMissing = 2013,
-        PlayFabErrorMatchmakingUserIdMissing = 2014,
+        PlayFabErrorMatchmakingPlayerIdMissing = 2014,
         PlayFabErrorMatchmakingJoinRequestUserMissing = 2015,
         PlayFabErrorMatchmakingHopperConfigNotFound = 2016,
         PlayFabErrorMatchmakingMatchNotFound = 2017,
@@ -417,10 +418,12 @@ namespace PlayFabComboSdk
         PlayFabErrorMatchmakingCancelTicketServerIdentityInvalid = 2024,
         PlayFabErrorMatchmakingCancelTicketUserIdentityMismatch = 2025,
         PlayFabErrorMatchmakingGetMatchIdentityMismatch = 2026,
-        PlayFabErrorMatchmakingUserIdentityMismatch = 2027,
+        PlayFabErrorMatchmakingPlayerIdentityMismatch = 2027,
         PlayFabErrorMatchmakingAlreadyJoinedTicket = 2028,
         PlayFabErrorMatchmakingTicketAlreadyCompleted = 2029,
-        PlayFabErrorMatchmakingHopperConfigInvalid = 2031
+        PlayFabErrorMatchmakingHopperIdInvalid = 2030,
+        PlayFabErrorMatchmakingHopperConfigInvalid = 2031,
+        PlayFabErrorMatchmakingMemberProfileInvalid = 2032
     };
 
     struct PlayFabError

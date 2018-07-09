@@ -119,6 +119,10 @@ namespace PlayFabServerSdk
     {
         PlayFabEntityApi::DeleteRole(request, callback, errorCallback, customData);
     }
+    void PlayFabServer_EntitySysComponent::ExecuteEntityCloudScript(EntityModels::ExecuteEntityCloudScriptRequest& request, ProcessApiCallback<EntityModels::ExecuteCloudScriptResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabEntityApi::ExecuteEntityCloudScript(request, callback, errorCallback, customData);
+    }
     void PlayFabServer_EntitySysComponent::FinalizeFileUploads(EntityModels::FinalizeFileUploadsRequest& request, ProcessApiCallback<EntityModels::FinalizeFileUploadsResponse> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabEntityApi::FinalizeFileUploads(request, callback, errorCallback, customData);
@@ -222,5 +226,9 @@ namespace PlayFabServerSdk
     void PlayFabServer_EntitySysComponent::UpdateRole(EntityModels::UpdateGroupRoleRequest& request, ProcessApiCallback<EntityModels::UpdateGroupRoleResponse> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabEntityApi::UpdateRole(request, callback, errorCallback, customData);
+    }
+    void PlayFabServer_EntitySysComponent::WriteEvents(EntityModels::WriteEventsRequest& request, ProcessApiCallback<EntityModels::WriteEventsResponse> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabEntityApi::WriteEvents(request, callback, errorCallback, customData);
     }
 }

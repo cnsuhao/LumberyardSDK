@@ -10419,8 +10419,10 @@ namespace PlayFabClientSdk
             void writeJSON(PFStringJsonWriter& writer) const override
             {
                 writer.StartObject();
-                writer.String("PlayFabId");
-                writer.String(PlayFabId.c_str());
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
                 if (ProfileConstraints != nullptr) {
                     writer.String("ProfileConstraints");
                     ProfileConstraints->writeJSON(writer);
@@ -12623,7 +12625,9 @@ namespace PlayFabClientSdk
             SourceTypeBackEnd,
             SourceTypeGameClient,
             SourceTypeGameServer,
-            SourceTypePartner
+            SourceTypePartner,
+            SourceTypeCustom,
+            SourceTypeAPI
         };
 
         inline void writeSourceTypeEnumJSON(SourceType enumVal, PFStringJsonWriter& writer)
@@ -12635,6 +12639,8 @@ namespace PlayFabClientSdk
             case SourceTypeGameClient: writer.String("GameClient"); break;
             case SourceTypeGameServer: writer.String("GameServer"); break;
             case SourceTypePartner: writer.String("Partner"); break;
+            case SourceTypeCustom: writer.String("Custom"); break;
+            case SourceTypeAPI: writer.String("API"); break;
 
             }
         }
@@ -12654,6 +12660,8 @@ namespace PlayFabClientSdk
                 _SourceTypeMap["GameClient"] = SourceTypeGameClient;
                 _SourceTypeMap["GameServer"] = SourceTypeGameServer;
                 _SourceTypeMap["Partner"] = SourceTypePartner;
+                _SourceTypeMap["Custom"] = SourceTypeCustom;
+                _SourceTypeMap["API"] = SourceTypeAPI;
 
             }
 
@@ -14861,17 +14869,20 @@ namespace PlayFabClientSdk
         struct UserSettings : public PlayFabBaseModel
         {
             bool GatherDeviceInfo;
+            bool GatherFocusInfo;
             bool NeedsAttribution;
 
             UserSettings() :
                 PlayFabBaseModel(),
                 GatherDeviceInfo(false),
+                GatherFocusInfo(false),
                 NeedsAttribution(false)
             {}
 
             UserSettings(const UserSettings& src) :
                 PlayFabBaseModel(),
                 GatherDeviceInfo(src.GatherDeviceInfo),
+                GatherFocusInfo(src.GatherFocusInfo),
                 NeedsAttribution(src.NeedsAttribution)
             {}
 
@@ -14889,6 +14900,8 @@ namespace PlayFabClientSdk
                 writer.StartObject();
                 writer.String("GatherDeviceInfo");
                 writer.Bool(GatherDeviceInfo);
+                writer.String("GatherFocusInfo");
+                writer.Bool(GatherFocusInfo);
                 writer.String("NeedsAttribution");
                 writer.Bool(NeedsAttribution);
                 writer.EndObject();
@@ -14898,6 +14911,8 @@ namespace PlayFabClientSdk
             {
                 const Value::ConstMemberIterator GatherDeviceInfo_member = obj.FindMember("GatherDeviceInfo");
                 if (GatherDeviceInfo_member != obj.MemberEnd() && !GatherDeviceInfo_member->value.IsNull()) GatherDeviceInfo = GatherDeviceInfo_member->value.GetBool();
+                const Value::ConstMemberIterator GatherFocusInfo_member = obj.FindMember("GatherFocusInfo");
+                if (GatherFocusInfo_member != obj.MemberEnd() && !GatherFocusInfo_member->value.IsNull()) GatherFocusInfo = GatherFocusInfo_member->value.GetBool();
                 const Value::ConstMemberIterator NeedsAttribution_member = obj.FindMember("NeedsAttribution");
                 if (NeedsAttribution_member != obj.MemberEnd() && !NeedsAttribution_member->value.IsNull()) NeedsAttribution = NeedsAttribution_member->value.GetBool();
 

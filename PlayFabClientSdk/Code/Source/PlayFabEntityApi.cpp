@@ -367,6 +367,36 @@ void PlayFabEntityApi::OnDeleteRoleResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabEntityApi::ExecuteEntityCloudScript(
+    EntityModels::ExecuteEntityCloudScriptRequest& request,
+    ProcessApiCallback<EntityModels::ExecuteCloudScriptResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/CloudScript/ExecuteEntityCloudScript"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnExecuteEntityCloudScriptResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabEntityApi::OnExecuteEntityCloudScriptResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        EntityModels::ExecuteCloudScriptResult* outResult = new EntityModels::ExecuteCloudScriptResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<EntityModels::ExecuteCloudScriptResult> successCallback = reinterpret_cast<ProcessApiCallback<EntityModels::ExecuteCloudScriptResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabEntityApi::FinalizeFileUploads(
     EntityModels::FinalizeFileUploadsRequest& request,
     ProcessApiCallback<EntityModels::FinalizeFileUploadsResponse> callback,
@@ -1140,6 +1170,36 @@ void PlayFabEntityApi::OnUpdateRoleResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<EntityModels::UpdateGroupRoleResponse> successCallback = reinterpret_cast<ProcessApiCallback<EntityModels::UpdateGroupRoleResponse>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabEntityApi::WriteEvents(
+    EntityModels::WriteEventsRequest& request,
+    ProcessApiCallback<EntityModels::WriteEventsResponse> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Event/WriteEvents"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnWriteEventsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabEntityApi::OnWriteEventsResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        EntityModels::WriteEventsResponse* outResult = new EntityModels::WriteEventsResponse;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<EntityModels::WriteEventsResponse> successCallback = reinterpret_cast<ProcessApiCallback<EntityModels::WriteEventsResponse>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;

@@ -23,6 +23,7 @@ namespace PlayFabComboSdk
         static void DeleteFiles(EntityModels::DeleteFilesRequest& request, ProcessApiCallback<EntityModels::DeleteFilesResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void DeleteGroup(EntityModels::DeleteGroupRequest& request, ProcessApiCallback<EntityModels::EmptyResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void DeleteRole(EntityModels::DeleteRoleRequest& request, ProcessApiCallback<EntityModels::EmptyResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void ExecuteEntityCloudScript(EntityModels::ExecuteEntityCloudScriptRequest& request, ProcessApiCallback<EntityModels::ExecuteCloudScriptResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void FinalizeFileUploads(EntityModels::FinalizeFileUploadsRequest& request, ProcessApiCallback<EntityModels::FinalizeFileUploadsResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetEntityToken(EntityModels::GetEntityTokenRequest& request, ProcessApiCallback<EntityModels::GetEntityTokenResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void GetFiles(EntityModels::GetFilesRequest& request, ProcessApiCallback<EntityModels::GetFilesResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
@@ -49,6 +50,7 @@ namespace PlayFabComboSdk
         static void UnblockEntity(EntityModels::UnblockEntityRequest& request, ProcessApiCallback<EntityModels::EmptyResult> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void UpdateGroup(EntityModels::UpdateGroupRequest& request, ProcessApiCallback<EntityModels::UpdateGroupResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
         static void UpdateRole(EntityModels::UpdateGroupRoleRequest& request, ProcessApiCallback<EntityModels::UpdateGroupRoleResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
+        static void WriteEvents(EntityModels::WriteEventsRequest& request, ProcessApiCallback<EntityModels::WriteEventsResponse> callback = nullptr, ErrorCallback errorCallback = nullptr, void* customData = nullptr);
 
     private:
         // ------------ Private constructor, to enforce all-static class
@@ -67,6 +69,7 @@ namespace PlayFabComboSdk
         static void OnDeleteFilesResult(PlayFabRequest* request);
         static void OnDeleteGroupResult(PlayFabRequest* request);
         static void OnDeleteRoleResult(PlayFabRequest* request);
+        static void OnExecuteEntityCloudScriptResult(PlayFabRequest* request);
         static void OnFinalizeFileUploadsResult(PlayFabRequest* request);
         static void OnGetEntityTokenResult(PlayFabRequest* request);
         static void OnGetFilesResult(PlayFabRequest* request);
@@ -93,5 +96,6 @@ namespace PlayFabComboSdk
         static void OnUnblockEntityResult(PlayFabRequest* request);
         static void OnUpdateGroupResult(PlayFabRequest* request);
         static void OnUpdateRoleResult(PlayFabRequest* request);
+        static void OnWriteEventsResult(PlayFabRequest* request);
     };
 };
