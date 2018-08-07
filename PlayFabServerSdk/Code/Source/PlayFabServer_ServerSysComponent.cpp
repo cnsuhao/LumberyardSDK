@@ -231,6 +231,10 @@ namespace PlayFabServerSdk
     {
         PlayFabServerApi::GetPlayFabIDsFromFacebookIDs(request, callback, errorCallback, customData);
     }
+    void PlayFabServer_ServerSysComponent::GetPlayFabIDsFromNintendoSwitchDeviceIds(ServerModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest& request, ProcessApiCallback<ServerModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabServerApi::GetPlayFabIDsFromNintendoSwitchDeviceIds(request, callback, errorCallback, customData);
+    }
     void PlayFabServer_ServerSysComponent::GetPlayFabIDsFromSteamIDs(ServerModels::GetPlayFabIDsFromSteamIDsRequest& request, ProcessApiCallback<ServerModels::GetPlayFabIDsFromSteamIDsResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabServerApi::GetPlayFabIDsFromSteamIDs(request, callback, errorCallback, customData);

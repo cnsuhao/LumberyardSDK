@@ -4,7 +4,11 @@
 #include <platform_impl.h> // Resharper says this is unused, but it's still required in some less direct way
 #include "PlayFabClient_SettingsSysComponent.h"
 #include "PlayFabClient_ClientSysComponent.h"
-#include "PlayFabClient_EntitySysComponent.h"
+#include "PlayFabClient_AuthenticationSysComponent.h"
+#include "PlayFabClient_CloudScriptSysComponent.h"
+#include "PlayFabClient_DataSysComponent.h"
+#include "PlayFabClient_GroupsSysComponent.h"
+#include "PlayFabClient_ProfilesSysComponent.h"
 
 #include "PlayFabSettings.h"
 #include <PlayFabClientSdk/PlayFabError.h>
@@ -47,7 +51,11 @@ namespace PlayFabClientSdk
             m_descriptors.insert(m_descriptors.end(), {
                 PlayFabClient_SettingsSysComponent::CreateDescriptor(),
                 PlayFabClient_ClientSysComponent::CreateDescriptor(),
-                PlayFabClient_EntitySysComponent::CreateDescriptor(),
+                PlayFabClient_AuthenticationSysComponent::CreateDescriptor(),
+                PlayFabClient_CloudScriptSysComponent::CreateDescriptor(),
+                PlayFabClient_DataSysComponent::CreateDescriptor(),
+                PlayFabClient_GroupsSysComponent::CreateDescriptor(),
+                PlayFabClient_ProfilesSysComponent::CreateDescriptor(),
 
             });
         }
@@ -60,7 +68,11 @@ namespace PlayFabClientSdk
             return AZ::ComponentTypeList{
                 azrtti_typeid<PlayFabClient_SettingsSysComponent>(),
                 azrtti_typeid<PlayFabClient_ClientSysComponent>(),
-                azrtti_typeid<PlayFabClient_EntitySysComponent>(),
+                azrtti_typeid<PlayFabClient_AuthenticationSysComponent>(),
+                azrtti_typeid<PlayFabClient_CloudScriptSysComponent>(),
+                azrtti_typeid<PlayFabClient_DataSysComponent>(),
+                azrtti_typeid<PlayFabClient_GroupsSysComponent>(),
+                azrtti_typeid<PlayFabClient_ProfilesSysComponent>(),
 
             };
         }

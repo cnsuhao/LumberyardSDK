@@ -1207,6 +1207,36 @@ void PlayFabServerApi::OnGetPlayFabIDsFromFacebookIDsResult(PlayFabRequest* requ
     }
 }
 
+void PlayFabServerApi::GetPlayFabIDsFromNintendoSwitchDeviceIds(
+    ServerModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest& request,
+    ProcessApiCallback<ServerModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Server/GetPlayFabIDsFromNintendoSwitchDeviceIds"), Aws::Http::HttpMethod::HTTP_POST, "X-SecretKey", PlayFabSettings::playFabSettings->developerSecretKey, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromNintendoSwitchDeviceIdsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabServerApi::OnGetPlayFabIDsFromNintendoSwitchDeviceIdsResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        ServerModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsResult* outResult = new ServerModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<ServerModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsResult> successCallback = reinterpret_cast<ProcessApiCallback<ServerModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabServerApi::GetPlayFabIDsFromSteamIDs(
     ServerModels::GetPlayFabIDsFromSteamIDsRequest& request,
     ProcessApiCallback<ServerModels::GetPlayFabIDsFromSteamIDsResult> callback,

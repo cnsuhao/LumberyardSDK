@@ -4290,8 +4290,10 @@ namespace PlayFabComboSdk
             Boxed<Region> pfRegion;
             Uint32 RunTime;
             AZStd::string ServerHostname;
+            AZStd::string ServerIPV4Address;
             AZStd::string ServerIPV6Address;
             OptionalInt32 ServerPort;
+            AZStd::string ServerPublicDNSName;
             AZStd::string StatisticName;
             std::map<AZStd::string, AZStd::string> Tags;
 
@@ -4308,8 +4310,10 @@ namespace PlayFabComboSdk
                 pfRegion(),
                 RunTime(0),
                 ServerHostname(),
+                ServerIPV4Address(),
                 ServerIPV6Address(),
                 ServerPort(),
+                ServerPublicDNSName(),
                 StatisticName(),
                 Tags()
             {}
@@ -4327,8 +4331,10 @@ namespace PlayFabComboSdk
                 pfRegion(src.pfRegion),
                 RunTime(src.RunTime),
                 ServerHostname(src.ServerHostname),
+                ServerIPV4Address(src.ServerIPV4Address),
                 ServerIPV6Address(src.ServerIPV6Address),
                 ServerPort(src.ServerPort),
+                ServerPublicDNSName(src.ServerPublicDNSName),
                 StatisticName(src.StatisticName),
                 Tags(src.Tags)
             {}
@@ -4391,6 +4397,10 @@ namespace PlayFabComboSdk
                     writer.String("ServerHostname");
                     writer.String(ServerHostname.c_str());
                 }
+                if (ServerIPV4Address.length() > 0) {
+                    writer.String("ServerIPV4Address");
+                    writer.String(ServerIPV4Address.c_str());
+                }
                 if (ServerIPV6Address.length() > 0) {
                     writer.String("ServerIPV6Address");
                     writer.String(ServerIPV6Address.c_str());
@@ -4398,6 +4408,10 @@ namespace PlayFabComboSdk
                 if (ServerPort.notNull()) {
                     writer.String("ServerPort");
                     writer.Int(ServerPort);
+                }
+                if (ServerPublicDNSName.length() > 0) {
+                    writer.String("ServerPublicDNSName");
+                    writer.String(ServerPublicDNSName.c_str());
                 }
                 if (StatisticName.length() > 0) {
                     writer.String("StatisticName");
@@ -4444,10 +4458,14 @@ namespace PlayFabComboSdk
                 if (RunTime_member != obj.MemberEnd() && !RunTime_member->value.IsNull()) RunTime = RunTime_member->value.GetUint();
                 const Value::ConstMemberIterator ServerHostname_member = obj.FindMember("ServerHostname");
                 if (ServerHostname_member != obj.MemberEnd() && !ServerHostname_member->value.IsNull()) ServerHostname = ServerHostname_member->value.GetString();
+                const Value::ConstMemberIterator ServerIPV4Address_member = obj.FindMember("ServerIPV4Address");
+                if (ServerIPV4Address_member != obj.MemberEnd() && !ServerIPV4Address_member->value.IsNull()) ServerIPV4Address = ServerIPV4Address_member->value.GetString();
                 const Value::ConstMemberIterator ServerIPV6Address_member = obj.FindMember("ServerIPV6Address");
                 if (ServerIPV6Address_member != obj.MemberEnd() && !ServerIPV6Address_member->value.IsNull()) ServerIPV6Address = ServerIPV6Address_member->value.GetString();
                 const Value::ConstMemberIterator ServerPort_member = obj.FindMember("ServerPort");
                 if (ServerPort_member != obj.MemberEnd() && !ServerPort_member->value.IsNull()) ServerPort = ServerPort_member->value.GetInt();
+                const Value::ConstMemberIterator ServerPublicDNSName_member = obj.FindMember("ServerPublicDNSName");
+                if (ServerPublicDNSName_member != obj.MemberEnd() && !ServerPublicDNSName_member->value.IsNull()) ServerPublicDNSName = ServerPublicDNSName_member->value.GetString();
                 const Value::ConstMemberIterator StatisticName_member = obj.FindMember("StatisticName");
                 if (StatisticName_member != obj.MemberEnd() && !StatisticName_member->value.IsNull()) StatisticName = StatisticName_member->value.GetString();
                 const Value::ConstMemberIterator Tags_member = obj.FindMember("Tags");
@@ -5273,7 +5291,11 @@ namespace PlayFabComboSdk
             LoginIdentityProviderIOSDevice,
             LoginIdentityProviderAndroidDevice,
             LoginIdentityProviderTwitch,
-            LoginIdentityProviderWindowsHello
+            LoginIdentityProviderWindowsHello,
+            LoginIdentityProviderGameServer,
+            LoginIdentityProviderCustomServer,
+            LoginIdentityProviderNintendoSwitch,
+            LoginIdentityProviderFacebookInstantGames
         };
 
         inline void writeLoginIdentityProviderEnumJSON(LoginIdentityProvider enumVal, PFStringJsonWriter& writer)
@@ -5294,6 +5316,10 @@ namespace PlayFabComboSdk
             case LoginIdentityProviderAndroidDevice: writer.String("AndroidDevice"); break;
             case LoginIdentityProviderTwitch: writer.String("Twitch"); break;
             case LoginIdentityProviderWindowsHello: writer.String("WindowsHello"); break;
+            case LoginIdentityProviderGameServer: writer.String("GameServer"); break;
+            case LoginIdentityProviderCustomServer: writer.String("CustomServer"); break;
+            case LoginIdentityProviderNintendoSwitch: writer.String("NintendoSwitch"); break;
+            case LoginIdentityProviderFacebookInstantGames: writer.String("FacebookInstantGames"); break;
 
             }
         }
@@ -5322,6 +5348,10 @@ namespace PlayFabComboSdk
                 _LoginIdentityProviderMap["AndroidDevice"] = LoginIdentityProviderAndroidDevice;
                 _LoginIdentityProviderMap["Twitch"] = LoginIdentityProviderTwitch;
                 _LoginIdentityProviderMap["WindowsHello"] = LoginIdentityProviderWindowsHello;
+                _LoginIdentityProviderMap["GameServer"] = LoginIdentityProviderGameServer;
+                _LoginIdentityProviderMap["CustomServer"] = LoginIdentityProviderCustomServer;
+                _LoginIdentityProviderMap["NintendoSwitch"] = LoginIdentityProviderNintendoSwitch;
+                _LoginIdentityProviderMap["FacebookInstantGames"] = LoginIdentityProviderFacebookInstantGames;
 
             }
 
@@ -7240,7 +7270,9 @@ namespace PlayFabComboSdk
             UserOriginationXboxLive,
             UserOriginationParse,
             UserOriginationTwitch,
-            UserOriginationWindowsHello
+            UserOriginationWindowsHello,
+            UserOriginationServerCustomId,
+            UserOriginationNintendoSwitchDeviceId
         };
 
         inline void writeUserOriginationEnumJSON(UserOrigination enumVal, PFStringJsonWriter& writer)
@@ -7265,6 +7297,8 @@ namespace PlayFabComboSdk
             case UserOriginationParse: writer.String("Parse"); break;
             case UserOriginationTwitch: writer.String("Twitch"); break;
             case UserOriginationWindowsHello: writer.String("WindowsHello"); break;
+            case UserOriginationServerCustomId: writer.String("ServerCustomId"); break;
+            case UserOriginationNintendoSwitchDeviceId: writer.String("NintendoSwitchDeviceId"); break;
 
             }
         }
@@ -7297,6 +7331,8 @@ namespace PlayFabComboSdk
                 _UserOriginationMap["Parse"] = UserOriginationParse;
                 _UserOriginationMap["Twitch"] = UserOriginationTwitch;
                 _UserOriginationMap["WindowsHello"] = UserOriginationWindowsHello;
+                _UserOriginationMap["ServerCustomId"] = UserOriginationServerCustomId;
+                _UserOriginationMap["NintendoSwitchDeviceId"] = UserOriginationNintendoSwitchDeviceId;
 
             }
 
@@ -11787,6 +11823,157 @@ namespace PlayFabComboSdk
             }
         };
 
+        struct GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest : public PlayFabBaseModel
+        {
+            AZStd::vector<AZStd::string> NintendoSwitchDeviceIds; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+
+            GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest() :
+                PlayFabBaseModel(),
+                NintendoSwitchDeviceIds()
+            {}
+
+            GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest(const GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest& src) :
+                PlayFabBaseModel(),
+                NintendoSwitchDeviceIds(src.NintendoSwitchDeviceIds)
+            {}
+
+            GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest(const rapidjson::Value& obj) : GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.String("NintendoSwitchDeviceIds");
+                writer.StartArray();
+                for (auto iter = NintendoSwitchDeviceIds.begin(); iter != NintendoSwitchDeviceIds.end(); iter++) {     // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
+                    writer.String(iter->c_str());
+                }
+                writer.EndArray();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator NintendoSwitchDeviceIds_member = obj.FindMember("NintendoSwitchDeviceIds");
+                if (NintendoSwitchDeviceIds_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = NintendoSwitchDeviceIds_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        NintendoSwitchDeviceIds.push_back(memberList[i].GetString());
+                    }
+                }
+
+                return true;
+            }
+        };
+
+        struct NintendoSwitchPlayFabIdPair : public PlayFabBaseModel
+        {
+            AZStd::string NintendoSwitchDeviceId;
+            AZStd::string PlayFabId;
+
+            NintendoSwitchPlayFabIdPair() :
+                PlayFabBaseModel(),
+                NintendoSwitchDeviceId(),
+                PlayFabId()
+            {}
+
+            NintendoSwitchPlayFabIdPair(const NintendoSwitchPlayFabIdPair& src) :
+                PlayFabBaseModel(),
+                NintendoSwitchDeviceId(src.NintendoSwitchDeviceId),
+                PlayFabId(src.PlayFabId)
+            {}
+
+            NintendoSwitchPlayFabIdPair(const rapidjson::Value& obj) : NintendoSwitchPlayFabIdPair()
+            {
+                readFromValue(obj);
+            }
+
+            ~NintendoSwitchPlayFabIdPair()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (NintendoSwitchDeviceId.length() > 0) {
+                    writer.String("NintendoSwitchDeviceId");
+                    writer.String(NintendoSwitchDeviceId.c_str());
+                }
+                if (PlayFabId.length() > 0) {
+                    writer.String("PlayFabId");
+                    writer.String(PlayFabId.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator NintendoSwitchDeviceId_member = obj.FindMember("NintendoSwitchDeviceId");
+                if (NintendoSwitchDeviceId_member != obj.MemberEnd() && !NintendoSwitchDeviceId_member->value.IsNull()) NintendoSwitchDeviceId = NintendoSwitchDeviceId_member->value.GetString();
+                const Value::ConstMemberIterator PlayFabId_member = obj.FindMember("PlayFabId");
+                if (PlayFabId_member != obj.MemberEnd() && !PlayFabId_member->value.IsNull()) PlayFabId = PlayFabId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct GetPlayFabIDsFromNintendoSwitchDeviceIdsResult : public PlayFabBaseModel
+        {
+            AZStd::vector<NintendoSwitchPlayFabIdPair> Data; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
+
+            GetPlayFabIDsFromNintendoSwitchDeviceIdsResult() :
+                PlayFabBaseModel(),
+                Data()
+            {}
+
+            GetPlayFabIDsFromNintendoSwitchDeviceIdsResult(const GetPlayFabIDsFromNintendoSwitchDeviceIdsResult& src) :
+                PlayFabBaseModel(),
+                Data(src.Data)
+            {}
+
+            GetPlayFabIDsFromNintendoSwitchDeviceIdsResult(const rapidjson::Value& obj) : GetPlayFabIDsFromNintendoSwitchDeviceIdsResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~GetPlayFabIDsFromNintendoSwitchDeviceIdsResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (!Data.empty()) {
+                    writer.String("Data");
+                    writer.StartArray();
+                    for (auto iter = Data.begin(); iter != Data.end(); iter++) {     // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context. 
+                        iter->writeJSON(writer);
+                    }
+                    writer.EndArray();
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator Data_member = obj.FindMember("Data");
+                if (Data_member != obj.MemberEnd()) {
+                    const rapidjson::Value& memberList = Data_member->value;
+                    for (SizeType i = 0; i < memberList.Size(); i++) {
+                        Data.push_back(NintendoSwitchPlayFabIdPair(memberList[i]));
+                    }
+                }
+
+                return true;
+            }
+        };
+
         struct GetPlayFabIDsFromSteamIDsRequest : public PlayFabBaseModel
         {
             AZStd::vector<AZStd::string> SteamStringIDs; // #THIRD_KIND_PLAYFAB_BEHAVIOUR_CONTEXT: dbowen (2017/08/11) - Change std::list to AZStd::vector because the latter supports reflection to behavior context.
@@ -14511,6 +14698,88 @@ namespace PlayFabComboSdk
             }
         };
 
+        struct LinkNintendoSwitchDeviceIdRequest : public PlayFabBaseModel
+        {
+            OptionalBool ForceLink;
+            AZStd::string NintendoSwitchDeviceId;
+
+            LinkNintendoSwitchDeviceIdRequest() :
+                PlayFabBaseModel(),
+                ForceLink(),
+                NintendoSwitchDeviceId()
+            {}
+
+            LinkNintendoSwitchDeviceIdRequest(const LinkNintendoSwitchDeviceIdRequest& src) :
+                PlayFabBaseModel(),
+                ForceLink(src.ForceLink),
+                NintendoSwitchDeviceId(src.NintendoSwitchDeviceId)
+            {}
+
+            LinkNintendoSwitchDeviceIdRequest(const rapidjson::Value& obj) : LinkNintendoSwitchDeviceIdRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~LinkNintendoSwitchDeviceIdRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (ForceLink.notNull()) {
+                    writer.String("ForceLink");
+                    writer.Bool(ForceLink);
+                }
+                writer.String("NintendoSwitchDeviceId");
+                writer.String(NintendoSwitchDeviceId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator ForceLink_member = obj.FindMember("ForceLink");
+                if (ForceLink_member != obj.MemberEnd() && !ForceLink_member->value.IsNull()) ForceLink = ForceLink_member->value.GetBool();
+                const Value::ConstMemberIterator NintendoSwitchDeviceId_member = obj.FindMember("NintendoSwitchDeviceId");
+                if (NintendoSwitchDeviceId_member != obj.MemberEnd() && !NintendoSwitchDeviceId_member->value.IsNull()) NintendoSwitchDeviceId = NintendoSwitchDeviceId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct LinkNintendoSwitchDeviceIdResult : public PlayFabBaseModel
+        {
+
+            LinkNintendoSwitchDeviceIdResult() :
+                PlayFabBaseModel()
+            {}
+
+            LinkNintendoSwitchDeviceIdResult(const LinkNintendoSwitchDeviceIdResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            LinkNintendoSwitchDeviceIdResult(const rapidjson::Value& obj) : LinkNintendoSwitchDeviceIdResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~LinkNintendoSwitchDeviceIdResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
         struct LinkSteamAccountRequest : public PlayFabBaseModel
         {
             OptionalBool ForceLink;
@@ -15798,6 +16067,101 @@ namespace PlayFabComboSdk
             }
         };
 
+        struct LoginWithNintendoSwitchDeviceIdRequest : public PlayFabBaseModel
+        {
+            OptionalBool CreateAccount;
+            AZStd::string EncryptedRequest;
+            GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
+            OptionalBool LoginTitlePlayerAccountEntity;
+            AZStd::string NintendoSwitchDeviceId;
+            AZStd::string PlayerSecret;
+            AZStd::string TitleId;
+
+            LoginWithNintendoSwitchDeviceIdRequest() :
+                PlayFabBaseModel(),
+                CreateAccount(),
+                EncryptedRequest(),
+                InfoRequestParameters(nullptr),
+                LoginTitlePlayerAccountEntity(),
+                NintendoSwitchDeviceId(),
+                PlayerSecret(),
+                TitleId()
+            {}
+
+            LoginWithNintendoSwitchDeviceIdRequest(const LoginWithNintendoSwitchDeviceIdRequest& src) :
+                PlayFabBaseModel(),
+                CreateAccount(src.CreateAccount),
+                EncryptedRequest(src.EncryptedRequest),
+                InfoRequestParameters(src.InfoRequestParameters ? new GetPlayerCombinedInfoRequestParams(*src.InfoRequestParameters) : nullptr),
+                LoginTitlePlayerAccountEntity(src.LoginTitlePlayerAccountEntity),
+                NintendoSwitchDeviceId(src.NintendoSwitchDeviceId),
+                PlayerSecret(src.PlayerSecret),
+                TitleId(src.TitleId)
+            {}
+
+            LoginWithNintendoSwitchDeviceIdRequest(const rapidjson::Value& obj) : LoginWithNintendoSwitchDeviceIdRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~LoginWithNintendoSwitchDeviceIdRequest()
+            {
+                if (InfoRequestParameters != nullptr) delete InfoRequestParameters;
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (CreateAccount.notNull()) {
+                    writer.String("CreateAccount");
+                    writer.Bool(CreateAccount);
+                }
+                if (EncryptedRequest.length() > 0) {
+                    writer.String("EncryptedRequest");
+                    writer.String(EncryptedRequest.c_str());
+                }
+                if (InfoRequestParameters != nullptr) {
+                    writer.String("InfoRequestParameters");
+                    InfoRequestParameters->writeJSON(writer);
+                }
+                if (LoginTitlePlayerAccountEntity.notNull()) {
+                    writer.String("LoginTitlePlayerAccountEntity");
+                    writer.Bool(LoginTitlePlayerAccountEntity);
+                }
+                if (NintendoSwitchDeviceId.length() > 0) {
+                    writer.String("NintendoSwitchDeviceId");
+                    writer.String(NintendoSwitchDeviceId.c_str());
+                }
+                if (PlayerSecret.length() > 0) {
+                    writer.String("PlayerSecret");
+                    writer.String(PlayerSecret.c_str());
+                }
+                writer.String("TitleId");
+                writer.String(TitleId.c_str());
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator CreateAccount_member = obj.FindMember("CreateAccount");
+                if (CreateAccount_member != obj.MemberEnd() && !CreateAccount_member->value.IsNull()) CreateAccount = CreateAccount_member->value.GetBool();
+                const Value::ConstMemberIterator EncryptedRequest_member = obj.FindMember("EncryptedRequest");
+                if (EncryptedRequest_member != obj.MemberEnd() && !EncryptedRequest_member->value.IsNull()) EncryptedRequest = EncryptedRequest_member->value.GetString();
+                const Value::ConstMemberIterator InfoRequestParameters_member = obj.FindMember("InfoRequestParameters");
+                if (InfoRequestParameters_member != obj.MemberEnd() && !InfoRequestParameters_member->value.IsNull()) InfoRequestParameters = new GetPlayerCombinedInfoRequestParams(InfoRequestParameters_member->value);
+                const Value::ConstMemberIterator LoginTitlePlayerAccountEntity_member = obj.FindMember("LoginTitlePlayerAccountEntity");
+                if (LoginTitlePlayerAccountEntity_member != obj.MemberEnd() && !LoginTitlePlayerAccountEntity_member->value.IsNull()) LoginTitlePlayerAccountEntity = LoginTitlePlayerAccountEntity_member->value.GetBool();
+                const Value::ConstMemberIterator NintendoSwitchDeviceId_member = obj.FindMember("NintendoSwitchDeviceId");
+                if (NintendoSwitchDeviceId_member != obj.MemberEnd() && !NintendoSwitchDeviceId_member->value.IsNull()) NintendoSwitchDeviceId = NintendoSwitchDeviceId_member->value.GetString();
+                const Value::ConstMemberIterator PlayerSecret_member = obj.FindMember("PlayerSecret");
+                if (PlayerSecret_member != obj.MemberEnd() && !PlayerSecret_member->value.IsNull()) PlayerSecret = PlayerSecret_member->value.GetString();
+                const Value::ConstMemberIterator TitleId_member = obj.FindMember("TitleId");
+                if (TitleId_member != obj.MemberEnd() && !TitleId_member->value.IsNull()) TitleId = TitleId_member->value.GetString();
+
+                return true;
+            }
+        };
+
         struct LoginWithPlayFabRequest : public PlayFabBaseModel
         {
             GetPlayerCombinedInfoRequestParams* InfoRequestParameters;
@@ -16293,8 +16657,10 @@ namespace PlayFabComboSdk
             AZStd::string LobbyID;
             OptionalInt32 PollWaitTimeMS;
             AZStd::string ServerHostname;
+            AZStd::string ServerIPV4Address;
             AZStd::string ServerIPV6Address;
             OptionalInt32 ServerPort;
+            AZStd::string ServerPublicDNSName;
             Boxed<MatchmakeStatus> Status;
             AZStd::string Ticket;
 
@@ -16304,8 +16670,10 @@ namespace PlayFabComboSdk
                 LobbyID(),
                 PollWaitTimeMS(),
                 ServerHostname(),
+                ServerIPV4Address(),
                 ServerIPV6Address(),
                 ServerPort(),
+                ServerPublicDNSName(),
                 Status(),
                 Ticket()
             {}
@@ -16316,8 +16684,10 @@ namespace PlayFabComboSdk
                 LobbyID(src.LobbyID),
                 PollWaitTimeMS(src.PollWaitTimeMS),
                 ServerHostname(src.ServerHostname),
+                ServerIPV4Address(src.ServerIPV4Address),
                 ServerIPV6Address(src.ServerIPV6Address),
                 ServerPort(src.ServerPort),
+                ServerPublicDNSName(src.ServerPublicDNSName),
                 Status(src.Status),
                 Ticket(src.Ticket)
             {}
@@ -16350,6 +16720,10 @@ namespace PlayFabComboSdk
                     writer.String("ServerHostname");
                     writer.String(ServerHostname.c_str());
                 }
+                if (ServerIPV4Address.length() > 0) {
+                    writer.String("ServerIPV4Address");
+                    writer.String(ServerIPV4Address.c_str());
+                }
                 if (ServerIPV6Address.length() > 0) {
                     writer.String("ServerIPV6Address");
                     writer.String(ServerIPV6Address.c_str());
@@ -16357,6 +16731,10 @@ namespace PlayFabComboSdk
                 if (ServerPort.notNull()) {
                     writer.String("ServerPort");
                     writer.Int(ServerPort);
+                }
+                if (ServerPublicDNSName.length() > 0) {
+                    writer.String("ServerPublicDNSName");
+                    writer.String(ServerPublicDNSName.c_str());
                 }
                 if (Status.notNull()) {
                     writer.String("Status");
@@ -16379,10 +16757,14 @@ namespace PlayFabComboSdk
                 if (PollWaitTimeMS_member != obj.MemberEnd() && !PollWaitTimeMS_member->value.IsNull()) PollWaitTimeMS = PollWaitTimeMS_member->value.GetInt();
                 const Value::ConstMemberIterator ServerHostname_member = obj.FindMember("ServerHostname");
                 if (ServerHostname_member != obj.MemberEnd() && !ServerHostname_member->value.IsNull()) ServerHostname = ServerHostname_member->value.GetString();
+                const Value::ConstMemberIterator ServerIPV4Address_member = obj.FindMember("ServerIPV4Address");
+                if (ServerIPV4Address_member != obj.MemberEnd() && !ServerIPV4Address_member->value.IsNull()) ServerIPV4Address = ServerIPV4Address_member->value.GetString();
                 const Value::ConstMemberIterator ServerIPV6Address_member = obj.FindMember("ServerIPV6Address");
                 if (ServerIPV6Address_member != obj.MemberEnd() && !ServerIPV6Address_member->value.IsNull()) ServerIPV6Address = ServerIPV6Address_member->value.GetString();
                 const Value::ConstMemberIterator ServerPort_member = obj.FindMember("ServerPort");
                 if (ServerPort_member != obj.MemberEnd() && !ServerPort_member->value.IsNull()) ServerPort = ServerPort_member->value.GetInt();
+                const Value::ConstMemberIterator ServerPublicDNSName_member = obj.FindMember("ServerPublicDNSName");
+                if (ServerPublicDNSName_member != obj.MemberEnd() && !ServerPublicDNSName_member->value.IsNull()) ServerPublicDNSName = ServerPublicDNSName_member->value.GetString();
                 const Value::ConstMemberIterator Status_member = obj.FindMember("Status");
                 if (Status_member != obj.MemberEnd() && !Status_member->value.IsNull()) Status = readMatchmakeStatusFromValue(Status_member->value);
                 const Value::ConstMemberIterator Ticket_member = obj.FindMember("Ticket");
@@ -18394,8 +18776,10 @@ namespace PlayFabComboSdk
             AZStd::string LobbyID;
             AZStd::string Password;
             AZStd::string ServerHostname;
+            AZStd::string ServerIPV4Address;
             AZStd::string ServerIPV6Address;
             OptionalInt32 ServerPort;
+            AZStd::string ServerPublicDNSName;
             AZStd::string Ticket;
 
             StartGameResult() :
@@ -18404,8 +18788,10 @@ namespace PlayFabComboSdk
                 LobbyID(),
                 Password(),
                 ServerHostname(),
+                ServerIPV4Address(),
                 ServerIPV6Address(),
                 ServerPort(),
+                ServerPublicDNSName(),
                 Ticket()
             {}
 
@@ -18415,8 +18801,10 @@ namespace PlayFabComboSdk
                 LobbyID(src.LobbyID),
                 Password(src.Password),
                 ServerHostname(src.ServerHostname),
+                ServerIPV4Address(src.ServerIPV4Address),
                 ServerIPV6Address(src.ServerIPV6Address),
                 ServerPort(src.ServerPort),
+                ServerPublicDNSName(src.ServerPublicDNSName),
                 Ticket(src.Ticket)
             {}
 
@@ -18448,6 +18836,10 @@ namespace PlayFabComboSdk
                     writer.String("ServerHostname");
                     writer.String(ServerHostname.c_str());
                 }
+                if (ServerIPV4Address.length() > 0) {
+                    writer.String("ServerIPV4Address");
+                    writer.String(ServerIPV4Address.c_str());
+                }
                 if (ServerIPV6Address.length() > 0) {
                     writer.String("ServerIPV6Address");
                     writer.String(ServerIPV6Address.c_str());
@@ -18455,6 +18847,10 @@ namespace PlayFabComboSdk
                 if (ServerPort.notNull()) {
                     writer.String("ServerPort");
                     writer.Int(ServerPort);
+                }
+                if (ServerPublicDNSName.length() > 0) {
+                    writer.String("ServerPublicDNSName");
+                    writer.String(ServerPublicDNSName.c_str());
                 }
                 if (Ticket.length() > 0) {
                     writer.String("Ticket");
@@ -18473,10 +18869,14 @@ namespace PlayFabComboSdk
                 if (Password_member != obj.MemberEnd() && !Password_member->value.IsNull()) Password = Password_member->value.GetString();
                 const Value::ConstMemberIterator ServerHostname_member = obj.FindMember("ServerHostname");
                 if (ServerHostname_member != obj.MemberEnd() && !ServerHostname_member->value.IsNull()) ServerHostname = ServerHostname_member->value.GetString();
+                const Value::ConstMemberIterator ServerIPV4Address_member = obj.FindMember("ServerIPV4Address");
+                if (ServerIPV4Address_member != obj.MemberEnd() && !ServerIPV4Address_member->value.IsNull()) ServerIPV4Address = ServerIPV4Address_member->value.GetString();
                 const Value::ConstMemberIterator ServerIPV6Address_member = obj.FindMember("ServerIPV6Address");
                 if (ServerIPV6Address_member != obj.MemberEnd() && !ServerIPV6Address_member->value.IsNull()) ServerIPV6Address = ServerIPV6Address_member->value.GetString();
                 const Value::ConstMemberIterator ServerPort_member = obj.FindMember("ServerPort");
                 if (ServerPort_member != obj.MemberEnd() && !ServerPort_member->value.IsNull()) ServerPort = ServerPort_member->value.GetInt();
+                const Value::ConstMemberIterator ServerPublicDNSName_member = obj.FindMember("ServerPublicDNSName");
+                if (ServerPublicDNSName_member != obj.MemberEnd() && !ServerPublicDNSName_member->value.IsNull()) ServerPublicDNSName = ServerPublicDNSName_member->value.GetString();
                 const Value::ConstMemberIterator Ticket_member = obj.FindMember("Ticket");
                 if (Ticket_member != obj.MemberEnd() && !Ticket_member->value.IsNull()) Ticket = Ticket_member->value.GetString();
 
@@ -19223,6 +19623,81 @@ namespace PlayFabComboSdk
             }
 
             ~UnlinkKongregateAccountResult()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+
+                return true;
+            }
+        };
+
+        struct UnlinkNintendoSwitchDeviceIdRequest : public PlayFabBaseModel
+        {
+            AZStd::string NintendoSwitchDeviceId;
+
+            UnlinkNintendoSwitchDeviceIdRequest() :
+                PlayFabBaseModel(),
+                NintendoSwitchDeviceId()
+            {}
+
+            UnlinkNintendoSwitchDeviceIdRequest(const UnlinkNintendoSwitchDeviceIdRequest& src) :
+                PlayFabBaseModel(),
+                NintendoSwitchDeviceId(src.NintendoSwitchDeviceId)
+            {}
+
+            UnlinkNintendoSwitchDeviceIdRequest(const rapidjson::Value& obj) : UnlinkNintendoSwitchDeviceIdRequest()
+            {
+                readFromValue(obj);
+            }
+
+            ~UnlinkNintendoSwitchDeviceIdRequest()
+            {
+            }
+
+            void writeJSON(PFStringJsonWriter& writer) const override
+            {
+                writer.StartObject();
+                if (NintendoSwitchDeviceId.length() > 0) {
+                    writer.String("NintendoSwitchDeviceId");
+                    writer.String(NintendoSwitchDeviceId.c_str());
+                }
+                writer.EndObject();
+            }
+
+            bool readFromValue(const rapidjson::Value& obj) override
+            {
+                const Value::ConstMemberIterator NintendoSwitchDeviceId_member = obj.FindMember("NintendoSwitchDeviceId");
+                if (NintendoSwitchDeviceId_member != obj.MemberEnd() && !NintendoSwitchDeviceId_member->value.IsNull()) NintendoSwitchDeviceId = NintendoSwitchDeviceId_member->value.GetString();
+
+                return true;
+            }
+        };
+
+        struct UnlinkNintendoSwitchDeviceIdResult : public PlayFabBaseModel
+        {
+
+            UnlinkNintendoSwitchDeviceIdResult() :
+                PlayFabBaseModel()
+            {}
+
+            UnlinkNintendoSwitchDeviceIdResult(const UnlinkNintendoSwitchDeviceIdResult& src) :
+                PlayFabBaseModel()
+            {}
+
+            UnlinkNintendoSwitchDeviceIdResult(const rapidjson::Value& obj) : UnlinkNintendoSwitchDeviceIdResult()
+            {
+                readFromValue(obj);
+            }
+
+            ~UnlinkNintendoSwitchDeviceIdResult()
             {
             }
 
