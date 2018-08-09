@@ -5,9 +5,14 @@
 #include "PlayFabCombo_SettingsSysComponent.h"
 #include "PlayFabCombo_AdminSysComponent.h"
 #include "PlayFabCombo_ClientSysComponent.h"
-#include "PlayFabCombo_EntitySysComponent.h"
 #include "PlayFabCombo_MatchmakerSysComponent.h"
 #include "PlayFabCombo_ServerSysComponent.h"
+#include "PlayFabCombo_AuthenticationSysComponent.h"
+#include "PlayFabCombo_CloudScriptSysComponent.h"
+#include "PlayFabCombo_DataSysComponent.h"
+#include "PlayFabCombo_EventsSysComponent.h"
+#include "PlayFabCombo_GroupsSysComponent.h"
+#include "PlayFabCombo_ProfilesSysComponent.h"
 
 #include "PlayFabSettings.h"
 #include <PlayFabComboSdk/PlayFabError.h>
@@ -51,9 +56,14 @@ namespace PlayFabComboSdk
                 PlayFabCombo_SettingsSysComponent::CreateDescriptor(),
                 PlayFabCombo_AdminSysComponent::CreateDescriptor(),
                 PlayFabCombo_ClientSysComponent::CreateDescriptor(),
-                PlayFabCombo_EntitySysComponent::CreateDescriptor(),
                 PlayFabCombo_MatchmakerSysComponent::CreateDescriptor(),
                 PlayFabCombo_ServerSysComponent::CreateDescriptor(),
+                PlayFabCombo_AuthenticationSysComponent::CreateDescriptor(),
+                PlayFabCombo_CloudScriptSysComponent::CreateDescriptor(),
+                PlayFabCombo_DataSysComponent::CreateDescriptor(),
+                PlayFabCombo_EventsSysComponent::CreateDescriptor(),
+                PlayFabCombo_GroupsSysComponent::CreateDescriptor(),
+                PlayFabCombo_ProfilesSysComponent::CreateDescriptor(),
 
             });
         }
@@ -67,9 +77,14 @@ namespace PlayFabComboSdk
                 azrtti_typeid<PlayFabCombo_SettingsSysComponent>(),
                 azrtti_typeid<PlayFabCombo_AdminSysComponent>(),
                 azrtti_typeid<PlayFabCombo_ClientSysComponent>(),
-                azrtti_typeid<PlayFabCombo_EntitySysComponent>(),
                 azrtti_typeid<PlayFabCombo_MatchmakerSysComponent>(),
                 azrtti_typeid<PlayFabCombo_ServerSysComponent>(),
+                azrtti_typeid<PlayFabCombo_AuthenticationSysComponent>(),
+                azrtti_typeid<PlayFabCombo_CloudScriptSysComponent>(),
+                azrtti_typeid<PlayFabCombo_DataSysComponent>(),
+                azrtti_typeid<PlayFabCombo_EventsSysComponent>(),
+                azrtti_typeid<PlayFabCombo_GroupsSysComponent>(),
+                azrtti_typeid<PlayFabCombo_ProfilesSysComponent>(),
 
             };
         }

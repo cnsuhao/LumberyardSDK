@@ -261,6 +261,10 @@ namespace PlayFabClientSdk
     {
         PlayFabClientApi::GetPlayFabIDsFromKongregateIDs(request, callback, errorCallback, customData);
     }
+    void PlayFabClient_ClientSysComponent::GetPlayFabIDsFromNintendoSwitchDeviceIds(ClientModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabClientApi::GetPlayFabIDsFromNintendoSwitchDeviceIds(request, callback, errorCallback, customData);
+    }
     void PlayFabClient_ClientSysComponent::GetPlayFabIDsFromSteamIDs(ClientModels::GetPlayFabIDsFromSteamIDsRequest& request, ProcessApiCallback<ClientModels::GetPlayFabIDsFromSteamIDsResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabClientApi::GetPlayFabIDsFromSteamIDs(request, callback, errorCallback, customData);
@@ -361,6 +365,10 @@ namespace PlayFabClientSdk
     {
         PlayFabClientApi::LinkKongregate(request, callback, errorCallback, customData);
     }
+    void PlayFabClient_ClientSysComponent::LinkNintendoSwitchDeviceId(ClientModels::LinkNintendoSwitchDeviceIdRequest& request, ProcessApiCallback<ClientModels::LinkNintendoSwitchDeviceIdResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabClientApi::LinkNintendoSwitchDeviceId(request, callback, errorCallback, customData);
+    }
     void PlayFabClient_ClientSysComponent::LinkSteamAccount(ClientModels::LinkSteamAccountRequest& request, ProcessApiCallback<ClientModels::LinkSteamAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabClientApi::LinkSteamAccount(request, callback, errorCallback, customData);
@@ -404,6 +412,10 @@ namespace PlayFabClientSdk
     void PlayFabClient_ClientSysComponent::LoginWithKongregate(ClientModels::LoginWithKongregateRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabClientApi::LoginWithKongregate(request, callback, errorCallback, customData);
+    }
+    void PlayFabClient_ClientSysComponent::LoginWithNintendoSwitchDeviceId(ClientModels::LoginWithNintendoSwitchDeviceIdRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabClientApi::LoginWithNintendoSwitchDeviceId(request, callback, errorCallback, customData);
     }
     void PlayFabClient_ClientSysComponent::LoginWithPlayFab(ClientModels::LoginWithPlayFabRequest& request, ProcessApiCallback<ClientModels::LoginResult> callback, ErrorCallback errorCallback, void* customData)
     {
@@ -532,6 +544,10 @@ namespace PlayFabClientSdk
     void PlayFabClient_ClientSysComponent::UnlinkKongregate(ProcessApiCallback<ClientModels::UnlinkKongregateAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {
         PlayFabClientApi::UnlinkKongregate(callback, errorCallback, customData);
+    }
+    void PlayFabClient_ClientSysComponent::UnlinkNintendoSwitchDeviceId(ClientModels::UnlinkNintendoSwitchDeviceIdRequest& request, ProcessApiCallback<ClientModels::UnlinkNintendoSwitchDeviceIdResult> callback, ErrorCallback errorCallback, void* customData)
+    {
+        PlayFabClientApi::UnlinkNintendoSwitchDeviceId(request, callback, errorCallback, customData);
     }
     void PlayFabClient_ClientSysComponent::UnlinkSteamAccount(ProcessApiCallback<ClientModels::UnlinkSteamAccountResult> callback, ErrorCallback errorCallback, void* customData)
     {

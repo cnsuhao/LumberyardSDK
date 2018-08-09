@@ -1474,6 +1474,36 @@ void PlayFabClientApi::OnGetPlayFabIDsFromKongregateIDsResult(PlayFabRequest* re
     }
 }
 
+void PlayFabClientApi::GetPlayFabIDsFromNintendoSwitchDeviceIds(
+    ClientModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest& request,
+    ProcessApiCallback<ClientModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/GetPlayFabIDsFromNintendoSwitchDeviceIds"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnGetPlayFabIDsFromNintendoSwitchDeviceIdsResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnGetPlayFabIDsFromNintendoSwitchDeviceIdsResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        ClientModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsResult* outResult = new ClientModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<ClientModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::GetPlayFabIDsFromNintendoSwitchDeviceIdsResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabClientApi::GetPlayFabIDsFromSteamIDs(
     ClientModels::GetPlayFabIDsFromSteamIDsRequest& request,
     ProcessApiCallback<ClientModels::GetPlayFabIDsFromSteamIDsResult> callback,
@@ -2224,6 +2254,36 @@ void PlayFabClientApi::OnLinkKongregateResult(PlayFabRequest* request)
     }
 }
 
+void PlayFabClientApi::LinkNintendoSwitchDeviceId(
+    ClientModels::LinkNintendoSwitchDeviceIdRequest& request,
+    ProcessApiCallback<ClientModels::LinkNintendoSwitchDeviceIdResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LinkNintendoSwitchDeviceId"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnLinkNintendoSwitchDeviceIdResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnLinkNintendoSwitchDeviceIdResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        ClientModels::LinkNintendoSwitchDeviceIdResult* outResult = new ClientModels::LinkNintendoSwitchDeviceIdResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<ClientModels::LinkNintendoSwitchDeviceIdResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LinkNintendoSwitchDeviceIdResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
 void PlayFabClientApi::LinkSteamAccount(
     ClientModels::LinkSteamAccountRequest& request,
     ProcessApiCallback<ClientModels::LinkSteamAccountResult> callback,
@@ -2588,6 +2648,43 @@ void PlayFabClientApi::LoginWithKongregate(
 }
 
 void PlayFabClientApi::OnLoginWithKongregateResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        ClientModels::LoginResult* outResult = new ClientModels::LoginResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+        if (outResult->SessionTicket.length() > 0)
+        {
+            PlayFabClientApi::mUserSessionTicket = outResult->SessionTicket;
+        }
+        MultiStepClientLogin(outResult->SettingsForUser->NeedsAttribution);
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<ClientModels::LoginResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::LoginResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabClientApi::LoginWithNintendoSwitchDeviceId(
+    ClientModels::LoginWithNintendoSwitchDeviceIdRequest& request,
+    ProcessApiCallback<ClientModels::LoginResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+    if (PlayFabSettings::playFabSettings->titleId.length() > 0)
+        request.TitleId = PlayFabSettings::playFabSettings->titleId;
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/LoginWithNintendoSwitchDeviceId"), Aws::Http::HttpMethod::HTTP_POST, "", "", request.toJSONString(), customData, callback, errorCallback, OnLoginWithNintendoSwitchDeviceIdResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnLoginWithNintendoSwitchDeviceIdResult(PlayFabRequest* request)
 {
     if (PlayFabBaseModel::DecodeRequest(request))
     {
@@ -3605,6 +3702,36 @@ void PlayFabClientApi::OnUnlinkKongregateResult(PlayFabRequest* request)
         if (request->mResultCallback != nullptr)
         {
             ProcessApiCallback<ClientModels::UnlinkKongregateAccountResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkKongregateAccountResult>>(request->mResultCallback);
+            successCallback(*outResult, request->mCustomData);
+        }
+        delete outResult;
+        delete request;
+    }
+}
+
+void PlayFabClientApi::UnlinkNintendoSwitchDeviceId(
+    ClientModels::UnlinkNintendoSwitchDeviceIdRequest& request,
+    ProcessApiCallback<ClientModels::UnlinkNintendoSwitchDeviceIdResult> callback,
+    ErrorCallback errorCallback,
+    void* customData
+)
+{
+
+    PlayFabRequest* newRequest = new PlayFabRequest(PlayFabSettings::playFabSettings->getURL("/Client/UnlinkNintendoSwitchDeviceId"), Aws::Http::HttpMethod::HTTP_POST, "X-Authorization", mUserSessionTicket, request.toJSONString(), customData, callback, errorCallback, OnUnlinkNintendoSwitchDeviceIdResult);
+    PlayFabRequestManager::playFabHttp->AddRequest(newRequest);
+}
+
+void PlayFabClientApi::OnUnlinkNintendoSwitchDeviceIdResult(PlayFabRequest* request)
+{
+    if (PlayFabBaseModel::DecodeRequest(request))
+    {
+        ClientModels::UnlinkNintendoSwitchDeviceIdResult* outResult = new ClientModels::UnlinkNintendoSwitchDeviceIdResult;
+        outResult->readFromValue(request->mResponseJson->FindMember("data")->value);
+
+
+        if (request->mResultCallback != nullptr)
+        {
+            ProcessApiCallback<ClientModels::UnlinkNintendoSwitchDeviceIdResult> successCallback = reinterpret_cast<ProcessApiCallback<ClientModels::UnlinkNintendoSwitchDeviceIdResult>>(request->mResultCallback);
             successCallback(*outResult, request->mCustomData);
         }
         delete outResult;
